@@ -1,0 +1,82 @@
+
+.headerLogo{
+    width: 60px;
+}
+.mainHeader{
+    width: 100%;
+    background-color: black;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mainHeader nav a{
+    color: white;
+    text-decoration: none;
+}
+
+.mainHeader nav{
+    display: flex;
+    justify-content: flex-start;
+    gap: 80px;
+    /* border: 3px solid red; */
+    width: 60%;
+    font-size: 28px;
+}
+
+
+.searchBarIconsContainer{
+
+    display: flex;
+    justify-content: space-between;
+    width: 25%;
+}
+.searchBarIconsContainer img{
+    width: 30px;
+}
+.searchBar{
+    width: 63%;
+    padding: 5px 10px;
+    border: none;
+    max-width: 300px;
+}
+
+
+
+
+
+/* SubHeader */
+
+.subHeader{
+    background-color: #D9D9D9;
+    padding: 3px;
+}
+
+.subHeader{
+    width: 100%;
+}
+
+.subHeader nav{
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.subHeader nav a{
+    color: black;
+    text-decoration: none;
+    width: 100%;
+    text-align: center;
+}
+
+
+
+.subHeader nav a:hover{
+    color: white;
+    text-decoration: none;
+    background-color: #858585;
+}
+
+
