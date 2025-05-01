@@ -1,0 +1,49 @@
+.carousel{
+  
+    height: 70vh;
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.carouselCard{
+    background-color: red;
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.carouselImg{
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
+
+.carouselText{
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(170, 170, 170, 0.297);
+    color: rgb(0, 0, 0);
+    width: 60%;
+    padding: 10px;
+}
+
+/* <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center"> */
+
+.carousel.carousel-slider .control-arrow{
+    background-color: black;
+    height: 50%;
+    margin-top: 70px;
+    opacity: 1;
+ }
+ 
+   /* Estilos de los controles del carrusel */
+  
+  
