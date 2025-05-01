@@ -1,0 +1,131 @@
+/* Estilos de ModalLogin */
+.containerPrincipalLogin{
+    height: 60vh;
+    width: 30vw;
+    background-color: white;
+    position: absolute;
+    left: 35%;
+    top: 20%;
+    box-shadow: 7px 5px 30px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px red;
+}
+.containerLogoLogin{
+    padding: 10px;
+}
+.containerLogoLogin img{
+    height: 10vh;
+    width: 5vw;
+}
+.containerFormLogin{
+    padding: 5px;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    gap: 20px;
+}
+.containerFormLogin input{
+    background-color: rgb(214, 212, 212);
+    padding: 10px;
+    border: none;
+    text-align: center;
+}
+.containerButtonsLogin{
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+.containerButtonsLogin button{
+    background-color: black;
+    color: white;
+    padding: 10px;
+    width: 8vw;
+    font-size: 15px;
+    cursor: pointer;
+}
+.containerButtonsLogin button:hover{
+    transform: scale(1.1);
+    transition: 0.3s ease;
+}
+.containerFormLogin hr{
+    height: 4px;
+    background-color: black;
+}
+.register{
+    display: flex;
+    justify-content: space-between;
+}
+.register p {
+    padding: 5px;
+}
+.textCahnge{
+    color: rgb(40, 164, 246);
+    cursor: pointer;
+}
+
+/*------ Estilos de modalAccount------ */
+.containerPrincipalRegister {
+    height: 60vh;
+    width: 30vw;
+    background-color: white;
+    position: absolute;
+    left: 35%;
+    top: 20%;
+    box-shadow: 7px 5px 30px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.containerLogoRegister{
+    padding: 10px;
+}
+.containerTitleRegister{
+    padding: 5px;
+}
+.containerLogoRegister img{
+    height: 10vh;
+    width: 5vw;
+}
+.containerFormRegister{
+    padding: 5px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    gap: 20px;
+}
+.containerFormRegister input{
+    background-color: rgb(214, 212, 212);
+    padding: 10px;
+    border: none;
+    text-align: center;
+}
+.containerFormRegister ::placeholder{
+    color: black;
+}
+.containerFormRegister hr {
+    height: 4px;
+    background-color: black;
+}
+.containerButtonsRegister{
+    display: flex;
+    justify-content: space-between;
+    
+}
+.containerButtonsRegister button{
+    background-color: black;
+    color: white;
+    padding: 10px;
+    width: 8vw;
+    font-size: 15px;
+    cursor: pointer;
+}
+.containerButtonsRegister button:hover{
+    transform: scale(1.1);
+    transition: 0.3s ease;
+}
