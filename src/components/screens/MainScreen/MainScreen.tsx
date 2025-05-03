@@ -1,25 +1,31 @@
 
+import { useEffect, useState } from "react"
 import { useStoreModal } from "../../../store/useStoreModal"
-import { useEffect } from "react"
+
 import { Footer } from "../../ui/footer/Footer"
 import { Header } from "../../ui/Header/Header"
 import HeroCarousel from "../../ui/HeroCarousel/HeroCarousel"
+import { ListProducts } from "../../ui/ListProducts/ListProducts"
 import { AccountModal } from "../../ui/Modals/AccountRegisterModal/AccountModal"
 import style from './MainScreen.module.css'
+import { IProduct } from "../../../types/IProduct"
 import { getAllProducts } from "../../../cruds/crudProduct"
+
 export const MainScreen = () => {
 
   const {modalAccount} = useStoreModal()
 
+  const [products, setProducts] = useState<IProduct[]>([])
 
-  //para ver si funciona el crud product
-  useEffect(() => {
-    const provisionaryGetProducts = async () => {
-      const products = await getAllProducts()
-      console.log(products)
-    }
-    provisionaryGetProducts()
-  }, [])
+    useEffect(() => {
+        const fetchProducts = async () => {
+            const arrayProducts = await getAllProducts()
+            setProducts(arrayProducts)
+
+        }
+        fetchProducts()
+    }, [])
+
 
   return (
     <>
@@ -30,6 +36,7 @@ export const MainScreen = () => {
           {modalAccount && <AccountModal/>}
         </div>
         <HeroCarousel/>
+        <ListProducts productsArray={products}/>
     
         <Footer/>
         
