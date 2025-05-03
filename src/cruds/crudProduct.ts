@@ -1,14 +1,56 @@
 import axios from "axios"
 import { BASE_URL } from "../utils/constantes"
+import { IProduct } from "../types/IProduct"
+
 
 
 const URL_PRODUCTS = `${BASE_URL}/api/product`
 
-export const getAllProucts = async () => {
+export const getAllProducts = async () => {
     try{
-        const response = await axios.get(URL_PRODUCTS)
+        const response = await axios.get<IProduct[]>(URL_PRODUCTS)
         return response.data
     }catch (err) {
         console.log("Error en getAllProducts" + err)
+    }
+}
+
+export const getProductById = async (idProduct: string) => {
+    try{
+        const response = await axios.get(`${URL_PRODUCTS}/${idProduct}`)
+        return response.data
+    }catch (err){
+        console.log("Error en getProductById" + err)
+    }
+}
+
+
+export const postProduct = async (newProduct: IProduct) => {
+    try{
+        const response = await axios.post(URL_PRODUCTS, newProduct)
+        return response.data
+    }catch (err){
+        console.log("Error en postProduct" + err)
+    }
+}
+
+export const putProduct = async (updatedProduct: IProduct) => {
+    try{
+        const response = await axios.put(URL_PRODUCTS, updatedProduct)
+        return response.data
+
+    }catch (err){
+        console.log("Error en putProductCrud" + err)
+    }
+}
+
+export const deleteProduct = async (idProductToDelete: string) => {
+    try{
+
+        const response = await axios.delete(`${URL_PRODUCTS}/${idProductToDelete}`)
+        return response.data
+
+    }catch (err){
+        console.log("Error en deleteProduct" + err)
     }
 }

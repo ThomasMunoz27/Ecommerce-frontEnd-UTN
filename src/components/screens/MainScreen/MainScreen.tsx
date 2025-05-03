@@ -6,7 +6,7 @@ import { Header } from "../../ui/Header/Header"
 import HeroCarousel from "../../ui/HeroCarousel/HeroCarousel"
 import { AccountModal } from "../../ui/Modals/AccountRegisterModal/AccountModal"
 import style from './MainScreen.module.css'
-import { getAllProucts } from "../../../cruds/crudProduct"
+import { getAllProducts } from "../../../cruds/crudProduct"
 export const MainScreen = () => {
 
   const {modalAccount} = useStoreModal()
@@ -15,8 +15,8 @@ export const MainScreen = () => {
   //para ver si funciona el crud product
   useEffect(() => {
     const provisionaryGetProducts = async () => {
-      const products = await getAllProucts()
-      console.log("trayendo productos" + products)
+      const products = await getAllProducts()
+      console.log(products)
     }
     provisionaryGetProducts()
   }, [])
