@@ -1,6 +1,7 @@
 import { FC} from 'react';
 import { IProduct } from '../../../types/IProduct';
 import style from './ListProducts.module.css'
+import { useStoreCart } from '../../../store/useStoreCart';
 
 interface Props {
     productsArray: IProduct[]
@@ -8,7 +9,7 @@ interface Props {
 
 export const ListProducts: FC<Props> = ({productsArray}) => {
    
-
+    const {addProductToCart} = useStoreCart()
 
   return (
     <div className={style.container}>
@@ -23,6 +24,7 @@ export const ListProducts: FC<Props> = ({productsArray}) => {
                     <p>{`${product.name} ${product.sex}`}</p>
                     <p className={style.textCategory}>{product.category.name}</p>
                 </div>
+                <button onClick={() => addProductToCart(product)}>Añadir al carrito</button>
             {/* <p>{product.price.salePrice}</p> No consigo iterar sobre el precio del producto*/}
             
             </div>

@@ -1,5 +1,19 @@
+import { Link } from 'react-router';
 import style from './Header.module.css'
+import { useEffect, useState } from 'react';
+import { useStoreCart } from '../../../store/useStoreCart';
 export const Header = () => {
+
+  const [cantProductsInCart, setCantProductsInCart] = useState(0)
+  const {productsInCart} = useStoreCart()
+
+  useEffect(() => {
+
+    setCantProductsInCart(productsInCart.length)
+
+
+  }, [productsInCart])
+
   return (
     <>
     <div className={style.headerContainer}>
@@ -15,7 +29,10 @@ export const Header = () => {
     <input type="text" placeholder='Buscar' className={style.searchBar}/>
 
     <a href=""><img src="./icons/userCircle.svg" alt="" /></a>
-    <a href=""><img src="./icons/cartIcon.svg" alt="" /></a>
+    <div className={style.cartContainer}>
+      {cantProductsInCart > 0 && <span className={style.cartCounter}>{cantProductsInCart}</span>}
+      <Link to="/"><img src="./icons/cartIcon.svg" alt="" /></Link>
+    </div>
     </div>
 
 
