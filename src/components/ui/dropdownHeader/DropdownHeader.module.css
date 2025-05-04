@@ -1,0 +1,7 @@
+.mainDropdown{
+    display: flex;
+    flex-direction: row;
+    border: solid 1px black;
+    background-color: #ffffff;
+    width: 100%;
+}
