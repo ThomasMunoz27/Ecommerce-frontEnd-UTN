@@ -37,7 +37,7 @@ export const postProduct = async (newProduct: IProduct) => {
 
 export const putProduct = async (updatedProduct: IProduct) => {
     try{
-        const response = await axios.put(URL_PRODUCTS, updatedProduct)
+        const response = await axios.put(`${URL_PRODUCTS}/${updatedProduct.id}`, updatedProduct)
         return response.data
 
     }catch (err){
