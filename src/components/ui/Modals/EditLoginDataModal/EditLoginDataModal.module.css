@@ -1,0 +1,41 @@
+.containerPrincipal{
+    height: 35vh;
+    width: 30vw;
+    background-color: white;
+    position: absolute;
+    top: 30%;
+    left: 40%;
+    box-shadow: 5px 5px 20px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    backdrop-filter: blur(10px);
+}
+.containerPrincipal input{
+    height: 4vh;
+    padding: 10px;
+}
+.buttonConfirm{
+    background-color: black;
+    color: white;
+    padding: 10px;
+    font-size: 15px;
+    cursor: pointer;
+}
+.buttonConfirm:hover{
+    transform: scale(1.03);
+    transition: 0.3s ease;
+}
+.buttonCancel{
+    background-color: white;
+    color: black;
+    padding: 10px;
+    font-size: 15px;
+    border: 1px solid;
+    cursor: pointer;
+}
+.buttonCancel:hover{
+    transform: scale(1.03);
+    transition: 0.3s ease;
+}

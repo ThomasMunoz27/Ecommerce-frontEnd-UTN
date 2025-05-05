@@ -1,6 +1,11 @@
+import { useStoreModal } from '../../../store/useStoreModal'
 import styles from './ProfileDetails.module.css'
 
 export const ProfileDetails = () => {
+
+    const {openModalEditLogin} = useStoreModal()
+
+
     return (
         <div className={styles.containerPrincipal}>
 
@@ -42,7 +47,7 @@ export const ProfileDetails = () => {
                     <h1>Datos de Acceso</h1>
                     <p>Correo Electronico: userEmail@example.com</p>
                     <p>Contraseña: *******</p>
-                    <p className={styles.edit}>Editar</p>
+                    <p className={styles.edit} onClick={openModalEditLogin}>Editar</p>
                 </div>
                 <div className={styles.containerButtonData}>
                     <p>Si eliminas la cuenta perderas todos los datos que tengas vinculado a nuestros servicios</p>
