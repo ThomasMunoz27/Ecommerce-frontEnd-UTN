@@ -3,13 +3,14 @@ import { useEffect, useState } from "react"
 import { useStoreModal } from "../../../store/useStoreModal"
 
 import { Footer } from "../../ui/footer/Footer"
-import { Header } from "../../ui/Header/Header"
+
 import HeroCarousel from "../../ui/HeroCarousel/HeroCarousel"
 import { ListProducts } from "../../ui/ListProducts/ListProducts"
 import { AccountModal } from "../../ui/Modals/AccountRegisterModal/AccountModal"
 import style from './MainScreen.module.css'
 import { IProduct } from "../../../types/IProduct"
 import { getAllProducts } from "../../../cruds/crudProduct"
+import { Header } from "../../ui/Headers/Header/Header"
 
 export const MainScreen = () => {
 
