@@ -1,0 +1,35 @@
+.containerPrincipal{
+    height: 16vh;
+    background-color: black;
+    height: 12.8vh;
+    padding: 10px;
+    display: flex;
+    gap: 3rem;
+}
+.arrowBack{
+    color: white;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+.arrowBack span {
+    cursor: pointer;
+    padding: 10px;
+    border: 1px solid white;
+}
+.arrowBack span:hover{
+    transform: scale(1.1);
+    transition: 0.4 ease;
+    box-shadow: 5px 5px 20px gray;
+}
+.containerLogo{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    padding: 10px;
+}
+.headerLogo{
+    width: 60px;
+}
