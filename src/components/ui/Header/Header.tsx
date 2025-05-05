@@ -33,7 +33,7 @@ export const Header = () => {
     <a href=""><img src="./icons/userCircle.svg" alt="" /></a>
     <div className={style.cartContainer}>
       {cantProductsInCart > 0 && <span className={style.cartCounter}>{cantProductsInCart}</span>}
-      <Link to="/"><img src="./icons/cartIcon.svg" alt="" /></Link>
+      <Link to="/my-cart"><img src="./icons/cartIcon.svg" alt="" /></Link>
     </div>
     </div>
 
@@ -50,7 +50,7 @@ export const Header = () => {
         <a href="">Ofertas</a>
       </nav>
     </div>
-    <DropdownHeader></DropdownHeader>
+    
     </div>
     </>
   );
