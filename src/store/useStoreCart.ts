@@ -7,7 +7,7 @@ interface IStoreCart {
 
     addProductToCart: (product: IProduct) => void
 
-    removeProductFromCart: (productId: string) => void
+    removeProductFromCart: (productId: number) => void
 
     cleanCart: () => void
 }
@@ -18,7 +18,7 @@ export const useStoreCart = create<IStoreCart>((set) => ({
 
     addProductToCart: (product) => set((state) => ({productsInCart: [...state.productsInCart, product]})),
 
-    removeProductFromCart: (productId) => set((state) => ({productsInCart: state.productsInCart.filter((product) => product. id !== productId)})),
+    removeProductFromCart: (productId) => set((state) => ({productsInCart: state.productsInCart.filter((product) => product.id !== productId)})),
 
     cleanCart: () => set(() => ({productsInCart: []}))
 

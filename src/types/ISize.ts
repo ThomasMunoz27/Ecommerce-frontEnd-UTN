@@ -1,4 +1,4 @@
 export interface ISize {
-    id: string
+    id: number
     size: string
 }

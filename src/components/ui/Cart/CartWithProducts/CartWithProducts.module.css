@@ -1,0 +1,9 @@
+.mainContainer{
+    border: solid 1px black;
+    height: 71vh;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding-top: 10vh;
+    padding-left: 10vw;
+}
