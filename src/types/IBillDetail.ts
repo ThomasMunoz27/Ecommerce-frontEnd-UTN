@@ -1,4 +1,4 @@
 export interface IBIllDetail{
-    id: string
+    id: number
     amount: number
 }
