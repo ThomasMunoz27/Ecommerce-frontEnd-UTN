@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router"
 import { MainScreen } from "../components/screens/MainScreen/MainScreen"
 import { ScreenProfile } from "../components/screens/ScreenProfile/ScreenProfile"
+import { CartScreen } from "../components/screens/CartScreen/CartScreen"
 
 export const AppRoutes = () => {
 
@@ -8,6 +9,7 @@ export const AppRoutes = () => {
     <Routes>
         <Route path="/" element={<MainScreen/>}/>
         <Route path="/my-account" element={<ScreenProfile/>}></Route>
+        <Route path="/my-cart" element={<CartScreen/>}></Route>
     </Routes>
     
   )

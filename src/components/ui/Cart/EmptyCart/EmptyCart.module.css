@@ -1,0 +1,50 @@
+.mainContainer{
+    border: solid 1px black;
+    height: 71vh;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding-top: 10vh;
+    padding-left: 10vw;
+}
+
+.emptyCart{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start; /* opcional: o center si querés todo centrado */
+    gap: 20px;
+    width: 100%;
+    max-width: 600px;
+    padding: 0 20px;
+    
+}
+h2{
+    font-size: 40px;
+}
+
+p{
+    color: #8E8E8E;
+}
+
+.beginButton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    color: white;
+    background-color: black;
+    width: 100%;
+    max-width: 270px;
+    height: 60px;
+    font-size: 30px;
+    gap: 24px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.beginButton span{
+    font-size: 50px;
+    
+}

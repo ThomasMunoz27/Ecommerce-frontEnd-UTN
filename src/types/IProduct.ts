@@ -1,4 +1,7 @@
 import { ProductType } from "./enums/ProductType";
+import { ICategory } from "./ICategory";
+import { IImage } from "./IImage";
+import { IPrice } from "./IPrice";
 
 
 // export interface IProduct {
@@ -16,33 +19,10 @@ import { ProductType } from "./enums/ProductType";
 export interface IProduct {
     id: number;
     name: string;
-    productType: string;
+    productType: ProductType;
     sex: string;
-  
-    category: {
-      id: number;
-      name: string;
-    };
-  
-    prices: {
-      id: number;
-      purchasePrice: number;
-      salePrice: number;
-      discount?: {
-        id: number;
-        name: string;
-        discountDescription: string;
-        promotionalPrice: number;
-        dateFrom: string;
-        dateTo: string;
-        timeFrom: string;
-        timeTo: string;
-      };
-    };
-  
-    image: {
-      id: number;
-      url: string;
-    };
+    prices: IPrice
+    image: IImage
+    category: ICategory
   }
   
