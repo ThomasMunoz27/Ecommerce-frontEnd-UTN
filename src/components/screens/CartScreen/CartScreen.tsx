@@ -1,7 +1,5 @@
-import { Link } from 'react-router'
 import { useStoreCart } from '../../../store/useStoreCart'
 import { Header } from '../../ui/Header/Header'
-import styles from './CartScreen.module.css'
 import { Footer } from '../../ui/footer/Footer'
 import { EmptyCart } from '../../ui/EmptyCart/EmptyCart'
 

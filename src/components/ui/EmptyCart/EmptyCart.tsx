@@ -6,7 +6,7 @@ export const EmptyCart = () => {
     <div className={styles.mainContainer}>
 
             <div className={styles.emptyCart}>
-                <h2>EL carrito está vacio</h2>
+                <h2>El carrito está vacio</h2>
                 <p>Los productos que agregues apareceran aqui</p>
 
                 <Link to="/" className={styles.beginButton}>Empezar <span>➟</span></Link>
