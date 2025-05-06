@@ -14,7 +14,7 @@ export const ScreenProfile = () => {
         <div className={styles.containerPrincipal}>
             <ProfileHeader/>
             <ProfileDetails/>
-            {modalEditLogin && <div className={styles.modalBackdrop}><EditLoginDataModal/></div>}
+            {modalEditLogin.type && <div className={styles.modalBackdrop}><EditLoginDataModal/></div>}
             <Footer/>
 
         </div>
