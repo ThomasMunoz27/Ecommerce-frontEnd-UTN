@@ -2,7 +2,8 @@
 
 .productCard{
     width: 300px;
-    height: 52vh;
+    height: 54vh;
+    max-height: 379px;
     border: 1px solid black;
     box-shadow: 4px 4px 6px rgb(95, 95, 95);
 }
@@ -23,9 +24,18 @@
     padding: 5px 0px;
     font-weight: bold;
 }
+.productName{
+    color: black;
+}
 
 .textCategory{
-    color: rgb(141, 137, 137);
+    color: rgba(104, 104, 104, 0.788);
+    display: flex;
+    justify-content: space-between;
+}
+
+.prices{
+    color: black;
 }
 
 /* BtnCard, quizas componente a largo plazo */

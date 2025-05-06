@@ -29,10 +29,14 @@
     top: 30%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: rgba(170, 170, 170, 0.297);
+    background-color: rgba(221, 211, 211, 0.297);
     color: rgb(0, 0, 0);
     width: 60%;
     padding: 10px;
+}
+
+.carouselText p{
+    color: black;
 }
 
 /* <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center"> */

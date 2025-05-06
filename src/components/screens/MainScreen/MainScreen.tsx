@@ -37,7 +37,7 @@ export const MainScreen = () => {
           {modalAccount && <AccountModal/>}
         </div>
         <HeroCarousel/>
-        <ListProducts productsArray={products}/>
+        <ListProducts productsArray={products} title={"Todos los productos"}/>
     
         <Footer/>
         
