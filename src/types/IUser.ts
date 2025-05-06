@@ -3,7 +3,7 @@ import { IAdress } from "./IAdress"
 import { ISize } from "./ISize"
 
 export interface IUser {
-    id: string
+    id: number
     name: string,
     password: string,
     user: Rol

@@ -1,6 +1,6 @@
 
 export interface IDiscount {
-    id:string,
+    id:number,
     name: string
     timeTo: string,
     dateTo: string,

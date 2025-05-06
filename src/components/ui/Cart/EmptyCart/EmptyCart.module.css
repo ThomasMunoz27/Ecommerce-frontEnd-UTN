@@ -1,5 +1,4 @@
 .mainContainer{
-    border: solid 1px black;
     height: 71vh;
     display: flex;
     justify-content: flex-start;
@@ -23,7 +22,7 @@ h2{
     font-size: 40px;
 }
 
-p{
+.description{
     color: #8E8E8E;
 }
 

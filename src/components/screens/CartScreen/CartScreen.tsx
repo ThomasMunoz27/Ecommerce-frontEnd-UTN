@@ -2,6 +2,7 @@ import { useStoreCart } from '../../../store/useStoreCart'
 import { Header } from '../../ui/Headers/Header/Header'
 import { Footer } from '../../ui/footer/Footer'
 import { EmptyCart } from '../../ui/Cart/EmptyCart/EmptyCart'
+import { CartWithProducts } from '../../ui/Cart/CartWithProducts/CartWithProducts'
 
 
 
@@ -19,7 +20,7 @@ export const CartScreen = () => {
     : (
 
         <div>
-            <h2>Tu carrito</h2>
+            <CartWithProducts></CartWithProducts>
         </div>
 
     )
