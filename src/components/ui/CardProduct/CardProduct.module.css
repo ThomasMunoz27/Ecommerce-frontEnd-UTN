@@ -2,7 +2,7 @@
 
 .productCard{
     width: 300px;
-    height: 50vh;
+    height: 52vh;
     border: 1px solid black;
     box-shadow: 4px 4px 6px rgb(95, 95, 95);
 }
@@ -12,11 +12,32 @@
     height: 40vh;
 }
 
+.notImgContainer{
+    padding: 0px 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
 .cardText{
-    padding: 5px 8px;
+    padding: 5px 0px;
     font-weight: bold;
 }
 
 .textCategory{
     color: rgb(141, 137, 137);
+}
+
+/* BtnCard, quizas componente a largo plazo */
+
+.cardBtn{
+    align-self: flex-end;
+    padding: 5px 8px;
+    width: 50%;
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    box-shadow: 2px 2px 0px  rgb(255, 255, 255), 4px 4px 0px black;
 }

@@ -23,31 +23,31 @@ const HeroCarousel = () => {
           className={style.carouselImg}
         />
         <div className={style.carouselText}>
-          <h1 className="text-4xl md:text-6xl font-bold">Productos hechos con la Tecnología que inspira</h1>
-          <p className="mt-4 text-lg">Innovación y diseño en un solo lugar</p>
+          <h1>Productos hechos con la Tecnología que inspira</h1>
+          <p>Innovación y diseño en un solo lugar</p>
         </div>
       </div>
 
       <div className={style.carouselCard}>
         <img
-          src="./img/AdidasMessi.jpg"          alt="Slide 2"
+          src="./img/samba.jpg"          alt="Slide 2"
           className={style.carouselImg}
         />
         <div className={style.carouselText}>
-          <h1 className="text-4xl md:text-6xl font-bold">Conectá con el alto rendimiento</h1>
-          <p className="mt-4 text-lg">Descubrí nuevas experiencias con nuestros productos</p>
+          <h1 >Conectá con el alto rendimiento</h1>
+          <p >Descubrí nuevas experiencias con nuestros productos</p>
         </div>
       </div>
 
       <div className={style.carouselCard}>
         <img
-          src="./img/AdidasMessi.jpg"
+          src="./img/imgCarousel2.jpg"
           alt="Slide 3"
           className={style.carouselImg}
         />
         <div className={style.carouselText}>
-          <h1 className="text-4xl md:text-6xl font-bold">Viví el confort</h1>
-          <p className="mt-4 text-lg">Prendas de la maxima calidad</p>
+          <h1>Viví el confort</h1>
+          <p>Prendas de la maxima calidad</p>
         </div>
       </div>
     </Carousel>
