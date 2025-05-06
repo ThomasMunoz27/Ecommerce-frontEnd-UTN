@@ -1,5 +1,6 @@
-.containerPrincipal{
-    height: 35vh;
+/* Estilos del modal para cambiar la contraseña */
+.containerPrincipalPassword{
+    min-height: 35vh;
     width: 30vw;
     background-color: white;
     position: absolute;
@@ -10,11 +11,39 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    backdrop-filter: blur(10px);
+
 }
-.containerPrincipal input{
+.containerPrincipalPassword input{
     height: 4vh;
     padding: 10px;
+}
+
+/* Estilos del modal para cambiar datos fiscales */
+.containerPrincipalData{
+    min-height: 35vh;
+    width: 40vw;
+    background-color: white;
+    position: absolute;
+    top: 20%;
+    left: 35%;
+    box-shadow: 5px 5px 20px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.containerPrincipalData input{
+    height: 4vh;
+    padding: 10px;
+}
+.containerBirthDate{
+    display: flex;
+    gap: 5px;
+}
+.containerSex{
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 .buttonConfirm{
     background-color: black;

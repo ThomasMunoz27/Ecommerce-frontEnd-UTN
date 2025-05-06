@@ -8,7 +8,7 @@
 }
 .userSummary{
     height: 70%;
-    width: 20vw;
+    min-width: 20vw;
     background-color: white;
     display: flex;
     flex-direction: column;

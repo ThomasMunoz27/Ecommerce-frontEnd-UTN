@@ -41,13 +41,13 @@ export const ProfileDetails = () => {
                     <p>Nombre: nombreUsuario</p>
                     <p>Fecha de Naciemiento : fechaNacimientoUsuario</p>
                     <p>Sexo : sexoUsuario</p>
-                    <p className={styles.edit}>Editar</p>
+                    <p className={styles.edit} onClick={() => openModalEditLogin(1)}>Editar</p>
                 </div>
                 <div className={styles.containerAccessData}>
                     <h1>Datos de Acceso</h1>
                     <p>Correo Electronico: userEmail@example.com</p>
                     <p>Contraseña: *******</p>
-                    <p className={styles.edit} onClick={openModalEditLogin}>Editar</p>
+                    <p className={styles.edit} onClick={() => openModalEditLogin(2)}>Editar</p>
                 </div>
                 <div className={styles.containerButtonData}>
                     <p>Si eliminas la cuenta perderas todos los datos que tengas vinculado a nuestros servicios</p>
