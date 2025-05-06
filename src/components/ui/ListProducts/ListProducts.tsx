@@ -15,10 +15,19 @@ export const ListProducts: FC<Props> = ({productsArray}) => {
     <div className={style.container}>
     <h2>Productos</h2>
     <div className={style.productsContainer}>
-        
-        {productsArray && productsArray.map((product) => (
-         <CardProduct key={product.id} product={product}/>
-        ))}
+    {productsArray.map((product) => {
+  console.log('imageId:', product.image?.id);
+  // debugger; // <- descomentá esto si estás usando herramientas como Chrome DevTools
+  return (
+    <CardProduct
+      key={product.id}
+      product={product}
+      categoryId={product.category.id}
+      imageUrl = {product.image?.url}
+    />
+  );
+})}
+
     </div>
         </div>
   );
