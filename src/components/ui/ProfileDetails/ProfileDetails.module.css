@@ -89,7 +89,7 @@
 .edit:hover{
     background-color: black;
     color: white;
-    width: 4vw;
+    width: 5vw;
     padding: 5px;
     transition: 0.3s ease;
 }

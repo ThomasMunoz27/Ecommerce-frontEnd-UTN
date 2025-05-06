@@ -6,6 +6,7 @@ import { EditLoginDataModal } from '../../ui/Modals/EditLoginDataModal/EditLogin
 import { useStoreModal } from '../../../store/useStoreModal'
 
 
+
 export const ScreenProfile = () => {
 
     const {modalEditLogin} = useStoreModal()
