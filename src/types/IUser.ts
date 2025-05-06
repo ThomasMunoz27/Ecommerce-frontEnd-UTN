@@ -1,11 +1,14 @@
 import { Rol } from "./enums/Rol"
+import { IAdress } from "./IAdress"
+import { ISize } from "./ISize"
 
 export interface IUser {
     id: string
     name: string,
     password: string,
+    user: Rol
     email: string,
-    rol: Rol
-    adressId: string
-    sizeId: string
+    dni: string
+    adress: IAdress
+    size: ISize
 }

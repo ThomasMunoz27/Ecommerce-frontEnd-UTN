@@ -1,8 +1,9 @@
+import { ILocality } from "./ILocality";
 
 export interface IAdress {
     id: string,
     street: string,
     number: number,
-    postalCode: number,
-    localityId: string 
+    cp: number,
+    locality: ILocality
 }

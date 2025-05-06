@@ -1,7 +1,7 @@
 import { useStoreCart } from '../../../store/useStoreCart'
-import { Header } from '../../ui/Header/Header'
+import { Header } from '../../ui/Headers/Header/Header'
 import { Footer } from '../../ui/footer/Footer'
-import { EmptyCart } from '../../ui/EmptyCart/EmptyCart'
+import { EmptyCart } from '../../ui/Cart/EmptyCart/EmptyCart'
 
 
 

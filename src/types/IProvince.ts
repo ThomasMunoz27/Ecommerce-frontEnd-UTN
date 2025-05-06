@@ -1,5 +1,7 @@
+import { ICountry } from "./ICountry";
+
 export interface IProvince {
     id: string,
     name: string,
-    countryId: string
+    country: ICountry
 }
