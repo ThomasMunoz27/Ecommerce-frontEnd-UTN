@@ -1,17 +1,22 @@
 
+import useStoreProduct from '../../../../store/useStoreProduct'
 import styles from './AddProductModal.module.css'
 
 export const AddProductModal = () => {
+
+    const {activeProduct} = useStoreProduct() // Llamo al producto activo para mostrar sus datos
+
+
     return (
         <div className={styles.containerPrincipal}>
             <h1>Agregar Producto</h1>
             <div className={styles.infoProduct}>
                 <div className={styles.imageProduct}>
-                    <p>Imagen</p>
+                    <img src={activeProduct?.image.url} alt={activeProduct?.name} />
                 </div>
                 <div className={styles.productDetails}>
-                    <p>Nombre Product</p>
-                    <p>$Precio</p>
+                    <p>{activeProduct?.name}</p>
+                    <p>${activeProduct?.prices.salePrice}</p>
                 </div>
             </div>
             <div className={styles.constainerSizes}>

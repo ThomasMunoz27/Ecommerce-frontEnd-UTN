@@ -11,6 +11,7 @@ import style from './MainScreen.module.css'
 import { IProduct } from "../../../types/IProduct"
 import { getAllProducts } from "../../../cruds/crudProduct"
 import { Header } from "../../ui/Headers/Header/Header"
+import { AddProductModal } from "../../ui/Modals/AddProductModal/AddProductModal"
 
 export const MainScreen = () => {
 
@@ -38,7 +39,6 @@ export const MainScreen = () => {
         </div>
         <HeroCarousel/>
         <ListProducts productsArray={products}/>
-    
         <Footer/>
         
       </div>
