@@ -24,3 +24,9 @@
     text-decoration: none;
     color: #5B5B5B;
 }
+
+@media (max-height: 620px) {
+    .mainContainer{
+        min-height: 20vh;
+    }
+}

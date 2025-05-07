@@ -33,3 +33,8 @@
 .headerLogo{
     width: 60px;
 }
+@media (max-height: 620px){
+    .containerPrincipal{
+        min-height: 20vh;
+    }
+}
