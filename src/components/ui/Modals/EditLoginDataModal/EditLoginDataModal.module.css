@@ -68,3 +68,16 @@
     transform: scale(1.03);
     transition: 0.3s ease;
 }
+
+@media(max-width: 768px){
+    .containerPrincipalPassword{
+        min-width: 50vw;
+    }
+    .containerPrincipalData{
+        min-width: 50vw;
+    }
+    .containerBirthDate{
+        display: flex;
+        flex-direction: column;
+    }
+}

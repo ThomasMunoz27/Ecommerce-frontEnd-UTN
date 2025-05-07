@@ -1,8 +1,24 @@
 
+import { useEffect } from 'react'
 import { useStoreModal } from '../../../store/useStoreModal'
 import styles from './ProfileDetails.module.css'
+import { getAllUsers } from '../../../cruds/crudUsers'
+import { useStoreUsers } from '../../../store/useStoreUsers'
 
 export const ProfileDetails = () => {
+
+    const {setUser, user} = useStoreUsers()
+
+    useEffect(() => {
+        const fetchUsers = async() => {
+            const arrayUsers = await getAllUsers()
+            setUser(arrayUsers[0])
+        }
+        
+        fetchUsers()
+    },[])
+
+    console.log(user)
 
     const {openModalEditLogin} = useStoreModal()
 
@@ -13,12 +29,12 @@ export const ProfileDetails = () => {
             <div className={styles.userSummary}>
                 <div className={styles.containerPhoto}>
                     <div className={styles.photo}>
-                        <img src='' alt="" />
+                        {/* <img src='' alt="" /> */}
                     </div>
                 </div>
                 <div className={styles.containerNameAndEmailSummary}>
-                    <p>UserName</p>
-                    <p>UserEmail</p>
+                    <p>{user?.name}</p>
+                    <p>{user?.email}</p>
                 </div>
                 <div className={styles.containerButtonSummary}>
                     <button>
@@ -38,15 +54,15 @@ export const ProfileDetails = () => {
                 </div>
                 <div className={styles.containerContentData}>
                     <h1>Resumen</h1>
-                    <p>Nombre: userName</p>
-                    <p>Fecha de Naciemiento : fechaNacimientoUsuario</p>
-                    <p>Sexo : {}</p>
+                    <p>Nombre: {user?.name}</p>
+                    <p>Fecha de Naciemiento : 9/12/18</p>
+                    <p>Sexo : señora</p>
                     <p className={styles.edit} onClick={() => openModalEditLogin(1)}>Editar</p>
                 </div>
                 <div className={styles.containerAccessData}>
                     <h1>Datos de Acceso</h1>
-                    <p>Correo Electronico: userEmail</p>
-                    <p>Contraseña: *****</p>
+                    <p>Correo Electronico: {user?.email}</p>
+                    <p>Contraseña: {user?.password}</p>
                     <p className={styles.edit} onClick={() => openModalEditLogin(2)}>Editar</p>
                 </div>
                 <div className={styles.containerButtonData}>
