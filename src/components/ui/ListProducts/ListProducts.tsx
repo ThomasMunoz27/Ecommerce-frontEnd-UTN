@@ -5,15 +5,16 @@ import { CardProduct } from '../CardProduct/CardProduct';
 
 interface Props {
     productsArray: IProduct[]
+    title?: String | undefined
 }
 
-export const ListProducts: FC<Props> = ({productsArray}) => {
+export const ListProducts: FC<Props> = ({productsArray, title}) => {
    
     
 
   return (
     <div className={style.container}>
-    <h2>Productos</h2>
+    <h2>{title ? title : 'Estado global'}</h2>
     <div className={style.productsContainer}>
     {productsArray.map((product) => {
   console.log('imageId:', product.image?.id);
@@ -22,8 +23,6 @@ export const ListProducts: FC<Props> = ({productsArray}) => {
     <CardProduct
       key={product.id}
       product={product}
-      categoryId={product.category.id}
-      imageUrl = {product.image?.url}
     />
   );
 })}

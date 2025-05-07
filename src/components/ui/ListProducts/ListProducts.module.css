@@ -6,7 +6,7 @@
 }
 .productsContainer{
     height: 60vh;
-    border: 1px solid red;
+    
     display: flex;
     padding: 10px;
     flex-direction: row;
