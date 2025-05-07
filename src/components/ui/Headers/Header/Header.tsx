@@ -13,7 +13,12 @@ export const Header = () => {
     navigate("/my-account")
   }
 
-
+  const handleCategoryClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    const category = e.currentTarget.textContent
+    alert(`Setear estado global categoria seleccionada ${category}`)
+    // Aqui deberiamos establecer el store de categoria seleccionada a la variable category y listo
+    navigate("/product-category")
+  }
   useEffect(() => {
 
     setCantProductsInCart(productsInCart.length)
@@ -26,10 +31,13 @@ export const Header = () => {
     <div className={style.headerContainer}>
 
     <header className={style.mainHeader}>
-    <img src="./img/Logo.png" alt="" className={style.headerLogo} />
+    <img src="./img/Logo.png" alt="" className={style.headerLogo}  onClick={() => {
+      navigate("/")
+    }}/>
     <nav>
-      <a href="">Inicio</a>
-      <a href="">Productos</a>
+      <a onClick={() => navigate("/")}>Inicio</a>
+
+      <a >Productos</a>
     </nav>
     <div className={style.searchBarIconsContainer}>
       
@@ -46,13 +54,13 @@ export const Header = () => {
     </header>
     <div className={style.subHeader}>
       <nav>
-        <a href="">Niños</a>
-        <a href="">Deportes</a>
-        <a href="">Calzado</a>
-        <a href="">Indumentaria</a>
-        <a href="">Hombre</a>
-        <a href="">Mujer</a>
-        <a href="">Ofertas</a>
+        <a href="" onClick={handleCategoryClick}>Niños</a>
+        <a href="" onClick={handleCategoryClick}>Deportes</a>
+        <a href="" onClick={handleCategoryClick}>Calzado</a>
+        <a href="" onClick={handleCategoryClick}>Indumentaria</a>
+        <a href="" onClick={handleCategoryClick}>Hombre</a>
+        <a href="" onClick={handleCategoryClick}>Mujer</a>
+        <a href="" onClick={handleCategoryClick}>Ofertas</a>
       </nav>
     </div>
     {/* <DropdownHeader></DropdownHeader> */}
