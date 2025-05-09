@@ -1,7 +1,8 @@
 import { FC} from "react"
 import { IProduct } from "../../../types/IProduct"
 import style from './CardProduct.module.css'
-import { useStoreCart } from "../../../store/useStoreCart"
+import { useStoreModal } from "../../../store/useStoreModal"
+import useStoreProduct from "../../../store/useStoreProduct"
 
 
 
@@ -11,8 +12,14 @@ interface Props {
 
 
 export const CardProduct: FC<Props> = ({product}) => {
-    
-    const {addProductToCart} = useStoreCart()
+    const {openModalAddProduct} = useStoreModal()
+    const {setActiveProduct} = useStoreProduct()
+
+   const handleOpenModalAddProduct = () => {
+    setActiveProduct(product)
+    openModalAddProduct()
+   }
+
   return (
     <div className={style.productCard}>
     <img className={style.cardImg} src={product.image.url ? product.image.url : 'https://www.publicdomainpictures.net/pictures/280000/velka/not-found-image-15383864787lu.jpg'} alt="" />
@@ -21,7 +28,7 @@ export const CardProduct: FC<Props> = ({product}) => {
         <p className={style.productName}>{`${product.name} ${product.sex}`}</p>
         <p className={style.textCategory}>{product.category.name}  <p className={style.prices}>${product.prices.salePrice}</p></p>
     </div>
-    <button onClick={() => addProductToCart(product)} className={style.cardBtn}>Añadir al carrito</button>
+    <button onClick={handleOpenModalAddProduct} className={style.cardBtn}>Añadir al carrito</button>
     </div>
 </div>
   )
