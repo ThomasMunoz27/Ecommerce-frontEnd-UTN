@@ -76,6 +76,9 @@
     .containerPrincipalData{
         min-width: 50vw;
     }
+    
+}
+@media(max-width: 990px){
     .containerBirthDate{
         display: flex;
         flex-direction: column;

@@ -69,8 +69,8 @@
 
 /*------ Estilos de modalAccount------ */
 .containerPrincipalRegister {
-    height: 60vh;
-    width: 30vw;
+    min-height: 60vh;
+    min-width: 30vw;
     background-color: white;
     position: absolute;
     left: 35%;
@@ -79,6 +79,7 @@
     padding: 15px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
 }
 .containerLogoRegister{
@@ -86,6 +87,7 @@
 }
 .containerTitleRegister{
     padding: 5px;
+    text-align: center;
 }
 .containerLogoRegister img{
     height: 10vh;
@@ -114,18 +116,24 @@
 }
 .containerButtonsRegister{
     display: flex;
-    justify-content: space-between;
-    
+    gap: 20px;
 }
 .containerButtonsRegister button{
     background-color: black;
     color: white;
     padding: 10px;
-    width: 8vw;
+    width: 50%;
     font-size: 15px;
     cursor: pointer;
 }
 .containerButtonsRegister button:hover{
     transform: scale(1.1);
     transition: 0.3s ease;
+}
+
+@media (max-width : 785px) {
+    .containerLogoRegister img {
+        width: auto;
+    }
+    
 }

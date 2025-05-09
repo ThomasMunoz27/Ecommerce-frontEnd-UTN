@@ -11,6 +11,7 @@ import { IProduct } from "../../../types/IProduct"
 import { getAllProducts } from "../../../cruds/crudProduct"
 import { Header } from "../../ui/Headers/Header/Header"
 import { AddProductModal } from "../../ui/Modals/AddProductModal/AddProductModal"
+import { AccountModal } from "../../ui/Modals/AccountRegisterModal/AccountModal"
 
 
 export const MainScreen = () => {
@@ -40,6 +41,7 @@ export const MainScreen = () => {
         <HeroCarousel/>
         <ListProducts productsArray={products} title={"Todos los productos"}/>
         {modalAddProduct && <div className={style.modalBackdrop}><AddProductModal/></div>}
+        
     
         <Footer/>
         
