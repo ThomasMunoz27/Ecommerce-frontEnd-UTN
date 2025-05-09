@@ -1,0 +1,81 @@
+/* Mapeo de productos */
+
+.productCard{
+    width: 500px;
+    height: 200px;
+    max-height: 379px;
+    border: 1px solid black;
+    box-shadow: 4px 4px 6px rgb(95, 95, 95);
+    display: flex;
+}
+
+.cardImg{
+    width: 100%;
+    height: 100%;
+}
+
+
+
+.notImgContainer{
+    padding: 0px 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+}
+
+.cardText{
+    padding: 5px 0px;
+    font-weight: bold;
+    max-width: 200px;
+}
+.productName{
+    color: black;
+    margin-top: 16px;
+
+}
+.sizeText{
+    margin-top: 16px;
+}
+
+.cantProduct{
+    margin-top: 8px;
+    padding: 16px;
+    width: 200px;
+    border: 1px solid black;
+}
+
+.cantProduct option{
+    border-bottom: 1px solid rgba(104, 104, 104, 0.788);
+}
+
+.productDetails{
+    margin-top: auto;
+    padding: 6px;
+}
+
+.textCategory{
+    color: rgba(104, 104, 104, 0.788);
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+}
+
+.prices{
+    color: black;
+    
+}
+
+/* BtnCard, quizas componente a largo plazo */
+
+.cardBtn{
+    align-self: flex-end;
+    padding: 5px 8px;
+    width: 50%;
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    box-shadow: 2px 2px 0px  rgb(255, 255, 255), 4px 4px 0px black;
+}

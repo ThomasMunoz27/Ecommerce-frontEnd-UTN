@@ -19,7 +19,7 @@ export const CardProduct: FC<Props> = ({product}) => {
     <div className={style.notImgContainer}>
     <div className={style.cardText}>
         <p className={style.productName}>{`${product.name} ${product.sex}`}</p>
-        <p className={style.textCategory}>{product.category.name}  <p className={style.prices}>${product.prices.salePrice}</p></p>
+        <p className={style.textCategory}>{product.category.name}  <span className={style.prices}>${product.prices.salePrice}</span></p>
     </div>
     <button onClick={() => addProductToCart(product)} className={style.cardBtn}>Añadir al carrito</button>
     </div>

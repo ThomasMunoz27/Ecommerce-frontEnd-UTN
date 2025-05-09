@@ -1,6 +1,7 @@
 import { Link } from 'react-router'
 import { useStoreCart } from '../../../../store/useStoreCart'
 import styles from './CartWithProducts.module.css'
+import { CardProductInCart } from '../../CardProductInCart/CardProductInCart'
 
 export const CartWithProducts = () => {
     const {productsInCart} = useStoreCart()
@@ -14,7 +15,11 @@ export const CartWithProducts = () => {
                 ? `[${cantProducts} productos]`
                 : `[${cantProducts} producto]`
                 }</p>
-
+                {
+                    productsInCart.map((product) => (
+                        <CardProductInCart product={product} key={product.id} />
+                    ))
+                }
 
             </div>
             <div className={styles.cartSummary}>
