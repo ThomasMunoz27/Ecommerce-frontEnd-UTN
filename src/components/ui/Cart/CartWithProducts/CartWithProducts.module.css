@@ -1,26 +1,30 @@
 .mainContainer{
-    border: solid 1px black;
-    height: 71vh;
-    display: flex;
-    justify-content: space-between  ;
-    align-items: flex-start;
-    padding: 5vh 10vw;
-    gap: 5vw;
+  min-height: 100vh; /* ✅ Esto permite que crezca solo si hace falta */
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 5vh 0px 0px 40px;
+  gap: 8px;
 
 }
 
 .productsOfCart {
+  
     flex: 1;
   }
 
 .summaryContainer{
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     gap: 20px;
 }
 
 .cartSummary {
+
     flex: 1;
+    min-width: 225px;
+    max-height: 300px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -29,16 +33,24 @@
     border-radius: 10px;
   }
 
+  .infoContainer{
+    display: flex;
+    justify-content: space-between;
+
+  }
+
   .infoSide, .priceSide {
     display: flex;
     flex-direction: column;
     gap: 10px;
+
   }
   
   .priceSide{
-    margin-top: 28px;
+    text-align: right;
   }
 .goToPayButton{
+
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -53,4 +65,28 @@
     border: none;
     cursor: pointer;
     text-decoration: none;
+}
+
+/* media query */
+
+
+@media (max-width: 850px) {
+  .mainContainer {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding-left: 20px; /* opcional para mejor apariencia */
+    gap: 20px;
+  }
+
+  .summaryContainer {
+    width: 100%;
+    margin-top: 20px; /* separación moderada desde los productos */
+  }
+
+  .cartSummary {
+    width: 100%;
+    max-width: 600px;
+    align-self: flex-start;
+  }
 }

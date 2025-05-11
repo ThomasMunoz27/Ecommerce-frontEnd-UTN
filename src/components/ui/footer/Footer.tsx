@@ -2,7 +2,7 @@ import { Link } from 'react-router'
 import styles from './Footer.module.css'
 export const Footer = () => {
   return (
-    <div className={styles.mainContainer}>
+    <div className={styles.footerContainer}>
         <p><Link to="/nuestros-datos" className={styles.link}>Nuestros Datos</Link>   |   
           <Link to="/terminos-y-condiciones" className={styles.link}> Términos y Condiciones</Link>   |   
           <Link to="/terminos-condiciones-promociones" className={styles.link}> Términos y Condiciones Promociones</Link>   |   

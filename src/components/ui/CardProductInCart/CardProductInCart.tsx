@@ -1,17 +1,28 @@
 import { FC} from "react"
-import { IProduct } from "../../../types/IProduct"
 import style from './CardProductInCart.module.css'
+import { useStoreCart } from "../../../store/useStoreCart"
 
 
 
 interface IProductInCart {
-    product: IProduct,
+    productId: number,
+    
   }
 
 
-export const CardProductInCart: FC<IProductInCart> = ({product}) => {
+export const CardProductInCart: FC<IProductInCart> = ({productId}) => {
+    const {productsInCart,updateProductQuantity} = useStoreCart()
+    const product = productsInCart.find(p => p.id === productId)
+
+    if(!product) return null
     
-    
+    const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+       const newQuantity = parseInt(e.target.value)
+       console.log(product.quantity)
+       updateProductQuantity(product.id, newQuantity)
+       console.log(product.quantity)
+
+    }
 
   return (
     <div className={style.productCard}>
@@ -26,17 +37,10 @@ export const CardProductInCart: FC<IProductInCart> = ({product}) => {
             <p className={style.sizeText}>Tamaño: </p>
             </div>
 
-            <select name="cantidad" id="cantidad" className={style.cantProduct}>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
+            <select name="cantidad" id="cantidad" className={style.cantProduct} value={product.quantity} onChange={handleChange}>
+              {Array.from({ length: 10 }, (_, i) => i + 1).map((n) => (
+              <option key={n} value={n}>{n}</option>
+             ))}
             </select>
 
             <div className={style.productDetails}>

@@ -20,8 +20,8 @@ export const Header = () => {
     navigate("/product-category")
   }
   useEffect(() => {
-
-    setCantProductsInCart(productsInCart.length)
+    const cantProducts = productsInCart.map(p => p.quantity).reduce((sum, actVal) => sum + actVal, 0)
+    setCantProductsInCart(cantProducts)
 
 
   }, [productsInCart])

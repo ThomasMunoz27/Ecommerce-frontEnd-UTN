@@ -1,12 +1,15 @@
 /* Mapeo de productos */
 
 .productCard{
-    width: 500px;
+    width: 70vw;
     height: 200px;
     max-height: 379px;
+    max-width: 500px;
+    min-width: 438px;
     border: 1px solid black;
     box-shadow: 4px 4px 6px rgb(95, 95, 95);
     display: flex;
+    margin: 8px;
 }
 
 .cardImg{
