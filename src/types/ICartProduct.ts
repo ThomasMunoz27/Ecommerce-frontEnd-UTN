@@ -1,5 +1,7 @@
 import { IProduct } from "./IProduct";
+import { ISize } from "./ISize";
 
 export interface ICartProduct extends IProduct {
-    quantity: number
+    quantity: number,
+    size: ISize
 }

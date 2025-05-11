@@ -13,10 +13,15 @@ export const AddProductModal = () => {
     const [selectedSizeId, setSelectedSizeId] = useState<number | null>(null)
     const [selectedSize, setSelectedSize] = useState(true)
 
-    // Cambiar el producto
+    // Mandar el producto al carrito
     const handleAddProductToCart = () => {
         if(selectedSizeId){
-            addProductToCart(activeProduct!)
+            const selectedSize = activeProduct?.sizes.find(size => size.id === selectedSizeId)
+            const productWithSize = {
+                ...activeProduct!,
+                selectedSize
+            }
+            addProductToCart(productWithSize)
             closeModalAddProduct()
         }else{
             setSelectedSize(false)
