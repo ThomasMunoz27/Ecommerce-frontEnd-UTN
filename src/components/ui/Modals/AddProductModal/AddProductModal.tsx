@@ -29,7 +29,9 @@ export const AddProductModal = () => {
             </div>
             <div className={styles.constainerSizes}>
                 <h1>Talles</h1>
-                <p>Aca van varios talles que depende como los voy a llamar es como los renderizo</p>
+                {activeProduct?.sizes.map(size => (
+                    <div className={styles.containerSizesCard}>{size.size}</div>
+                ))}
             </div>
             <div className={styles.containerButtons}>
                 <button onClick={closeModalAddProduct}>Cancelar</button>

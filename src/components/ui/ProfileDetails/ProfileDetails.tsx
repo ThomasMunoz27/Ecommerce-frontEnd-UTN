@@ -56,6 +56,7 @@ export const ProfileDetails = () => {
                     <h1>Resumen</h1>
                     <p>Nombre: {user?.name}</p>
                     <p>Fecha de Naciemiento : 9/12/18</p>
+                    <p>Direccion: {user?.adress.street} {user?.adress.number}</p>
                     <p>Sexo : señora</p>
                     <p className={styles.edit} onClick={() => openModalEditLogin(1)}>Editar</p>
                 </div>

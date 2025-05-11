@@ -16,7 +16,7 @@ import { AccountModal } from "../../ui/Modals/AccountRegisterModal/AccountModal"
 
 export const MainScreen = () => {
 
-  const {modalAddProduct} = useStoreModal()
+  const {modalAddProduct, modalAccount} = useStoreModal()
 
   const [products, setProducts] = useState<IProduct[]>([])
 
@@ -41,7 +41,7 @@ export const MainScreen = () => {
         <HeroCarousel/>
         <ListProducts productsArray={products} title={"Todos los productos"}/>
         {modalAddProduct && <div className={style.modalBackdrop}><AddProductModal/></div>}
-        
+        {/* {modalAccount && <div className={style.modalBackdrop}><AccountModal/></div>} */}
     
         <Footer/>
         
