@@ -1,0 +1,92 @@
+.containerPrincipal{
+    background-color: white;
+    height: 75vh;
+    width: 30vw;
+    position: absolute;
+    top: 10%;
+    left: 35%;
+    box-shadow: 5px 5px 20px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+.infoProduct{
+    display: flex;
+    gap: 2.5rem;
+    
+    width: 100%;
+    justify-content: space-around;
+}
+.imageProduct{
+    padding: 10px;
+    height: 20vh;
+    width: 40%;
+    border: gray 2px solid;
+    background-color: rgb(201, 198, 198);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.imageProduct img{
+    height: 100%;
+    width: 100%;
+}
+.productDetails{
+    padding: 10px;
+    gap: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 50%;
+}
+.constainerSizes{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    width: 100%;
+}
+.sizeCard{
+    padding: 10px;
+    gap: 5px;
+    background-color: gainsboro;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+}
+.sizeCardSelected{
+    padding: 10px;
+    gap: 5px;
+    background-color: gainsboro;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    border: 1px solid;
+}
+.sizeNotSelected{
+    color: red;
+}
+.containerButtons{
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    width: 100%;
+    position: relative;
+    
+}
+.containerButtons button{
+    padding: 15px;
+    background-color: black;
+    font-size: 18px;
+    color: white;
+    width: 8vw;
+    cursor: pointer;
+}
+.containerButtons button:hover{
+    transform: scale(1.1);
+    transition: 0.3s ease;
+}

@@ -26,6 +26,16 @@ export const getCategoryById = async (categoryId: string): Promise<ICategory | u
     }
 }
 
+export const getCategoryByName = async (categoryName: string): Promise<ICategory | undefined> => {
+   try{
+        const response = await axios.get(`${URL_CATEGORIES}/search?name=${categoryName}`)
+        return response.data
+    }catch (err){
+        console.log("Error en getCategoryByName" + err)
+        return undefined
+    }
+}
+
 export const postCategory = async (newCategory: ICategory) => {
     try{
         const response = await axios.post(URL_CATEGORIES, newCategory)

@@ -2,6 +2,7 @@ import { ProductType } from "./enums/ProductType";
 import { ICategory } from "./ICategory";
 import { IImage } from "./IImage";
 import { IPrice } from "./IPrice";
+import { ISize } from "./ISize";
 
 
 // export interface IProduct {
@@ -24,5 +25,6 @@ export interface IProduct {
     prices: IPrice
     image: IImage
     category: ICategory
+    sizes : ISize[]
   }
   

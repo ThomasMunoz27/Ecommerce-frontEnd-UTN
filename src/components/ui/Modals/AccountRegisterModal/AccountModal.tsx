@@ -1,12 +1,12 @@
-import { useState } from 'react'
 import styles from './AccountModal.module.css'
+import { useStoreModal } from '../../../../store/useStoreModal'
 
 export const AccountModal = () => {
 
-    const [valueLogin, setValueLogin] = useState(true) // Estado que cambia de modal
+    const {modalAccount, closeModalAccount} = useStoreModal()
 
 
-    if(valueLogin){
+    if(modalAccount.type){
         return( // Modal para login
             <div className={styles.containerPrincipalLogin}>
                 <div className={styles.containerLogoLogin}>
@@ -23,7 +23,7 @@ export const AccountModal = () => {
                 </form>
                 <div className={styles.register}>
                     <p>¿No estás registrado?</p>
-                    <p className={styles.textCahnge} onClick={()=>setValueLogin(false)}>Crear Cuenta</p>
+                    <p className={styles.textCahnge} onClick={()=>closeModalAccount}>Crear Cuenta</p>
                 </div>
             </div>
         )

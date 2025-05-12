@@ -2,10 +2,13 @@ import { Link, useNavigate } from 'react-router';
 import style from './Header.module.css'
 import { useEffect, useState } from 'react';
 import { useStoreCart } from '../../../../store/useStoreCart';
+import { useStoreCategory } from '../../../../store/useStoreCategory';
+import { getCategoryByName } from '../../../../cruds/crudCategory';
 
 export const Header = () => {
 
   const [cantProductsInCart, setCantProductsInCart] = useState(0)
+   const {setActiveCategory} = useStoreCategory()
   const {productsInCart} = useStoreCart()
   const navigate = useNavigate()
 
@@ -13,15 +16,22 @@ export const Header = () => {
     navigate("/my-account")
   }
 
-  const handleCategoryClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-    const category = e.currentTarget.textContent
-    alert(`Setear estado global categoria seleccionada ${category}`)
+  const handleCategoryClick = async (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    const categoryName = e.currentTarget.textContent
+    if(categoryName){
+      const category = await getCategoryByName(categoryName)
+      if(category){
+        setActiveCategory(category)
+        navigate("/product-category")
+      }
+    }
     // Aqui deberiamos establecer el store de categoria seleccionada a la variable category y listo
-    navigate("/product-category")
+    // navigate("/product-category")
   }
-  useEffect(() => {
 
-    setCantProductsInCart(productsInCart.length)
+  useEffect(() => {
+    const cantProducts = productsInCart.map(p => p.quantity).reduce((sum, actVal) => sum + actVal, 0)
+    setCantProductsInCart(cantProducts)
 
 
   }, [productsInCart])
@@ -54,13 +64,13 @@ export const Header = () => {
     </header>
     <div className={style.subHeader}>
       <nav>
-        <a href="" onClick={handleCategoryClick}>Niños</a>
-        <a href="" onClick={handleCategoryClick}>Deportes</a>
-        <a href="" onClick={handleCategoryClick}>Calzado</a>
-        <a href="" onClick={handleCategoryClick}>Indumentaria</a>
-        <a href="" onClick={handleCategoryClick}>Hombre</a>
-        <a href="" onClick={handleCategoryClick}>Mujer</a>
-        <a href="" onClick={handleCategoryClick}>Ofertas</a>
+        <a  onClick={handleCategoryClick}>Niños</a>
+        <a  onClick={handleCategoryClick}>Deportes</a>
+        <a  onClick={handleCategoryClick}>Calzado</a>
+        <a  onClick={handleCategoryClick}>Indumentaria</a>
+        <a  onClick={handleCategoryClick}>Hombre</a>
+        <a  onClick={handleCategoryClick}>Mujer</a>
+        <a  onClick={handleCategoryClick}>Ofertas</a>
       </nav>
     </div>
     {/* <DropdownHeader></DropdownHeader> */}
