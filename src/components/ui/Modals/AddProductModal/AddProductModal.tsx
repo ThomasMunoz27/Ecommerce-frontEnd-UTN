@@ -4,6 +4,7 @@ import { useStoreCart } from '../../../../store/useStoreCart'
 import { useStoreModal } from '../../../../store/useStoreModal'
 import useStoreProduct from '../../../../store/useStoreProduct'
 import styles from './AddProductModal.module.css'
+import { ICartProduct } from '../../../../types/ICartProduct'
 
 export const AddProductModal = () => {
 
@@ -17,9 +18,14 @@ export const AddProductModal = () => {
     const handleAddProductToCart = () => {
         if(selectedSizeId){
             const selectedSize = activeProduct?.sizes.find(size => size.id === selectedSizeId)
-            const productWithSize = {
+            if (!selectedSize || !activeProduct) {
+                setSelectedSize(false)
+                return
+            }
+            const productWithSize: ICartProduct = {
                 ...activeProduct!,
-                selectedSize
+                quantity: 1,
+                size: selectedSize
             }
             addProductToCart(productWithSize)
             closeModalAddProduct()
@@ -29,9 +35,9 @@ export const AddProductModal = () => {
     }
 
     // Cambiar el estilo
-    const handleClickSize = (sizeId : number) => {
-        setSelectedSizeId(sizeId)
-        setSelectedSize(true)
+    const handleClickSize = async (sizeId : number) => {
+        await setSelectedSizeId(sizeId)
+        await setSelectedSize(true)
     }
 
     return (
@@ -59,7 +65,7 @@ export const AddProductModal = () => {
             </div>
             <div className={styles.containerButtons}>
                 <button onClick={closeModalAddProduct}>Cancelar</button>
-                <button onClick={handleAddProductToCart}>Aceptar</button>
+                <button disabled={selectedSize === null} onClick={handleAddProductToCart}>Aceptar</button>
             </div>
         </div>
     )

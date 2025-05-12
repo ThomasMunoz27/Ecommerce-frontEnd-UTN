@@ -27,7 +27,8 @@ export const CartWithProducts = () => {
                 }</p>
                 {
                     productsInCart.map((product) => (
-                        <CardProductInCart productId={product.id} key={product.id} />
+                        <CardProductInCart productId={product.id} sizeId={product.size.id} key={`${product.id}-${product.size.id}`} />
+                        
                     ))
                 }
 
