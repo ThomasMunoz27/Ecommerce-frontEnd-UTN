@@ -42,10 +42,24 @@ export const AccountModal = () => {
                 </div>
             
                 <form action="" className={styles.containerFormRegister}>
-                    <input type="text" name="" id=""  placeholder='Usuario'/>
-                    <input type="text" name="" id=""  placeholder='Ingrese su correo'/>
-                    <input type="text" name="" id=""  placeholder='Ingrese su contraseña'/>
-                    <input type="text" name="" id=""  placeholder='Repita la contraseña'/>
+                    <div className={styles.data}>
+                        <div className={styles.loginDetails}>
+                            <h3>Datos de acceso</h3>
+                            <input type="text" name="" id=""  placeholder='Nombre de Usuario'/>
+                            <input type="text" name="" id=""  placeholder='Correo'/>
+                            <input type="text" name="" id=""  placeholder='Contraseña'/>
+                            <input type="text" name="" id=""  placeholder='Repita la contraseña'/>
+                        </div>
+                        <div className={styles.taxData}>
+                            <h3>Datos Fiscales</h3>
+                            <input type="text" name="" id="" placeholder='Nombre'/>
+                            <input type="text" name="" id="" placeholder='Apellido'/>
+                            <input type="text" placeholder='Fecha Nacimiento'/>
+                            <input type="text" name="" id=""  placeholder='DNI'/>
+                            <input type="text" name="" id="" placeholder='Direccion'/>
+                        </div>
+
+                    </div>
                     <hr />
                     <div className={styles.containerButtonsRegister}>
                         <button>Cancelar</button>

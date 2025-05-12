@@ -73,8 +73,9 @@
     min-width: 30vw;
     background-color: white;
     position: absolute;
-    left: 35%;
-    top: 20%;
+    left: 50%;
+    top: 50%;
+    transform : translate(-50%, -50%);
     box-shadow: 7px 5px 30px;
     padding: 15px;
     display: flex;
@@ -84,10 +85,12 @@
 }
 .containerLogoRegister{
     padding: 10px;
+    padding: 1px solid;
 }
 .containerTitleRegister{
     padding: 5px;
     text-align: center;
+    
 }
 .containerLogoRegister img{
     height: 10vh;
@@ -98,8 +101,30 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    width: 80%;
+    width: 100%;
     gap: 20px;
+}
+.data{
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    padding: 10px;
+}
+.loginDetails{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    
+    align-items: center;
+    gap: 10px
+}
+.taxData{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
 }
 .containerFormRegister input{
     background-color: rgb(214, 212, 212);
