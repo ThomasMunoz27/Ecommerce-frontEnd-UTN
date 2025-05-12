@@ -43,7 +43,7 @@ export const useStoreCart = create<IStoreCart>((set) => ({
         ),
     })),
 
-    removeProductFromCart: (productId, sizeId) => set((state) => ({productsInCart: state.productsInCart.filter((product) => product.size.id !== sizeId || product.id !== productId)})),
+    removeProductFromCart: (productId, sizeId) => set((state) => ({productsInCart: state.productsInCart.filter((product) => !(product.size.id == sizeId && product.id == productId))})),
 
     cleanCart: () => set(() => ({productsInCart: []}))
 
