@@ -21,11 +21,12 @@
 /* Estilos del modal para cambiar datos fiscales */
 .containerPrincipalData{
     min-height: 35vh;
-    width: 40vw;
+    width: auto;
     background-color: white;
     position: absolute;
-    top: 20%;
-    left: 35%;
+    /* top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); */
     box-shadow: 5px 5px 20px;
     padding: 15px;
     display: flex;
