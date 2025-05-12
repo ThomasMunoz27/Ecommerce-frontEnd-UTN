@@ -11,9 +11,13 @@ export const Header = () => {
    const {setActiveCategory} = useStoreCategory()
   const {productsInCart} = useStoreCart()
   const navigate = useNavigate()
+  const [isVisible, setIsVisible] = useState(true)
 
   const handleClick = () => {
     navigate("/my-account")
+  }
+  const handleCloseResponsive = () => {
+    setIsVisible(false)
   }
 
   const handleCategoryClick = async (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
@@ -48,6 +52,7 @@ export const Header = () => {
       <a onClick={() => navigate("/")}>Inicio</a>
 
       <a >Productos</a>
+      <a onClick={() => setIsVisible(true)} className={style.hamburguerIcon}><img src='./icons/hamburguerMenu.svg'/></a>
     </nav>
     <div className={style.searchBarIconsContainer}>
       
@@ -75,6 +80,19 @@ export const Header = () => {
     </div>
     {/* <DropdownHeader></DropdownHeader> */}
     </div>
+    {isVisible && ( <div className={style.responsiveModal}>
+       <nav>
+        <a  onClick={handleCategoryClick}>Niños</a>
+        <a  onClick={handleCategoryClick}>Deportes</a>
+        <a  onClick={handleCategoryClick}>Calzado</a>
+        <a  onClick={handleCategoryClick}>Indumentaria</a>
+        <a  onClick={handleCategoryClick}>Hombre</a>
+        <a  onClick={handleCategoryClick}>Mujer</a>
+        <a  onClick={handleCategoryClick}>Ofertas</a>
+      </nav>
+      <button onClick={handleCloseResponsive}>X</button>
+    </div>)}
+   
     </>
   );
 };
