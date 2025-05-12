@@ -5,23 +5,26 @@ import { useStoreCart } from "../../../store/useStoreCart"
 
 
 interface IProductInCart {
-    productId: number,
+    productId: number
+    sizeId: number,
     
   }
 
 
-export const CardProductInCart: FC<IProductInCart> = ({productId}) => {
-    const {productsInCart,updateProductQuantity} = useStoreCart()
-    const product = productsInCart.find(p => p.id === productId)
+export const CardProductInCart: FC<IProductInCart> = ({productId ,sizeId}) => {
+    const {productsInCart,updateProductQuantity, removeProductFromCart} = useStoreCart()
+    
+    const product = productsInCart.find(p => p.size.id === sizeId && p.id === productId)
 
     if(!product) return null
     
     const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-       const newQuantity = parseInt(e.target.value)
-       console.log(product.quantity)
-       updateProductQuantity(product.id, newQuantity)
-       console.log(product.quantity)
+      const newQuantity = parseInt(e.target.value)
+      updateProductQuantity(product.id, product.size.id, newQuantity)
+    }
 
+    const handleRemoveItem = () => {
+      removeProductFromCart(product.id, product.size.id)
     }
 
   return (
@@ -31,10 +34,15 @@ export const CardProductInCart: FC<IProductInCart> = ({productId}) => {
 
         </div>
         <div className={style.notImgContainer}>
-            <div className={style.cardText}>
-            <p className={style.productName}>{`${product.name} ${product.sex}`}</p>
+            <div className={style.cardHeader}>
+              <div className={style.cardText}>
+                <p className={style.productName}>{`${product.name} ${product.sex}`}</p>
 
-            <p className={style.sizeText}>Tamaño: </p>
+                <p className={style.sizeText}>Tamaño: {product.size.size}</p>
+              </div>
+              <div>
+                <img src="src\assets\cros_x.svg" alt="quitar" className={style.removeItemImg} onClick={handleRemoveItem}/>
+              </div>
             </div>
 
             <select name="cantidad" id="cantidad" className={style.cantProduct} value={product.quantity} onChange={handleChange}>

@@ -20,6 +20,7 @@
 
 
 .notImgContainer{
+    border: solid 1px black;
     padding: 0px 8px;
     display: flex;
     flex-direction: column;
@@ -27,12 +28,25 @@
     flex: 1;
 }
 
+.cardHeader{
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.removeItemImg{
+    cursor: pointer;
+    margin-top: 5px;
+}
+
 .cardText{
-    padding: 5px 0px;
+
+    padding: 2px 0px;
     font-weight: bold;
     max-width: 200px;
 }
 .productName{
+
     color: black;
     margin-top: 16px;
 
