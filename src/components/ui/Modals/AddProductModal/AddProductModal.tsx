@@ -11,33 +11,59 @@ export const AddProductModal = () => {
     const {activeProduct} = useStoreProduct() // Llamo al producto activo para mostrar sus datos
     const {closeModalAddProduct} = useStoreModal()
     const {addProductToCart} = useStoreCart()
-    const [selectedSizeId, setSelectedSizeId] = useState<number | null>(null)
-    const [selectedSize, setSelectedSize] = useState(true)
+    const [selectedSizeId, setSelectedSizeId] = useState<number | null>(null) // Estado para seleccionar el id del talle
+    const [selectedColorId, setSelectedColorId] = useState<number | null>(null)
+    const [selectedColor, setSelectedColor] = useState(true)
+    const [selectedSize, setSelectedSize] = useState(true) // Estado para ver si hay talle seleccionado
 
-    // Mandar el producto al carrito
-    const handleAddProductToCart = () => {
-        if(selectedSizeId){
-            const selectedSize = activeProduct?.sizes.find(size => size.id === selectedSizeId)
-            if (!selectedSize || !activeProduct) {
-                setSelectedSize(false)
-                return
-            }
-            const productWithSize: ICartProduct = {
-                ...activeProduct!,
-                quantity: 1,
-                size: selectedSize
-            }
-            addProductToCart(productWithSize)
-            closeModalAddProduct()
-        }else{
-            setSelectedSize(false)
+    // Funcion para ver los colores 
+    const getColorStyle = (name: String) => {
+        switch (name.toLowerCase()) {
+            case "rojo":
+                return { backgroundColor: "red" }
+            case "azul":
+                return { backgroundColor: "blue" }
+            case "verde":
+                return { backgroundColor: "green" }
+            case "negro":
+                return { backgroundColor: "black" }
+            case "blanco":
+                return { backgroundColor: "white", border: "1px solid #ccc" } 
         }
     }
+        
+    // Mandar el producto al carrito
+    const handleAddProductToCart = () => {
+        const sizeSelected = activeProduct?.sizes.find(size => size.id === selectedSizeId)
+        const colorSelected = activeProduct?.colors.find(color => color.id === selectedColorId)
 
-    // Cambiar el estilo
+        if (!sizeSelected) setSelectedSize(false)
+        if (!colorSelected) setSelectedColor(false)
+
+        if (!activeProduct || !sizeSelected || !colorSelected) return
+
+        const productWithSizeAndColor: ICartProduct = {
+            ...activeProduct,
+            quantity: 1,
+            size: sizeSelected,
+            color: colorSelected
+        }
+
+        addProductToCart(productWithSizeAndColor)
+        closeModalAddProduct()
+    }
+
+
+    // Cambiar el estilo talle
     const handleClickSize = async (sizeId : number) => {
         await setSelectedSizeId(sizeId)
         await setSelectedSize(true)
+    }
+
+    //Cambiar estilo color
+    const handleClickColor = async (colorId : number) => {
+        await setSelectedColorId(colorId)
+        await setSelectedColor(true)
     }
 
     return (
@@ -60,8 +86,30 @@ export const AddProductModal = () => {
                     </div>
                     ))}
             </div>
-            <div className={styles.sizeNotSelected}>
+
+            <div className={styles.objectNotSelected}>
                 {selectedSize === false ? <p>Debe seleccionar un talle</p> : null}
+            </div>
+
+            <div className={styles.containerColors}>
+                {activeProduct?.colors && activeProduct!.colors.length > 0 ? (
+                    activeProduct?.colors.map(color => (
+                        <div key={color.id}
+                        className={selectedColorId === color.id ? styles.colorSelected : styles.colors}
+                        style={getColorStyle(color.name)}
+                        onClick={() => handleClickColor(color.id)}>
+                            
+                        </div>
+                    ))
+                ) : (
+                    <div>
+                        <p>No hay colores disponibles</p>
+                    </div>
+                )}
+            </div>
+
+            <div className={styles.objectNotSelected}>
+                {!selectedColor ? <p>Debe seleccionar un color</p> : null}
             </div>
             <div className={styles.containerButtons}>
                 <button onClick={closeModalAddProduct}>Cancelar</button>

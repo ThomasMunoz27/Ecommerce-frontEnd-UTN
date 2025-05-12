@@ -67,8 +67,29 @@
     cursor: pointer;
     border: 1px solid;
 }
-.sizeNotSelected{
+.objectNotSelected{
     color: red;
+}
+.containerColors{
+    display: flex;
+    width: 100%;
+    padding: 10px;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+}
+.colors{
+    border-radius: 100%;
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+}
+.colorSelected{
+    border-radius: 100%;
+    height: 30px;
+    width: 30px;
+    border: 3px solid ;
+    cursor: pointer;
 }
 .containerButtons{
     display: flex;
