@@ -11,7 +11,7 @@ export const Header = () => {
    const {setActiveCategory} = useStoreCategory()
   const {productsInCart} = useStoreCart()
   const navigate = useNavigate()
-  const [isVisible, setIsVisible] = useState(true)
+  const [isVisible, setIsVisible] = useState(false)
 
   const handleClick = () => {
     navigate("/my-account")
@@ -51,7 +51,7 @@ export const Header = () => {
     <nav>
       <a onClick={() => navigate("/")}>Inicio</a>
 
-      <a >Productos</a>
+      <a onClick={() => navigate("/products-NUEVA-RUTA-POR-HACER")}>Productos</a>
       <a onClick={() => setIsVisible(true)} className={style.hamburguerIcon}><img src='./icons/hamburguerMenu.svg'/></a>
     </nav>
     <div className={style.searchBarIconsContainer}>

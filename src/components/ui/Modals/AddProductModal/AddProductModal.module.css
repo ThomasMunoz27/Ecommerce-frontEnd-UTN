@@ -3,8 +3,9 @@
     height: auto;
     width: 30vw;
     position: absolute;
-    top: 10%;
-    left: 35%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     box-shadow: 5px 5px 20px;
     padding: 15px;
     display: flex;
@@ -20,7 +21,6 @@
     justify-content: space-around;
 }
 .imageProduct{
-    padding: 10px;
     height: 20vh;
     width: 40%;
     border: gray 2px solid;
