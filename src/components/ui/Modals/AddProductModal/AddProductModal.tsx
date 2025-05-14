@@ -5,6 +5,7 @@ import { useStoreModal } from '../../../../store/useStoreModal'
 import useStoreProduct from '../../../../store/useStoreProduct'
 import styles from './AddProductModal.module.css'
 import { ICartProduct } from '../../../../types/ICartProduct'
+import { getColorStyle } from '../../../../utils/getColorStyle'
 
 export const AddProductModal = () => {
 
@@ -17,20 +18,7 @@ export const AddProductModal = () => {
     const [selectedSize, setSelectedSize] = useState(true) // Estado para ver si hay talle seleccionado
 
     // Funcion para ver los colores 
-    const getColorStyle = (name: String) => {
-        switch (name.toLowerCase()) {
-            case "rojo":
-                return { backgroundColor: "red" }
-            case "azul":
-                return { backgroundColor: "blue" }
-            case "verde":
-                return { backgroundColor: "green" }
-            case "negro":
-                return { backgroundColor: "black" }
-            case "blanco":
-                return { backgroundColor: "white", border: "1px solid #ccc" } 
-        }
-    }
+    
         
     // Mandar el producto al carrito
     const handleAddProductToCart = () => {

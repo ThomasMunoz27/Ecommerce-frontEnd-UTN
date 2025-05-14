@@ -1,30 +1,31 @@
 import { FC} from "react"
 import style from './CardProductInCart.module.css'
 import { useStoreCart } from "../../../store/useStoreCart"
+import { ICartProduct } from "../../../types/ICartProduct"
+import { getColorStyle } from "../../../utils/getColorStyle"
 
 
 
 interface IProductInCart {
-    productId: number
-    sizeId: number,
+    productInCart: ICartProduct
     
   }
 
 
-export const CardProductInCart: FC<IProductInCart> = ({productId ,sizeId}) => {
+export const CardProductInCart: FC<IProductInCart> = ({productInCart}) => {
     const {productsInCart,updateProductQuantity, removeProductFromCart} = useStoreCart()
     
-    const product = productsInCart.find(p => p.size.id === sizeId && p.id === productId)
+    const product = productsInCart.find(p => p.size.id === productInCart.size.id && p.id === productInCart.id && p.color.id === productInCart.color.id)
 
     if(!product) return null
     
     const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
       const newQuantity = parseInt(e.target.value)
-      updateProductQuantity(product.id, product.size.id, newQuantity)
+      updateProductQuantity(product, newQuantity)
     }
 
     const handleRemoveItem = () => {
-      removeProductFromCart(product.id, product.size.id)
+      removeProductFromCart(product)
     }
 
   return (
@@ -36,8 +37,8 @@ export const CardProductInCart: FC<IProductInCart> = ({productId ,sizeId}) => {
         <div className={style.notImgContainer}>
             <div className={style.cardHeader}>
               <div className={style.cardText}>
-                <p className={style.productName}>{`${product.name} ${product.sex}`}</p>
-
+                <p className={style.productName}>{`${product.name} ${product.sex} `} </p>
+                <p className={style.colorText}>Color: <span className={style.colorDot} style={getColorStyle(product.color.name)}></span></p>
                 <p className={style.sizeText}>Tamaño: {product.size.size}</p>
               </div>
               <div>

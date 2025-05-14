@@ -7,9 +7,9 @@ interface IStoreCart {
 
     addProductToCart: (product: ICartProduct) => void
 
-    updateProductQuantity: (productId: number, newQuantity: number, productSizeId: number) => void
+    updateProductQuantity: (updatedProduct: ICartProduct, newQuantity: number) => void
 
-    removeProductFromCart: (productId: number, sizeId: number) => void
+    removeProductFromCart: (productToRemove: ICartProduct) => void
 
     cleanCart: () => void
 }
@@ -19,7 +19,7 @@ export const useStoreCart = create<IStoreCart>((set) => ({
     productsInCart: [] as ICartProduct[],
 
     addProductToCart: (product) => set((state) => {
-      const existingProduct = state.productsInCart.find(p => p.id === product.id && p.size.id === product.size.id);
+      const existingProduct = state.productsInCart.find(p => p.id === product.id && p.size.id === product.size.id && p.color.id === product.color.id);
         
         if (existingProduct) {
         return {
@@ -35,15 +35,15 @@ export const useStoreCart = create<IStoreCart>((set) => ({
       }),
 
 
-      updateProductQuantity: (productId, productSizeId, newQuantity) => set((state) => ({
+      updateProductQuantity: (updatedProduct, newQuantity) => set((state) => ({
         productsInCart: state.productsInCart.map((product) => 
-            product.id === productId && product.size.id === productSizeId 
+            product.id === updatedProduct.id && product.size.id === updatedProduct.size.id && product.color.id === updatedProduct.color.id
                 ? { ...product, quantity: newQuantity } 
                 : product
         ),
     })),
 
-    removeProductFromCart: (productId, sizeId) => set((state) => ({productsInCart: state.productsInCart.filter((product) => !(product.size.id == sizeId && product.id == productId))})),
+    removeProductFromCart: (productToRemove) => set((state) => ({productsInCart: state.productsInCart.filter((product) => !(product.size.id == productToRemove.size.id && product.id == productToRemove.id && product.color.id == productToRemove.color.id))})),
 
     cleanCart: () => set(() => ({productsInCart: []}))
 
