@@ -84,7 +84,7 @@ export const AddProductModal = () => {
                     activeProduct?.colors.map(color => (
                         <div key={color.id}
                         className={selectedColorId === color.id ? styles.colorSelected : styles.colors}
-                        style={getColorStyle(color.name)}
+                        style={getColorStyle(color.value)}
                         onClick={() => handleClickColor(color.id)}>
                             
                         </div>
