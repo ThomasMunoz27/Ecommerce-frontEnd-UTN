@@ -73,6 +73,7 @@
     min-width: 30vw;
     background-color: white;
     position: absolute;
+
     left: 50%;
     top: 50%;
     transform : translate(-50%, -50%);
@@ -84,18 +85,20 @@
     align-items: center;
 }
 .containerLogoRegister{
-    padding: 10px;
-    padding: 1px solid;
+    min-height: 30px;
+    min-width: 30px;
+}
+
+.imgLogo{
+    width: 60px;
+    height: 60px;
 }
 .containerTitleRegister{
     padding: 5px;
     text-align: center;
     
 }
-.containerLogoRegister img{
-    height: 10vh;
-    width: 5vw;
-}
+
 .containerFormRegister{
     padding: 5px;
     height: 100%;

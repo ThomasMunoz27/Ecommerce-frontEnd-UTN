@@ -35,7 +35,7 @@ export const AccountModal = () => {
         return (
             <div className={styles.containerPrincipalRegister}>
                 <div className={styles.containerLogoRegister}>
-                    <img src="./img/Logo.png" alt="" />
+                    <img src="./img/Logo.png" alt="" className={styles.imgLogo} />
                 </div>
                 <div className={styles.containerTitleRegister}>
                     <h1>REGISTRO DE CUENTA</h1>
