@@ -1,0 +1,78 @@
+.containerPrincipal{
+    height: auto;
+    background-color: white;
+    padding: 15px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 5px 5px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.containerTitle{
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    gap: 20px;
+}
+.containerSelectors{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    gap: 5px;
+}
+.containerSelectors select{
+    width: 100%;
+    padding: 10px;
+}
+.containerSelectors input{
+    width: 100%;
+    padding: 10px;
+}
+.imageAndDescription{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    gap: 10px;
+}
+.description{
+    min-height: 10vh;
+    width: 100%;
+    padding: 10px;
+
+}
+.file{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    width: 100%;
+}
+.containerButtons{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 20px;
+}
+.containerButtons button {
+    padding: 10px;
+    min-width: 10vw;
+    color: white;
+    background-color: black;
+    font-size: 15px;
+    cursor: pointer;
+}
+.containerButtons button:hover{
+    transform: scale(1.1);
+    transition: 0.3s ease;
+} 

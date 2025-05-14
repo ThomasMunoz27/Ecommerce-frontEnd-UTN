@@ -12,6 +12,7 @@ import { getAllProducts } from "../../../cruds/crudProduct"
 import { Header } from "../../ui/Headers/Header/Header"
 import { AddProductModal } from "../../ui/Modals/AddProductModal/AddProductModal"
 import { AccountModal } from "../../ui/Modals/AccountRegisterModal/AccountModal"
+import { AdminAddProductModal } from "../../ui/Modals/AdminAddProductModal/AdminAddProductModal"
 
 
 export const MainScreen = () => {
@@ -42,7 +43,7 @@ export const MainScreen = () => {
         <ListProducts productsArray={products} title={"Todos los productos"}/>
         {modalAddProduct && <div className={style.modalBackdrop}><AddProductModal/></div>}
         {/* {modalAccount && <div className={style.modalBackdrop}><AccountModal/></div>} */}
-    
+        <div className={style.modalBackdrop}><AdminAddProductModal/></div>
         <Footer/>
         
       </div>
