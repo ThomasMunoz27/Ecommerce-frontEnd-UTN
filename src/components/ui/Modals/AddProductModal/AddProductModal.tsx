@@ -56,7 +56,9 @@ export const AddProductModal = () => {
 
     return (
         <div className={styles.containerPrincipal}>
-            <h1>Agregar Producto</h1>
+            <div className={styles.containerTitle}>
+                <h1>Agregar Producto</h1>
+            </div>
             <div className={styles.infoProduct}>
                 <div className={styles.imageProduct}>
                     <img src={activeProduct?.image.url} alt={activeProduct?.name} />
@@ -66,7 +68,7 @@ export const AddProductModal = () => {
                     <p>${activeProduct?.prices.salePrice}</p>
                 </div>
             </div>
-                <h1>Talles</h1>
+                <h3>Talles</h3>
             <div className={styles.constainerSizes}>
                 {activeProduct?.sizes.map(size => (
                     <div key={size.id} className={selectedSizeId === size.id ? styles.sizeCardSelected : styles.sizeCard} onClick={() => handleClickSize(size.id)}>
@@ -80,13 +82,14 @@ export const AddProductModal = () => {
             </div>
 
             <div className={styles.containerColors}>
+                <h3>Colores</h3>
+                <div className={styles.colors}> 
                 {activeProduct?.colors && activeProduct!.colors.length > 0 ? (
                     activeProduct?.colors.map(color => (
                         <div key={color.id}
-                        className={selectedColorId === color.id ? styles.colorSelected : styles.colors}
-                        style={getColorStyle(color.value)}
-                        onClick={() => handleClickColor(color.id)}>
-                            
+                            className={selectedColorId === color.id ? styles.colorSelected : styles.color}
+                            style={getColorStyle(color.value)}
+                            onClick={() => handleClickColor(color.id)}>
                         </div>
                     ))
                 ) : (
@@ -94,6 +97,7 @@ export const AddProductModal = () => {
                         <p>No hay colores disponibles</p>
                     </div>
                 )}
+                </div>
             </div>
 
             <div className={styles.objectNotSelected}>
