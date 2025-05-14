@@ -1,5 +1,7 @@
 .containerPrincipal{
     background-color: white;
+    min-width: 30vw;
+    min-height: 50vh;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -101,6 +103,17 @@
     border: 3px solid ;
     cursor: pointer;
 }
+.containerSubTitle{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+.containerSubTitle p{
+    position: relative;
+    font-size: 12px;
+}
 .containerButtons{
     display: flex;
     justify-content: space-around;
@@ -118,11 +131,4 @@
 .containerButtons button:hover{
     transform: scale(1.1);
     transition: 0.3s ease;
-}
-
-@media (max-width : 600px) {
-    .containerPrincipal{
-        min-width: 70%;
-        min-height: auto;
-    }
 }

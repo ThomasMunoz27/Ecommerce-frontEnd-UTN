@@ -16,10 +16,8 @@ export const AddProductModal = () => {
     const [selectedColorId, setSelectedColorId] = useState<number | null>(null)
     const [selectedColor, setSelectedColor] = useState(true)
     const [selectedSize, setSelectedSize] = useState(true) // Estado para ver si hay talle seleccionado
-
-    // Funcion para ver los colores 
     
-        
+
     // Mandar el producto al carrito
     const handleAddProductToCart = () => {
         const sizeSelected = activeProduct?.sizes.find(size => size.id === selectedSizeId)
@@ -54,6 +52,11 @@ export const AddProductModal = () => {
         await setSelectedColor(true)
     }
 
+    // Navegar hacia pagina de producto con talle y colores
+    const handleClick = () => {
+
+    }
+
     return (
         <div className={styles.containerPrincipal}>
             <div className={styles.containerTitle}>
@@ -68,13 +71,24 @@ export const AddProductModal = () => {
                     <p>${activeProduct?.prices.salePrice}</p>
                 </div>
             </div>
-                <h3>Talles</h3>
+
+            <div className={styles.containerSubTitle}>
+                <h3>Talles</h3> {activeProduct!.sizes.length >= 5 ? <p onClick={handleClick}>( Ver más )</p> : null}
+            </div>
+
             <div className={styles.constainerSizes}>
-                {activeProduct?.sizes.map(size => (
-                    <div key={size.id} className={selectedSizeId === size.id ? styles.sizeCardSelected : styles.sizeCard} onClick={() => handleClickSize(size.id)}>
-                        {size.size}
+                {activeProduct?.sizes && activeProduct!.sizes.length > 0 ? (
+                    activeProduct?.sizes.slice(0,5).map(size => (
+                        <div key={size.id} className={selectedSizeId === size.id ? styles.sizeCardSelected : styles.sizeCard} onClick={() => handleClickSize(size.id)}>
+                            {size.size}
+                        </div>
+                    ))
+                ) : (
+                    <div>
+                        <p>No hay talles disponibles</p> 
                     </div>
-                    ))}
+                )
+                    }
             </div>
 
             <div className={styles.objectNotSelected}>
@@ -82,10 +96,15 @@ export const AddProductModal = () => {
             </div>
 
             <div className={styles.containerColors}>
-                <h3>Colores</h3>
+
+                <div className={styles.containerSubTitle}>
+                    <h3>Colores</h3>{activeProduct!.colors.length >= 5 ? <p onClick={handleClick}>(Ver mas)</p> : null}
+                </div>
+
                 <div className={styles.colors}> 
                 {activeProduct?.colors && activeProduct!.colors.length > 0 ? (
-                    activeProduct?.colors.map(color => (
+                    activeProduct?.colors.slice(0,5).map(color => (
+
                         <div key={color.id}
                             className={selectedColorId === color.id ? styles.colorSelected : styles.color}
                             style={getColorStyle(color.value)}
