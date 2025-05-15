@@ -11,7 +11,7 @@ import { IProduct } from "../../../types/IProduct"
 import { getAllProducts } from "../../../cruds/crudProduct"
 import { Header } from "../../ui/Headers/Header/Header"
 import { AddProductModal } from "../../ui/Modals/AddProductModal/AddProductModal"
-import { AccountModal } from "../../ui/Modals/AccountRegisterModal/AccountModal"
+
 
 
 export const MainScreen = () => {
@@ -19,8 +19,9 @@ export const MainScreen = () => {
   const {modalAddProduct, modalAccount} = useStoreModal()
 
   const [products, setProducts] = useState<IProduct[]>([])
-
+  const {closeModalAddProduct} = useStoreModal()
     useEffect(() => {
+        closeModalAddProduct()
         const fetchProducts = async () => {
             const arrayProducts = await getAllProducts()
             setProducts(arrayProducts)
