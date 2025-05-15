@@ -55,7 +55,7 @@
 
 .subHeader{
     background-color: #D9D9D9;
-    padding: 3px;
+   
     height: 30%;
 }
 
@@ -76,7 +76,7 @@
     width: 100%;
     text-align: center;
     cursor: pointer;
-    padding: 6px;
+    padding: 8px;
 }
 
 
