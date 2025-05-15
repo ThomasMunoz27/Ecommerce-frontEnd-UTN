@@ -21,6 +21,7 @@ import { ISize } from "./ISize";
 export interface IProduct {
     id: number;
     name: string;
+    description: String
     productType: ProductType;
     sex: string;
     prices: IPrice
