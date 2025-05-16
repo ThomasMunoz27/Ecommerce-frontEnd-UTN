@@ -38,7 +38,7 @@ export const CardProductInCart: FC<IProductInCart> = ({productInCart}) => {
             <div className={style.cardHeader}>
               <div className={style.cardText}>
                 <p className={style.productName}>{`${product.name} ${product.sex} `} </p>
-                <p className={style.colorText}>Color: <span className={style.colorDot} style={getColorStyle(product.color.name)}></span></p>
+                <p className={style.colorText}>Color: <span className={style.colorDot} style={getColorStyle(product.color.value)}></span></p>
                 <p className={style.sizeText}>Tamaño: {product.size.size}</p>
               </div>
               <div>
