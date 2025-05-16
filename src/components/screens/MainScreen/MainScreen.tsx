@@ -11,16 +11,18 @@ import { IProduct } from "../../../types/IProduct"
 import { getAllProducts } from "../../../cruds/crudProduct"
 import { Header } from "../../ui/Headers/Header/Header"
 import { AddProductModal } from "../../ui/Modals/AddProductModal/AddProductModal"
-import { AccountModal } from "../../ui/Modals/AccountRegisterModal/AccountModal"
+import { AdminProductModal } from "../../ui/Modals/AdminAddProductModal/AdminProductModal"
+
 
 
 export const MainScreen = () => {
 
-  const {modalAddProduct, modalAccount} = useStoreModal()
+  const {modalAddProduct} = useStoreModal()
 
   const [products, setProducts] = useState<IProduct[]>([])
-
+  const {closeModalAddProduct} = useStoreModal()
     useEffect(() => {
+        closeModalAddProduct()
         const fetchProducts = async () => {
             const arrayProducts = await getAllProducts()
             setProducts(arrayProducts)
@@ -41,8 +43,9 @@ export const MainScreen = () => {
         <HeroCarousel/>
         <ListProducts productsArray={products} title={"Todos los productos"}/>
         {modalAddProduct && <div className={style.modalBackdrop}><AddProductModal/></div>}
-        {/* {modalAccount && <div className={style.modalBackdrop}><AccountModal/></div>} */}
-    
+        
+        
+        
         <Footer/>
         
       </div>
