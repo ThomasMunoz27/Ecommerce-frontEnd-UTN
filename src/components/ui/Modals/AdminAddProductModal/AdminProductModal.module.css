@@ -11,6 +11,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    z-index: 1;
 }
 .containerTitle{
     display: flex;
@@ -83,6 +84,16 @@
     padding: 10px;
     width: 100%;
 }
+.containerImage{
+    border: 1px solid;
+    width: 5vw;
+    height: 9vh;
+}
+.containerImage img {
+    height: 100%;
+    width: 100%;
+}
+
 .containerButtons{
     width: 100%;
     display: flex;
@@ -102,3 +113,14 @@
     transform: scale(1.1);
     transition: 0.3s ease;
 } 
+.modalBackdrop{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}

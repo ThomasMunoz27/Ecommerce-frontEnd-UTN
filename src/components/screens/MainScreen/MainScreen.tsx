@@ -19,7 +19,7 @@ import { SubModalAdmin } from "../../ui/Modals/SubModalAdmin/SubModalAdmin"
 
 export const MainScreen = () => {
 
-  const {modalAddProduct, modalAccount} = useStoreModal()
+  const {modalAddProduct, modalSubAdmin} = useStoreModal()
 
   const [products, setProducts] = useState<IProduct[]>([])
 
@@ -44,8 +44,9 @@ export const MainScreen = () => {
         <HeroCarousel/>
         <ListProducts productsArray={products} title={"Todos los productos"}/>
         {modalAddProduct && <div className={style.modalBackdrop}><AddProductModal/></div>}
-        {/* {modalAccount && <div className={style.modalBackdrop}><AccountModal/></div>} */}
-        <div className={style.modalBackdrop}><SubModalAdmin/></div>
+        
+        <div className={style.modalBackdrop}><AdminProductModal/></div>
+        
         <Footer/>
         
       </div>

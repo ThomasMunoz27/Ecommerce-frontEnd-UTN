@@ -3,10 +3,11 @@ import useStoreProduct from '../../../../store/useStoreProduct'
 import styles from './AdminProductModal.module.css'
 import { IProduct } from '../../../../types/IProduct'
 import { getAllProducts } from '../../../../cruds/crudProduct';
-import { useStoreCategory } from '../../../../store/useStoreCategory';
 import { getAllCategories } from '../../../../cruds/crudCategory';
 import { ICategory } from '../../../../types/ICategory';
 import { ProductType } from '../../../../types/enums/ProductType';
+import { useStoreModal } from '../../../../store/useStoreModal';
+import { SubModalAdmin } from '../SubModalAdmin/SubModalAdmin';
 
 
 
@@ -15,7 +16,7 @@ import { ProductType } from '../../../../types/enums/ProductType';
 export const AdminProductModal = () => {
 
     const {activeProduct, setActiveProduct, setProducts} = useStoreProduct()
-    
+    const {openModalSubAdmin, modalSubAdmin} = useStoreModal()
     
     const [product, setProduct] = useState<IProduct | null>(null)
     const [categories, setCategories] = useState<ICategory[] | null>(null)
@@ -44,14 +45,15 @@ export const AdminProductModal = () => {
 
     }
 
-
     return (
+
         <div className={styles.containerPrincipal}>
+            {modalSubAdmin.type && <div className={styles.modalBackdrop}><SubModalAdmin/></div>}
             <div className={styles.containerTitle}>
                 <h1>{activeProduct?.name}</h1>
                 <h1>Id: {activeProduct?.id}</h1>
             </div>
-            <form action="" >
+            <form action="" onSubmit={handleSubmit}>
                 <div className={styles.containerData}>
 
                     <div className={styles.containerInputs}>
@@ -83,13 +85,16 @@ export const AdminProductModal = () => {
                     
                 </div>
                     <div className={styles.containerSizesAndColors}>
-                        <button>Manejo de Talles</button>
-                        <button>Manejo de Colores</button>
+                        <button type='button' onClick={() => openModalSubAdmin(1)}>Manejo de Talles</button>
+                        <button type='button' onClick={() => openModalSubAdmin(2)}>Manejo de Colores</button>
                     </div>
                 <div className={styles.imageAndDescription}>
                     <textarea className={styles.description} name="" id="" placeholder='Descripcion'></textarea>
                     <div className={styles.file}>
                         <label htmlFor="">Imagen</label>
+                        <div className={styles.containerImage}>
+                            <img src={activeProduct?.image.url} alt="" />
+                        </div>
                         <input type="file" />
                     </div>
                 </div>
