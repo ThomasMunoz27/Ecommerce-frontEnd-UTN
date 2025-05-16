@@ -19,11 +19,12 @@ export const AddProductModal = () => {
 
     const [selectedSizeId, setSelectedSizeId] = useState<number | null>(null) // Estado para seleccionar el id del talle
     
+    const [selectedSize, setSelectedSize] = useState(true) // Estado para ver si hay talle seleccionado
+    
     const [selectedColorId, setSelectedColorId] = useState<number | null>(null)
 
     const [selectedColor, setSelectedColor] = useState(true)
     
-    const [selectedSize, setSelectedSize] = useState(true) // Estado para ver si hay talle seleccionado
     
     const navigate = useNavigate()
 

@@ -127,6 +127,7 @@
     color: white;
     min-width: 8vw;
     cursor: pointer;
+    border:  none;
 }
 .containerButtons button:hover{
     transform: scale(1.1);
