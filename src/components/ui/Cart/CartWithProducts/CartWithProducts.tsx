@@ -61,7 +61,7 @@ export const CartWithProducts = () => {
                             </div>
                         </div>
                     </div>
-                    <Link to="/" className={styles.goToPayButton}>Ir a pagar <img src="src\assets\arrow_right.svg" alt="flecha" /></Link>
+                    <Link to="/checkout" className={styles.goToPayButton} >Ir a pagar <img src="src\assets\arrow_right.svg" alt="flecha" /></Link>
                 </div>
                 
                 <div className={styles.payMethods}>

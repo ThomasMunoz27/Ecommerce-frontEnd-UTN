@@ -23,7 +23,6 @@
     padding: 0px 8px;
     display: flex;
     flex-direction: column;
-    gap: 2px;
     flex: 1;
 }
 
@@ -40,7 +39,7 @@
 
 .cardText{
 
-    padding: 2px 0px;
+    
     font-weight: bold;
     max-width: 200px;
 
