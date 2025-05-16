@@ -57,8 +57,15 @@ export const DetailScreen = () => {
       // Click handlers
 
         const handleClickSize = async (sizeId : number) => {
-        await setSelectedSizeId(sizeId)
-        await setSelectedSize(true)
+               if(selectedSizeId == sizeId){
+                setSelectedSize(false)
+                setSelectedSizeId(null)
+        }else{
+            
+            await setSelectedSizeId(sizeId)
+            await setSelectedSize(true)
+            
+        }
     }
 
          const handleClickColor = async (colorId : number) => {

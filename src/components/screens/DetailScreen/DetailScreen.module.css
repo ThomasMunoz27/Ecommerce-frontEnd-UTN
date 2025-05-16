@@ -42,7 +42,7 @@
 
 .buyButton{ 
     align-self: self-end;
-    padding: 5px 8px;
+    padding: 10px 8px;
     width: 50%;
     background-color: black;
     color: white;
@@ -50,6 +50,9 @@
     cursor: pointer;
     border: none;
     box-shadow: 2px 2px 0px  rgb(255, 255, 255), 4px 4px 0px black;
+    position: absolute;
+    bottom: 30px;
+    width: 200px;
     
 }
 
