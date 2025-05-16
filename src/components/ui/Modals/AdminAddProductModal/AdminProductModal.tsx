@@ -27,7 +27,7 @@ export const AdminProductModal = () => {
         const arrayProducts = await getAllProducts() 
         const arrayCategories = await getAllCategories()
         setProducts(arrayProducts)
-        setActiveProduct(arrayProducts[0])
+        setActiveProduct(arrayProducts[1])
         setProduct(activeProduct)
         setCategories(arrayCategories)
             
