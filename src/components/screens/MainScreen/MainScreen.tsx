@@ -12,18 +12,17 @@ import { getAllProducts } from "../../../cruds/crudProduct"
 import { Header } from "../../ui/Headers/Header/Header"
 import { AddProductModal } from "../../ui/Modals/AddProductModal/AddProductModal"
 import { AdminProductModal } from "../../ui/Modals/AdminAddProductModal/AdminProductModal"
-import { SubModalAdmin } from "../../ui/Modals/SubModalAdmin/SubModalAdmin"
-
 
 
 
 export const MainScreen = () => {
 
-  const {modalAddProduct, modalSubAdmin} = useStoreModal()
+  const {modalAddProduct} = useStoreModal()
 
   const [products, setProducts] = useState<IProduct[]>([])
-
+  const {closeModalAddProduct} = useStoreModal()
     useEffect(() => {
+        closeModalAddProduct()
         const fetchProducts = async () => {
             const arrayProducts = await getAllProducts()
             setProducts(arrayProducts)
@@ -45,7 +44,7 @@ export const MainScreen = () => {
         <ListProducts productsArray={products} title={"Todos los productos"}/>
         {modalAddProduct && <div className={style.modalBackdrop}><AddProductModal/></div>}
         
-        <div className={style.modalBackdrop}><AdminProductModal/></div>
+        
         
         <Footer/>
         

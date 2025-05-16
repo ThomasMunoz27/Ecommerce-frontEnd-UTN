@@ -25,7 +25,7 @@ export const useStoreModal = create<IStoreModal>((set) => ({
     modalEditLogin : {type : false, option : null},
     modalAddProduct : false,
     modalAdminProduct: false,
-    modalSubAdmin : {type : true, option: null},
+    modalSubAdmin : {type : false, option: null},
 
     openModalAccount : (selection) =>set({modalAccount : {type: true, valueLogin : selection}}),
     closeModalAccount : () => set({modalAccount : {type : false, valueLogin: false}}),

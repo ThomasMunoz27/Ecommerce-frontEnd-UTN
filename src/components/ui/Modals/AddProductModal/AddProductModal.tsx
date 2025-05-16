@@ -1,22 +1,31 @@
 
-import { useState } from 'react'
+import {  useState } from 'react'
 import { useStoreCart } from '../../../../store/useStoreCart'
 import { useStoreModal } from '../../../../store/useStoreModal'
 import useStoreProduct from '../../../../store/useStoreProduct'
 import styles from './AddProductModal.module.css'
 import { ICartProduct } from '../../../../types/ICartProduct'
 import { getColorStyle } from '../../../../utils/getColorStyle'
+import {  useNavigate } from 'react-router'
+
 
 export const AddProductModal = () => {
 
-    const {activeProduct} = useStoreProduct() // Llamo al producto activo para mostrar sus datos
+    const {activeProduct, setActiveProduct} = useStoreProduct() // Llamo al producto activo para mostrar sus datos
+
     const {closeModalAddProduct} = useStoreModal()
+
     const {addProductToCart} = useStoreCart()
+
     const [selectedSizeId, setSelectedSizeId] = useState<number | null>(null) // Estado para seleccionar el id del talle
+    
     const [selectedColorId, setSelectedColorId] = useState<number | null>(null)
+
     const [selectedColor, setSelectedColor] = useState(true)
+    
     const [selectedSize, setSelectedSize] = useState(true) // Estado para ver si hay talle seleccionado
     
+    const navigate = useNavigate()
 
     // Mandar el producto al carrito
     const handleAddProductToCart = () => {
@@ -54,7 +63,9 @@ export const AddProductModal = () => {
 
     // Navegar hacia pagina de producto con talle y colores
     const handleClick = () => {
-
+        if(activeProduct)
+        setActiveProduct(activeProduct)
+        navigate("/product-detail")
     }
 
     return (
@@ -73,7 +84,7 @@ export const AddProductModal = () => {
             </div>
 
             <div className={styles.containerSubTitle}>
-                <h3>Talles</h3> {activeProduct!.sizes.length >= 5 ? <p onClick={handleClick}>( Ver más )</p> : null}
+                <h3>Talles</h3>   <p onClick={handleClick}>( Ver más )</p> 
             </div>
 
             <div className={styles.constainerSizes}>

@@ -20,7 +20,9 @@ export const SubModalAdmin = () => {
         obtainCategories()
     },[])
 
-    if(modalSubAdmin.option === 1){
+
+
+    if (modalSubAdmin.option === 1){
 
         return (
             <div className={styles.containerPrincipal}>
@@ -49,12 +51,10 @@ export const SubModalAdmin = () => {
             </div>
         )
     }else if(modalSubAdmin.option === 2){
-        return (
+        return(
             <div className={styles.containerPrincipal}>
+                Modal de colores
                 <div className={styles.containerButtons}>
-                    <div>
-                        RODRIGO PUTO
-                    </div>
                     <button>Aceptar</button>
                     <button onClick={closeOpenModalSubAdmin}>Cancelar</button>
                 </div>
@@ -62,6 +62,7 @@ export const SubModalAdmin = () => {
         )
     }
 
+    
     
 
 }
