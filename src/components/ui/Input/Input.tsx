@@ -14,7 +14,7 @@ export const Input:FC<Iinput> = ({label, name, value, type, handleChange, error}
 
   return (
     <div className={styles.inputContainer}>
-        <label htmlFor={name}>{label}</label>
+        <label className={styles.label} htmlFor={name}>{label}</label>
         <input className={styles.input} id={name} name={name} type={type} value={value} onChange={handleChange}/>
 
         {error && <span className={styles.error}>{error}</span>}

@@ -5,7 +5,9 @@ import { ICountry } from "../../../types/ICountry"
 import { getAllCountries } from "../../../cruds/crudCountry"
 import { IProvince } from "../../../types/IProvince"
 import { getProvincesByCountryId } from "../../../cruds/crudProvince"
-
+import { ILocality } from "../../../types/ILocality"
+import { getLocalitiesByProvinceId } from "../../../cruds/crudLocality"
+import styles from "./FormCheckout.module.css"
 
 
 export const FormCheckout = () => {
@@ -13,8 +15,11 @@ export const FormCheckout = () => {
     const {user} = useStoreUsers()
     const [countries, setCountries] = useState<ICountry[]>([])
     const [provinces, setProvinces] = useState<IProvince[]>([])
+    const [localities, setLocalities] = useState<ILocality[]>([])
     const [selectedCountry, setSelectedCountry] = useState<ICountry>()
     const [selectedProvince, setSelectedProvince] = useState<IProvince>()
+
+
     const handleSelectCountry = (e: React.ChangeEvent<HTMLSelectElement>) => {
 	const country = countries.find(country => country.name === e.target.value)
 	if (country) {
@@ -37,6 +42,15 @@ export const FormCheckout = () => {
         }
     }
 
+    const handleSelectLocality = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const locality = localities.find(locality => locality.name === e.target.value)
+        if(locality){
+            setFormValues({
+                ...formValues,
+                locality: locality.name
+            })
+        }
+    }
     
     const initalValues = {
         name : user?.name || "",
@@ -71,6 +85,17 @@ export const FormCheckout = () => {
 	firstGetProvincesByCountry()
 }, [selectedCountry])
 
+    useEffect(() => {
+        if(!selectedProvince?.id) return // Evita el request si no hay provincia seleccionada
+
+        const fetchLocalities = async () => {
+            const fetchLocalities = await getLocalitiesByProvinceId(String(selectedProvince.id))
+            setLocalities(fetchLocalities ?? [])
+        }
+
+        fetchLocalities()
+    }, [selectedProvince])
+
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormValues({...formValues, [e.target.name] : e.target.value})
@@ -80,14 +105,14 @@ export const FormCheckout = () => {
 
   return (
     <>
-        <div>
-            <form action="">
-                <div>
+        <div className={styles.checkoutContainer}>
+            <form action="" className={styles.formContainer}>
+                <div className={styles.contactContainer}>
                     <h3>Contacto</h3>
                     <Input type="email" label="Email" value={formValues.email} name="email" handleChange={handleChange} error={formErrors.email}/>
 
                 </div>
-                <div>
+                <div className={styles.directionContainer}>
                     <h3>Direccion</h3>
                     <h4>Direcion de envío</h4>
 
@@ -107,8 +132,10 @@ export const FormCheckout = () => {
                     </select>
 
                     
-
-                    <Input type="text" label="Localidad" value={formValues.locality} name="locality" handleChange={handleChange} error={formErrors.locality}/>
+                    <select name="localidad" id="" value={formValues.locality} onChange={handleSelectLocality} disabled={!selectedProvince}>
+                        <option value="">Selecciona una Localidad</option>
+                        {Array.from(localities).map(locality => <option key={locality.id} value={locality.name}>{locality.name}</option>)}
+                    </select>
 
                     <Input type="text" label="cp" value={formValues.cp} name="cp" handleChange={handleChange} error={formErrors.cp}></Input>
 
@@ -117,6 +144,10 @@ export const FormCheckout = () => {
 
 
             </form>
+
+            <div className={styles.paymentContainer}>
+                <h3>Tu pedido</h3>
+            </div>
         </div>
     </>
   )
