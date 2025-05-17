@@ -26,5 +26,5 @@ input:focus{
 .error{
     padding: 8px;
     color: red;
-    text-align: center;
+    text-align: left;
 }

@@ -1,12 +1,8 @@
-.checkoutContainer{
-    display: flex;
-}
 
 .formContainer {
 	display: flex;
 	flex-direction: column;
 	gap: 2rem;
-	border: 1px solid #ccc;
 	padding: 2rem;
 	border-radius: 8px;
 	width: 50%;
@@ -42,6 +38,12 @@ select {
 	border-radius: 6px;
 	border: 1px solid #ccc;
 	width: 70%;
+}
+
+.errorMessage {
+	padding: 8px;
+    color: red;
+    text-align: left;
 }
 
 input {

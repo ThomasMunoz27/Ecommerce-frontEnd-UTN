@@ -7,6 +7,7 @@ import { IProvince } from "../../../types/IProvince"
 import { getProvincesByCountryId } from "../../../cruds/crudProvince"
 import { ILocality } from "../../../types/ILocality"
 import { getLocalitiesByProvinceId } from "../../../cruds/crudLocality"
+import { formCheckoutSchema } from "../../../yupSchemas/formCheckoutSchema"
 import styles from "./FormCheckout.module.css"
 
 
@@ -60,7 +61,8 @@ export const FormCheckout = () => {
         province: user?.adress.locality.province.name ||"",
         country: user?.adress.locality.province.country.name || "",
         street: user?.adress.street || "",
-        cp: user?.adress.cp || ""
+        cp: user?.adress.cp || "",
+        phoneNumber: ""
     }
     const [formValues, setFormValues] = useState(initalValues)
     const [formErrors, setFormErrors] = useState<Record<string, string>>({})
@@ -102,14 +104,28 @@ export const FormCheckout = () => {
         setFormErrors({...formErrors, [e.target.name] : ""})
     }
 
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+	e.preventDefault()
+	try {
+		await formCheckoutSchema.validate(formValues, { abortEarly: false })
+		console.log("Formulario válido", formValues)
+		// Acá podés enviar los datos al servidor
+	} catch (err: any) {
+		const errors: Record<string, string> = {}
+		err.inner.forEach((validationError: any) => {
+			errors[validationError.path] = validationError.message
+		})
+		setFormErrors(errors)
+	}
+}
 
   return (
     <>
-        <div className={styles.checkoutContainer}>
-            <form action="" className={styles.formContainer}>
+        
+            <form action="" onSubmit={handleSubmit} className={styles.formContainer}>
                 <div className={styles.contactContainer}>
                     <h3>Contacto</h3>
-                    <Input type="email" label="Email" value={formValues.email} name="email" handleChange={handleChange} error={formErrors.email}/>
+                    <Input type="text" label="Email" value={formValues.email} name="email" handleChange={handleChange} error={formErrors.email}/>
 
                 </div>
                 <div className={styles.directionContainer}>
@@ -123,6 +139,7 @@ export const FormCheckout = () => {
 
                         {Array.from(countries).map(country => <option key={country.id} value={country.name}>{country.name}</option>)}
                     </select>
+                    {formErrors.country && <p className={styles.errorMessage}>{formErrors.country}</p>}
 
 
                     <select name="provincia" id="" value={formValues.province} onChange={handleSelectProvince} disabled={!selectedCountry}>
@@ -130,25 +147,27 @@ export const FormCheckout = () => {
 
                         {Array.from(provinces).map(province => <option key={province.id} value={province.name}>{province.name}</option>)}
                     </select>
+                    {formErrors.province && <p className={styles.errorMessage}>{formErrors.province}</p>}
 
                     
                     <select name="localidad" id="" value={formValues.locality} onChange={handleSelectLocality} disabled={!selectedProvince}>
                         <option value="">Selecciona una Localidad</option>
                         {Array.from(localities).map(locality => <option key={locality.id} value={locality.name}>{locality.name}</option>)}
                     </select>
+                    {formErrors.locality && <p className={styles.errorMessage}>{formErrors.locality}</p>}
 
                     <Input type="text" label="cp" value={formValues.cp} name="cp" handleChange={handleChange} error={formErrors.cp}></Input>
 
                     <Input type="text" label="Calle" value={formValues.street} name="street" handleChange={handleChange} error={formErrors.street}/>
+
+                    <Input type="text" label="DNI" value={formValues.dni} name="dni" handleChange={handleChange} error={formErrors.dni}></Input>
+
+                    <Input type="text" label="Telefono" value={formValues.phoneNumber} name="phoneNumber" handleChange={handleChange} error={formErrors.phoneNumber}></Input>
                 </div>
 
-
+                <button type="submit" className={styles.buttonConfirm}>Confirmar</button>
             </form>
-
-            <div className={styles.paymentContainer}>
-                <h3>Tu pedido</h3>
-            </div>
-        </div>
+        
     </>
   )
 }

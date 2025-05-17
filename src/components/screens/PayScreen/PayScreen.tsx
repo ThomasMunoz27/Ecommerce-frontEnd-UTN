@@ -12,8 +12,10 @@ export const PayScreen = () => {
     return (
     <>
         <Header/>
+        <div>
+          <PayCheckout/>
 
-        <PayCheckout/>
+        </div>
 
         <Footer/>
     </>
