@@ -11,10 +11,11 @@ import { useStoreModal } from '../../../store/useStoreModal'
 import { IProduct } from '../../../types/IProduct'
 import { useStoreCategory } from '../../../store/useStoreCategory'
 import { ICategory } from '../../../types/ICategory'
+import { AddProductModal } from '../../ui/Modals/AddProductModal/AddProductModal'
 
 export const ProductCategoryScreen = () => {
 
-    // const {modalAccount} = useStoreModal()
+     const {modalAddProduct} = useStoreModal()
      const {activeCategory, setActiveCategory} = useStoreCategory()
     const [products, setProducts] = useState<IProduct[]>([])
       useEffect (() => {
@@ -48,6 +49,7 @@ export const ProductCategoryScreen = () => {
     {/* {modalAccount && <AccountModal/>} */}
     </div>
     <ListProducts productsArray={products}/>
+    {modalAddProduct && <div className={style.modalBackdrop}><AddProductModal/></div>}
 
     <Footer/>
 
