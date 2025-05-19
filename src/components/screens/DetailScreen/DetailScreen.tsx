@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useStoreProduct from "../../../store/useStoreProduct";
 import { getColorStyle } from "../../../utils/getColorStyle";
 import { Footer } from "../../ui/footer/Footer";
@@ -7,6 +7,7 @@ import style from "./DetailScreen.module.css"
 import { useStoreModal } from "../../../store/useStoreModal";
 import { useStoreCart } from "../../../store/useStoreCart";
 import { ICartProduct } from "../../../types/ICartProduct";
+import { IProduct } from "../../../types/IProduct";
 export const DetailScreen = () => {
 
     // Stores 
@@ -15,7 +16,15 @@ export const DetailScreen = () => {
     
      const {addProductToCart} = useStoreCart()
 
-     const {activeProduct} = useStoreProduct()
+     const {activeProduct, setActiveProduct} = useStoreProduct()
+
+     useEffect (() => {
+             const storedProduct = localStorage.getItem('activeProduct')
+             if(storedProduct) {
+               const parsed: IProduct = JSON.parse(storedProduct)
+               setActiveProduct(parsed)
+             }
+           }, [])
 
        // Mandar el producto al carrito
 

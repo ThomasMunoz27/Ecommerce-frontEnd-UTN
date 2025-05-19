@@ -10,12 +10,20 @@ import { getAllProducts } from '../../../cruds/crudProduct'
 import { useStoreModal } from '../../../store/useStoreModal'
 import { IProduct } from '../../../types/IProduct'
 import { useStoreCategory } from '../../../store/useStoreCategory'
+import { ICategory } from '../../../types/ICategory'
 
 export const ProductCategoryScreen = () => {
 
     // const {modalAccount} = useStoreModal()
-     const {activeCategory} = useStoreCategory()
+     const {activeCategory, setActiveCategory} = useStoreCategory()
     const [products, setProducts] = useState<IProduct[]>([])
+      useEffect (() => {
+        const storedCategory = localStorage.getItem('activeCategory')
+        if(storedCategory) {
+          const parsed: ICategory = JSON.parse(storedCategory)
+          setActiveCategory(parsed)
+        }
+      }, [])
   
       useEffect(() => {
           const fetchProducts = async () => {
