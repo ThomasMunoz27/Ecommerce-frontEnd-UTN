@@ -3,7 +3,6 @@
 import  { useEffect, useState } from 'react'
 import { ListProducts } from '../../ui/ListProducts/ListProducts'
 import { Footer } from '../../ui/footer/Footer'
-import { AccountModal } from '../../ui/Modals/AccountRegisterModal/AccountModal'
 import { Header } from '../../ui/Headers/Header/Header'
 import style from './ProductCategoryScreen.module.css'
 import { getAllProducts } from '../../../cruds/crudProduct'
