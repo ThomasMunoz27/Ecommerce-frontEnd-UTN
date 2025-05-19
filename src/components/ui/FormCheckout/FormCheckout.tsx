@@ -9,6 +9,7 @@ import { ILocality } from "../../../types/ILocality"
 import { getLocalitiesByProvinceId } from "../../../cruds/crudLocality"
 import { formCheckoutSchema } from "../../../yupSchemas/formCheckoutSchema"
 import styles from "./FormCheckout.module.css"
+import { useStoreCheckout } from "../../../store/useStoreCheckout"
 
 
 export const FormCheckout = () => {
@@ -19,12 +20,15 @@ export const FormCheckout = () => {
     const [localities, setLocalities] = useState<ILocality[]>([])
     const [selectedCountry, setSelectedCountry] = useState<ICountry>()
     const [selectedProvince, setSelectedProvince] = useState<IProvince>()
+    const {formSumbited ,setFormSumbited, setValidFormSumbited} = useStoreCheckout()
 
 
     const handleSelectCountry = (e: React.ChangeEvent<HTMLSelectElement>) => {
 	const country = countries.find(country => country.name === e.target.value)
 	if (country) {
 		setSelectedCountry(country)
+        setLocalities([])
+		setProvinces([])
 		setFormValues({
 			...formValues,
 			country: country.name,
@@ -54,20 +58,20 @@ export const FormCheckout = () => {
     }
     
     const initalValues = {
-        name : user?.name || "",
-        email : user?.email || "",
-        dni: user?.dni || "",
-        locality: user?.adress.locality.name ||"",
-        province: user?.adress.locality.province.name ||"",
-        country: user?.adress.locality.province.country.name || "",
-        street: user?.adress.street || "",
-        cp: user?.adress.cp || "",
-        phoneNumber: ""
+        name : user?.name || formSumbited?.name || "",
+        email : user?.email || formSumbited?.email || "",
+        dni: user?.dni || formSumbited?.dni || "",
+        locality: user?.adress.locality.name || formSumbited?.locality ||"",
+        province: user?.adress.locality.province.name || formSumbited?.province ||"",
+        country: user?.adress.locality.province.country.name || formSumbited?.country || "",
+        street: user?.adress.street || formSumbited?.street || "",
+        cp: formSumbited?.cp ||String(user?.adress.cp ?? "") || "",
+        phoneNumber: formSumbited?.phoneNumber || ""
     }
     const [formValues, setFormValues] = useState(initalValues)
     const [formErrors, setFormErrors] = useState<Record<string, string>>({})
     
-    
+    //cargar provincias al inicio
     useEffect(() => {
         const firstGetAllCountries = async () => {
             const fetchCountries = await getAllCountries()
@@ -76,6 +80,17 @@ export const FormCheckout = () => {
         firstGetAllCountries()
     },[])
 
+// Sincronizar selectedCountry al volver de "Editar"
+	useEffect(() => {
+		if (!formValues.country || countries.length === 0) return
+
+		const foundCountry = countries.find(c => c.name === formValues.country)
+		if (foundCountry) {
+			setSelectedCountry(foundCountry)
+		}
+	}, [formValues.country, countries])
+
+    // Cargar provincias cuando cambia el país
     useEffect(() => {
 	const firstGetProvincesByCountry = async () => {
 		if (!selectedCountry?.id) return // Evita el request si no hay país seleccionado
@@ -87,6 +102,18 @@ export const FormCheckout = () => {
 	firstGetProvincesByCountry()
 }, [selectedCountry])
 
+    // Sincronizar selectedProvince al volver de "Editar"
+	useEffect(() => {
+		if (!formValues.province || provinces.length === 0) return
+
+		const foundProvince = provinces.find(p => p.name === formValues.province)
+		if (foundProvince) {
+			setSelectedProvince(foundProvince)
+		}
+	}, [formValues.province, provinces])
+
+    
+    // Cargar localidades cuando cambia la provincia
     useEffect(() => {
         if(!selectedProvince?.id) return // Evita el request si no hay provincia seleccionada
 
@@ -110,6 +137,8 @@ export const FormCheckout = () => {
 		await formCheckoutSchema.validate(formValues, { abortEarly: false })
 		console.log("Formulario válido", formValues)
 		// Acá podés enviar los datos al servidor
+        setFormSumbited(formValues)
+        setValidFormSumbited(true)
 	} catch (err: any) {
 		const errors: Record<string, string> = {}
 		err.inner.forEach((validationError: any) => {
@@ -126,13 +155,13 @@ export const FormCheckout = () => {
                 <div className={styles.contactContainer}>
                     <h3>Contacto</h3>
                     <Input type="text" label="Email" value={formValues.email} name="email" handleChange={handleChange} error={formErrors.email}/>
+                    <Input type="text" label="Nombre" value={formValues.name} name="name" handleChange={handleChange} error={formErrors.name}></Input>
 
                 </div>
                 <div className={styles.directionContainer}>
                     <h3>Direccion</h3>
                     <h4>Direcion de envío</h4>
 
-                    <Input type="text" label="Nombre" value={formValues.name} name="name" handleChange={handleChange} error={formErrors.name}></Input>
 
                     <select name="pais" id="" value={formValues.country} onChange={handleSelectCountry} >
                         <option value="">Selecciona un País</option>
@@ -165,7 +194,7 @@ export const FormCheckout = () => {
                     <Input type="text" label="Telefono" value={formValues.phoneNumber} name="phoneNumber" handleChange={handleChange} error={formErrors.phoneNumber}></Input>
                 </div>
 
-                <button type="submit" className={styles.buttonConfirm}>Confirmar</button>
+                <button type="submit" className={styles.buttonConfirm}>Confirmar <img src="src\assets\arrow_right.svg" alt="flecha" /></button>
             </form>
         
     </>

@@ -11,13 +11,22 @@ interface Iinput {
 }
 
 export const Input:FC<Iinput> = ({label, name, value, type, handleChange, error}) => {
-
+    const isValid = value && !error
   return (
-    <div className={styles.inputContainer}>
-        <label className={styles.label} htmlFor={name}>{label}</label>
-        <input className={styles.input} id={name} name={name} type={type} value={value} onChange={handleChange}/>
-
-        {error && <span className={styles.error}>{error}</span>}
-    </div>
+    <div className={styles.inputWrapper}>
+			<label htmlFor={name} className={styles.label}>{label}</label>
+			<div className={`${styles.inputContainer} ${error ? styles.inputError : isValid ? styles.inputSuccess : ""}`}>
+				<input
+					id={name}
+					name={name}
+					type={type}
+					value={value}
+					onChange={handleChange}
+					className={styles.input}
+				/>
+				{isValid && <span className={styles.checkmark}>✓</span>}
+			</div>
+			{error && <p className={styles.errorMessage}>{error}</p>}
+		</div>
   )
 }
