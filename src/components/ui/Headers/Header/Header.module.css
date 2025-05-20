@@ -23,8 +23,8 @@
 
 .mainHeader nav{
     display: flex;
-    justify-content: flex-start;
-    gap: 80px;
+    justify-content: space-around;
+    
     /* border: 3px solid red; */
     width: 60%;
     font-size: 28px;
