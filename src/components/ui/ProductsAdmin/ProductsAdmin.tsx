@@ -4,8 +4,10 @@ import { getAllProducts } from '../../../cruds/crudProduct';
 import { IProduct } from '../../../types/IProduct';
 import { useStoreModal } from '../../../store/useStoreModal';
 import { AdminProductModal } from '../Modals/AdminAddProductModal/AdminProductModal';
+import useStoreProduct from '../../../store/useStoreProduct';
 
 export const ProductsAdmin = () => {
+    const {setActiveProduct} = useStoreProduct()
     const [products, setProducts] = useState<IProduct[]>();
     const {openModalAdminProduct, modalAdminProduct} = useStoreModal()
 
@@ -17,6 +19,12 @@ export const ProductsAdmin = () => {
         };
     getProducts();
     }, []);
+
+    // Pongo el producto a editar como producto activo
+    const handleEdit = (product : IProduct) => {
+        openModalAdminProduct()
+        setActiveProduct(product)
+    }
 
     return (
         <div className={styles.containerPrincipal}>
@@ -58,7 +66,7 @@ export const ProductsAdmin = () => {
                         <td>{product.sex}</td>
                         <td>
                             <div className={styles.actionButtons}>
-                                <button onClick={openModalAdminProduct}>Editar</button>
+                                <button onClick={() => handleEdit(product)}>Editar</button>
                                 <button>Eliminar</button>
                             </div>
                         </td>
