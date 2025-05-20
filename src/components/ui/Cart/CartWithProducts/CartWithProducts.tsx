@@ -6,9 +6,9 @@ import { useEffect, useState } from 'react'
 
 export const CartWithProducts = () => {
     const {productsInCart} = useStoreCart()
-    const cantProducts = productsInCart.map(p => p.quantity).reduce((sum, actVal) => sum + actVal, 0)
+    const cantProducts = useStoreCart(state => state.cantProducts())
 
-    const totalCart = productsInCart.map(p => p.prices.salePrice * p.quantity).reduce((sum, actVal) => sum + actVal, 0)
+    const totalCart = useStoreCart(state => state.totalCart())
 
     const [ivaPrice, setIvaPrice] = useState(0)
 
@@ -50,18 +50,20 @@ export const CartWithProducts = () => {
                                 <p>Entrega</p>
                                 <p><b>Total:</b></p>
 
-                                <p>(precio sin impuestos ${totalCart})</p>
-                                <p>(IVA incluido ${totalCart * 0.21})</p>
+                                <div className={styles.extraInfo}>
+                                    <p>(precio sin impuestos ${totalCart})</p>
+                                    <p>(IVA incluido ${totalCart * 0.21})</p>
+                                </div>
                             </div>
 
                             <div className={styles.priceSide}>
-                                <p>$ {totalCart}</p>
+                                <p>$ {ivaPrice}</p>
                                 <p>$[precio_entrega]</p>
                                 <p><b>${ivaPrice}</b></p>
                             </div>
                         </div>
                     </div>
-                    <Link to="/" className={styles.goToPayButton}>Ir a pagar <img src="src\assets\arrow_right.svg" alt="flecha" /></Link>
+                    <Link to="/checkout" className={styles.goToPayButton} >Ir a pagar <img src="src\assets\arrow_right.svg" alt="flecha" /></Link>
                 </div>
                 
                 <div className={styles.payMethods}>

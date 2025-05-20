@@ -3,19 +3,27 @@
 import  { useEffect, useState } from 'react'
 import { ListProducts } from '../../ui/ListProducts/ListProducts'
 import { Footer } from '../../ui/footer/Footer'
-import { AccountModal } from '../../ui/Modals/AccountRegisterModal/AccountModal'
 import { Header } from '../../ui/Headers/Header/Header'
 import style from './ProductCategoryScreen.module.css'
 import { getAllProducts } from '../../../cruds/crudProduct'
 import { useStoreModal } from '../../../store/useStoreModal'
 import { IProduct } from '../../../types/IProduct'
 import { useStoreCategory } from '../../../store/useStoreCategory'
+import { ICategory } from '../../../types/ICategory'
+import { AddProductModal } from '../../ui/Modals/AddProductModal/AddProductModal'
 
 export const ProductCategoryScreen = () => {
 
-    // const {modalAccount} = useStoreModal()
-     const {activeCategory} = useStoreCategory()
+     const {modalAddProduct} = useStoreModal()
+     const {activeCategory, setActiveCategory} = useStoreCategory()
     const [products, setProducts] = useState<IProduct[]>([])
+      useEffect (() => {
+        const storedCategory = localStorage.getItem('activeCategory')
+        if(storedCategory) {
+          const parsed: ICategory = JSON.parse(storedCategory)
+          setActiveCategory(parsed)
+        }
+      }, [])
   
       useEffect(() => {
           const fetchProducts = async () => {
@@ -40,6 +48,7 @@ export const ProductCategoryScreen = () => {
     {/* {modalAccount && <AccountModal/>} */}
     </div>
     <ListProducts productsArray={products}/>
+    {modalAddProduct && <div className={style.modalBackdrop}><AddProductModal/></div>}
 
     <Footer/>
 

@@ -26,6 +26,7 @@ export const Header = () => {
       const category = await getCategoryByName(categoryName)
       if(category){
         setActiveCategory(category)
+        localStorage.setItem('categoryName', category.name)
         navigate("/product-category")
       }
     }

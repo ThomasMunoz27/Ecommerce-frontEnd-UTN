@@ -1,0 +1,61 @@
+.inputWrapper {
+	height: auto;
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 1rem;
+	position: relative;
+}
+
+.label {
+	font-size: 0.875rem;
+	color: #666;
+	margin-bottom: 0.25rem;
+}
+
+.inputContainer {
+	height: 57px;
+	width: 70%;
+	position: relative;
+	display: flex;
+	align-items: center;
+	border: 1px solid #ccc;
+	border-bottom: 2px solid #ccc;
+	border-radius: 4px 4px 0 0;
+	padding: 10px;
+	transition: border-color 0.3s;
+	
+}
+
+.input {
+	flex: 1;
+	border: none !important;
+	outline: none;
+	font-size: 1rem;
+	background-color: transparent;
+	color: #000;
+}
+.input:focus {
+	outline: none !important;
+	border: none !important
+}
+
+.inputError {
+	border-bottom: 2px solid #e63946;
+}
+
+.inputSuccess {
+	border-bottom: 2px solid #33BB77;
+}
+
+.checkmark {
+	color: #33BB77;
+	font-size: 1.2rem;
+	margin-left: 0.5rem;
+}
+
+.errorMessage {
+	color: #e63946;
+	font-size: 0.8rem;
+	margin-top: 0.25rem;
+	padding-left: 0.25rem;
+}

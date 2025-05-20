@@ -12,9 +12,13 @@ interface IStoreCart {
     removeProductFromCart: (productToRemove: ICartProduct) => void
 
     cleanCart: () => void
+
+    cantProducts: () => number;
+
+    totalCart: () => number
 }
 
-export const useStoreCart = create<IStoreCart>((set) => ({
+export const useStoreCart = create<IStoreCart>((set, get) => ({
 
     productsInCart: [] as ICartProduct[],
 
@@ -45,6 +49,15 @@ export const useStoreCart = create<IStoreCart>((set) => ({
 
     removeProductFromCart: (productToRemove) => set((state) => ({productsInCart: state.productsInCart.filter((product) => !(product.size.id == productToRemove.size.id && product.id == productToRemove.id && product.color.id == productToRemove.color.id))})),
 
-    cleanCart: () => set(() => ({productsInCart: []}))
+    cleanCart: () => set(() => ({productsInCart: []})),
+    cantProducts: () => {
+		const products = get().productsInCart;
+		return products.reduce((sum, p) => sum + p.quantity, 0);
+	},
+
+	totalCart: () => {
+		const products = get().productsInCart;
+		return products.reduce((sum, p) => sum + p.quantity * p.prices.salePrice, 0);
+	},
 
 }))

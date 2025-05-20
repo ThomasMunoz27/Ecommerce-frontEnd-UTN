@@ -8,5 +8,8 @@ interface IStoreCategory {
 
 export const useStoreCategory = create<IStoreCategory> ((set) => ({
     activeCategory : undefined,
-    setActiveCategory : (category: ICategory) => set({activeCategory : category})
+    setActiveCategory : (category: ICategory) => { 
+        localStorage.setItem('activeCategory', JSON.stringify(category))
+        set({activeCategory : category}) 
+    }
 }))
