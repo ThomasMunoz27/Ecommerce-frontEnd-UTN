@@ -58,7 +58,7 @@ export const AdminProductModal = () => {
 
                     <div className={styles.containerInputs}>
 
-                        <input type="text" name='name'value={activeProduct?.name} id='' placeholder='Nombre' onChange={handleChange}/>
+                        <input type="text" name='name' value={activeProduct?.name} id='' placeholder='Nombre' onChange={handleChange}/>
                         <input type="number" name="stock" id="" placeholder='stock' onChange={handleChange}/>
                         <input type="number" name="prices" value={activeProduct?.prices.salePrice} id="" placeholder='Precio' onChange={handleChange}/>
                         
@@ -67,11 +67,11 @@ export const AdminProductModal = () => {
             
                         <select value={activeProduct?.category.name} name="" id="" onChange={handleChange}>
                             {categories?.map(category => (
-                                <option value={category.id}>{category.name}</option>
+                                <option key={category.id} value={category.id}>{category.name}</option>
                             ))}
                         </select>
                         <select name="" id="">
-                            <option value="" disabled selected>Sexo</option>
+                            <option value="" defaultValue={activeProduct?.sex}>{activeProduct?.sex}</option>
                             <option value="masculino">Masculino</option>
                             <option value="femenino">Femenino</option>
                             <option value="otro">Otro</option>

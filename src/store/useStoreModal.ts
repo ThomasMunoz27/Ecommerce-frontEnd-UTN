@@ -16,7 +16,7 @@ interface IStoreModal{
     openModalAdminProduct : VoidFunction,
     closeModalAdminProduct : VoidFunction,
     openModalSubAdmin : (selection : 1 | 2 | null) => void
-    closeOpenModalSubAdmin : VoidFunction
+    closeModalSubAdmin : VoidFunction
 }
 
 export const useStoreModal = create<IStoreModal>((set) => ({
@@ -37,5 +37,5 @@ export const useStoreModal = create<IStoreModal>((set) => ({
     openModalAdminProduct : () => set({modalAdminProduct : true}),
     closeModalAdminProduct : () => set({modalAdminProduct : false}),
     openModalSubAdmin : (selection) => set({modalSubAdmin : {type : true, option : selection}}),
-    closeOpenModalSubAdmin : () => set({modalSubAdmin : {type : false, option: null}})
+    closeModalSubAdmin : () => set({modalSubAdmin : {type : false, option: null}})
 }))
