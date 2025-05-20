@@ -14,7 +14,10 @@ export const useStoreProduct = create<IStoreProduct>((set) => ({
     activeProduct: null,
     products: [] as IProduct[],
 
-    setActiveProduct: (activeProductIn) => set (() => ({activeProduct: activeProductIn})),
+    setActiveProduct: (activeProductIn: IProduct) => {
+        localStorage.setItem('activeProduct', JSON.stringify(activeProductIn))
+        set (() => ({activeProduct: activeProductIn}))
+    },
 
     setProducts: (productsIn) => set(() => ({products: productsIn}))
 }

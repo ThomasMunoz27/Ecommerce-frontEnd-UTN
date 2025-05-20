@@ -45,7 +45,7 @@
 }
 .containerInputs input{
     width: 100%;
-    padding: 10px;
+    padding: 18px;
 }
 .containerSizesAndColors{
     display: flex;
@@ -86,7 +86,7 @@
 }
 .containerImage{
     border: 1px solid;
-    width: 5vw;
+    width: 7vw;
     height: 9vh;
 }
 .containerImage img {
