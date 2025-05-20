@@ -3,8 +3,12 @@ import { useStoreCart } from '../../../../store/useStoreCart'
 import styles from './CartWithProducts.module.css'
 import { CardProductInCart } from '../../CardProductInCart/CardProductInCart'
 import { useEffect, useState } from 'react'
+import { useStoreUsers } from '../../../../store/useStoreUsers'
+import { getAllUsers } from '../../../../cruds/crudUsers'
 
 export const CartWithProducts = () => {
+const {setUser} = useStoreUsers()
+
     const {productsInCart} = useStoreCart()
     const cantProducts = useStoreCart(state => state.cantProducts())
 
@@ -12,8 +16,18 @@ export const CartWithProducts = () => {
 
     const [ivaPrice, setIvaPrice] = useState(0)
 
-    useEffect(() => {
+    useEffect(() =>  {
         setIvaPrice(totalCart * 1.21)
+
+        //esta funcion despues se saca
+        const fetchUsers = async() => {
+                    const arrayUsers = await getAllUsers()
+                    setUser(arrayUsers[0])
+                }
+                
+                fetchUsers()
+
+        
     }, [totalCart])
 
   return (
