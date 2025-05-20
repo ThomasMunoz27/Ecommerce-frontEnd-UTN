@@ -11,7 +11,7 @@ import { IProduct } from "../../../types/IProduct"
 import { getAllProducts } from "../../../cruds/crudProduct"
 import { Header } from "../../ui/Headers/Header/Header"
 import { AddProductModal } from "../../ui/Modals/AddProductModal/AddProductModal"
-import { AdminProductModal } from "../../ui/Modals/AdminAddProductModal/AdminProductModal"
+
 
 
 

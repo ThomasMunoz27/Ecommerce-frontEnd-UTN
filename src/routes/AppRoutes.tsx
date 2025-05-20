@@ -5,6 +5,7 @@ import { CartScreen } from "../components/screens/CartScreen/CartScreen"
 import { ProductCategoryScreen } from "../components/screens/ProductCategoryScreen/ProductCategoryScreen"
 import { DetailScreen } from "../components/screens/DetailScreen/DetailScreen"
 import { PayScreen } from "../components/screens/PayScreen/PayScreen"
+import { AdminScreen } from "../components/screens/AdminScreen/AdminScreen"
 
 export const AppRoutes = () => {
 
@@ -16,6 +17,7 @@ export const AppRoutes = () => {
         <Route path="/product-category" element={<ProductCategoryScreen/>}></Route>
         <Route path="/product-detail" element={<DetailScreen/>}></Route>
         <Route path="/checkout" element={<PayScreen></PayScreen>}></Route>
+        <Route path="/admin" element={<AdminScreen/>}></Route>
     </Routes>
     
   )
