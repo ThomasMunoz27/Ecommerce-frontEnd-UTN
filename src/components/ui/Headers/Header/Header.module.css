@@ -11,7 +11,7 @@
     background-color: black;
     padding: 5px;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
 }
 
@@ -23,8 +23,8 @@
 
 .mainHeader nav{
     display: flex;
-    justify-content: space-around;
-    
+    justify-content: flex-start;
+    gap: 40px;
     /* border: 3px solid red; */
     width: 60%;
     font-size: 28px;
@@ -165,4 +165,13 @@
     .hamburguerIcon{
         display: block;
     }
+    .mainHeader nav{
+  
+    justify-content: space-around;
+    gap: 0;
+    /* border: 3px solid red; */
+    width: 60%;
+    font-size: 28px;
+}
+
 }
