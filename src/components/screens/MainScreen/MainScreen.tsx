@@ -1,55 +1,70 @@
+import { useEffect, useState } from "react";
+import { useStoreModal } from "../../../store/useStoreModal";
 
-import { useEffect, useState } from "react"
-import { useStoreModal } from "../../../store/useStoreModal"
+import { Footer } from "../../ui/footer/Footer";
 
-import { Footer } from "../../ui/footer/Footer"
-
-import HeroCarousel from "../../ui/HeroCarousel/HeroCarousel"
-import { ListProducts } from "../../ui/ListProducts/ListProducts"
-import style from './MainScreen.module.css'
-import { IProduct } from "../../../types/IProduct"
-import { getAllProducts } from "../../../cruds/crudProduct"
-import { Header } from "../../ui/Headers/Header/Header"
-import { AddProductModal } from "../../ui/Modals/AddProductModal/AddProductModal"
-import { AccountModal } from "../../ui/Modals/AccountRegisterModal/AccountModal"
-
-
-
+import HeroCarousel from "../../ui/HeroCarousel/HeroCarousel";
+import { ListProducts } from "../../ui/ListProducts/ListProducts";
+import style from "./MainScreen.module.css";
+import { IProduct } from "../../../types/IProduct";
+import {getAllProductsPaged } from "../../../cruds/crudProduct";
+import { Header } from "../../ui/Headers/Header/Header";
+import { AddProductModal } from "../../ui/Modals/AddProductModal/AddProductModal";
 
 export const MainScreen = () => {
+  const { modalAddProduct } = useStoreModal();
 
-  const {modalAddProduct} = useStoreModal()
+  const [products, setProducts] = useState<IProduct[]>([]);
 
-  const [products, setProducts] = useState<IProduct[]>([])
-  const {closeModalAddProduct} = useStoreModal()
-    useEffect(() => {
-        closeModalAddProduct()
-        const fetchProducts = async () => {
-            const arrayProducts = await getAllProducts()
-            setProducts(arrayProducts)
+  const [paginaActual, setPaginaActual] = useState(0);
 
-        }
-        fetchProducts()
-    }, [])
+  const [totalPages, setTotalPages] = useState(0);
 
+  const { closeModalAddProduct } = useStoreModal();
+  const getPagedProducts = async () => {
+    const pagedProducts = await getAllProductsPaged(paginaActual, 6);
+    console.log(pagedProducts.content)
+    setProducts(pagedProducts.content);
+
+    setTotalPages(pagedProducts.totalPages);
+  };
+  useEffect(() => {
+    closeModalAddProduct();
+
+    getPagedProducts();
+  }, [paginaActual]);
 
   return (
     <>
       <div className={style.screen}>
+        <Header />
 
-        <Header/>
-        
-          
-        
-        <HeroCarousel/>
-        <ListProducts productsArray={products} title={"Todos los productos"}/>
-        {modalAddProduct && <div className={style.modalBackdrop}><AddProductModal/></div>}
-       
-       
-        
-        <Footer/>
-        
+        <HeroCarousel />
+        <ListProducts productsArray={products} title={"Todos los productos"} />
+        {modalAddProduct && (
+          <div className={style.modalBackdrop}>
+            <AddProductModal />
+          </div>
+        )}
+
+        <div className={style.pagination}>
+          {Array.from({ length: totalPages }, (_, i) => (
+            <button
+              key={i}
+              onClick={() => setPaginaActual(i)}
+              style={{
+                margin: "4px",
+                padding: "6px 10px",
+                fontWeight: i === paginaActual ? "bold" : "normal",
+                backgroundColor: i === paginaActual ? "blue" : "black",
+              }}
+            >
+              {i + 1}
+            </button>
+          ))}
+        </div>
+        <Footer />
       </div>
     </>
-  )
-}
+  );
+};

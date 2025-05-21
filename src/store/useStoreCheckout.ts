@@ -2,6 +2,7 @@ import { create } from "zustand";
 
 interface IFormValues {
 	name: string | undefined
+	lastName: string | undefined
 	email: string | undefined
 	dni: string | undefined
 	locality: string | undefined

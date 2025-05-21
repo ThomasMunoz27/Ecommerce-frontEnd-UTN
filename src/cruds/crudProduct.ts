@@ -55,3 +55,22 @@ export const deleteProduct = async (idProductToDelete: number) => {
         console.log("Error en deleteProduct" + err)
     }
 }
+
+export const getAllProductsActive = async () => {
+    try{
+        const response = await axios.get(`${URL_PRODUCTS}/active`)
+        return response.data
+    }catch (error){
+        console.log("Error en getAllProductsActive" + error)
+    }
+}
+
+export const getAllProductsPaged = async (page: number, size: number) => {
+    try {
+        const response = await axios.get(`${URL_PRODUCTS}/paged?page=${page}&size=${size}`)
+        return response.data
+    } catch (error) {
+        console.error('Error en getAllProductsPaged', error);
+        
+    }
+}

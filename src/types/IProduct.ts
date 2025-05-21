@@ -19,9 +19,9 @@ import { ISize } from "./ISize";
 // Correción IProduct
 
 export interface IProduct {
-    id: number;
+    id?: number;
     name: string;
-    description: String
+    description: string
     productType: ProductType;
     sex: string;
     prices: IPrice
@@ -29,5 +29,7 @@ export interface IProduct {
     category: ICategory
     sizes : ISize[]
     colors : IColor[]
+    stock : number
+    active: boolean
   }
   

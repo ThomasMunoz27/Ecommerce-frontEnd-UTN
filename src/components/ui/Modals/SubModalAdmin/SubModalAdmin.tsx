@@ -1,12 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useStoreModal } from '../../../../store/useStoreModal';
 import useStoreProduct from '../../../../store/useStoreProduct';
 import styles from './SubModalAdmin.module.css';
 import { IColor } from '../../../../types/IColor';
 import { ISize } from '../../../../types/ISize';
 import { getAllSizes } from '../../../../cruds/crudSize';
+import { IProduct } from '../../../../types/IProduct';
 
-export const SubModalAdmin = () => {
+interface ISubModalAdmin {
+    product : IProduct | null
+}
+
+
+export const SubModalAdmin : FC<ISubModalAdmin> = ({product}) => {
+
     const { closeModalSubAdmin, modalSubAdmin } = useStoreModal();
     const { activeProduct } = useStoreProduct();
     const [sizes, setSizes] = useState<ISize[]>([]); // Estado para traer todos los talles
@@ -25,6 +32,8 @@ export const SubModalAdmin = () => {
 
 
 
+    const actualProduct =   product || activeProduct
+
     // Manejo el cambio de talle
     const handleChangeSize = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setNewSize(e.target.value);
@@ -32,9 +41,9 @@ export const SubModalAdmin = () => {
 
     // Funcion para agregar un talle
     const handleSubmitSize = () => {
-        if (!activeProduct || !newSize) return;
+        if (!actualProduct || !newSize) return;
 
-        const existingSize = activeProduct.sizes.some(size => size.size === newSize);
+        const existingSize = actualProduct.sizes.some(size => size.size === newSize);
         if (existingSize) {
             alert('Este producto ya tiene este talle');
             return;
@@ -46,16 +55,16 @@ export const SubModalAdmin = () => {
             return;
         }
 
-        activeProduct.sizes.push(addSize);
+        actualProduct.sizes.push(addSize);
         alert("Talle agregado")
         closeModalSubAdmin();
     };
 
     // Funcion para eliminar talle
     const handleDeleteSize = (sizeId : number) => {
-        if (!activeProduct) return;
+        if (!actualProduct) return;
 
-        activeProduct.sizes = activeProduct.sizes.filter(size => size.id !== sizeId);
+        actualProduct.sizes = actualProduct.sizes.filter(size => size.id !== sizeId);
         alert('Talle eliminado.');
         closeModalSubAdmin();   
     };
@@ -70,28 +79,28 @@ export const SubModalAdmin = () => {
 
     // Funcion para subir un talle
     const handleSubmitColors = () => {
-        if (!activeProduct) return;
+        if (!actualProduct) return;
 
-        const existingColor = activeProduct.colors.some(c => c.value === color);
+        const existingColor = actualProduct.colors.some(c => c.value === color);
         if (existingColor) {
             alert('Color ya agregado');
             return;
         }
 
-        const maxId = Math.max(...activeProduct.colors.map(c => c.id), 0); // Le agrego id temporal
+        const maxId = Math.max(...actualProduct.colors.map(c => c.id), 0); // Le agrego id temporal
         const newColor: IColor = {
             id: maxId + 1,
             value: color,
         };
-        activeProduct.colors.push(newColor);
+        actualProduct.colors.push(newColor);
         closeModalSubAdmin();
     };
 
     // Funcion para eliminar un color
     const handleDeleteColor = (colorId: number) => {
-        if (!activeProduct) return;
+        if (!actualProduct) return;
 
-        activeProduct.colors = activeProduct.colors.filter(color => color.id !== colorId);
+        actualProduct.colors = actualProduct.colors.filter(color => color.id !== colorId);
         alert('Color eliminado.');
         closeModalSubAdmin();
     };
@@ -117,12 +126,12 @@ export const SubModalAdmin = () => {
                 </div>
 
                 <div className={styles.containerProductSizes}>
-                    <h3 className={styles.title}>Eliminar Talles de: {activeProduct?.name}</h3>
+                    <h3 className={styles.title}>Eliminar Talles de: {actualProduct?.name}</h3>
                     <select onChange={(e) => handleDeleteSize(Number(e.target.value))} defaultValue="">
                         <option value="" disabled>
                             Sin selección
                         </option>
-                        {activeProduct?.sizes.map(size => (
+                        {actualProduct?.sizes.map(size => (
                             <option key={size.id} value={size.id}>
                                 {size.size}
                             </option>
@@ -146,11 +155,11 @@ export const SubModalAdmin = () => {
         return (
             <div className={styles.containerPrincipal}>
                 <div className={styles.containerColor}>
-                    <h3>Eliminar Color: {activeProduct?.name}</h3>
+                    <h3>Eliminar Color: {actualProduct?.name}</h3>
                     <select
                         onChange={e => handleDeleteColor(Number(e.target.value))}>
                         <option value="">Sin selección</option>
-                        {activeProduct?.colors.map(color => (
+                        {actualProduct?.colors.map(color => (
                             <option key={color.id} value={color.id}>
                                 {color.value}
                             </option>

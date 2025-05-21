@@ -57,3 +57,26 @@
 .editForm:visited{
     color: #000000;
 }
+
+.buttonContainer{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.payButton{
+	background-color: #009BEA;
+	border-radius: .2rem;
+	border: none;
+	cursor: pointer;
+	color: #fff;
+	font-size: 1rem;
+	font-weight: bold;
+	
+	padding: 1rem 2rem;
+}
+
+.payButton:hover{
+    transform: scale(1.1);
+    transition: 0.3s ease;
+}

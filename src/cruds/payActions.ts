@@ -9,8 +9,8 @@ export const goToPay =  async (cartItems: any) => {
 
     try{
         const response = await axios.post(PAY_URL, cartItems)
-        window.location.href = response.data
-        return response
+        const prefId = response.data.preferenceId
+        return prefId
 
     }catch(err:any){
         console.log("Error en goToPay: " + err.response.data)

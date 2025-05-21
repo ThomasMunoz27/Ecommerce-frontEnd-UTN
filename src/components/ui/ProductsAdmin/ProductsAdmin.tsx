@@ -3,13 +3,15 @@ import styles from './ProductsAdmin.module.css';
 import { deleteProduct, getAllProducts } from '../../../cruds/crudProduct';
 import { IProduct } from '../../../types/IProduct';
 import { useStoreModal } from '../../../store/useStoreModal';
-import { AdminProductModal } from '../Modals/AdminAddProductModal/AdminProductModal';
 import useStoreProduct from '../../../store/useStoreProduct';
+import { AdminAddProductModal } from '../Modals/AdminAddProductModal/AdminAddProductModal';
+import { AdminEditProductModal } from '../Modals/AdminEditProductModal/AdminEditProductModal';
+
 
 export const ProductsAdmin = () => {
     const {setActiveProduct} = useStoreProduct()
     const [products, setProducts] = useState<IProduct[]>();
-    const {openModalAdminProduct, modalAdminProduct} = useStoreModal()
+    const {openModalEditAdminProduct, modalEditAdminProduct, openModalAddAdminProduct, modalAddAdminProduct} = useStoreModal()
 
     useEffect(() => {
         const getProducts = async () => {
@@ -22,7 +24,7 @@ export const ProductsAdmin = () => {
 
     // Pongo el producto a editar como producto activo
     const handleEdit = (product : IProduct) => {
-        openModalAdminProduct()
+        openModalEditAdminProduct()
         setActiveProduct(product)
     }
 
@@ -32,17 +34,25 @@ export const ProductsAdmin = () => {
 
     return (
         <div className={styles.containerPrincipal}>
-        <div className={styles.containerTitle}>
-            <h1>Gestión de Productos</h1>
-        </div>
+            <div className={styles.containerTitleAndButton}>
+                <div className={styles.containerTitle}>
+                    <h1>Gestión de Productos</h1>
+                </div>
+                <div className={styles.containerButtons}>
+                    <button onClick={openModalAddAdminProduct}>
+                        Añadir
+                    </button>
+                </div>
+            </div>
         <div className={styles.productsTable}>
             <table className={styles.table}>
                 <thead>
                     <tr>
-                        <th>Nombre</th>
                         <th>Id</th>
+                        <th>Nombre</th>
                         <th>Precio</th>
                         <th>Talle</th>
+                        <th>Color</th>
                         <th>Descripción</th>
                         <th>Stock</th>
                         <th>Sexo</th>
@@ -52,8 +62,8 @@ export const ProductsAdmin = () => {
                 <tbody>
                     {products?.map((product) => (
                     <tr key={product.id}>
-                        <td>{product.name}</td>
                         <td>{product.id}</td>
+                        <td>{product.name}</td>
                         <td>{product.prices.salePrice}</td>
                         <td>
                             <select>
@@ -65,8 +75,16 @@ export const ProductsAdmin = () => {
                                 ))}
                             </select>
                         </td>
+                        <td>
+                            <select >
+                                <option value="">Color</option>
+                                {product.colors.map((color) => (
+                                    <option value="" style={{'backgroundColor' : `${color.value}`}}></option>
+                                ))}
+                            </select>
+                        </td>
                         <td>{product.description || 'Sin descripción'}</td>
-                        <td>{'N/A'}</td>
+                        <td>{product.stock || 'N/A'}</td>
                         <td>{product.sex}</td>
                         <td>
                             <div className={styles.actionButtons}>
@@ -79,7 +97,8 @@ export const ProductsAdmin = () => {
                 </tbody>
             </table>
         </div>
-        {modalAdminProduct && <div className={styles.modalBackdrop}><AdminProductModal/></div>}
+        {modalEditAdminProduct && <div className={styles.modalBackdrop}><AdminEditProductModal/></div>}
+        {modalAddAdminProduct && <div className={styles.modalBackdrop}><AdminAddProductModal/></div>}
     </div>
     );
 };

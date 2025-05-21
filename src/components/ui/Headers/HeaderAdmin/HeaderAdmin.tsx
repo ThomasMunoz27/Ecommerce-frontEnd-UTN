@@ -1,9 +1,15 @@
+import { useNavigate } from 'react-router'
 import { useStoreAdmin } from '../../../../store/useStoreAdmin'
 import style from './HeaderAdmin.module.css'
 
 export const HeaderAdmin = () => {
 
+    const navigate = useNavigate()
     const {setActiveOption} = useStoreAdmin()
+
+    const handleClik = () => {
+        navigate('/my-account')
+    }
 
     return (
         <div className={style.headerContainer}>
@@ -19,7 +25,7 @@ export const HeaderAdmin = () => {
                 </span>
                 <input type="text" placeholder='Buscar' className={style.searchBar}/>
                 
-            <a href=""><img src="./icons/userCircle.svg" alt="" /></a>
+            <a href=""><img src="./icons/userCircle.svg" alt="" onClick={handleClik}/></a>
     
             </div>
         </header>

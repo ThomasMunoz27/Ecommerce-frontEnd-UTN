@@ -1,0 +1,126 @@
+.containerPrincipal{
+    height: auto;
+    background-color: white;
+    padding: 15px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 5px 5px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+.containerTitle{
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    gap: 20px;
+}
+.containerData{
+    display: flex;
+    width: 100%;
+}
+.containerSelectors{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    gap: 5px;
+    width: 50%;
+}
+.containerSelectors select{
+    width: 100%;
+    padding: 10px;
+}
+.containerInputs{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 50%;
+    padding: 10px;
+    gap: 5px;
+}
+.containerInputs input{
+    width: 100%;
+    padding: 18px;
+}
+.containerSizesAndColors{
+    display: flex;
+    width: 100%;
+    gap: 1rem;
+}
+.containerSizesAndColors button{
+    padding: 10px;
+    font-size: 13px;
+    background-color: gainsboro;
+    border: none;
+    border-radius: 5px;
+    width: 50%;
+    cursor: pointer;
+}
+.imageAndDescription{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    gap: 10px;
+}
+.description{
+    min-height: 10vh;
+    width: 100%;
+    padding: 10px;
+
+}
+.file{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    width: 100%;
+}
+.containerImage{
+    border: 1px solid;
+    width: 7vw;
+    height: 9vh;
+}
+.containerImage img {
+    height: 100%;
+    width: 100%;
+}
+
+.containerButtons{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 20px;
+}
+.containerButtons button {
+    padding: 10px;
+    min-width: 10vw;
+    color: white;
+    background-color: black;
+    font-size: 15px;
+    cursor: pointer;
+}
+.containerButtons button:hover{
+    transform: scale(1.1);
+    transition: 0.3s ease;
+} 
+.modalBackdrop{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
