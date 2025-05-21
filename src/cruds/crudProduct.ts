@@ -45,7 +45,7 @@ export const putProduct = async (updatedProduct: IProduct) => {
     }
 }
 
-export const deleteProduct = async (idProductToDelete: string) => {
+export const deleteProduct = async (idProductToDelete: number) => {
     try{
 
         const response = await axios.delete(`${URL_PRODUCTS}/${idProductToDelete}`)

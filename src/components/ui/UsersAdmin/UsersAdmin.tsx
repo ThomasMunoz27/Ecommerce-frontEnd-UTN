@@ -44,7 +44,7 @@ export const UsersAdmin = () => {
                                 <td>{user.password}</td>
                                 <td>{user.email}</td>
                                 <td>{user.dni}</td>
-                                <td>{user.adress.street} {user.adress.number}</td>
+                                <td>{user.adress.street} {user.adress.number} ({user.adress.locality.name})</td>
                                 <td>{user.size.size}</td>
                                 <td>{user.user}</td>
                             </tr>

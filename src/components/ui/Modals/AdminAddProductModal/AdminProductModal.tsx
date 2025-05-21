@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import useStoreProduct from '../../../../store/useStoreProduct'
 import styles from './AdminProductModal.module.css'
 import { IProduct } from '../../../../types/IProduct'
-import { getAllProducts } from '../../../../cruds/crudProduct';
+
 import { getAllCategories } from '../../../../cruds/crudCategory';
 import { ICategory } from '../../../../types/ICategory';
 import { ProductType } from '../../../../types/enums/ProductType';
@@ -15,8 +15,8 @@ import { SubModalAdmin } from '../SubModalAdmin/SubModalAdmin';
 
 export const AdminProductModal = () => {
 
-    const {activeProduct, setActiveProduct, setProducts} = useStoreProduct()
-    const {openModalSubAdmin, modalSubAdmin} = useStoreModal()
+    const {activeProduct} = useStoreProduct()
+    const {openModalSubAdmin, modalSubAdmin, closeModalAdminProduct} = useStoreModal()
     
     const [product, setProduct] = useState<IProduct | null>(null)
     const [categories, setCategories] = useState<ICategory[] | null>(null)
@@ -24,10 +24,9 @@ export const AdminProductModal = () => {
 
     useEffect(() => {
     const fetchProducts = async () => {
-        const arrayProducts = await getAllProducts() 
+        
         const arrayCategories = await getAllCategories()
-        setProducts(arrayProducts)
-        setActiveProduct(arrayProducts[1])
+        
         setProduct(activeProduct)
         setCategories(arrayCategories)
             
@@ -36,6 +35,7 @@ export const AdminProductModal = () => {
     fetchProducts()
 }, [])
 
+     
     
     const handleChange = () => {
 
@@ -99,7 +99,7 @@ export const AdminProductModal = () => {
                     </div>
                 </div>
                 <div className={styles.containerButtons}>
-                    <button>Cancelar</button>
+                    <button type='button' onClick={closeModalAdminProduct}>Cancelar</button>
                     <button>Aceptar</button>
                 </div>
             </form>

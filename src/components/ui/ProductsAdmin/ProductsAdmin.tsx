@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import styles from './ProductsAdmin.module.css';
-import { getAllProducts } from '../../../cruds/crudProduct';
+import { deleteProduct, getAllProducts } from '../../../cruds/crudProduct';
 import { IProduct } from '../../../types/IProduct';
 import { useStoreModal } from '../../../store/useStoreModal';
 import { AdminProductModal } from '../Modals/AdminAddProductModal/AdminProductModal';
@@ -24,6 +24,10 @@ export const ProductsAdmin = () => {
     const handleEdit = (product : IProduct) => {
         openModalAdminProduct()
         setActiveProduct(product)
+    }
+
+    const handleDelete = async(idProduct : number) => {
+        await deleteProduct(idProduct)
     }
 
     return (
@@ -67,7 +71,7 @@ export const ProductsAdmin = () => {
                         <td>
                             <div className={styles.actionButtons}>
                                 <button onClick={() => handleEdit(product)}>Editar</button>
-                                <button>Eliminar</button>
+                                <button onClick={() => handleDelete(product.id)}>Eliminar</button>
                             </div>
                         </td>
                     </tr>
