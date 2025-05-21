@@ -26,11 +26,14 @@ export const UsersAdmin = () => {
 
                     <thead>
                         <tr>
-                            <th>Nombre</th>
                             <th>Id</th>
-                            <th>contraseña</th>
-                            <th>email</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Contraseña</th>
+                            <th>Nombre de usuario</th>
+                            <th>Email</th>
                             <th>DNI</th>
+                            <th>Telefono</th>
                             <th>Direccion</th>
                             <th>Talle</th>
                             <th>Rol</th>
@@ -39,11 +42,14 @@ export const UsersAdmin = () => {
                     <tbody>
                         {users?.map((user) => (
                             <tr key={user.id}>
-                                <td>{user.name}</td>
                                 <td>{user.id}</td>
+                                <td>{user.name}</td>
+                                <td>{user.lastname}</td>
                                 <td>{user.password}</td>
+                                <td>{user.username}</td>
                                 <td>{user.email}</td>
                                 <td>{user.dni}</td>
+                                <td>{user.phoneNumber}</td>
                                 <td>{user.adress.street} {user.adress.number} ({user.adress.locality.name})</td>
                                 <td>{user.size.size}</td>
                                 <td>{user.user}</td>

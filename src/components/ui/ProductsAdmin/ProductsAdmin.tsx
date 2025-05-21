@@ -66,7 +66,7 @@ export const ProductsAdmin = () => {
                             </select>
                         </td>
                         <td>{product.description || 'Sin descripción'}</td>
-                        <td>{'N/A'}</td>
+                        <td>{product.stock || 'N/A'}</td>
                         <td>{product.sex}</td>
                         <td>
                             <div className={styles.actionButtons}>

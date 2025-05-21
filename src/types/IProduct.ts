@@ -29,5 +29,6 @@ export interface IProduct {
     category: ICategory
     sizes : ISize[]
     colors : IColor[]
+    stock : number
   }
   
