@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { ICartProduct } from "../types/ICartProduct";
+import { miniAlert } from "../utils/miniAlert";
 
 interface IStoreCart {
 	productsInCart: ICartProduct[];
@@ -43,10 +44,13 @@ export const useStoreCart = create<IStoreCart>()(
 							),
 						};
 					}
+        miniAlert('Producto agregado al carrito', '')
 
 					return {
 						productsInCart: [...state.productsInCart, { ...product, quantity: 1 }],
+            
 					};
+          
 				}),
 
 			updateProductQuantity: (updatedProduct, newQuantity) =>
