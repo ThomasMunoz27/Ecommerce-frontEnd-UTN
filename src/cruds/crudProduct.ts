@@ -28,7 +28,7 @@ export const getProductById = async (idProduct: string) => {
 
 export const postProduct = async (newProduct: IProduct) => {
     try{
-        const response = await axios.post(URL_PRODUCTS, newProduct)
+        const response = await axios.post(`${URL_PRODUCTS}/${newProduct.id}`, newProduct)
         return response.data
     }catch (err){
         console.log("Error en postProduct" + err)

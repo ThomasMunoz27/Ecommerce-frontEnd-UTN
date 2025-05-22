@@ -5,9 +5,12 @@ import { IProduct } from '../../../../types/IProduct'
 
 import { getAllCategories } from '../../../../cruds/crudCategory';
 import { ICategory } from '../../../../types/ICategory';
-import { ProductType } from '../../../../types/enums/ProductType';
 import { useStoreModal } from '../../../../store/useStoreModal';
 import { SubModalAdmin } from '../SubModalAdmin/SubModalAdmin';
+import { putProduct } from '../../../../cruds/crudProduct';
+import { putPrice } from '../../../../cruds/crudPrices';
+import { ProductType } from '../../../../types/enums/ProductType';
+
 
 
 
@@ -18,31 +21,77 @@ export const AdminProductModal = () => {
     const {activeProduct} = useStoreProduct()
     const {openModalSubAdmin, modalSubAdmin, closeModalAdminProduct} = useStoreModal()
     
-    const [product, setProduct] = useState<IProduct | null>(null)
+    
     const [categories, setCategories] = useState<ICategory[] | null>(null)
+    const [product, setProduct] = useState<IProduct | null>({
+        id: 0,
+        name: '',
+        description: '',
+        productType: 'default' as ProductType, // Ajusta según el tipo
+        sex: '',
+        prices: {
+            id: 0,
+            purchasePrice: 0,
+            salePrice: 0,
+            discount: { id: 0,name: '',timeTo: '',dateTo: '',dateFrom: '',timeFrom: '',promotionalPrice: 0,discountDescription: '',}, // Ajusta según el tipo
+        },
+        image: {id : 0, url: 'https://via.placeholder.com/150' },
+        category: { id: 0, name: '' },
+        sizes: [],
+        colors: [],
+        stock: 0,
+    })
     
 
     useEffect(() => {
     const fetchProducts = async () => {
-        
         const arrayCategories = await getAllCategories()
-        
-        setProduct(activeProduct)
         setCategories(arrayCategories)
-            
-        
+        setProduct(activeProduct)
     }
     fetchProducts()
-}, [])
+}, [activeProduct])
 
-     
-    
-    const handleChange = () => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
 
-    }
+    setProduct(prev => {
+        if (!prev) return prev; 
 
-    const handleSubmit = () => {
+        const keys = name.split('.'); // Divide el nombre por el punto
+        let updatedProduct = { ...prev };
+        let ref : any = updatedProduct
+        
+        
+        keys.forEach((key, index) => {
+            if (index === keys.length - 1) {
+                ref[key] = isNaN(Number(value)) ? value : Number(value); // Asigna el valor
+            } else {
+                ref = ref[key];
+            }
+        });
 
+        return updatedProduct;
+    });
+};
+
+    const handleSubmit = async(e : any) => {
+        e.preventDefault()
+        if(!activeProduct || !product) {
+            alert('No esta definido el producto')
+            return null
+        }
+        try {
+            await putProduct(product)
+            await putPrice(product.prices) // Atadisimo con alambre
+               
+            closeModalAdminProduct()
+
+        } catch (error) {
+            console.log('Ocurrio un error', error);
+            alert('Paso un error en modificar el producto')
+            closeModalAdminProduct()
+        }
     }
 
     return (
@@ -58,27 +107,28 @@ export const AdminProductModal = () => {
 
                     <div className={styles.containerInputs}>
 
-                        <input type="text" name='name' value={activeProduct?.name} id='' placeholder='Nombre' onChange={handleChange}/>
-                        <input type="number" name="stock" id="" placeholder='stock' onChange={handleChange}/>
-                        <input type="number" name="prices" value={activeProduct?.prices.salePrice} id="" placeholder='Precio' onChange={handleChange}/>
+                        <input type="text" name='name' value={product?.name} id='' placeholder='Nombre' onChange={handleChange}/>
+                        <input type="number" name="stock" value={product?.stock} id="" placeholder='stock' onChange={handleChange}/>
+                        <input type="number" name="prices.salePrice" value={product?.prices.salePrice} id="" placeholder='Precio' onChange={handleChange}/>
                         
                     </div>
                     <div className={styles.containerSelectors}>
             
-                        <select value={activeProduct?.category.name} name="" id="" onChange={handleChange}>
+                        <select value={product?.category.id} name="category.id" id="" onChange={handleChange}>
                             {categories?.map(category => (
                                 <option key={category.id} value={category.id}>{category.name}</option>
                             ))}
                         </select>
-                        <select name="" id="">
-                            <option value="" defaultValue={activeProduct?.sex}>{activeProduct?.sex}</option>
+                        <select name="sex" id="" onChange={handleChange}>
+                            <option value="" defaultValue={product?.sex}>{product?.sex}</option>
                             <option value="masculino">Masculino</option>
                             <option value="femenino">Femenino</option>
-                            <option value="otro">Otro</option>
+                            <option value="unisex">Unisex</option>
                         </select>
-                        <select value={activeProduct?.productType} name="" id="">
-                            <option value={product?.productType}>{ProductType.calzado}</option>
-                            <option value={product?.productType}>{ProductType.indumentaria}</option>
+
+                        <select  onChange={handleChange} name="productType" value={product?.productType} id="">
+                            <option value={ProductType.calzado}>Calzado</option>
+                            <option value={ProductType.indumentaria}>Indumentaria</option>
                         </select>
             
                     </div>
@@ -89,13 +139,13 @@ export const AdminProductModal = () => {
                         <button type='button' onClick={() => openModalSubAdmin(2)}>Manejo de Colores</button>
                     </div>
                 <div className={styles.imageAndDescription}>
-                    <textarea className={styles.description} name="" id="" placeholder='Descripcion'></textarea>
+                    <textarea className={styles.description} name="description" id="" placeholder='descripcion' value={product?.description} onChange={handleChange}></textarea>
                     <div className={styles.file}>
                         <label htmlFor="">Imagen</label>
                         <div className={styles.containerImage}>
-                            <img src={activeProduct?.image.url} alt="" />
+                            <img src={product?.image.url} alt="" />
                         </div>
-                        <input type="file" />
+                        <input type="file" onChange={handleChange}/>
                     </div>
                 </div>
                 <div className={styles.containerButtons}>

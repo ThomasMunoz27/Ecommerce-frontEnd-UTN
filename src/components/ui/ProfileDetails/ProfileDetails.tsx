@@ -12,7 +12,7 @@ export const ProfileDetails = () => {
     useEffect(() => {
         const fetchUsers = async() => {
             const arrayUsers = await getAllUsers()
-            setUser(arrayUsers[0])
+            setUser(arrayUsers[1])
         }
         
         fetchUsers()
@@ -33,7 +33,7 @@ export const ProfileDetails = () => {
                     </div>
                 </div>
                 <div className={styles.containerNameAndEmailSummary}>
-                    <p>{user?.name}</p>
+                    <p>{user?.name} {user?.lastname}</p>
                     <p>{user?.email}</p>
                 </div>
                 <div className={styles.containerButtonSummary}>
@@ -55,7 +55,7 @@ export const ProfileDetails = () => {
                 <div className={styles.containerContentData}>
                     <h1>Resumen</h1>
                     <p>Nombre: {user?.name}</p>
-                    <p>Fecha de Naciemiento : 9/12/18</p>
+                    <p>Fecha de Naciemiento : {user?.birthdate ? new Date(user.birthdate).toLocaleDateString() : 'No disponible'}</p>
                     <p>Direccion: {user?.adress.street} {user?.adress.number}</p>
                     <p>Sexo : señora</p>
                     <p className={styles.edit} onClick={() => openModalEditLogin(1)}>Editar</p>
@@ -63,6 +63,7 @@ export const ProfileDetails = () => {
                 <div className={styles.containerAccessData}>
                     <h1>Datos de Acceso</h1>
                     <p>Correo Electronico: {user?.email}</p>
+                    <p>Nombre de usuario: {user?.username}</p>
                     <p>Contraseña: {user?.password}</p>
                     <p className={styles.edit} onClick={() => openModalEditLogin(2)}>Editar</p>
                 </div>
