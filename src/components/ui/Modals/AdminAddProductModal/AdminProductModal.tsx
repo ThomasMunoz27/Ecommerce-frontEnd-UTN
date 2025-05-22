@@ -27,13 +27,13 @@ export const AdminProductModal = () => {
         id: 0,
         name: '',
         description: '',
-        productType: 'default' as ProductType, // Ajusta según el tipo
+        productType: 'default' as ProductType, 
         sex: '',
         prices: {
             id: 0,
             purchasePrice: 0,
             salePrice: 0,
-            discount: { id: 0,name: '',timeTo: '',dateTo: '',dateFrom: '',timeFrom: '',promotionalPrice: 0,discountDescription: '',}, // Ajusta según el tipo
+            discount: { id: 0,name: '',timeTo: '',dateTo: '',dateFrom: '',timeFrom: '',promotionalPrice: 0,discountDescription: '',}, 
         },
         image: {id : 0, url: 'https://via.placeholder.com/150' },
         category: { id: 0, name: '' },
@@ -58,22 +58,39 @@ export const AdminProductModal = () => {
     setProduct(prev => {
         if (!prev) return prev; 
 
-        const keys = name.split('.'); // Divide el nombre por el punto
-        let updatedProduct = { ...prev };
-        let ref : any = updatedProduct
+            const keys = name.split('.'); // Divide el nombre por el punto
+            let updatedProduct = { ...prev };
+            let ref : any = updatedProduct
         
         
-        keys.forEach((key, index) => {
-            if (index === keys.length - 1) {
-                ref[key] = isNaN(Number(value)) ? value : Number(value); // Asigna el valor
-            } else {
-                ref = ref[key];
-            }
-        });
+            keys.forEach((key, index) => {
+                if (index === keys.length - 1) {
+                    ref[key] = isNaN(Number(value)) ? value : Number(value); // Asigna el valor
+                } else {
+                    ref = ref[key];
+                }
+            });
 
-        return updatedProduct;
-    });
-};
+            return updatedProduct;
+        })
+    }   
+
+    const handleFileChange = (e : React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0]
+        if (!file) return null
+
+        setProduct((prev) => {
+            if (!prev) return prev
+            return {
+                ...prev,
+                image: {
+                    ...prev.image,
+                    url : URL.createObjectURL(file!),
+                    file :  file
+                }
+            }
+        })
+    }
 
     const handleSubmit = async(e : any) => {
         e.preventDefault()
@@ -84,7 +101,6 @@ export const AdminProductModal = () => {
         try {
             await putProduct(product)
             await putPrice(product.prices) // Atadisimo con alambre
-               
             closeModalAdminProduct()
 
         } catch (error) {
@@ -145,7 +161,7 @@ export const AdminProductModal = () => {
                         <div className={styles.containerImage}>
                             <img src={product?.image.url} alt="" />
                         </div>
-                        <input type="file" onChange={handleChange}/>
+                        <input type="file" id='image' onChange={handleFileChange}/>
                     </div>
                 </div>
                 <div className={styles.containerButtons}>

@@ -6,6 +6,7 @@ import { useStoreModal } from '../../../store/useStoreModal';
 import { AdminProductModal } from '../Modals/AdminAddProductModal/AdminProductModal';
 import useStoreProduct from '../../../store/useStoreProduct';
 
+
 export const ProductsAdmin = () => {
     const {setActiveProduct} = useStoreProduct()
     const [products, setProducts] = useState<IProduct[]>();
@@ -39,10 +40,11 @@ export const ProductsAdmin = () => {
             <table className={styles.table}>
                 <thead>
                     <tr>
-                        <th>Nombre</th>
                         <th>Id</th>
+                        <th>Nombre</th>
                         <th>Precio</th>
                         <th>Talle</th>
+                        <th>Color</th>
                         <th>Descripción</th>
                         <th>Stock</th>
                         <th>Sexo</th>
@@ -52,8 +54,8 @@ export const ProductsAdmin = () => {
                 <tbody>
                     {products?.map((product) => (
                     <tr key={product.id}>
-                        <td>{product.name}</td>
                         <td>{product.id}</td>
+                        <td>{product.name}</td>
                         <td>{product.prices.salePrice}</td>
                         <td>
                             <select>
@@ -62,6 +64,14 @@ export const ProductsAdmin = () => {
                                     <option key={size.size} value={size.size}>
                                         {size.size}
                                     </option>
+                                ))}
+                            </select>
+                        </td>
+                        <td>
+                            <select >
+                                <option value="">Color</option>
+                                {product.colors.map((color) => (
+                                    <option value="" style={{'backgroundColor' : `${color.value}`}}></option>
                                 ))}
                             </select>
                         </td>
