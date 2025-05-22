@@ -3,14 +3,15 @@ import styles from './ProductsAdmin.module.css';
 import { deleteProduct, getAllProducts } from '../../../cruds/crudProduct';
 import { IProduct } from '../../../types/IProduct';
 import { useStoreModal } from '../../../store/useStoreModal';
-import { AdminProductModal } from '../Modals/AdminAddProductModal/AdminProductModal';
 import useStoreProduct from '../../../store/useStoreProduct';
+import { AdminAddProductModal } from '../Modals/AdminAddProductModal/AdminAddProductModal';
+import { AdminEditProductModal } from '../Modals/AdminEditProductModal/AdminEditProductModal';
 
 
 export const ProductsAdmin = () => {
     const {setActiveProduct} = useStoreProduct()
     const [products, setProducts] = useState<IProduct[]>();
-    const {openModalAdminProduct, modalAdminProduct} = useStoreModal()
+    const {openModalEditAdminProduct, modalEditAdminProduct, openModalAddAdminProduct, modalAddAdminProduct} = useStoreModal()
 
     useEffect(() => {
         const getProducts = async () => {
@@ -23,7 +24,7 @@ export const ProductsAdmin = () => {
 
     // Pongo el producto a editar como producto activo
     const handleEdit = (product : IProduct) => {
-        openModalAdminProduct()
+        openModalEditAdminProduct()
         setActiveProduct(product)
     }
 
@@ -33,9 +34,16 @@ export const ProductsAdmin = () => {
 
     return (
         <div className={styles.containerPrincipal}>
-        <div className={styles.containerTitle}>
-            <h1>Gestión de Productos</h1>
-        </div>
+            <div className={styles.containerTitleAndButton}>
+                <div className={styles.containerTitle}>
+                    <h1>Gestión de Productos</h1>
+                </div>
+                <div className={styles.containerButtons}>
+                    <button onClick={openModalAddAdminProduct}>
+                        Añadir
+                    </button>
+                </div>
+            </div>
         <div className={styles.productsTable}>
             <table className={styles.table}>
                 <thead>
@@ -89,7 +97,8 @@ export const ProductsAdmin = () => {
                 </tbody>
             </table>
         </div>
-        {modalAdminProduct && <div className={styles.modalBackdrop}><AdminProductModal/></div>}
+        {modalEditAdminProduct && <div className={styles.modalBackdrop}><AdminEditProductModal/></div>}
+        {modalAddAdminProduct && <div className={styles.modalBackdrop}><AdminAddProductModal/></div>}
     </div>
     );
 };

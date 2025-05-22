@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import useStoreProduct from '../../../../store/useStoreProduct'
-import styles from './AdminProductModal.module.css'
+import styles from './AdminEditProductModal.module.css'
 import { IProduct } from '../../../../types/IProduct'
 
 import { getAllCategories } from '../../../../cruds/crudCategory';
@@ -16,10 +16,10 @@ import { ProductType } from '../../../../types/enums/ProductType';
 
 
 
-export const AdminProductModal = () => {
+export const AdminEditProductModal = () => {
 
     const {activeProduct} = useStoreProduct()
-    const {openModalSubAdmin, modalSubAdmin, closeModalAdminProduct} = useStoreModal()
+    const {openModalSubAdmin, modalSubAdmin, closeModalEditAdminProduct} = useStoreModal()
     
     
     const [categories, setCategories] = useState<ICategory[] | null>(null)
@@ -101,12 +101,12 @@ export const AdminProductModal = () => {
         try {
             await putProduct(product)
             await putPrice(product.prices) // Atadisimo con alambre
-            closeModalAdminProduct()
+            closeModalEditAdminProduct()
 
         } catch (error) {
             console.log('Ocurrio un error', error);
             alert('Paso un error en modificar el producto')
-            closeModalAdminProduct()
+            closeModalEditAdminProduct()
         }
     }
 
@@ -150,10 +150,10 @@ export const AdminProductModal = () => {
                     </div>
                     
                 </div>
-                    <div className={styles.containerSizesAndColors}>
-                        <button type='button' onClick={() => openModalSubAdmin(1)}>Manejo de Talles</button>
-                        <button type='button' onClick={() => openModalSubAdmin(2)}>Manejo de Colores</button>
-                    </div>
+                <div className={styles.containerSizesAndColors}>
+                    <button type='button' onClick={() => openModalSubAdmin(1)}>Manejo de Talles</button>
+                    <button type='button' onClick={() => openModalSubAdmin(2)}>Manejo de Colores</button>
+                </div>
                 <div className={styles.imageAndDescription}>
                     <textarea className={styles.description} name="description" id="" placeholder='descripcion' value={product?.description} onChange={handleChange}></textarea>
                     <div className={styles.file}>
@@ -165,7 +165,7 @@ export const AdminProductModal = () => {
                     </div>
                 </div>
                 <div className={styles.containerButtons}>
-                    <button type='button' onClick={closeModalAdminProduct}>Cancelar</button>
+                    <button type='button' onClick={closeModalEditAdminProduct}>Cancelar</button>
                     <button>Aceptar</button>
                 </div>
             </form>
