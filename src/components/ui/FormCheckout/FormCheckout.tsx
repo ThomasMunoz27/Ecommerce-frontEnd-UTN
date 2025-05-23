@@ -59,6 +59,7 @@ export const FormCheckout = () => {
     
     const initalValues = {
         name : user?.name || formSumbited?.name || "",
+        lastName: user?.lastname || formSumbited?.lastName || "",
         email : user?.email || formSumbited?.email || "",
         dni: user?.dni || formSumbited?.dni || "",
         locality: user?.adress.locality.name || formSumbited?.locality ||"",
@@ -148,6 +149,7 @@ export const FormCheckout = () => {
 	}
 }
 
+
   return (
     <>
         
@@ -156,6 +158,7 @@ export const FormCheckout = () => {
                     <h3>Contacto</h3>
                     <Input type="text" label="Email" value={formValues.email} name="email" handleChange={handleChange} error={formErrors.email}/>
                     <Input type="text" label="Nombre" value={formValues.name} name="name" handleChange={handleChange} error={formErrors.name}></Input>
+                    <Input type="text" label="Apellido" value={formValues.lastName} name="lastName" handleChange={handleChange} error={formErrors.lastName}></Input>
 
                 </div>
                 <div className={styles.directionContainer}>
