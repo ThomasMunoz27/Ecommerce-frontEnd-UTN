@@ -53,3 +53,12 @@ export const deleteUser = async (idUser : number): Promise<IUser[]> => {
         return []
     }
 }
+
+export const getAllUsersActive = async () => {
+    try{
+        const response = await axios.get(`${URL_USERS}/active`)
+        return response.data
+    }catch (error){
+        console.log("Error en getAllUsersActive" + error)
+    }
+}
