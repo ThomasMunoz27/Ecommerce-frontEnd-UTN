@@ -93,6 +93,16 @@ export const AdminEditProductModal = () => {
         })
     }
 
+    const handleSavePrices = (updatedPrices: IProduct['prices']) => {
+        setProduct(prev => {
+            if (!prev) return prev
+            return {
+                ...prev,
+                prices: updatedPrices
+            }
+        })
+    }
+
     const handleSubmit = async(e : any) => {
         e.preventDefault()
         if(!activeProduct || !product) {
@@ -115,7 +125,7 @@ export const AdminEditProductModal = () => {
 
         <div className={styles.containerPrincipal}>
             {modalSubAdmin.type && <div className={styles.modalBackdrop}><SubModalAdmin product={activeProduct}/></div>}
-            {modalPrices && <div className={styles.modalBackdrop}><ModalPrice/></div>}
+            {modalPrices && <div className={styles.modalBackdrop}><ModalPrice product={product!} onSavePrices={handleSavePrices}/></div>}
             <div className={styles.containerTitle}>
                 <h1>{activeProduct?.name}</h1>
                 <h1>Id: {activeProduct?.id}</h1>

@@ -53,6 +53,14 @@ export const AdminAddProductModal = () => {
 
     }
 
+    // Funcion para modificar precios
+    const handleSavePrices = (updatePrices : IProduct['prices']) => {
+        setNewProduct(prev => ({
+            ...prev,
+            prices : updatePrices
+        }))
+    }
+
     const handleSubmit = () => {
 
     }
@@ -60,7 +68,12 @@ export const AdminAddProductModal = () => {
     return (
         <div className={styles.containerPrincipal}>
             {modalSubAdmin.type && <div className={styles.modalBackdrop}><SubModalAdmin product={newProduct}/></div>}
-            {modalPrices && <div className={styles.modalBackdrop}><ModalPrice/></div>}
+            {modalPrices &&
+                <div className={styles.modalBackdrop}>
+                    <ModalPrice 
+                    product={newProduct} 
+                    onSavePrices={handleSavePrices}/>
+                </div>}
             <div className={styles.containerTitle}>
                 <h1>Agregar Producto</h1>
             </div>
