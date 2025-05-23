@@ -7,6 +7,7 @@ interface IStoreModal{
     modalEditAdminProduct : boolean, // Modal de administrador 
     modalSubAdmin : {type : boolean, option: 1 | 2 | null}
     modalAddAdminProduct : boolean
+    modalPrices : boolean
     
     openModalAccount : (selection : boolean) => void,
     closeModalAccount : VoidFunction,
@@ -19,7 +20,9 @@ interface IStoreModal{
     openModalSubAdmin : (selection : 1 | 2 | null) => void,
     closeModalSubAdmin : VoidFunction,
     openModalAddAdminProduct : VoidFunction,
-    closeModalAddAdminProduct : VoidFunction
+    closeModalAddAdminProduct : VoidFunction,
+    openModalPrices : VoidFunction,
+    closeModalPrices : VoidFunction
 
 }
 
@@ -31,6 +34,7 @@ export const useStoreModal = create<IStoreModal>((set) => ({
     modalEditAdminProduct: false,
     modalSubAdmin : {type : false, option: null},
     modalAddAdminProduct : false,
+    modalPrices : false,
 
     openModalAccount : (selection) =>set({modalAccount : {type: true, valueLogin : selection}}),
     closeModalAccount : () => set({modalAccount : {type : false, valueLogin: false}}),
@@ -48,5 +52,8 @@ export const useStoreModal = create<IStoreModal>((set) => ({
     closeModalSubAdmin : () => set({modalSubAdmin : {type : false, option: null}}),
 
     openModalAddAdminProduct : () => set({modalAddAdminProduct : true}),
-    closeModalAddAdminProduct : () => set({modalAddAdminProduct : false})
+    closeModalAddAdminProduct : () => set({modalAddAdminProduct : false}),
+
+    openModalPrices : () => set({modalPrices : true}),
+    closeModalPrices : () => set({modalPrices : false})
 }))

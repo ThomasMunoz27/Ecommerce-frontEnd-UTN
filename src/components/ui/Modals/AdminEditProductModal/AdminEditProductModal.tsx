@@ -10,6 +10,7 @@ import { SubModalAdmin } from '../SubModalAdmin/SubModalAdmin';
 import { putProduct } from '../../../../cruds/crudProduct';
 import { putPrice } from '../../../../cruds/crudPrices';
 import { ProductType } from '../../../../types/enums/ProductType';
+import { ModalPrice } from '../ModalPrice/ModalPrice';
 
 
 
@@ -19,7 +20,7 @@ import { ProductType } from '../../../../types/enums/ProductType';
 export const AdminEditProductModal = () => {
 
     const {activeProduct} = useStoreProduct()
-    const {openModalSubAdmin, modalSubAdmin, closeModalEditAdminProduct} = useStoreModal()
+    const {openModalSubAdmin, modalSubAdmin, closeModalEditAdminProduct, openModalPrices, modalPrices} = useStoreModal()
     
     
     const [categories, setCategories] = useState<ICategory[] | null>(null)
@@ -113,7 +114,8 @@ export const AdminEditProductModal = () => {
     return (
 
         <div className={styles.containerPrincipal}>
-            {modalSubAdmin.type && <div className={styles.modalBackdrop}><SubModalAdmin/></div>}
+            {modalSubAdmin.type && <div className={styles.modalBackdrop}><SubModalAdmin product={activeProduct}/></div>}
+            {modalPrices && <div className={styles.modalBackdrop}><ModalPrice/></div>}
             <div className={styles.containerTitle}>
                 <h1>{activeProduct?.name}</h1>
                 <h1>Id: {activeProduct?.id}</h1>
@@ -125,7 +127,7 @@ export const AdminEditProductModal = () => {
 
                         <input type="text" name='name' value={product?.name} id='' placeholder='Nombre' onChange={handleChange}/>
                         <input type="number" name="stock" value={product?.stock} id="" placeholder='stock' onChange={handleChange}/>
-                        <input type="number" name="prices.salePrice" value={product?.prices.salePrice} id="" placeholder='Precio' onChange={handleChange}/>
+                        
                         
                     </div>
                     <div className={styles.containerSelectors}>
@@ -151,6 +153,7 @@ export const AdminEditProductModal = () => {
                     
                 </div>
                 <div className={styles.containerSizesAndColors}>
+                    <button type='button' onClick={openModalPrices}>Manejo de precios</button>
                     <button type='button' onClick={() => openModalSubAdmin(1)}>Manejo de Talles</button>
                     <button type='button' onClick={() => openModalSubAdmin(2)}>Manejo de Colores</button>
                 </div>

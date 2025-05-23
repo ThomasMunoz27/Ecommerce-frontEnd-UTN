@@ -1,0 +1,94 @@
+.containerPrincipal{
+    padding: 20px;
+    box-shadow: 5px 5px 20px;
+    position: absolute;
+    top: 45%;
+    left: 15%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    min-width: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.containerPrices{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 1rem;
+    padding: 10px;
+}
+
+.containerForm  hr{
+    margin: 10px;
+}
+
+.containerPrices input{
+    width: 100%;
+}
+
+.containerPricesColumn{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.containerDiscount{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 1.5rem;
+    padding: 10px;
+}
+
+.containerDiscount input{
+    width: 100%;
+}
+
+.containerDiscount textarea{
+    width: 100%;
+    height: 10vh;
+    padding: 10px;
+}
+.discountData{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+.discountColumn{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.containerButtons{
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.containerButtons button{
+    padding: 10px;
+    background-color: black;
+    color: white;
+    font-size: 20px;
+    min-width: 10vw;
+    cursor: pointer;
+}
+
+.containerButtons button:hover{
+    transform: scale(1.2);
+    transition: 0.3s ease;
+}
