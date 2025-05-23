@@ -124,7 +124,7 @@ export const ModalPrice : FC<IModalPrice> = ({product, onSavePrices}) => {
                         </div>
 
                     </div>
-                    <textarea name="description" id="" value={prices.discount.discountDescription || ''} placeholder='Descripcion' onChange={handleChange}></textarea>
+                    <textarea name="discountDescription" id="" value={prices.discount.discountDescription || ''} placeholder='Descripcion' onChange={handleChange}></textarea>
                 </div>
                 <div className={styles.containerButtons}>
                     <button onClick={closeModalPrices}>Cancelar</button>

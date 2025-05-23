@@ -11,6 +11,7 @@ import { putProduct } from '../../../../cruds/crudProduct';
 import { putPrice } from '../../../../cruds/crudPrices';
 import { ProductType } from '../../../../types/enums/ProductType';
 import { ModalPrice } from '../ModalPrice/ModalPrice';
+import { putDiscount } from '../../../../cruds/crudDiscount';
 
 
 
@@ -110,8 +111,10 @@ export const AdminEditProductModal = () => {
             return null
         }
         try {
+            // Atadisimo con alambre
+            await putDiscount(product.prices.discount)
+            await putPrice(product.prices) 
             await putProduct(product)
-            await putPrice(product.prices) // Atadisimo con alambre
             closeModalEditAdminProduct()
 
         } catch (error) {

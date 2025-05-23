@@ -9,6 +9,9 @@ import { ICategory } from '../../../../types/ICategory'
 import { IProduct } from '../../../../types/IProduct'
 import { ProductType } from '../../../../types/enums/ProductType'
 import { ModalPrice } from '../ModalPrice/ModalPrice'
+import { postDiscount } from '../../../../cruds/crudDiscount'
+import { postPrice } from '../../../../cruds/crudPrices'
+import { postProduct } from '../../../../cruds/crudProduct'
 
 export const AdminAddProductModal = () => {
 
@@ -41,16 +44,44 @@ export const AdminAddProductModal = () => {
         fetchProducts()
     }, [])
 
-    const handleFileChange = () => {
+    const handleFileChange = (e : React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0]
+        if (!file) return null
 
+        setNewProduct((prev) => {
+            if (!prev) return prev
+            return {
+                ...prev,
+                image: {
+                    ...prev.image,
+                    url : URL.createObjectURL(file!),
+                    file :  file
+                }
+            }
+        })
     }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         const {name, value} = e.target
 
-        console.log(name, value);
-        
+        setNewProduct(prev => {
+            if (!prev) return prev; 
 
+            const keys = name.split('.'); // Divide el nombre por el punto
+            let updatedProduct = { ...prev };
+            let ref : any = updatedProduct
+        
+        
+            keys.forEach((key, index) => {
+                if (index === keys.length - 1) {
+                    ref[key] = isNaN(Number(value)) ? value : Number(value); // Asigna el valor
+                } else {
+                    ref = ref[key];
+                }
+            });
+
+            return updatedProduct;
+        })
     }
 
     // Funcion para modificar precios
@@ -61,8 +92,19 @@ export const AdminAddProductModal = () => {
         }))
     }
 
-    const handleSubmit = () => {
-
+    // Funcion que crea el producto
+    const handleSubmit = async(e : any) => {
+        e.preventDefault()
+        try {
+            await postDiscount(newProduct.prices.discount)
+            await postPrice(newProduct.prices)
+            await postProduct(newProduct)
+            closeModalAddAdminProduct()
+        } catch (error) {
+            console.log('Ocurrio un error', error);
+            alert('Paso un error en modificar el producto')
+            closeModalAddAdminProduct()
+        }
     }
 
     return (
