@@ -30,5 +30,6 @@ export interface IProduct {
     sizes : ISize[]
     colors : IColor[]
     stock : number
+    active: boolean
   }
   
