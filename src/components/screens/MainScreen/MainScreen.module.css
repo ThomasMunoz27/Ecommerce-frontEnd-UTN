@@ -10,3 +10,18 @@
     align-items: center;
     z-index: 1000;
 }
+
+
+
+/* Pagination */
+
+
+.pagination{
+    
+    width: 50%;
+    margin: 0 auto;
+    height: 50px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}

@@ -3,6 +3,7 @@ import { IProduct } from '../../../types/IProduct';
 import style from './ListProducts.module.css'
 import { CardProduct } from '../CardProduct/CardProduct';
 import { useStoreCategory } from '../../../store/useStoreCategory';
+import { getAllProductsPaged } from '../../../cruds/crudProduct';
 
 interface Props {
     productsArray: IProduct[]
@@ -12,6 +13,14 @@ interface Props {
 export const ListProducts: FC<Props> = ({productsArray, title}) => {
    
        const {activeCategory} = useStoreCategory()
+      //  const getPagedProducts = async () => {
+      //    const pagedProducts = await getAllProductsPaged(0,1)
+      //    console.log(pagedProducts)
+      // }
+
+      // const paged = getPagedProducts()
+
+
 
   return (
     <div className={style.container}>

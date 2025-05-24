@@ -64,3 +64,13 @@ export const getAllProductsActive = async () => {
         console.log("Error en getAllProductsActive" + error)
     }
 }
+
+export const getAllProductsPaged = async (page: number, size: number) => {
+    try {
+        const response = await axios.get(`${URL_PRODUCTS}/paged?page=${page}&size?${size}`)
+        return response.data
+    } catch (error) {
+        console.error('Error en getAllProductsPaged', error);
+        
+    }
+}
