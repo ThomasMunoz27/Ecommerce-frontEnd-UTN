@@ -32,6 +32,7 @@ export const AdminAddProductModal = () => {
         sizes: [],
         colors: [],
         stock: 0,
+        active : true
     })
     
     useEffect(() => {
@@ -140,6 +141,7 @@ export const AdminAddProductModal = () => {
             sizes: newProduct.sizes,
             colors: newProduct.colors,
             stock: newProduct.stock,
+            active : newProduct.active
         };
 
         
