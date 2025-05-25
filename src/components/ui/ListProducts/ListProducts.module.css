@@ -44,3 +44,17 @@
     margin: 0 auto;
     font-size: 15px;
 }
+
+.filterButton{
+    align-self: flex-end;
+    padding: 5px 8px;
+    width: 20%;
+    height: 30px;
+    margin-left: 78%;
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    box-shadow: 2px 2px 0px  rgb(255, 255, 255), 4px 4px 0px black;
+}

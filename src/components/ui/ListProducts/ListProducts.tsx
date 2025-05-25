@@ -25,6 +25,7 @@ export const ListProducts: FC<Props> = ({productsArray, title}) => {
   return (
     <div className={style.container}>
     <h2>{activeCategory && !title ? activeCategory.name : title}</h2>
+    <button className={style.filterButton}>Filtrar</button>
     <div className={style.productsContainer}>
     {productsArray.length > 0 ? productsArray.map((product) => {
   return (
