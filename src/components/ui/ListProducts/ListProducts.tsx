@@ -3,7 +3,7 @@ import { IProduct } from '../../../types/IProduct';
 import style from './ListProducts.module.css'
 import { CardProduct } from '../CardProduct/CardProduct';
 import { useStoreCategory } from '../../../store/useStoreCategory';
-import { getAllProductsPaged } from '../../../cruds/crudProduct';
+
 
 interface Props {
     productsArray: IProduct[]

@@ -7,7 +7,7 @@ import HeroCarousel from "../../ui/HeroCarousel/HeroCarousel";
 import { ListProducts } from "../../ui/ListProducts/ListProducts";
 import style from "./MainScreen.module.css";
 import { IProduct } from "../../../types/IProduct";
-import { getAllProducts, getAllProductsPaged } from "../../../cruds/crudProduct";
+import {getAllProductsPaged } from "../../../cruds/crudProduct";
 import { Header } from "../../ui/Headers/Header/Header";
 import { AddProductModal } from "../../ui/Modals/AddProductModal/AddProductModal";
 
