@@ -19,7 +19,7 @@ import { ISize } from "./ISize";
 // Correción IProduct
 
 export interface IProduct {
-    id: number;
+    id?: number;
     name: string;
     description: string
     productType: ProductType;

@@ -15,11 +15,10 @@ export const ModalPrice : FC<IModalPrice> = ({product, onSavePrices}) => {
     const {closeModalPrices} = useStoreModal()
 
     const [prices, setPrices] = useState<IPrice>({
-        id : 0,
+        
         purchasePrice : 0,
         salePrice : 0,
         discount : {
-            id : 0,
             name : '',
                 timeTo: '',
                 dateTo: '',
@@ -118,7 +117,7 @@ export const ModalPrice : FC<IModalPrice> = ({product, onSavePrices}) => {
                             <label htmlFor="">Precio Promocional</label>
                             <input type="number" name="promotionalPrice" value={prices.discount.promotionalPrice || ''} id="" placeholder='Precio Promocional' onChange={handleChange}/>
                             <label htmlFor="">Fecha Desde</label>
-                            <input type="date" name="dateTo" id="" value={prices.discount.dateTo || ''} placeholder='Fecha Desde' onChange={handleChange}/>
+                            <input type="date" name="dateTo" id="" value={prices.discount.dateTo || '' } placeholder='Fecha Desde' onChange={handleChange}/>
                             <label htmlFor="">Fecha Hasta</label>
                             <input type="date" name="dateFrom" id="" value={prices.discount.dateFrom || ''} placeholder='Fecha Hasta' onChange={handleChange}/>
                         </div>
