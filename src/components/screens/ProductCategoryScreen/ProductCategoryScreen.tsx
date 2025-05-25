@@ -5,7 +5,7 @@ import { ListProducts } from '../../ui/ListProducts/ListProducts'
 import { Footer } from '../../ui/footer/Footer'
 import { Header } from '../../ui/Headers/Header/Header'
 import style from './ProductCategoryScreen.module.css'
-import { getAllProducts } from '../../../cruds/crudProduct'
+import { getAllProducts, getAllProductsPaged } from '../../../cruds/crudProduct'
 import { useStoreModal } from '../../../store/useStoreModal'
 import { IProduct } from '../../../types/IProduct'
 import { useStoreCategory } from '../../../store/useStoreCategory'
@@ -14,9 +14,15 @@ import { AddProductModal } from '../../ui/Modals/AddProductModal/AddProductModal
 
 export const ProductCategoryScreen = () => {
 
-     const {modalAddProduct} = useStoreModal()
-     const {activeCategory, setActiveCategory} = useStoreCategory()
+    const {modalAddProduct} = useStoreModal()
+    const {activeCategory, setActiveCategory} = useStoreCategory()
     const [products, setProducts] = useState<IProduct[]>([])
+
+    const [paginaActual, setPaginaActual] = useState(0)
+
+    const [totalPages, setTotalPages] = useState(0)
+
+
       useEffect (() => {
         const storedCategory = localStorage.getItem('activeCategory')
         if(storedCategory) {
@@ -24,19 +30,18 @@ export const ProductCategoryScreen = () => {
           setActiveCategory(parsed)
         }
       }, [])
-  
       useEffect(() => {
-          const fetchProducts = async () => {
-            // Cambiar por fetch con activeCategory
-              const arrayProducts = await getAllProducts()
-              console.log(arrayProducts)
-              const  arrayProductsfiltered =  arrayProducts.filter((product) => (product.category.name == activeCategory?.name))
-              console.log(arrayProductsfiltered)
+              getPagedProducts()
+            }, [paginaActual, activeCategory])
+            const getPagedProducts = async () => {
+              const pagedProducts = await getAllProductsPaged(paginaActual, 10)
+             
+              const  arrayProductsfiltered =  pagedProducts.content.filter((product: IProduct) => (product.category.name == activeCategory?.name))
               setProducts(arrayProductsfiltered)
-  
-          }
-          fetchProducts()
-      }, [activeCategory])
+              setTotalPages(pagedProducts.totalPages)
+            }
+                 
+
   
 
   return (
@@ -49,6 +54,24 @@ export const ProductCategoryScreen = () => {
     </div>
     <ListProducts productsArray={products}/>
     {modalAddProduct && <div className={style.modalBackdrop}><AddProductModal/></div>}
+
+
+     <div className={style.pagination}>
+        {Array.from({ length: totalPages }, (_, i) => (
+          <button
+            key={i}
+            onClick={() => setPaginaActual(i)}
+            style={{
+              margin: '4px',
+              padding: '6px 10px',
+              fontWeight: i === paginaActual ? 'bold' : 'normal',
+              backgroundColor: i === paginaActual ? 'blue' : 'black'
+            }}
+          >
+            {i + 1}
+          </button>
+        ))}
+      </div>
 
     <Footer/>
 
