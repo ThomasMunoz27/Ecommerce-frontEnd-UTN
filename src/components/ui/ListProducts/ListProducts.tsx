@@ -8,9 +8,10 @@ import { useStoreCategory } from '../../../store/useStoreCategory';
 interface Props {
     productsArray: IProduct[]
     title?: String | undefined
+    customClass?: string
 }
 
-export const ListProducts: FC<Props> = ({productsArray, title}) => {
+export const ListProducts: FC<Props> = ({productsArray, title, customClass}) => {
    
        const {activeCategory} = useStoreCategory()
       //  const getPagedProducts = async () => {
@@ -23,7 +24,7 @@ export const ListProducts: FC<Props> = ({productsArray, title}) => {
 
 
   return (
-    <div className={style.container}>
+    <div className={`${style.container} ${ customClass ? style[customClass] : ''}`}>
     <h2>{activeCategory && !title ? activeCategory.name : title}</h2>
     <button className={style.filterButton}>Filtrar</button>
     <div className={style.productsContainer}>

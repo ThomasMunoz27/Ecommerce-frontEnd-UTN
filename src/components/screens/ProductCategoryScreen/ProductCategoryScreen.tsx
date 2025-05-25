@@ -52,7 +52,7 @@ export const ProductCategoryScreen = () => {
     <div>
     {/* {modalAccount && <AccountModal/>} */}
     </div>
-    <ListProducts productsArray={products}/>
+    <ListProducts productsArray={products} customClass='containerCategoryScreen'/>
     {modalAddProduct && <div className={style.modalBackdrop}><AddProductModal/></div>}
 
 

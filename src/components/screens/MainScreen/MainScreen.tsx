@@ -21,18 +21,18 @@ export const MainScreen = () => {
   const [totalPages, setTotalPages] = useState(0);
 
   const { closeModalAddProduct } = useStoreModal();
+  const getPagedProducts = async () => {
+    const pagedProducts = await getAllProductsPaged(paginaActual, 6);
+    console.log(pagedProducts.content)
+    setProducts(pagedProducts.content);
+
+    setTotalPages(pagedProducts.totalPages);
+  };
   useEffect(() => {
     closeModalAddProduct();
 
     getPagedProducts();
   }, [paginaActual]);
-  const getPagedProducts = async () => {
-    const pagedProducts = await getAllProductsPaged(paginaActual, 10);
-
-    setProducts(pagedProducts.content);
-
-    setTotalPages(pagedProducts.totalPages);
-  };
 
   return (
     <>
