@@ -3,6 +3,7 @@ import { object, string } from "yup";
 export const formCheckoutSchema = object({
     email: string().required().email('Comprueba que tu dirección de correo electrónico es correcta.'),
     name: string().required('El nombre es requerido'),
+	lastName: string().required('El apellido es requerido'),
     phoneNumber: string()
     .matches(/^\d{8,15}$/, 'El número debe tener entre 8 y 15 dígitos')
     .required('Introduce tu número de teléfono'),

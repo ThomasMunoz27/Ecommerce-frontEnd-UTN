@@ -81,11 +81,12 @@ export const AddProductModal = () => {
                 <div className={styles.productDetails}>
                     <p>{activeProduct?.name}</p>
                     <p>${activeProduct?.prices.salePrice}</p>
+                    <button onClick={handleClick}>Ver más</button>
                 </div>
             </div>
 
             <div className={styles.containerSubTitle}>
-                <h3>Talles</h3>   <p onClick={handleClick}>( Ver más )</p> 
+                <h3>Talles</h3>
             </div>
 
             <div className={styles.constainerSizes}>
@@ -110,7 +111,7 @@ export const AddProductModal = () => {
             <div className={styles.containerColors}>
 
                 <div className={styles.containerSubTitle}>
-                    <h3>Colores</h3>{activeProduct!.colors.length >= 5 ? <p onClick={handleClick}>(Ver mas)</p> : null}
+                    <h3>Colores</h3>
                 </div>
 
                 <div className={styles.colors}> 
