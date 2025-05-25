@@ -64,7 +64,8 @@ export const MainScreen = () => {
             style={{
               margin: '4px',
               padding: '6px 10px',
-              fontWeight: i === paginaActual ? 'bold' : 'normal'
+              fontWeight: i === paginaActual ? 'bold' : 'normal',
+              backgroundColor: i === paginaActual ? 'blue' : 'black'
             }}
           >
             {i + 1}
