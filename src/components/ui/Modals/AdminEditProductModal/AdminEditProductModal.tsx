@@ -35,13 +35,14 @@ export const AdminEditProductModal = () => {
             id: 0,
             purchasePrice: 0,
             salePrice: 0,
-            discount: { id: 0,name: '',timeTo: '',dateTo: new Date(),dateFrom: new Date(),timeFrom: '',promotionalPrice: 0,discountDescription: '',}, 
+            discount: { id: 0,name: '',timeTo: '',dateTo: ``,dateFrom: ``,timeFrom: '',promotionalPrice: 0,discountDescription: '',}, 
         },
         image: {id : 0, url: 'https://via.placeholder.com/150' },
         category: { id: 0, name: '' },
         sizes: [],
         colors: [],
         stock: 0,
+        active: true
     })
     
 
