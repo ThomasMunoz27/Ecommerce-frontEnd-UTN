@@ -1,0 +1,47 @@
+.containerPrincipal{
+    height: auto;
+    width: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    box-shadow: 5px 5px 15px;
+}
+.containerTitle{
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.containerInput{
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+}
+.containerInput input{
+    height: 5vh;
+}
+.containerButtons{
+    padding: 10px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.containerButtons button{
+    padding: 10px;
+    background-color: black;
+    color: white;
+    font-size: 15px;
+}
+.containerButtons button:hover{
+    transform: scale(1.1);
+    transition: 0.3s ease;
+    cursor: pointer;
+}
