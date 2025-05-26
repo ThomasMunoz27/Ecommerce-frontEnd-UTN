@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
 import styles from './UserAdmin.module.css'
-import { getAllUsers } from '../../../cruds/crudUsers'
-import { IUser } from '../../../types/IUser'
+
+
+import { getAllUsers } from '../../../../cruds/crudUsers'
+import { IUser } from '../../../../types/IUser'
 
 export const UsersAdmin = () => {
 

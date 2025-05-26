@@ -37,10 +37,10 @@ export const HeaderAdmin = () => {
                 <div className={style.minHeader}>
                     <p onClick={() => setActiveOption('product')}>Productos</p>
                     <p onClick={() => setActiveOption('users')}>Usuarios</p>
-                    <p>Descuentos</p>
-                    <p>Precios</p>
-                    <p>Talles</p>
-                    <p>Color</p>
+                    <p onClick={() => setActiveOption('discounts')}>Descuentos</p>
+                    <p onClick={() => setActiveOption('prices')}>Precios</p>
+                    <p onClick={() => setActiveOption('sizes')}>Talles</p>
+                    <p onClick={() => setActiveOption('colors')}>Color</p>
                 </div>
             </div>
     </div>

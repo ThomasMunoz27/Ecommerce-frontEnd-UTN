@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import styles from './ProductsAdmin.module.css';
-import { deleteProduct, getAllProducts } from '../../../cruds/crudProduct';
-import { IProduct } from '../../../types/IProduct';
-import { useStoreModal } from '../../../store/useStoreModal';
-import useStoreProduct from '../../../store/useStoreProduct';
-import { AdminAddProductModal } from '../Modals/AdminAddProductModal/AdminAddProductModal';
-import { AdminEditProductModal } from '../Modals/AdminEditProductModal/AdminEditProductModal';
+import { deleteProduct, getAllProducts } from '../../../../cruds/crudProduct';
+import { IProduct } from '../../../../types/IProduct';
+import { useStoreModal } from '../../../../store/useStoreModal';
+import useStoreProduct from '../../../../store/useStoreProduct';
+import { AdminAddProductModal } from '../../Modals/AdminAddProductModal/AdminAddProductModal';
+import { AdminEditProductModal } from '../../Modals/AdminEditProductModal/AdminEditProductModal';
 
 
 export const ProductsAdmin = () => {
