@@ -4,6 +4,10 @@ import { useStoreCheckout } from '../../../store/useStoreCheckout'
 import { Wallet, initMercadoPago } from '@mercadopago/sdk-react'
 import styles from './FormSended.module.css'
 import { useState } from 'react'
+import { IBill } from '../../../types/IBIll'
+import { useStoreUsers } from '../../../store/useStoreUsers'
+import { IBIllDetail } from '../../../types/IBillDetail'
+import { postBill } from '../../../cruds/crudBill'
 
 
 
@@ -12,7 +16,7 @@ export const FormSended = () => {
     initMercadoPago('APP_USR-5fc00859-454e-4cd6-a555-792ed86175c2', { locale: 'es-AR' });
 
     const{formSumbited, setValidFormSumbited} = useStoreCheckout()
-
+    const {user} = useStoreUsers()
     const {productsInCart} = useStoreCart()
 
     const {validFormSumbited} = useStoreCheckout()
@@ -37,7 +41,30 @@ export const FormSended = () => {
 	}));
 
 	const mpPreferenceId = await goToPay(mappedProducts);
+    console.log(productsInCart)
     setPreferenceIdMp(mpPreferenceId)
+
+
+    const billDetails: IBIllDetail[] = productsInCart.map(productInCart => ({
+	product: productInCart,
+	quantity: productInCart.quantity,
+	unitPrice: productInCart.prices.salePrice * 1.21,
+	subtotal: (productInCart.prices.salePrice * 1.21) * productInCart.quantity
+}));
+    //Generar los datos de la factura
+    const billData: IBill = {
+        total: productsInCart.reduce((sum, productInCart) => sum + (productInCart.prices.salePrice * 1.21) * productInCart.quantity, 0),
+        datePurchase: new Date().toISOString().split("T")[0],
+        user: user, 
+
+        buyerName: formSumbited?.name,
+        buyerDni: formSumbited?.dni,
+        buyerAddress: `${formSumbited?.country}, ${formSumbited?.province}, ${formSumbited?.locality}, ${formSumbited?.street}, CP:${formSumbited?.cp}`,
+        details: billDetails
+    }
+
+    await postBill(billData)
+
         }catch(err){
             console.log(err)
         }finally{

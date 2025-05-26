@@ -7,7 +7,7 @@ import styles from "./PayCheckout.module.css"
 
 export const PayCheckout = () => {
   const cantProducts = useStoreCart(state => state.cantProducts())
-  const totalCart = useStoreCart(state => state.totalCart())
+  const totalCart = useStoreCart(state => state.totalCart()*1.21)
   const {validFormSumbited} = useStoreCheckout()
 
 
