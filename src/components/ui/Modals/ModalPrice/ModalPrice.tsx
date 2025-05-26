@@ -3,10 +3,11 @@ import { useStoreModal } from '../../../../store/useStoreModal'
 import styles from './ModalPrice.module.css'
 import { IPrice } from '../../../../types/IPrice'
 import { IProduct } from '../../../../types/IProduct'
+import { ICreateProduct } from '../../../../types/ICreateProduct'
 
 
 interface IModalPrice {
-    product? : IProduct,
+    product? : IProduct | ICreateProduct,
     onSavePrices : (prices : IPrice) => void
 }
 
