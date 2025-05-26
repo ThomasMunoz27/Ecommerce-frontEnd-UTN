@@ -15,12 +15,11 @@ export const ProductsAdmin = () => {
 
     useEffect(() => {
         const getProducts = async () => {
-        const products = await getAllProducts();
-            console.log(products);
-            setProducts(products);
+        const productsFetched = await getAllProducts();
+            setProducts(productsFetched);
         };
     getProducts();
-    }, []);
+    }, [products]);
 
     // Pongo el producto a editar como producto activo
     const handleEdit = (product : IProduct) => {
