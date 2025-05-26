@@ -30,7 +30,7 @@ export const DiscountsAdmin = () => {
                     </button>
                 </div>
             </div>
-        <div className={styles.productsTable}>
+        <div className={styles.discountsTable}>
             <table className={styles.table}>
                 <thead>
                     <tr>

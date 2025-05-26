@@ -26,7 +26,7 @@ export const SizesAdmin = () => {
                     </button>
                 </div>
             </div>
-        <div className={styles.productsTable}>
+        <div className={styles.sizeTable}>
             <table className={styles.table}>
                 <thead>
                     <tr>

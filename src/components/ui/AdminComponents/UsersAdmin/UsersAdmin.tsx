@@ -20,8 +20,13 @@ export const UsersAdmin = () => {
 
     return(
         <div className={styles.containerPrincipal}>
-            <div className={styles.containerTitle}>
-                <h1>Gestion de Usuarios</h1>
+            <div className={styles.containerTitleAndButton}>
+                <div className={styles.containerTitle}>
+                    <h1>Gestion de Usuarios</h1>
+                </div>
+                <div className={styles.containerButtons}>
+                    <button>Añadir</button>
+                </div>
             </div>
             <div className={styles.usersTable}>
                 <table className={styles.table}>

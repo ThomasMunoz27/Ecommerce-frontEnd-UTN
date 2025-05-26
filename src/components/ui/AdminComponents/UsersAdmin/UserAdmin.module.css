@@ -7,10 +7,42 @@
     height: 100%;
 }
 
-.containerTitle {
+.containerTitleAndButton{
+    display: flex;
     width: 100%;
+}
+
+.containerTitle {
+    width: 70%;
     text-align: center;
-    margin-bottom: 20px;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    height: 100%;
+    padding: 20px;
+}
+
+.containerButtons{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    height: 100%;
+    width: 40%;
+    padding: 10px;
+}
+
+.containerButtons button{
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+}
+
+.containerButtons button:hover{
+    background-color: #007bff;
+    color: white;
 }
 
 .usersTable {

@@ -27,7 +27,7 @@ export const ColorsAdmin = () => {
                     </button>
                 </div>
             </div>
-        <div className={styles.productsTable}>
+        <div className={styles.colorsTable}>
             <table className={styles.table}>
                 <thead>
                     <tr>
