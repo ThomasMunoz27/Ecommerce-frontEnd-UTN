@@ -66,9 +66,9 @@ export const getAllProductsActive = async () => {
     }
 }
 
-export const getAllProductsPaged = async (page: number, size: number) => {
+export const getAllProductsPaged = async (page: number, size: number, categoryId? : number) => {
     try {
-        const response = await axios.get(`${URL_PRODUCTS}/paged?page=${page}&size=${size}`)
+        const response = await axios.get(`${URL_PRODUCTS}/paged?page=${page}&size=${size}&categoryId=${categoryId}`)
         return response.data
     } catch (error) {
         console.error('Error en getAllProductsPaged', error);

@@ -34,10 +34,8 @@ export const ProductCategoryScreen = () => {
               getPagedProducts()
             }, [paginaActual, activeCategory])
             const getPagedProducts = async () => {
-              const pagedProducts = await getAllProductsPaged(paginaActual, 10)
-             
-              const  arrayProductsfiltered =  pagedProducts.content.filter((product: IProduct) => (product.category.name == activeCategory?.name))
-              setProducts(arrayProductsfiltered)
+              const pagedProducts = await getAllProductsPaged(paginaActual, 10, activeCategory?.id)
+              setProducts(pagedProducts.content)
               setTotalPages(pagedProducts.totalPages)
             }
                  
