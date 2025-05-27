@@ -1,29 +1,54 @@
 import { useEffect, useState } from 'react'
 import styles from './DiscountsAdmin.module.css'
 import { IDiscount } from '../../../../types/IDiscount'
-import { getAllDiscounts } from '../../../../cruds/crudDiscount'
 import { useStoreModal } from '../../../../store/useStoreModal'
 import { AdminDsicounts } from '../../Modals/AdminDiscounts/AdminDiscounts'
+import { useStoreDiscount } from '../../../../store/useStoreDiscount'
+import { IPrice } from '../../../../types/IPrice'
+import { getAllPrices } from '../../../../cruds/crudPrices'
+import { deleteDiscount } from '../../../../cruds/crudDiscount'
 
 
 
 export const DiscountsAdmin = () => {
 
-    const [discounts, setDiscounts] = useState<IDiscount[]>()
+    
     const {modalAdminDiscount, openModalAdminDiscount} = useStoreModal()
-    const [selectedDiscount, setSelectedDiscount] = useState<IDiscount>()
+    const {discounts, fetchDiscount, setActiveDiscount} = useStoreDiscount()
+    const [prices, setPrices] = useState<IPrice[]>()
 
     useEffect(() => {
-        const getDiscounts = async() => {
-            const discountsFetched = await getAllDiscounts()
-            setDiscounts(discountsFetched)
+        const getPrices = async () => {
+            const pricesFetched = await getAllPrices()
+            setPrices(pricesFetched)
         }
-        getDiscounts()
-    },[discounts])
+        getPrices()
+        fetchDiscount()
+    },[])
 
     const handleEdit = (discount : IDiscount) => {
         openModalAdminDiscount(2)
-        setSelectedDiscount(discount)
+        setActiveDiscount(discount)
+    }
+
+    const handleDelete = async(discountId : number) => {
+
+        try {
+            const discounInPrice = prices?.some(price => price.discount?.id === discountId)
+            if(discounInPrice){
+                alert('El descuento se encuentra asignado a un precio')
+                return
+            }
+
+            const deletedDiscount = await deleteDiscount(String(discountId))
+            alert('Se elimino el descuento')
+            console.log(deletedDiscount);
+            fetchDiscount() // Actualiza el estado
+        } catch (error : any) {
+            alert('No se puede eliminar el descuento')
+            console.log(error.message);
+            
+        }
     }
 
     return(
@@ -69,7 +94,7 @@ export const DiscountsAdmin = () => {
                         <td>
                             <div className={styles.actionButtons}>
                                 <button onClick={() => handleEdit(discount)}>Editar</button>
-                                <button >Eliminar</button>
+                                <button onClick={() => handleDelete(discount.id!)}>Eliminar</button>
                             </div>
                         </td>
                     </tr>
@@ -78,7 +103,7 @@ export const DiscountsAdmin = () => {
             </table>
         </div>
         </div>
-        {modalAdminDiscount.type && <div className={styles.modalBAckdrop}><AdminDsicounts discount={selectedDiscount}/></div>}
+        {modalAdminDiscount.type && <div className={styles.modalBAckdrop}><AdminDsicounts/></div>}
         </div>
     )
 }
