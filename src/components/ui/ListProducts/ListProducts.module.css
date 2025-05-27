@@ -3,20 +3,22 @@
     height: 900px;
 }
 .containerCategoryScreen{
-    height: 500px;
+    height: 500px;  
 }
 .container h2{
     text-align: center;
 }
 .productsContainer{
-    height: 60vh;
+    margin: 0 auto;
     display: flex;
     padding: 10px;
     width: 90%;
     flex-wrap: wrap;
     flex-direction: row;
+    overflow: auto;
     gap: 40px;
     margin: 0 auto;
+
 }
 
 

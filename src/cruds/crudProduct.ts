@@ -74,3 +74,12 @@ export const getAllProductsPaged = async (page: number, size: number) => {
         
     }
 }
+
+export const getProductsFiltered = async (category: string) => {
+    try {
+        const response = await axios.get(`${URL_PRODUCTS}/filter?categoria=${category}`)
+        return response.data
+    } catch (error) {
+        console.error('Error en getProductsFiltered', error)
+    }
+}
