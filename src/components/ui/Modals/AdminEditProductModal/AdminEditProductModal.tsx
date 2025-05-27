@@ -11,6 +11,7 @@ import { putProduct } from '../../../../cruds/crudProduct';
 import { putPrice } from '../../../../cruds/crudPrices';
 import { ProductType } from '../../../../types/enums/ProductType';
 import { ModalPrice } from '../ModalPrice/ModalPrice';
+import { putDiscount } from '../../../../cruds/crudDiscount';
 
 
 
@@ -34,13 +35,14 @@ export const AdminEditProductModal = () => {
             id: 0,
             purchasePrice: 0,
             salePrice: 0,
-            discount: { id: 0,name: '',timeTo: '',dateTo: '',dateFrom: '',timeFrom: '',promotionalPrice: 0,discountDescription: '',}, 
+            discount: { id: 0,name: '',timeTo: '',dateTo:'',dateFrom: '',timeFrom: '',promotionalPrice: 0,discountDescription: '',}, 
         },
         image: {id : 0, url: 'https://via.placeholder.com/150' },
         category: { id: 0, name: '' },
         sizes: [],
         colors: [],
         stock: 0,
+        active: true
     })
     
 
@@ -93,6 +95,16 @@ export const AdminEditProductModal = () => {
         })
     }
 
+    const handleSavePrices = (updatedPrices: IProduct['prices']) => {
+        setProduct(prev => {
+            if (!prev) return prev
+            return {
+                ...prev,
+                prices: updatedPrices
+            }
+        })
+    }
+
     const handleSubmit = async(e : any) => {
         e.preventDefault()
         if(!activeProduct || !product) {
@@ -100,8 +112,10 @@ export const AdminEditProductModal = () => {
             return null
         }
         try {
+            // Atadisimo con alambre
+            await putDiscount(product.prices.discount)
+            await putPrice(product.prices) 
             await putProduct(product)
-            await putPrice(product.prices) // Atadisimo con alambre
             closeModalEditAdminProduct()
 
         } catch (error) {
@@ -115,7 +129,7 @@ export const AdminEditProductModal = () => {
 
         <div className={styles.containerPrincipal}>
             {modalSubAdmin.type && <div className={styles.modalBackdrop}><SubModalAdmin product={activeProduct}/></div>}
-            {modalPrices && <div className={styles.modalBackdrop}><ModalPrice/></div>}
+            {modalPrices && <div className={styles.modalBackdrop}><ModalPrice product={product!} onSavePrices={handleSavePrices}/></div>}
             <div className={styles.containerTitle}>
                 <h1>{activeProduct?.name}</h1>
                 <h1>Id: {activeProduct?.id}</h1>

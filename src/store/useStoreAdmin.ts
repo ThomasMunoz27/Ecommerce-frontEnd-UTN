@@ -1,8 +1,8 @@
 import { create } from "zustand";
 
 interface IUseStoreAdmin {
-    activeOption : 'product' | 'users' | ''
-    setActiveOption : (option : 'product' | 'users' | '') => void
+    activeOption : string
+    setActiveOption : (option : string) => void
 }
 
 export const useStoreAdmin = create<IUseStoreAdmin>((set) => ({

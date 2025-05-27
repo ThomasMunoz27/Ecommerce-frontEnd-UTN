@@ -1,6 +1,7 @@
 import axios from "axios"
 import { BASE_URL } from "../utils/constantes"
 import { IProduct } from "../types/IProduct"
+import { ICreateProduct } from "../types/ICreateProduct"
 
 
 
@@ -26,12 +27,12 @@ export const getProductById = async (idProduct: string) => {
 }
 
 
-export const postProduct = async (newProduct: IProduct) => {
+export const postProduct = async (newProduct: ICreateProduct) => {
     try{
-        const response = await axios.post(`${URL_PRODUCTS}/${newProduct.id}`, newProduct)
+        const response = await axios.post(URL_PRODUCTS, newProduct)
         return response.data
-    }catch (err){
-        console.log("Error en postProduct" + err)
+    }catch (err : any){
+        console.log("Error en postProduct" + err.message)
     }
 }
 

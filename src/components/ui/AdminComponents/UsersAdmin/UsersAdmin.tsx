@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
 import styles from './UserAdmin.module.css'
-import { getAllUsers } from '../../../cruds/crudUsers'
-import { IUser } from '../../../types/IUser'
+
+
+import { getAllUsers } from '../../../../cruds/crudUsers'
+import { IUser } from '../../../../types/IUser'
 
 export const UsersAdmin = () => {
 
@@ -18,8 +20,13 @@ export const UsersAdmin = () => {
 
     return(
         <div className={styles.containerPrincipal}>
-            <div className={styles.containerTitle}>
-                <h1>Gestion de Usuarios</h1>
+            <div className={styles.containerTitleAndButton}>
+                <div className={styles.containerTitle}>
+                    <h1>Gestion de Usuarios</h1>
+                </div>
+                <div className={styles.containerButtons}>
+                    <button>Añadir</button>
+                </div>
             </div>
             <div className={styles.usersTable}>
                 <table className={styles.table}>

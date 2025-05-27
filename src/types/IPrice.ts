@@ -1,8 +1,8 @@
 import { IDiscount } from "./IDiscount";
 
 export interface IPrice {
-    id: number,
+    id?: number,
     purchasePrice: number,
     salePrice: number,
-    discount: IDiscount
+    discount?: IDiscount
 }

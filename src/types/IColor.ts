@@ -1,4 +1,4 @@
 export interface IColor{
-    id : number,
-    value : String
+    id? : number,
+    value : string
 }

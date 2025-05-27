@@ -5,9 +5,12 @@ interface IStoreModal{
     modalEditLogin : {type : boolean, option : 1 | 2 | null}, // Modal que edita datos del usuario logueado
     modalAddProduct : boolean, // Modal para agregar un producto al carrito
     modalEditAdminProduct : boolean, // Modal de administrador 
-    modalSubAdmin : {type : boolean, option: 1 | 2 | null}
-    modalAddAdminProduct : boolean
-    modalPrices : boolean
+    modalSubAdmin : {type : boolean, option: 1 | 2 | null},
+    modalAddAdminProduct : boolean,
+    modalPrices : boolean,
+    modalAdminColor : {type: boolean, option : 1 | 2 | null},
+    modalAdminSize : {type : boolean, option : 1 | 2 | null},
+    modalAdminDiscount : {type : boolean, option : 1 | 2 | null},
     
     openModalAccount : (selection : boolean) => void,
     closeModalAccount : VoidFunction,
@@ -23,6 +26,13 @@ interface IStoreModal{
     closeModalAddAdminProduct : VoidFunction,
     openModalPrices : VoidFunction,
     closeModalPrices : VoidFunction
+    openModalAdminColor : (selection : 1 | 2 | null) => void
+    closeModalAdminColor : VoidFunction
+    openModalAdminSize : (selection : 1 | 2 |  null) => void,
+    closeModalAdminSize : VoidFunction,
+    openModalAdminDiscount : (selection : 1 | 2 | null) => void
+    closeModalAdminDiscount : VoidFunction
+
 
 }
 
@@ -35,6 +45,10 @@ export const useStoreModal = create<IStoreModal>((set) => ({
     modalSubAdmin : {type : false, option: null},
     modalAddAdminProduct : false,
     modalPrices : false,
+    modalAdminColor : {type : false, option : null},
+    modalAdminSize : {type : false, option : null},
+    modalAdminDiscount : {type : false, option : null},
+    
 
     openModalAccount : (selection) =>set({modalAccount : {type: true, valueLogin : selection}}),
     closeModalAccount : () => set({modalAccount : {type : false, valueLogin: false}}),
@@ -55,5 +69,14 @@ export const useStoreModal = create<IStoreModal>((set) => ({
     closeModalAddAdminProduct : () => set({modalAddAdminProduct : false}),
 
     openModalPrices : () => set({modalPrices : true}),
-    closeModalPrices : () => set({modalPrices : false})
+    closeModalPrices : () => set({modalPrices : false}),
+
+    openModalAdminColor : (selection) => set({modalAdminColor : {type : true, option : selection}}),
+    closeModalAdminColor : () => set({modalAdminColor :{type : false, option : null }}),
+
+    openModalAdminSize : (selection) => set({modalAdminSize : {type : true, option : selection}}),
+    closeModalAdminSize : () => set({modalAdminSize : {type : false, option : null}}),
+
+    openModalAdminDiscount : (selection) => set({modalAdminDiscount : {type : true, option : selection}}),
+    closeModalAdminDiscount : () => set({modalAdminDiscount : {type : false, option : null}})
 }))

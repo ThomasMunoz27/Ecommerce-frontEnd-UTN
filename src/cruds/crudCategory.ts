@@ -5,7 +5,6 @@ import { BASE_URL } from "../utils/constantes"
 
 const URL_CATEGORIES = `${BASE_URL}/api/category`
 
-
 export const getAllCategories = async (): Promise<ICategory[]> => {
     try{
         const response = await axios.get(URL_CATEGORIES)

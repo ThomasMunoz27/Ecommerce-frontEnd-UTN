@@ -1,0 +1,40 @@
+.mainContainer{
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px;
+    gap: 50px
+}
+
+.successContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px
+}
+
+.otherProducts{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px
+}
+
+.button{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 20px;
+    color: white;
+    background-color: black;
+    width: 100%;
+    max-width: 270px;
+    height: 40px;
+    font-size: 18px;
+    gap: 24px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+
+}

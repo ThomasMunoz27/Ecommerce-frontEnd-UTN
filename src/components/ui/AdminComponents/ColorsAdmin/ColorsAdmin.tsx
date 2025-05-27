@@ -1,0 +1,85 @@
+import { useEffect, useState } from 'react'
+import styles from './ColorsAdmin.module.css'
+import { IColor } from '../../../../types/IColor'
+import { deleteColor } from '../../../../cruds/crudColor'
+import { useStoreModal } from '../../../../store/useStoreModal'
+import { AdminColor } from '../../Modals/AdminColor/AdminColor'
+import { useStoreColor } from '../../../../store/useStoreColor'
+
+export const ColorsAdmin = () => {
+
+    const {modalAdminColor, openModalAdminColor} = useStoreModal()
+    
+    const [selectedColor, setSelectedColor] = useState<IColor>()
+    const {colors, fetchColors} = useStoreColor()
+
+    useEffect(() => {
+        
+        fetchColors()
+    },[])
+
+
+    const openModalColorEdit = (color : IColor) => {
+        openModalAdminColor(2)
+        setSelectedColor(color)
+    }
+
+    const handleDelete = async(colorId : string) => {
+        try {
+            await deleteColor(colorId)
+            alert('Se elimino el color')
+            fetchColors()  // Actualizo el estado
+        } catch (error : any) {
+            alert('Ocurrio un error al eliminar un color')
+            console.log(error.message);
+            
+        }
+    }
+
+    return (
+        <div className={styles.containerPrincipal}>
+            <div className={styles.containerTitleAndButton}>
+                <div className={styles.containerTitle}>
+                    <h1>Gestión de Colores</h1>
+                </div>
+                <div className={styles.containerButtons}>
+                    <button onClick={() => openModalAdminColor(1)}>
+                        Añadir
+                    </button>
+                </div>
+            </div>
+            <div className={styles.colorsTable}>
+            <table className={styles.table}>
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Color</th>
+                        <th>Valor</th>
+                        <th>Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {colors?.map((color) => (
+                    <tr key={color.id}>
+                        <td>{color.id}</td>
+                        <td>
+                            <div style={{'backgroundColor' : `${color.value}`, 'width' : '100%', 'height' : '30px', 'borderRadius' : '5px'}}></div>
+                        </td>
+                        <td>{color.value.toUpperCase()}</td>
+                        
+                        
+                        <td>
+                            <div className={styles.actionButtons}>
+                                <button onClick={() => openModalColorEdit(color)}>Editar</button>
+                                <button onClick={() => handleDelete(String(color.id))}>Eliminar</button>
+                            </div>
+                        </td>
+                    </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+        {modalAdminColor.type && <div className={styles.modalBackdrop}> <AdminColor color={selectedColor}/></div>}
+        </div>
+    )
+}

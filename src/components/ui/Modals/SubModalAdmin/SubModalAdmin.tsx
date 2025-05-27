@@ -6,9 +6,10 @@ import { IColor } from '../../../../types/IColor';
 import { ISize } from '../../../../types/ISize';
 import { getAllSizes } from '../../../../cruds/crudSize';
 import { IProduct } from '../../../../types/IProduct';
+import { ICreateProduct } from '../../../../types/ICreateProduct';
 
 interface ISubModalAdmin {
-    product : IProduct | null
+    product : IProduct | ICreateProduct | null 
 }
 
 
