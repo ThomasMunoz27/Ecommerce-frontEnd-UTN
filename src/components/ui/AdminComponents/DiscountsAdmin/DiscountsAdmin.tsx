@@ -2,12 +2,16 @@ import { useEffect, useState } from 'react'
 import styles from './DiscountsAdmin.module.css'
 import { IDiscount } from '../../../../types/IDiscount'
 import { getAllDiscounts } from '../../../../cruds/crudDiscount'
+import { useStoreModal } from '../../../../store/useStoreModal'
+import { AdminDsicounts } from '../../Modals/AdminDiscounts/AdminDiscounts'
 
 
 
 export const DiscountsAdmin = () => {
 
     const [discounts, setDiscounts] = useState<IDiscount[]>()
+    const {modalAdminDiscount, openModalAdminDiscount} = useStoreModal()
+    const [selectedDiscount, setSelectedDiscount] = useState<IDiscount>()
 
     useEffect(() => {
         const getDiscounts = async() => {
@@ -17,6 +21,11 @@ export const DiscountsAdmin = () => {
         getDiscounts()
     },[discounts])
 
+    const handleEdit = (discount : IDiscount) => {
+        openModalAdminDiscount(2)
+        setSelectedDiscount(discount)
+    }
+
     return(
         <div className={styles.containerPrincipal}>
             <div className={styles.containerPrincipal}>
@@ -25,7 +34,7 @@ export const DiscountsAdmin = () => {
                     <h1>Gestión de Descuentos</h1>
                 </div>
                 <div className={styles.containerButtons}>
-                    <button>
+                    <button onClick={() => openModalAdminDiscount(1)}>
                         Añadir
                     </button>
                 </div>
@@ -59,7 +68,7 @@ export const DiscountsAdmin = () => {
                         
                         <td>
                             <div className={styles.actionButtons}>
-                                <button >Editar</button>
+                                <button onClick={() => handleEdit(discount)}>Editar</button>
                                 <button >Eliminar</button>
                             </div>
                         </td>
@@ -69,6 +78,7 @@ export const DiscountsAdmin = () => {
             </table>
         </div>
         </div>
+        {modalAdminDiscount.type && <div className={styles.modalBAckdrop}><AdminDsicounts discount={selectedDiscount}/></div>}
         </div>
     )
 }

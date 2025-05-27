@@ -10,6 +10,7 @@ interface IStoreModal{
     modalPrices : boolean,
     modalAdminColor : {type: boolean, option : 1 | 2 | null},
     modalAdminSize : {type : boolean, option : 1 | 2 | null},
+    modalAdminDiscount : {type : boolean, option : 1 | 2 | null},
     
     openModalAccount : (selection : boolean) => void,
     closeModalAccount : VoidFunction,
@@ -28,7 +29,10 @@ interface IStoreModal{
     openModalAdminColor : (selection : 1 | 2 | null) => void
     closeModalAdminColor : VoidFunction
     openModalAdminSize : (selection : 1 | 2 |  null) => void,
-    closeModalAdminSize : VoidFunction
+    closeModalAdminSize : VoidFunction,
+    openModalAdminDiscount : (selection : 1 | 2 | null) => void
+    closeModalAdminDiscount : VoidFunction
+
 
 }
 
@@ -43,6 +47,7 @@ export const useStoreModal = create<IStoreModal>((set) => ({
     modalPrices : false,
     modalAdminColor : {type : false, option : null},
     modalAdminSize : {type : false, option : null},
+    modalAdminDiscount : {type : false, option : null},
     
 
     openModalAccount : (selection) =>set({modalAccount : {type: true, valueLogin : selection}}),
@@ -70,5 +75,8 @@ export const useStoreModal = create<IStoreModal>((set) => ({
     closeModalAdminColor : () => set({modalAdminColor :{type : false, option : null }}),
 
     openModalAdminSize : (selection) => set({modalAdminSize : {type : true, option : selection}}),
-    closeModalAdminSize : () => set({modalAdminSize : {type : false, option : null}})
+    closeModalAdminSize : () => set({modalAdminSize : {type : false, option : null}}),
+
+    openModalAdminDiscount : (selection) => set({modalAdminDiscount : {type : true, option : selection}}),
+    closeModalAdminDiscount : () => set({modalAdminDiscount : {type : false, option : null}})
 }))
