@@ -1,22 +1,20 @@
-import React, { FC, useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useStoreModal } from "../../../../store/useStoreModal"
 import { ISize } from "../../../../types/ISize"
 import styles from './AdminSize.module.css'
 import { postSize, putSize } from "../../../../cruds/crudSize"
 import { useStoreSize } from "../../../../store/useStoreSize"
 
-interface IAdminSize {
-    size? : ISize
-}
 
-export const AdminSize: FC<IAdminSize> = ({size}) => {
+
+export const AdminSize = () => {
 
 
 
     const {modalAdminSize, closeModalAdminSize} = useStoreModal()
-    const {sizes, fetchSize} = useStoreSize()
+    const {sizes, fetchSize, activeSize} = useStoreSize()
     const [newSize, setNewSize] = useState<string>()
-    const [editSize, setEditSize] = useState<ISize>(size!)
+    const [editSize, setEditSize] = useState<ISize>(activeSize!)
 
     useEffect(()=> {
         fetchSize()
@@ -58,7 +56,7 @@ export const AdminSize: FC<IAdminSize> = ({size}) => {
     const handleEditSize = async(e : React.FormEvent) => {
         e.preventDefault()
 
-        if (!editSize || !size){
+        if (!activeSize){
             return
         }
 

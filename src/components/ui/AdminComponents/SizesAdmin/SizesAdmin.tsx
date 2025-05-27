@@ -15,11 +15,9 @@ export const SizesAdmin = () => {
     
     const [users, setUsers] = useState<IUser[]>()
     const [products, setProducts] = useState<IProduct[]>() 
-    const [sizesProducts, setSizesProduct] = useState<ISize[]>() // Estado para ver los talles dentro de un producto
-    const [sizeInProduct, setSizeInProduct] = useState<boolean>() // Estado para ver si esta el talle seleccionadp en un producto
-    const {sizes, fetchSize} = useStoreSize()
+    const {sizes, fetchSize, setActiveSize} = useStoreSize()
     const {openModalAdminSize, modalAdminSize} = useStoreModal()
-    const [selectedSize, setSelectedSize] = useState<ISize>()
+    
 
     useEffect(() => {
         const getEntities = async() => {
@@ -36,19 +34,10 @@ export const SizesAdmin = () => {
     
     const handleDelete = async(sizeId : string) => {
 
-        // Busco los talles en productos
-        products?.map(product => {
-            setSizesProduct(product.sizes)
-        })
-
-        sizesProducts?.map(size => {
-            const existSizeInProduct = size.id === sizeId // Veo si dentro del array de talles del producto se encuentra el talle
-            if (existSizeInProduct){
-                setSizeInProduct(existSizeInProduct) // Se lo asigno al estado
-            }
-        })
-        
         const sizeInUser = users?.some(user => user.size.id === sizeId) // Para saber si hay algun talle asignado a un usuario
+        const sizeInProduct = products?.some(product =>  // Para saber si hay algun talle asignado a un producto
+            product.sizes.some(size => size.id === sizeId)
+        )
 
         if (sizeInUser || sizeInProduct){
             alert('El talle se encuentra asignado a un usuario o a un producto')
@@ -72,7 +61,7 @@ export const SizesAdmin = () => {
 
     const handleEditSize = (size : ISize) => {
         openModalAdminSize(2)
-        setSelectedSize(size) 
+        setActiveSize(size)
     }
 
     return (
@@ -113,7 +102,7 @@ export const SizesAdmin = () => {
                 </tbody>
             </table>
         </div>
-        {modalAdminSize.type === true && <div className={styles.modalBackdrop}><AdminSize size={selectedSize}/></div>}
+        {modalAdminSize.type === true && <div className={styles.modalBackdrop}><AdminSize/></div>}
         </div>
     )
 }

@@ -1,20 +1,56 @@
 import { useEffect, useState } from 'react'
 import styles from './PricesAdmin.module.css'
+import { deletePrice } from '../../../../cruds/crudPrices'
+import { useStorePrice } from '../../../../store/useStorePrice'
+import { getAllProducts } from '../../../../cruds/crudProduct'
+import { IProduct } from '../../../../types/IProduct'
+import { useStoreModal } from '../../../../store/useStoreModal'
+import { AdminPrice } from '../../Modals/AdminPrice/AdminPrice'
 import { IPrice } from '../../../../types/IPrice'
-import { getAllPrices } from '../../../../cruds/crudPrices'
 
 export const PricesAdmin = () => {
 
-    const [prices, setPrices] = useState<IPrice[]>()
+    
+    const {fetchPrice, prices, setActivePrice} = useStorePrice()
+    const [products, setProducts] = useState<IProduct[]>()
+    const {modalAdminPrice, openModalAdminPrice} = useStoreModal()
 
     useEffect(() => {
-        const getPrices = async () => {
-            const pricesFetched = await getAllPrices()
-            setPrices(pricesFetched)
+        const getProducts = async() => {
+            const productsFetched = await getAllProducts()
+            setProducts(productsFetched)
         }
-        getPrices()
-    },[prices])
+        getProducts()
+        fetchPrice()
+    },[])
 
+
+    const handleEdit = (price : IPrice) => {
+        openModalAdminPrice(2)
+        setActivePrice(price)
+    }
+
+    const handleDelete = async(priceId : number) => {
+        const pricesInProducts = products?.some(product => 
+            product.prices.id === priceId
+        )
+
+        if(pricesInProducts){
+            alert('El precio se encuentra asignado a un producto')
+            return
+        }
+        try {
+            const deletedPrice = await deletePrice(String(priceId))
+            console.log(deletedPrice);
+            alert('Se elimino el precio')
+            fetchPrice()
+            
+        } catch (error : any) {
+            alert('No se pudo eliminar el precio')
+            console.log(error.message);
+            
+        }
+    }
     
 
     return (
@@ -24,7 +60,7 @@ export const PricesAdmin = () => {
                     <h1>Gestión de Precios</h1>
                 </div>
                 <div className={styles.containerButtons}>
-                    <button>
+                    <button onClick={() => openModalAdminPrice(1)}>
                         Añadir
                     </button>
                 </div>
@@ -50,8 +86,8 @@ export const PricesAdmin = () => {
                         
                         <td>
                             <div className={styles.actionButtons}>
-                                <button >Editar</button>
-                                <button >Eliminar</button>
+                                <button onClick={() => handleEdit(price)}>Editar</button>
+                                <button onClick={() => handleDelete(price.id!)}>Eliminar</button>
                             </div>
                         </td>
                     </tr>
@@ -59,6 +95,7 @@ export const PricesAdmin = () => {
                 </tbody>
             </table>
         </div>
+        {modalAdminPrice.type && <div className={styles.modalBackdrop}><AdminPrice/></div>}
         </div>
     )
 }

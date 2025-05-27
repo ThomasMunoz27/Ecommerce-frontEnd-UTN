@@ -1,20 +1,18 @@
-import { FC, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useStoreModal } from '../../../../store/useStoreModal'
 import styles from './AdminColor.module.css'
 import { IColor } from '../../../../types/IColor'
 import { postColor, putColor } from '../../../../cruds/crudColor'
 import { useStoreColor } from '../../../../store/useStoreColor'
 
-interface IModalColor {
-    color? : IColor 
-}
 
-export const AdminColor : FC<IModalColor> = ({color}) => {
+
+export const AdminColor = () => {
     const {closeModalAdminColor, modalAdminColor} = useStoreModal()
-    const {colors, fetchColors} = useStoreColor()
+    const {colors, fetchColors, activeColor} = useStoreColor()
     
     const [addColor, setAddColor] = useState<string>('#000000')
-    const [editColor, setEditColor] = useState<IColor>(color!)
+    const [editColor, setEditColor] = useState<IColor>(activeColor!)
 
     useEffect(() => {
         fetchColors()
@@ -100,12 +98,12 @@ export const AdminColor : FC<IModalColor> = ({color}) => {
 
             <div className={styles.containerPrincipal}>
                 <div className={styles.containerTitle}>
-                    <h1>Editar Color : {color?.value}</h1>
+                    <h1>Editar Color : {activeColor?.value}</h1>
                 </div>
                 <form action="" onSubmit={handleEditColor}>
                     <div className={styles.containerInput}>
                         <input type="color" value={editColor.value} onChange={(e) => setEditColor({...editColor, value : e.target.value})}/>
-                        <p>Valor del color: {color?.value}</p>
+                        <p>Valor del color: {activeColor?.value}</p>
                     </div>
                     <div className={styles.containerButtons}>
                         <button onClick={closeModalAdminColor}>Cancelar</button>

@@ -57,7 +57,7 @@ export const ProfileDetails = () => {
                     <p>Nombre: {user?.name}</p>
                     <p>Fecha de Naciemiento : {user?.birthdate ? new Date(user.birthdate).toLocaleDateString() : 'No disponible'}</p>
                     <p>Direccion: {user?.adress.street} {user?.adress.number}</p>
-                    <p>Sexo : señora</p>
+                    <p>Sexo : {user?.sex}</p>
                     <p className={styles.edit} onClick={() => openModalEditLogin(1)}>Editar</p>
                 </div>
                 <div className={styles.containerAccessData}>
