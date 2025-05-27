@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from 'react'
 import { useStoreModal } from '../../../../store/useStoreModal'
 import styles from './AdminColor.module.css'
 import { IColor } from '../../../../types/IColor'
-import { getAllColors, postColor, putColor } from '../../../../cruds/crudColor'
+import { postColor, putColor } from '../../../../cruds/crudColor'
 import { useStoreColor } from '../../../../store/useStoreColor'
 
 interface IModalColor {

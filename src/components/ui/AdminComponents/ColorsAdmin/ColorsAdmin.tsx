@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import styles from './ColorsAdmin.module.css'
 import { IColor } from '../../../../types/IColor'
-import { deleteColor, getAllColors } from '../../../../cruds/crudColor'
+import { deleteColor } from '../../../../cruds/crudColor'
 import { useStoreModal } from '../../../../store/useStoreModal'
 import { AdminColor } from '../../Modals/AdminColor/AdminColor'
 import { useStoreColor } from '../../../../store/useStoreColor'

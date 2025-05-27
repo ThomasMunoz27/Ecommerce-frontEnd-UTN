@@ -2,7 +2,8 @@ import React, { FC, useEffect, useState } from "react"
 import { useStoreModal } from "../../../../store/useStoreModal"
 import { ISize } from "../../../../types/ISize"
 import styles from './AdminSize.module.css'
-import { getAllSizes, postSize, putSize } from "../../../../cruds/crudSize"
+import { postSize, putSize } from "../../../../cruds/crudSize"
+import { useStoreSize } from "../../../../store/useStoreSize"
 
 interface IAdminSize {
     size? : ISize
@@ -13,16 +14,12 @@ export const AdminSize: FC<IAdminSize> = ({size}) => {
 
 
     const {modalAdminSize, closeModalAdminSize} = useStoreModal()
+    const {sizes, fetchSize} = useStoreSize()
     const [newSize, setNewSize] = useState<string>()
-    const [sizes, setSizes] = useState<ISize[]>()
     const [editSize, setEditSize] = useState<ISize>(size!)
 
     useEffect(()=> {
-        const getSizes = async () => {
-            const sizesFetched = await getAllSizes()
-            setSizes(sizesFetched)
-        }
-        getSizes()
+        fetchSize()
     },[])
 
     const handleChange = (e : React.ChangeEvent<HTMLInputElement>) => {
@@ -49,6 +46,7 @@ export const AdminSize: FC<IAdminSize> = ({size}) => {
 
             await postSize(size)
             alert('Se creo un nuevo talle')
+            fetchSize()
             closeModalAdminSize()
         } catch (error : any) {
             alert('Ocurrio un error en agregar uun talle')
@@ -72,6 +70,7 @@ export const AdminSize: FC<IAdminSize> = ({size}) => {
             } 
             await putSize(editSize)
             alert('Se actualizo el talle')
+            fetchSize()
             closeModalAdminSize()    
         } catch (error : any) {
             alert('Ocurrio un error en editar talle')

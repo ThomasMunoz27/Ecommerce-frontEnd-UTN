@@ -1,22 +1,20 @@
 import { useEffect, useState } from 'react'
 import styles from './SizesAdmin.module.css'
 import { ISize } from '../../../../types/ISize'
-import { deleteSize, getAllSizes } from '../../../../cruds/crudSize'
+import { deleteSize } from '../../../../cruds/crudSize'
 import { useStoreModal } from '../../../../store/useStoreModal'
 import { AdminSize } from '../../Modals/AdminSize/AdminSize'
+import { useStoreSize } from '../../../../store/useStoreSize'
 
 
 export const SizesAdmin = () => {
-    const [sizes, setSizes] = useState<ISize[]>()
+    
+    const {sizes, fetchSize} = useStoreSize()
     const {openModalAdminSize, modalAdminSize} = useStoreModal()
     const [selectedSize, setSelectedSize] = useState<ISize>()
 
     useEffect(() => {
-        const getSizes = async() => {
-            const sizeFetched = await getAllSizes()
-            setSizes(sizeFetched)
-        }
-        getSizes()
+        fetchSize()
     },[])
 
 
@@ -29,6 +27,8 @@ export const SizesAdmin = () => {
             console.log(deletedSize);
             
             alert('Se elimino el talle')
+
+            fetchSize()
         } catch (error : any) {
             alert('Ocurrio un error')
             console.log(error.message);
