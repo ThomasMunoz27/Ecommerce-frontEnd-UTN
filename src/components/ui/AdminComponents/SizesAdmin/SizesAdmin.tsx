@@ -5,21 +5,56 @@ import { deleteSize } from '../../../../cruds/crudSize'
 import { useStoreModal } from '../../../../store/useStoreModal'
 import { AdminSize } from '../../Modals/AdminSize/AdminSize'
 import { useStoreSize } from '../../../../store/useStoreSize'
+import { IUser } from '../../../../types/IUser'
+import { getAllUsers } from '../../../../cruds/crudUsers'
+import { getAllProducts } from '../../../../cruds/crudProduct'
+import { IProduct } from '../../../../types/IProduct'
 
 
 export const SizesAdmin = () => {
     
+    const [users, setUsers] = useState<IUser[]>()
+    const [products, setProducts] = useState<IProduct[]>() 
+    const [sizesProducts, setSizesProduct] = useState<ISize[]>() // Estado para ver los talles dentro de un producto
+    const [sizeInProduct, setSizeInProduct] = useState<boolean>() // Estado para ver si esta el talle seleccionadp en un producto
     const {sizes, fetchSize} = useStoreSize()
     const {openModalAdminSize, modalAdminSize} = useStoreModal()
     const [selectedSize, setSelectedSize] = useState<ISize>()
 
     useEffect(() => {
+        const getEntities = async() => {
+            const usersFetched = await getAllUsers()
+            const productsFetched = await getAllProducts()
+            setUsers(usersFetched)
+            setProducts(productsFetched)
+        }
+        getEntities()
         fetchSize()
     },[])
 
 
     
     const handleDelete = async(sizeId : string) => {
+
+        // Busco los talles en productos
+        products?.map(product => {
+            setSizesProduct(product.sizes)
+        })
+
+        sizesProducts?.map(size => {
+            const existSizeInProduct = size.id === sizeId // Veo si dentro del array de talles del producto se encuentra el talle
+            if (existSizeInProduct){
+                setSizeInProduct(existSizeInProduct) // Se lo asigno al estado
+            }
+        })
+        
+        const sizeInUser = users?.some(user => user.size.id === sizeId) // Para saber si hay algun talle asignado a un usuario
+
+        if (sizeInUser || sizeInProduct){
+            alert('El talle se encuentra asignado a un usuario o a un producto')
+            return
+        }
+
         try {
             const deletedSize = await deleteSize(sizeId)
             console.log(sizeId);
