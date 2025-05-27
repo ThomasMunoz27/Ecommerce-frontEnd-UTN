@@ -1,34 +1,83 @@
+import React, { useEffect, useState } from 'react'
 import { useStoreModal } from '../../../../store/useStoreModal'
 import styles from './AdminProduct.module.css'
+import { ICategory } from '../../../../types/ICategory'
+import { getAllCategories } from '../../../../cruds/crudCategory'
+import { ProductType } from '../../../../types/enums/ProductType'
+import { ICreateProduct } from '../../../../types/ICreateProduct'
 
 export const AdminProduct = () => {
     const {modalAdminProduct, closeModalAdminProduct} = useStoreModal()
+    const [categories, setCategories] = useState<ICategory[]>()
+    const [newProduct, setNewProduct] = useState<ICreateProduct>({
+        name : '',
+        description : '',
+        productTypeId : 0,
+        sex : '',
+        prices : 0,
+        imageId : 0,
+        categoryId : 0,
+        sizes: [],
+        colors : [],
+        stock : 0,
+        active: true
+
+    })
+
+    useEffect(() => {
+        const getCategories = async() => {
+            const categoriesFetched = await getAllCategories()
+            setCategories(categoriesFetched)
+        }
+        getCategories()
+    },[])
+
+
+    const handleChangeCreate = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+        const {name, value} = e.target
+        console.log(name, value);
+        
+    }
+
+    const handleAddProduct = (e : React.FormEvent) => {
+        e.preventDefault()
+    }
+
     if (modalAdminProduct.option === 1){
+
+        // Crear Producto
+
         return(
             <div className={styles.containerPrincipal}>
                 <div className={styles.containerTitle}>
                     <h1>Crear Producto</h1>
                 </div>
-                <form action="">
+                <form action="" onSubmit={handleAddProduct}>
                     <div className={styles.containerData}>
                         <div className={styles.containerColumn}>
                             <label htmlFor="">Nombre</label>
-                            <input type="text" name="name" id="" placeholder='Nombre'/>
+                            <input type="text" name="name" id="" placeholder='Nombre' onChange={handleChangeCreate}/>
                             <label htmlFor="">Stock</label>
-                            <input type="number" name="" id="" placeholder='Stock'/>
+                            <input type="number" name="" id="" placeholder='Stock' onChange={handleChangeCreate}/>
                             <label htmlFor="">Sexo</label>
-                            <input type="text" name="" id="" placeholder='sexo'/>
+                            <input type="text" name="" id="" placeholder='sexo' onChange={handleChangeCreate}/>
 
                         </div>
                         <div className={styles.containerColumn}>
 
                             <label htmlFor="">Categoria</label>
-                            <select name="" id="">
+                            <select name="category.id" id="" onChange={handleChangeCreate}>
                                 <option value="" selected disabled>Categorias</option>
+                                {categories?.map(category => (
+                                    <option key={category.id} value={category.id} >{category.name}</option>
+                                ))}
                             </select>
+
                             <label htmlFor="">Tipo Producto</label>
-                            <select name="" id="">
+                            <select name="productType" id="" onChange={handleChangeCreate}>
                                 <option value="">TipoProducto</option>
+                                <option value="calzado">{ProductType.calzado}</option>
+                                <option value="indumentaria">{ProductType.indumentaria}</option>
                             </select>
 
                         </div>
@@ -40,11 +89,11 @@ export const AdminProduct = () => {
                     </div>
                     <div className={styles.containerDescription}>
                         <label htmlFor="">Descripcion</label>
-                        <textarea name="" id="" placeholder='Descripcion'></textarea>
+                        <textarea name="description" id="" placeholder='Descripcion' onChange={handleChangeCreate}></textarea>
                     </div>
                     <div className={styles.containerImage}>
                         <label htmlFor="">Imagen</label>
-                        <input type="text" name="" id="" />
+                        <input type="text" name="image.url" id="" onChange={handleChangeCreate}/>
                     </div>
                     <div className={styles.containerButtons}>
                         <button onClick={closeModalAdminProduct}>Cancelar</button>
@@ -55,6 +104,8 @@ export const AdminProduct = () => {
         )
     }else if(modalAdminProduct.option === 2){
 
+
+        // Editar Producto
 
         return(
             <div className={styles.containerPrincipal}>
@@ -77,10 +128,15 @@ export const AdminProduct = () => {
                             <label htmlFor="">Categoria</label>
                             <select name="" id="">
                                 <option value="" selected disabled>Categorias</option>
+                                {categories?.map(category => (
+                                    <option key={category.id} value={category.id} >{category.name}</option>
+                                ))}
                             </select>
                             <label htmlFor="">Tipo Producto</label>
                             <select name="" id="">
                                 <option value="">TipoProducto</option>
+                                <option value="calzado">{ProductType.calzado}</option>
+                                <option value="indumentaria">{ProductType.indumentaria}</option>
                             </select>
 
                         </div>

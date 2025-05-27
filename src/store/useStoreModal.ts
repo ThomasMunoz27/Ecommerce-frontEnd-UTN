@@ -4,13 +4,13 @@ interface IStoreModal{
     modalAccount : {type: boolean, valueLogin: boolean}, // Modal de inicio de sesion
     modalEditLogin : {type : boolean, option : 1 | 2 | null}, // Modal que edita datos del usuario logueado
     modalAddProduct : boolean, // Modal para agregar un producto al carrito
-    modalSubAdmin : {type : boolean, option: 1 | 2 | null},
     modalPrices : boolean,
     modalAdminColor : {type: boolean, option : 1 | 2 | null},
     modalAdminSize : {type : boolean, option : 1 | 2 | null},
     modalAdminDiscount : {type : boolean, option : 1 | 2 | null},
     modalAdminPrice : {type : boolean, option : 1 | 2 | null},
-    modalAdminProduct : {type : boolean, option : 1 | 2 | null}
+    modalAdminProduct : {type : boolean, option : 1 | 2 | null},
+    modalAdminSubSize : {type : boolean, option : 1 | 2 | null}
     
     openModalAccount : (selection : boolean) => void,
     closeModalAccount : VoidFunction,
@@ -20,9 +20,6 @@ interface IStoreModal{
 
     openModalAddProduct : VoidFunction,
     closeModalAddProduct : VoidFunction,
-
-    openModalSubAdmin : (selection : 1 | 2 | null) => void,
-    closeModalSubAdmin : VoidFunction,
 
     openModalPrices : VoidFunction,
     closeModalPrices : VoidFunction
@@ -40,7 +37,10 @@ interface IStoreModal{
     closeModalAdminPrice : VoidFunction,
 
     openModalAdminProduct : (selection : 1 | 2 | null) => void,
-    closeModalAdminProduct : VoidFunction
+    closeModalAdminProduct : VoidFunction,
+
+    openAdminSubSize : (selection : 1 | 2 | null) => void,
+    closeAdminSubSize : () => void
 
 
 }
@@ -51,7 +51,6 @@ export const useStoreModal = create<IStoreModal>((set) => ({
     modalEditLogin : {type : false, option : null},
     modalAddProduct : false,
     modalEditAdminProduct: false,
-    modalSubAdmin : {type : false, option: null},
     modalAddAdminProduct : false,
     modalPrices : false,
     modalAdminColor : {type : false, option : null},
@@ -59,6 +58,8 @@ export const useStoreModal = create<IStoreModal>((set) => ({
     modalAdminDiscount : {type : false, option : null},
     modalAdminPrice : {type : false, option : null},
     modalAdminProduct : {type : false, option: null},
+    modalAdminSubSize : {type : false, option : null},
+
 
     
     openModalAccount : (selection) =>set({modalAccount : {type: true, valueLogin : selection}}),
@@ -69,9 +70,6 @@ export const useStoreModal = create<IStoreModal>((set) => ({
 
     openModalAddProduct : () => set({modalAddProduct : true}),
     closeModalAddProduct : () => set({modalAddProduct : false}),
-
-    openModalSubAdmin : (selection) => set({modalSubAdmin : {type : true, option : selection}}),
-    closeModalSubAdmin : () => set({modalSubAdmin : {type : false, option: null}}),
 
     openModalPrices : () => set({modalPrices : true}),
     closeModalPrices : () => set({modalPrices : false}),
@@ -89,7 +87,10 @@ export const useStoreModal = create<IStoreModal>((set) => ({
     closeModalAdminPrice : () => set({modalAdminPrice : {type : false, option : null}}),
 
     openModalAdminProduct : (selection) => set({modalAdminProduct : {type : true, option : selection}}),
-    closeModalAdminProduct : () => set({modalAdminProduct : {type : false, option : null}})
+    closeModalAdminProduct : () => set({modalAdminProduct : {type : false, option : null}}), 
+
+    openAdminSubSize : (selection) => set({modalAdminSubSize : {type : true, option : selection}}),
+    closeAdminSubSize : () => set({modalAdminSubSize : {type : false, option : null}})
 
     
 }))
