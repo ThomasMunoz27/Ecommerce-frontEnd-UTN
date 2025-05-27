@@ -4,19 +4,18 @@ import { IColor } from '../../../../types/IColor'
 import { deleteColor, getAllColors } from '../../../../cruds/crudColor'
 import { useStoreModal } from '../../../../store/useStoreModal'
 import { AdminColor } from '../../Modals/AdminColor/AdminColor'
+import { useStoreColor } from '../../../../store/useStoreColor'
 
 export const ColorsAdmin = () => {
 
     const {modalAdminColor, openModalAdminColor} = useStoreModal()
-    const [colors, setColors] = useState<IColor[]>()
+    
     const [selectedColor, setSelectedColor] = useState<IColor>()
+    const {colors, fetchColors} = useStoreColor()
 
     useEffect(() => {
-        const getColors = async() => {
-            const colorsFetched = await getAllColors()
-            setColors(colorsFetched)
-        }
-        getColors()
+        
+        fetchColors()
     },[])
 
 
@@ -29,6 +28,7 @@ export const ColorsAdmin = () => {
         try {
             await deleteColor(colorId)
             alert('Se elimino el color')
+            fetchColors()  // Actualizo el estado
         } catch (error : any) {
             alert('Ocurrio un error al eliminar un color')
             console.log(error.message);

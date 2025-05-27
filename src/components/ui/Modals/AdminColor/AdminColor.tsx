@@ -3,6 +3,7 @@ import { useStoreModal } from '../../../../store/useStoreModal'
 import styles from './AdminColor.module.css'
 import { IColor } from '../../../../types/IColor'
 import { getAllColors, postColor, putColor } from '../../../../cruds/crudColor'
+import { useStoreColor } from '../../../../store/useStoreColor'
 
 interface IModalColor {
     color? : IColor 
@@ -10,17 +11,13 @@ interface IModalColor {
 
 export const AdminColor : FC<IModalColor> = ({color}) => {
     const {closeModalAdminColor, modalAdminColor} = useStoreModal()
-
-    const [colors, setColors] = useState<IColor[]>()
+    const {colors, fetchColors} = useStoreColor()
+    
     const [addColor, setAddColor] = useState<string>('#000000')
     const [editColor, setEditColor] = useState<IColor>(color!)
 
     useEffect(() => {
-        const getColors = async () => {
-            const colorFetched = await getAllColors()
-            setColors(colorFetched)
-        }
-        getColors()
+        fetchColors()
     },[colors])
 
     const handleChange = (e : React.ChangeEvent<HTMLInputElement>) => {
@@ -44,6 +41,7 @@ export const AdminColor : FC<IModalColor> = ({color}) => {
 
             await postColor(newColor)
             alert('Color agregado')
+            fetchColors() // Actualizo el estado
             closeModalAdminColor()
             
         } catch (error : any) {
@@ -69,6 +67,7 @@ export const AdminColor : FC<IModalColor> = ({color}) => {
             }
             await putColor(editColor)
             alert('Color actualizado')
+            fetchColors() // Actualizo el estado
             closeModalAdminColor()
         } catch (error : any) {
             alert('Ocurrio un error')
