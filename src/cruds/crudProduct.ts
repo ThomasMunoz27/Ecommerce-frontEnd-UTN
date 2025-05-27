@@ -2,6 +2,7 @@ import axios from "axios"
 import { BASE_URL } from "../utils/constantes"
 import { IProduct } from "../types/IProduct"
 import { ICreateProduct } from "../types/ICreateProduct"
+import { useStoreCategory } from "../store/useStoreCategory"
 
 
 
@@ -66,10 +67,17 @@ export const getAllProductsActive = async () => {
     }
 }
 
+
 export const getAllProductsPaged = async (page: number, size: number, categoryId? : number) => {
     try {
-        const response = await axios.get(`${URL_PRODUCTS}/paged?page=${page}&size=${size}&categoryId=${categoryId}`)
-        return response.data
+        if(categoryId){
+            const response = await axios.get(`${URL_PRODUCTS}/paged?page=${page}&size=${size}&categoryId=${categoryId}`)
+            return response.data
+
+        }else{
+            const response = await axios.get(`${URL_PRODUCTS}/paged?page=${page}&size=${size}`)
+            return response.data
+        }
     } catch (error) {
         console.error('Error en getAllProductsPaged', error);
         
