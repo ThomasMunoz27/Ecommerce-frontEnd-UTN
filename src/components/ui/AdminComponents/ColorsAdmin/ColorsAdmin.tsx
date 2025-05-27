@@ -17,7 +17,7 @@ export const ColorsAdmin = () => {
             setColors(colorsFetched)
         }
         getColors()
-    },[colors])
+    },[])
 
 
     const openModalColorEdit = (color : IColor) => {

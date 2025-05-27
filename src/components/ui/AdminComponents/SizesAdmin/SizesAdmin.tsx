@@ -1,10 +1,15 @@
 import { useEffect, useState } from 'react'
 import styles from './SizesAdmin.module.css'
 import { ISize } from '../../../../types/ISize'
-import { getAllSizes } from '../../../../cruds/crudSize'
+import { deleteSize, getAllSizes } from '../../../../cruds/crudSize'
+import { useStoreModal } from '../../../../store/useStoreModal'
+import { AdminSize } from '../../Modals/AdminSize/AdminSize'
+
 
 export const SizesAdmin = () => {
     const [sizes, setSizes] = useState<ISize[]>()
+    const {openModalAdminSize, modalAdminSize} = useStoreModal()
+    const [selectedSize, setSelectedSize] = useState<ISize>()
 
     useEffect(() => {
         const getSizes = async() => {
@@ -14,6 +19,27 @@ export const SizesAdmin = () => {
         getSizes()
     },[])
 
+
+    
+    const handleDelete = async(sizeId : string) => {
+        try {
+            const deletedSize = await deleteSize(sizeId)
+            console.log(sizeId);
+            
+            console.log(deletedSize);
+            
+            alert('Se elimino el talle')
+        } catch (error : any) {
+            alert('Ocurrio un error')
+            console.log(error.message);
+        }
+    }
+
+    const handleEditSize = (size : ISize) => {
+        openModalAdminSize(2)
+        setSelectedSize(size) 
+    }
+
     return (
         <div className={styles.containerPrincipal}>
             <div className={styles.containerTitleAndButton}>
@@ -21,7 +47,7 @@ export const SizesAdmin = () => {
                     <h1>Gestión de Talles</h1>
                 </div>
                 <div className={styles.containerButtons}>
-                    <button>
+                    <button onClick={() => openModalAdminSize(1)}>
                         Añadir
                     </button>
                 </div>
@@ -43,8 +69,8 @@ export const SizesAdmin = () => {
                         
                         <td>
                             <div className={styles.actionButtons}>
-                                <button >Editar</button>
-                                <button >Eliminar</button>
+                                <button onClick={() => handleEditSize(size)}>Editar</button>
+                                <button onClick={() => handleDelete(size.id!)}>Eliminar</button>
                             </div>
                         </td>
                     </tr>
@@ -52,6 +78,7 @@ export const SizesAdmin = () => {
                 </tbody>
             </table>
         </div>
+        {modalAdminSize.type === true && <div className={styles.modalBackdrop}><AdminSize size={selectedSize}/></div>}
         </div>
     )
 }
