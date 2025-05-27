@@ -1,0 +1,94 @@
+.containerPrincipal{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    box-shadow: 5px 5px 15px;
+}
+.containerTitle{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+.containerData{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+.containerData input{
+    width: 100%;
+    
+}
+.containerData select {
+    width: 100%;
+    height: 5.5vh;
+}
+.containerColumn{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    padding: 10px;
+    gap: 0.5rem;
+}
+.containerHandleButtons{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    gap: 5px;
+}
+.containerHandleButtons button{
+    padding: 5px;
+
+}
+.containerDescription{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.containerDescription textarea{
+    width: 100%;
+    padding: 10px;
+    border: 1px solid;
+}
+
+.containerImage{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    width: 100%;
+}
+.containerImage input{
+    width: 100%;
+}
+.containerButtons{
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    cursor: pointer;
+}
+.containerButtons button{
+    background-color: black;
+    color: white;
+    font-size: 15px;
+    padding: 5px;
+}
+.containerButtons button:hover{
+    transform: scale(1.1);
+    transition: 0.3s ease;
+}

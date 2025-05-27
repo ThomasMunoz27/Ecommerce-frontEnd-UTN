@@ -4,31 +4,23 @@ import { deleteProduct, getAllProducts } from '../../../../cruds/crudProduct';
 import { IProduct } from '../../../../types/IProduct';
 import { useStoreModal } from '../../../../store/useStoreModal';
 import useStoreProduct from '../../../../store/useStoreProduct';
-import { AdminAddProductModal } from '../../Modals/AdminAddProductModal/AdminAddProductModal';
-import { AdminEditProductModal } from '../../Modals/AdminEditProductModal/AdminEditProductModal';
+
+
+import { AdminProduct } from '../../Modals/AdminProduct/AdminProduct';
 
 
 export const ProductsAdmin = () => {
-    const {setActiveProduct} = useStoreProduct()
-    const [products, setProducts] = useState<IProduct[]>();
-    const {openModalEditAdminProduct, modalEditAdminProduct, openModalAddAdminProduct, modalAddAdminProduct} = useStoreModal()
+    const {setActiveProduct, fetchProduct, products} = useStoreProduct()
+    
+    const {modalAdminProduct, openModalAdminProduct} = useStoreModal()
 
     useEffect(() => {
-        const getProducts = async () => {
-        const productsFetched = await getAllProducts();
-            setProducts(productsFetched);
-        };
-    getProducts();
-    }, [products]);
+        fetchProduct()
+    },[])
 
-    // Pongo el producto a editar como producto activo
     const handleEdit = (product : IProduct) => {
-        openModalEditAdminProduct()
+        openModalAdminProduct(2)
         setActiveProduct(product)
-    }
-
-    const handleDelete = async(idProduct : number) => {
-        await deleteProduct(idProduct)
     }
 
     return (
@@ -38,7 +30,7 @@ export const ProductsAdmin = () => {
                     <h1>Gestión de Productos</h1>
                 </div>
                 <div className={styles.containerButtons}>
-                    <button onClick={openModalAddAdminProduct}>
+                    <button onClick={() => openModalAdminProduct(1)}>
                         Añadir
                     </button>
                 </div>
@@ -88,7 +80,7 @@ export const ProductsAdmin = () => {
                         <td>
                             <div className={styles.actionButtons}>
                                 <button onClick={() => handleEdit(product)}>Editar</button>
-                                <button onClick={() => handleDelete(product.id)}>Eliminar</button>
+                                <button >Eliminar</button>
                             </div>
                         </td>
                     </tr>
@@ -96,8 +88,7 @@ export const ProductsAdmin = () => {
                 </tbody>
             </table>
         </div>
-        {modalEditAdminProduct && <div className={styles.modalBackdrop}><AdminEditProductModal/></div>}
-        {modalAddAdminProduct && <div className={styles.modalBackdrop}><AdminAddProductModal/></div>}
+        {modalAdminProduct.type && <div className={styles.modalBackdrop}><AdminProduct/></div>}
     </div>
     );
 };
