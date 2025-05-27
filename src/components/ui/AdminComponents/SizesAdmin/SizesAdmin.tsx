@@ -9,6 +9,8 @@ import { IUser } from '../../../../types/IUser'
 import { getAllUsers } from '../../../../cruds/crudUsers'
 import { getAllProducts } from '../../../../cruds/crudProduct'
 import { IProduct } from '../../../../types/IProduct'
+import { errorAlert } from '../../../../utils/errorAlert'
+import { succesAlert } from '../../../../utils/succesAlert'
 
 
 export const SizesAdmin = () => {
@@ -40,7 +42,7 @@ export const SizesAdmin = () => {
         )
 
         if (sizeInUser || sizeInProduct){
-            alert('El talle se encuentra asignado a un usuario o a un producto')
+            errorAlert('Error','El talle se encuentra asignado a un usuario o a un producto')
             return
         }
 
@@ -50,11 +52,11 @@ export const SizesAdmin = () => {
             
             console.log(deletedSize);
             
-            alert('Se elimino el talle')
+            succesAlert('Eliminado','Se elimino el talle')
 
             fetchSize()
         } catch (error : any) {
-            alert('Ocurrio un error')
+            errorAlert('Error','Ocurrio un error')
             console.log(error.message);
         }
     }

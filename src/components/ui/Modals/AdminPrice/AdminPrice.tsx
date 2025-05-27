@@ -6,6 +6,7 @@ import { getAllDiscounts } from '../../../../cruds/crudDiscount'
 import { IDiscount } from '../../../../types/IDiscount'
 import { IPrice } from '../../../../types/IPrice'
 import { postPrice, putPrice } from '../../../../cruds/crudPrices'
+import { succesAlert } from '../../../../utils/succesAlert'
 
 export const AdminPrice = () => {
     const {modalAdminPrice, closeModalAdminPrice} = useStoreModal()
@@ -31,7 +32,7 @@ export const AdminPrice = () => {
         e.preventDefault()
         try {
             await postPrice(newPrice)
-            alert('Sagrego un nuevo precio')
+            succesAlert('Creado', 'Se creo el precio existosamente')
             fetchPrice()
             closeModalAdminPrice()
         } catch (error : any) {

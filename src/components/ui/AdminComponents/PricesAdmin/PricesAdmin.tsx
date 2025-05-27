@@ -7,6 +7,8 @@ import { IProduct } from '../../../../types/IProduct'
 import { useStoreModal } from '../../../../store/useStoreModal'
 import { AdminPrice } from '../../Modals/AdminPrice/AdminPrice'
 import { IPrice } from '../../../../types/IPrice'
+import { errorAlert } from '../../../../utils/errorAlert'
+import { succesAlert } from '../../../../utils/succesAlert'
 
 export const PricesAdmin = () => {
 
@@ -36,13 +38,15 @@ export const PricesAdmin = () => {
         )
 
         if(pricesInProducts){
-            alert('El precio se encuentra asignado a un producto')
+            
+            errorAlert('Error', 'El precio se encuentra asignado a un producto')
             return
         }
         try {
             const deletedPrice = await deletePrice(String(priceId))
             console.log(deletedPrice);
-            alert('Se elimino el precio')
+            
+            succesAlert('Eliminado', 'Se elimino el precio exitosamente')
             fetchPrice()
             
         } catch (error : any) {

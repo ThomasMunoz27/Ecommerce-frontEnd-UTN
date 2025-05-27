@@ -4,6 +4,8 @@ import styles from './AdminColor.module.css'
 import { IColor } from '../../../../types/IColor'
 import { postColor, putColor } from '../../../../cruds/crudColor'
 import { useStoreColor } from '../../../../store/useStoreColor'
+import { errorAlert } from '../../../../utils/errorAlert'
+import { succesAlert } from '../../../../utils/succesAlert'
 
 
 
@@ -16,7 +18,7 @@ export const AdminColor = () => {
 
     useEffect(() => {
         fetchColors()
-    },[colors])
+    },[])
 
     const handleChange = (e : React.ChangeEvent<HTMLInputElement>) => {
         setAddColor(e.target.value)
@@ -29,7 +31,7 @@ export const AdminColor = () => {
         try {
             const existingColor = colors?.some(color => color.value === addColor)
             if (existingColor){
-                alert('El color ya existe')
+                errorAlert('Error','El color ya existe')
                 return
             }
             // Hago un objeto tipo color
@@ -38,12 +40,12 @@ export const AdminColor = () => {
             }
 
             await postColor(newColor)
-            alert('Color agregado')
+            succesAlert('Creado','Color agregado exitosamente')
             fetchColors() // Actualizo el estado
             closeModalAdminColor()
             
         } catch (error : any) {
-            alert('Ocurrio un error')
+            errorAlert('Error','Ocurrio un error')
             console.log(error.message);
         }
     }
@@ -53,22 +55,22 @@ export const AdminColor = () => {
         e.preventDefault()
 
         if (!editColor || !editColor.id) {
-            alert('Color no valido')
+            errorAlert('Error','Color no valido')
             return
         }
 
         try {
             const exist = colors?.some(color => color.value === editColor.value && color.id === editColor.id)
             if(exist){
-                alert('El color ya existe')
+                errorAlert('Error','El color ya existe')
                 return
             }
             await putColor(editColor)
-            alert('Color actualizado')
+            succesAlert('Creado','Color actualizado exitosamente')
             fetchColors() // Actualizo el estado
             closeModalAdminColor()
         } catch (error : any) {
-            alert('Ocurrio un error')
+            errorAlert('Error','Ocurrio un error')
             console.log(error.message);
             
         }

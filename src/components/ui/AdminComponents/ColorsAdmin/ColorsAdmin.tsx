@@ -7,6 +7,8 @@ import { AdminColor } from '../../Modals/AdminColor/AdminColor'
 import { useStoreColor } from '../../../../store/useStoreColor'
 import { IProduct } from '../../../../types/IProduct'
 import { getAllProducts } from '../../../../cruds/crudProduct'
+import { errorAlert } from '../../../../utils/errorAlert'
+import { succesAlert } from '../../../../utils/succesAlert'
 
 export const ColorsAdmin = () => {
 
@@ -32,16 +34,16 @@ export const ColorsAdmin = () => {
         )
 
         if(colorInProduct){
-            alert('El color se encuentra asignado a un producto')
+            errorAlert('Error','El color se encuentra asignado a un producto')
             return
         }
 
         try {
             await deleteColor(colorId)
-            alert('Se elimino el color')
+            succesAlert('Eliminado','Se elimino el color exitosamente')
             fetchColors()  // Actualizo el estado
         } catch (error : any) {
-            alert('Ocurrio un error al eliminar un color')
+            errorAlert('Error','Ocurrio un error al eliminar un color')
             console.log(error.message);
             
         }
