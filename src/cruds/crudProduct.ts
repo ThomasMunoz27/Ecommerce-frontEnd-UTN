@@ -2,7 +2,6 @@ import axios from "axios"
 import { BASE_URL } from "../utils/constantes"
 import { IProduct } from "../types/IProduct"
 import { ICreateProduct } from "../types/ICreateProduct"
-import { useStoreCategory } from "../store/useStoreCategory"
 
 
 
