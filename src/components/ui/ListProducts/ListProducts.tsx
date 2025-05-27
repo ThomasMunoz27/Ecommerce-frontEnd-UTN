@@ -3,6 +3,7 @@ import { IProduct } from '../../../types/IProduct';
 import style from './ListProducts.module.css'
 import { CardProduct } from '../CardProduct/CardProduct';
 import { useStoreCategory } from '../../../store/useStoreCategory';
+import { useStoreFilterModal } from '../../../store/useStoreFilterModal';
 
 
 interface Props {
@@ -14,6 +15,9 @@ interface Props {
 export const ListProducts: FC<Props> = ({productsArray, title, customClass}) => {
    
        const {activeCategory} = useStoreCategory()
+
+        const {toggleVisible, visible} = useStoreFilterModal()
+
       //  const getPagedProducts = async () => {
       //    const pagedProducts = await getAllProductsPaged(0,1)
       //    console.log(pagedProducts)
@@ -26,7 +30,10 @@ export const ListProducts: FC<Props> = ({productsArray, title, customClass}) => 
   return (
     <div className={`${style.container} ${ customClass ? style[customClass] : ''}`}>
     <h2>{activeCategory && !title ? activeCategory.name : title}</h2>
-    <button className={style.filterButton}>Filtrar</button>
+    <button className={style.filterButton} onClick={() => {
+      toggleVisible()
+      console.log(visible)
+      }}>Filtrar</button>
     <div className={style.productsContainer}>
     {productsArray.length > 0 ? productsArray.map((product) => {
   return (

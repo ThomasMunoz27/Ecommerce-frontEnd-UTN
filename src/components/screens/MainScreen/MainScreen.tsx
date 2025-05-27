@@ -10,8 +10,13 @@ import { IProduct } from "../../../types/IProduct";
 import {getAllProductsPaged } from "../../../cruds/crudProduct";
 import { Header } from "../../ui/Headers/Header/Header";
 import { AddProductModal } from "../../ui/Modals/AddProductModal/AddProductModal";
+import { useStoreFilterModal } from "../../../store/useStoreFilterModal";
+import { FilterModal } from "../../ui/Modals/FilterModal/FilterModal";
 
 export const MainScreen = () => {
+
+  const {visible} = useStoreFilterModal()
+
   const { modalAddProduct } = useStoreModal();
 
   const [products, setProducts] = useState<IProduct[]>([]);
@@ -63,7 +68,12 @@ export const MainScreen = () => {
             </button>
           ))}
         </div>
+
+          {/* Filter modal */}
+
+          {visible && <FilterModal/>}
         <Footer />
+
       </div>
     </>
   );
