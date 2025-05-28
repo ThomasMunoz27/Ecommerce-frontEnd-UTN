@@ -1,22 +1,22 @@
-import React, { FC, useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useStoreModal } from "../../../../store/useStoreModal"
 import { ISize } from "../../../../types/ISize"
 import styles from './AdminSize.module.css'
 import { postSize, putSize } from "../../../../cruds/crudSize"
 import { useStoreSize } from "../../../../store/useStoreSize"
+import { errorAlert } from "../../../../utils/errorAlert"
+import { succesAlert } from "../../../../utils/succesAlert"
 
-interface IAdminSize {
-    size? : ISize
-}
 
-export const AdminSize: FC<IAdminSize> = ({size}) => {
+
+export const AdminSize = () => {
 
 
 
     const {modalAdminSize, closeModalAdminSize} = useStoreModal()
-    const {sizes, fetchSize} = useStoreSize()
+    const {sizes, fetchSize, activeSize} = useStoreSize()
     const [newSize, setNewSize] = useState<string>()
-    const [editSize, setEditSize] = useState<ISize>(size!)
+    const [editSize, setEditSize] = useState<ISize>(activeSize!)
 
     useEffect(()=> {
         fetchSize()
@@ -29,14 +29,14 @@ export const AdminSize: FC<IAdminSize> = ({size}) => {
     const handleAddSize = async(e: React.FormEvent) => {
         e.preventDefault()
         if(!newSize){
-            alert('Talle no valido')
+            errorAlert('Error','Talle no valido')
             return
         }
 
         try {
             const existingSize = sizes?.some(size => size.size === newSize)
             if (existingSize){
-                alert('El talle ya existe')
+                errorAlert('Error','El talle ya existe')
                 return
             }
 
@@ -45,11 +45,11 @@ export const AdminSize: FC<IAdminSize> = ({size}) => {
             }
 
             await postSize(size)
-            alert('Se creo un nuevo talle')
+            succesAlert('Creado','Se creo un nuevo talle exitosamente')
             fetchSize()
             closeModalAdminSize()
         } catch (error : any) {
-            alert('Ocurrio un error en agregar uun talle')
+            errorAlert('Error','Ocurrio un error en agregar un talle')
             console.log(error.message);
             
         }
@@ -58,22 +58,22 @@ export const AdminSize: FC<IAdminSize> = ({size}) => {
     const handleEditSize = async(e : React.FormEvent) => {
         e.preventDefault()
 
-        if (!editSize || !size){
+        if (!activeSize){
             return
         }
 
         try {
             const existingSize = sizes?.some(size => size.size === editSize.size)
             if(existingSize){
-                alert('El talle ya existe')
+                errorAlert('Error','El talle ya existe')
                 return
             } 
             await putSize(editSize)
-            alert('Se actualizo el talle')
+            succesAlert('Actualizado','Se actualizo el talle exitosamente')
             fetchSize()
             closeModalAdminSize()    
         } catch (error : any) {
-            alert('Ocurrio un error en editar talle')
+            errorAlert('Error','Ocurrio un error en editar talle')
             console.log(error.message);
             
         }

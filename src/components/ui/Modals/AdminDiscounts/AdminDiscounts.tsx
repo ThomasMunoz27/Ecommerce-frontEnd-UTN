@@ -4,6 +4,8 @@ import { useStoreModal } from '../../../../store/useStoreModal'
 import styles from './AdminDsicounts.module.css'
 import { IDiscount } from '../../../../types/IDiscount'
 import { getAllDiscounts, postDiscount, putDiscount } from '../../../../cruds/crudDiscount'
+import { succesAlert } from '../../../../utils/succesAlert'
+import { errorAlert } from '../../../../utils/errorAlert'
 
 
 
@@ -55,11 +57,11 @@ export const AdminDsicounts = () => {
         try {
             const updatedDiscount = await putDiscount(activeDiscount)
             console.log(updatedDiscount);    
-            alert('Se actualizo el descuento')
+            succesAlert('Actualizado', 'Se actualizo el descuento exitosamente')
             fetchDiscount()
             closeModalAdminDiscount()
         } catch (error : any) {
-            alert('No se puede actualizar el descuento')
+            errorAlert('Error','No se puede actualizar el descuento')
             console.log(error.message);
             
         }
@@ -79,12 +81,14 @@ export const AdminDsicounts = () => {
             const addDiscount = await postDiscount(newDiscount)
             
             console.log(addDiscount);
-            alert('Se agrego un nuevo descuento')
+            succesAlert('Creado', 'Se agrego un nuevo descuento')
+            
             fetchDiscount() // Actualizo el estado
             closeModalAdminDiscount()
             
         } catch (error : any) {
-            alert('No se pudo agregar el descuento')
+            errorAlert('Error', 'No se pudo agregar el descuento')
+            
             console.log(error.message);
             
         }

@@ -121,7 +121,7 @@ export const AddProductModal = () => {
                         <div key={color.id}
                             className={selectedColorId === color.id ? styles.colorSelected : styles.color}
                             style={getColorStyle(color.value)}
-                            onClick={() => handleClickColor(color.id)}>
+                            onClick={() => handleClickColor(color.id!)}>
                         </div>
                     ))
                 ) : (

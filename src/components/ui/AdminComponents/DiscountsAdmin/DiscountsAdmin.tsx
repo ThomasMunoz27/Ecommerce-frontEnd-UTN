@@ -7,6 +7,8 @@ import { useStoreDiscount } from '../../../../store/useStoreDiscount'
 import { IPrice } from '../../../../types/IPrice'
 import { getAllPrices } from '../../../../cruds/crudPrices'
 import { deleteDiscount } from '../../../../cruds/crudDiscount'
+import { errorAlert } from '../../../../utils/errorAlert'
+import { succesAlert } from '../../../../utils/succesAlert'
 
 
 
@@ -36,16 +38,16 @@ export const DiscountsAdmin = () => {
         try {
             const discounInPrice = prices?.some(price => price.discount?.id === discountId)
             if(discounInPrice){
-                alert('El descuento se encuentra asignado a un precio')
+                errorAlert('Error','El descuento se encuentra asignado a un precio')
                 return
             }
 
             const deletedDiscount = await deleteDiscount(String(discountId))
-            alert('Se elimino el descuento')
+            succesAlert('Eliminado','Se elimino el descuento')
             console.log(deletedDiscount);
             fetchDiscount() // Actualiza el estado
         } catch (error : any) {
-            alert('No se puede eliminar el descuento')
+            errorAlert('Error','No se puede eliminar el descuento')
             console.log(error.message);
             
         }

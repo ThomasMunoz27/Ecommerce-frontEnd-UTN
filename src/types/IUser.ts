@@ -15,6 +15,6 @@ export interface IUser {
     dni: string
     adress: IAdress
     size: ISize
-    active: boolean
-    sex: string
+    active: boolean,
+    sex : string
 }
