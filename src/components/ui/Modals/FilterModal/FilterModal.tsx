@@ -29,13 +29,13 @@ export const FilterModal = () => {
                 </div>
                 <div className={`${style.sectionDefault} ${style.sectionDropdown}`}>
                     <div className={style.selectorContainer}>
-                    <input type='checkbox'></input><p>Hombre</p>
+                    <input type='checkbox'></input><p>HOMBRE</p>
                     </div>
                     <div className={style.selectorContainer}>
-                    <input type='checkbox'></input><p>Mujer</p>
+                    <input type='checkbox'></input><p>MUJER</p>
                     </div>
                     <div className={style.selectorContainer}>
-                    <input type='checkbox'></input><p>Niños</p>
+                    <input type='checkbox'></input><p>NIÑOS</p>
                     </div>
                 </div>
             </div>
