@@ -16,7 +16,7 @@ export const getAllUsers = async (): Promise<IUser[]> => {
 
 export const getUserById = async (idUser : number): Promise<IUser[]> => {
     try{
-        const response = await axios.get(`${BASE_URL}/${idUser}`)
+        const response = await axios.get(`${URL_USERS}/${idUser}`)
         return response.data
     }catch (err){
         console.log("Error en getUserById" + err)
@@ -26,7 +26,7 @@ export const getUserById = async (idUser : number): Promise<IUser[]> => {
 
 export const createUser = async (newUser : IUser): Promise<IUser[]> => {
     try{
-        const response = await axios.post(BASE_URL, newUser)
+        const response = await axios.post(URL_USERS, newUser)
         return response.data
     }catch (err){
         console.log("Error en createUser" + err)
@@ -36,7 +36,7 @@ export const createUser = async (newUser : IUser): Promise<IUser[]> => {
 
 export const updateUser = async ( userUpdated : IUser): Promise<IUser[]> => {
     try{
-        const response = await axios.put(`${BASE_URL}/${userUpdated.id}`, userUpdated)
+        const response = await axios.put(`${URL_USERS}/${userUpdated.id}`, userUpdated)
         return response.data
     }catch (err){
         console.log("Error en updateUser" + err)
