@@ -11,10 +11,15 @@ import { IProduct } from '../../../types/IProduct'
 import { useStoreCategory } from '../../../store/useStoreCategory'
 import { ICategory } from '../../../types/ICategory'
 import { AddProductModal } from '../../ui/Modals/AddProductModal/AddProductModal'
+import { FilterModal } from '../../ui/Modals/FilterModal/FilterModal'
+import { useStoreFilterModal } from '../../../store/useStoreFilterModal'
 
 export const ProductCategoryScreen = () => {
 
     const {modalAddProduct} = useStoreModal()
+
+    const {visible} = useStoreFilterModal()
+
     const {activeCategory, setActiveCategory} = useStoreCategory()
     const [products, setProducts] = useState<IProduct[]>([])
 
@@ -70,6 +75,10 @@ export const ProductCategoryScreen = () => {
           </button>
         ))}
       </div>
+
+      {/* Filter modal */}
+      
+                {visible && <FilterModal/>}
 
     <Footer/>
 
