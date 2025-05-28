@@ -7,7 +7,7 @@
     max-width: 500px;
     min-width: 438px;
     border: 1px solid black;
-    box-shadow: 4px 4px 6px rgb(95, 95, 95);
+    box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.534);
     display: flex;
     margin: 8px;
 }

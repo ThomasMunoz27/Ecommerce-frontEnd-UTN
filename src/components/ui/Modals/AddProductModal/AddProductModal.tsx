@@ -92,7 +92,11 @@ export const AddProductModal = () => {
             <div className={styles.constainerSizes}>
                 {activeProduct?.sizes && activeProduct!.sizes.length > 0 ? (
                     activeProduct?.sizes.slice(0,5).map(size => (
-                        <div key={size.id} className={selectedSizeId === size.id ? styles.sizeCardSelected : styles.sizeCard} onClick={() => handleClickSize(size.id)}>
+                        <div key={`${size.id}`} className={selectedSizeId === size.id ? styles.sizeCardSelected : styles.sizeCard} onClick={() =>{
+                            if(size.id){
+                                handleClickSize(Number(`${size.id}`))
+                            }
+                            }}>
                             {size.size}
                         </div>
                     ))

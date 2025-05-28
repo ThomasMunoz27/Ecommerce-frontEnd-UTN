@@ -120,7 +120,10 @@ export const FormSended = () => {
 
 
                     </button>)
-                    :(<Wallet initialization={{ preferenceId: preferenceIdMp }} />)
+                    :(<Wallet initialization={{ preferenceId: preferenceIdMp }}
+                    customization={{
+                        theme: 'dark'
+                    }}/>)
                 }
                     
                     
