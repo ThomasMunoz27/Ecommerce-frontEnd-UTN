@@ -11,7 +11,9 @@
     z-index: 1000;
 }
 
-
+.screen{
+    position: relative;
+}
 
 /* Pagination */
 

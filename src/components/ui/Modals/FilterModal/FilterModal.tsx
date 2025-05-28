@@ -6,39 +6,56 @@ export const FilterModal = () => {
 
   return (
     <aside className={style.modal}>
-        <header >
+        <div className={style.modalContainer}>
+            
+        <header className={`${style.sectionDefault} ${style.header}`}>
             Filtrar <a>Borrar todo</a> <button onClick={toggleVisible}>X</button>
         </header>
         <div>
-            <div className={style.filterSection}>
-                <div className={style.sectionHandler}>
+            <div className={`${style.sectionDefault} ${style.filterSection}`}>
+                <div className={`${style.sectionDefault} ${style.sectionHandler}`}>
                 ORDENAR POR   <button>V</button>
                 </div>
-                <div className={style.sectionDropdown}>
+                <div className={`${style.sectionDefault} ${style.sectionDropdown}`}>
+                    <div className={style.orderBy}>
                     <p>PRECIO (DE MENOR A MAYOR)</p>
                     <p>PRECIO (DE MAYOR A MENOR)</p>
+                    </div>
                 </div>
             </div>
-            <div className={style.filterSection}>
-                <div className={style.sectionHandler}>
+            <div className={`${style.sectionDefault} ${style.filterSection}`}>
+                <div className={`${style.sectionDefault} ${style.sectionHandler}`}>
                 SEXO   <button>V</button>
                 </div>
-                <div className={style.sectionDropdown}>
-                    <p>Hombre</p>
-                    <p>Mujer</p>
-                    <p>Niños</p>
+                <div className={`${style.sectionDefault} ${style.sectionDropdown}`}>
+                    <div className={style.selectorContainer}>
+                    <input type='checkbox'></input><p>Hombre</p>
+                    </div>
+                    <div className={style.selectorContainer}>
+                    <input type='checkbox'></input><p>Mujer</p>
+                    </div>
+                    <div className={style.selectorContainer}>
+                    <input type='checkbox'></input><p>Niños</p>
+                    </div>
                 </div>
             </div>
-            <div className={style.filterSection}>
-                <div className={style.sectionHandler}>
+            <div className={`${style.sectionDefault} ${style.filterSection}`}>
+                <div className={`${style.sectionDefault} ${style.sectionHandler}`}>
                 COLOR   <button>V</button>
                 </div>
-                <div className={style.sectionDropdown}>
-                    <p>COLOR 1</p>
-                    <p>Color 3</p>
-                    <p>Color 4</p>
+                <div className={`${style.sectionDefault} ${style.sectionDropdown}`}>
+                    <div className={style.selectorContainer}>
+                    <input type='checkbox'></input><p>COLOR 1</p>
+                    </div>
+                    <div className={style.selectorContainer}>
+                    <input type='checkbox'></input><p>COLOR 2</p>
+                    </div>
+                    <div className={style.selectorContainer}>
+                    <input type='checkbox'></input><p>COLOR 3</p>
+                    </div>
                 </div>
             </div>
+        </div>
         </div>
     </aside>
   );
