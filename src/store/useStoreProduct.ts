@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { IProduct } from "../types/IProduct";
 import { getAllProducts } from "../cruds/crudProduct";
-import { ICreateProduct } from "../types/ICreateProduct";
+
 
 interface IStoreProduct {
 

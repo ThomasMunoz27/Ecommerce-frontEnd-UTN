@@ -1,0 +1,82 @@
+.containerPrincipal{
+    background-color: white;
+    position:absolute;
+    top: 50%;
+    left: 40%;
+    transform: translate(-50%, -50%);
+    box-shadow: 5px 5px 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+.containerTitle{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+.containerAddColor{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px;
+
+}
+.listColors{
+    display: flex;
+    width: 100%;
+    gap: 10px;
+}
+.selectColors{
+    display: flex;
+    gap: 2px;
+    
+}
+.containerColor{
+    border-radius: 100%;
+    height: 30px;
+    width: 40px;
+}
+.containerDeleteColors{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.containerButtons{
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+}
+.containerButtons button{
+    font-size: 15px;
+    padding: 5px;
+    background-color: black;
+    color: white;
+}
+.containerButtons button:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: 03s ease;
+}
+.containerButtonsEdit{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 10px;
+}
+.containerButtonsEdit button{
+    font-size: 15px;
+    padding: 5px;
+    background-color: black;
+    color: white;
+}
+.containerButtonsEdit button:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: 03s ease;
+}
