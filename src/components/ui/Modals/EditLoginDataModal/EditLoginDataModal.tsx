@@ -5,6 +5,8 @@ import styles from './EditLoginDataModal.module.css'
 import { updateUser } from '../../../../cruds/crudUsers'
 import { IUser } from '../../../../types/IUser'
 import { succesAlert } from '../../../../utils/succesAlert'
+import { formChangePasswordSchema } from '../../../../yupSchemas/formChangePasswordSchema'
+import { errorAlert } from '../../../../utils/errorAlert'
 
 export const EditLoginDataModal = () => {
 
@@ -12,6 +14,7 @@ export const EditLoginDataModal = () => {
 
     const{setUser, user} = useStoreUsers()
 
+    //Funciones y constantes para el formulario 1
     const initialValues1 = {
         name: user?.name || "",
         lastName: user?.lastname || "",
@@ -49,18 +52,81 @@ export const EditLoginDataModal = () => {
         succesAlert("Datos actualizados!")
     }
 
+    //Funciones y constantes para el Formulario 2
+    const initialValues2 = {
+        oldPassword: "",
+        newPassword: "",
+        repeatNewPassword:""
+    }
+    const [formValues2, setFormValues2] = useState(initialValues2)
+    const [formErrors2, setFormErrors2] = useState<Record<string, string>>({})
+
+    const handleChange2 = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setFormValues2({...formValues2, [e.target.name]: e.target.value})
+    }
+
+    const handleSubmit2 = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        try{
+            if(user?.password !== formValues2.oldPassword){
+                errorAlert("Contraseña incorrecta")
+            }
+            await formChangePasswordSchema.validate(formValues2,{abortEarly: false})
+            console.log("Contraseñas validadas")
+            
+
+        if(!user) return
+
+        const updatedUser: IUser ={
+            ...user,
+            password: formValues2.newPassword
+        }
+        setUser(updatedUser)
+
+        console.log(updatedUser.id)
+        await updateUser(updatedUser)
+        succesAlert("Datos actualizados!")
+
+        }catch (error: any){
+            const errors: Record<string, string> = {}
+            error.inner.forEach((validationError:any) =>{
+                errors[validationError.path] = validationError.message
+            })
+            setFormErrors2(errors)
+        }
+    }
+
     if (modalEditLogin.option == 2){
         return (
             <div className={styles.containerPrincipalPassword}>
-                <h2>Editar tu contraseña</h2>
-                <input type="text" name="" id="" placeholder='Anterior contraseña' required/>
-                <input type="text" name="" id="" placeholder='Nueva contraseña' required/>
-                <button className={styles.buttonConfirm}>
-                    Guardar Cambios
-                </button>
-                <button className={styles.buttonCancel} onClick={closeModalEditLogin}>
-                    Cancelar
-                </button>
+                <form className={styles.formContainer} action="" onSubmit={handleSubmit2}>
+
+                    <h2>Editar tu contraseña</h2>
+                    <div>
+
+                        <input type="password" name="oldPassword" id="" placeholder='Anterior contraseña' value={formValues2.oldPassword} onChange={handleChange2}/>
+                        {formErrors2.oldPassword && <p className={styles.errorMessage}>{formErrors2.oldPassword}</p>}
+                    </div>
+
+                    <div>
+                        <input type="password" name="newPassword" id="" placeholder='Nueva contraseña' value={formValues2.newPassword} onChange={handleChange2}/>
+                        {formErrors2.newPassword && <p className={styles.errorMessage}>{formErrors2.newPassword}</p>}
+
+                    </div>
+
+                    <div>
+                        <input type="password" name="repeatNewPassword" id="" placeholder='Repetir nueva contraseña' value={formValues2.repeatNewPassword} onChange={handleChange2}/>
+                        {formErrors2.repeatNewPassword && <p className={styles.errorMessage}>{formErrors2.repeatNewPassword}</p>}
+                        
+                    </div>
+
+                    <button type="submit" className={styles.buttonConfirm}>
+                        Guardar Cambios
+                    </button>
+                    <button className={styles.buttonCancel} onClick={closeModalEditLogin}>
+                        Cancelar
+                    </button>
+                </form>
                 
             </div>
         )
