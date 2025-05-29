@@ -8,11 +8,12 @@ import { ICreateProduct } from '../../../../types/ICreateProduct'
 import { SubAdminSize } from '../SubAdminSizes/SubAdminSizes'
 import useStoreProduct from '../../../../store/useStoreProduct'
 import { SubAdminColor } from '../SubAdminColor/SubAdminColor'
+import { SubAdminPrice } from '../SubAdminPrices/SubAdminPrices'
 
 
 export const AdminProduct = () => {
     const {
-        modalAdminProduct, closeModalAdminProduct, modalAdminSubSize, openAdminSubSize, modalAdminSubColor, openAdminSubColor
+        modalAdminProduct, closeModalAdminProduct, modalAdminSubSize, openAdminSubSize, modalAdminSubColor, openAdminSubColor, modalAdminSubPrice, openAdminSubPrice
     } = useStoreModal()
     const {activeProduct} = useStoreProduct()
     const [categories, setCategories] = useState<ICategory[]>()
@@ -21,7 +22,7 @@ export const AdminProduct = () => {
         description : '',
         productTypeId : 0,
         sex : '',
-        prices : 0,
+        pricesId : 0,
         imageId : 0,
         categoryId : 0,
         sizes: [],
@@ -93,7 +94,7 @@ export const AdminProduct = () => {
                     </div>
                     <div className={styles.containerHandleButtons}>
                         <button type='button' onClick={() => openAdminSubSize(1)}>Manejo de Talles</button>
-                        <button type='button'> Manejo de Precios</button>
+                        <button type='button' onClick={() => openAdminSubPrice(1)}> Manejo de Precios</button>
                         <button type='button' onClick={() => openAdminSubColor(1)}>Manejo de Colores</button>
                     </div>
                     <div className={styles.containerDescription}>
@@ -110,7 +111,8 @@ export const AdminProduct = () => {
                     </div>
                 </form>
                 {modalAdminSubSize.type && <div className={styles.modalBackdrop}><SubAdminSize product={newProduct}/></div>}
-                {modalAdminSubColor.type && <div className={styles.modalBackdrop}><SubAdminColor/></div>}
+                {modalAdminSubColor.type && <div className={styles.modalBackdrop}><SubAdminColor product={newProduct}/></div>}
+                {modalAdminSubPrice.type && <div className={styles.modalBackdrop}><SubAdminPrice product={newProduct} setProduct={setNewProduct}/></div>}
             </div>
         )
     }else if(modalAdminProduct.option === 2){
@@ -154,7 +156,7 @@ export const AdminProduct = () => {
                     </div>
                     <div className={styles.containerHandleButtons}>
                         <button type='button' onClick={() => openAdminSubSize(2)}>Manejo de Talles</button>
-                        <button type='button'>Manejo de Precios</button>
+                        <button type='button' onClick={() => openAdminSubPrice(2)}>Manejo de Precios</button>
                         <button type='button' onClick={() => openAdminSubColor(2)}>Manejo de Colores</button>
                     </div>
                     <div className={styles.containerDescription}>
@@ -172,6 +174,7 @@ export const AdminProduct = () => {
                 </form>
                 {modalAdminSubSize.type && <div className={styles.modalBackdrop}><SubAdminSize/></div>}
                 {modalAdminSubColor.type && <div className={styles.modalBackdrop}><SubAdminColor/></div>}
+                {modalAdminSubPrice.type && <div className={styles.modalBackdrop}><SubAdminPrice/></div>}
             </div>
         )
     }

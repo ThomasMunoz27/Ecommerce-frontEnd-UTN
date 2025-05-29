@@ -5,7 +5,7 @@ export interface ICreateProduct {
     description: string
     productTypeId: number
     sex: string;
-    prices: number
+    pricesId: number
     imageId: number
     categoryId: number
     sizes : string[]
