@@ -1,0 +1,82 @@
+.containerPrincipal{
+    background-color: white;
+    position:absolute;
+    top: 50%;
+    left: 40%;
+    transform: translate(-50%, -50%);
+    box-shadow: 5px 5px 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+.containerTitle{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+.containerAddSize{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    gap: 10px
+}
+.containerSelect{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+.containerSelect select{
+    width: 100%;
+}
+.containerAddSize input {
+    width: 100%;
+    padding: 5px;
+}
+.containerSizes{
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+}
+.containerButtons{
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+}
+.containerButtons button{
+    font-size: 15px;
+    background-color: black;
+    color: white;
+    padding: 5px;
+}
+.containerButtons button:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: 0.3s ease;
+}
+.containerButtonsEdit{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 10px;
+    gap: 5px;
+}
+.containerButtonsEdit button{
+    font-size: 15px;
+    background-color: black;
+    color: white;
+    padding: 5px;
+}
+.containerButtonsEdit button:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: 0.3s ease;
+}
