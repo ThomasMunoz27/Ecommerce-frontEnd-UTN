@@ -26,12 +26,13 @@ export const CardProduct: FC<Props> = ({product}) => {
     <div className={style.notImgContainer}>
     <div className={style.cardText}>
         <p className={style.productName}>{`${product.name} ${product.sex}`}</p>
-        <p className={style.textCategory}>{product.category.map((categoria) => (
-          <div>
+        <p className={style.textCategory}>
+          <div className={style.categoryContainer}>
+          {product.category.map((categoria) => (
           <p>{categoria.name}</p>
 
-          </div>
-          ))}  <span className={style.prices}>${product.prices.salePrice}</span></p>
+         
+          ))}</div>  <span className={style.prices}>${product.prices.salePrice}</span></p>
     </div>
     <button onClick={handleOpenModalAddProduct} className={style.cardBtn}>Añadir al carrito</button>
     </div>
