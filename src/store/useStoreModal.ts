@@ -10,7 +10,9 @@ interface IStoreModal{
     modalAdminDiscount : {type : boolean, option : 1 | 2 | null},
     modalAdminPrice : {type : boolean, option : 1 | 2 | null},
     modalAdminProduct : {type : boolean, option : 1 | 2 | null},
-    modalAdminSubSize : {type : boolean, option : 1 | 2 | null}
+    modalAdminSubSize : {type : boolean, option : 1 | 2 | null},
+    modalAdminSubColor : {type : boolean, option: 1 | 2 | null},
+    modalAdminSubPrice : {type : boolean, option: 1 | 2 | null}
     
     openModalAccount : (selection : boolean) => void,
     closeModalAccount : VoidFunction,
@@ -40,7 +42,13 @@ interface IStoreModal{
     closeModalAdminProduct : VoidFunction,
 
     openAdminSubSize : (selection : 1 | 2 | null) => void,
-    closeAdminSubSize : () => void
+    closeAdminSubSize : () => void,
+
+    openAdminSubColor : (selection : 1 | 2 | null) => void,
+    closeAdminSubColor : () => void
+
+    openAdminSubPrice : (selection : 1 | 2 | null) => void,
+    closeAdminSubPrice : () => void
 
 
 }
@@ -59,6 +67,8 @@ export const useStoreModal = create<IStoreModal>((set) => ({
     modalAdminPrice : {type : false, option : null},
     modalAdminProduct : {type : false, option: null},
     modalAdminSubSize : {type : false, option : null},
+    modalAdminSubColor : {type : false, option : null},
+    modalAdminSubPrice : {type : false, option : null},
 
 
     
@@ -90,7 +100,13 @@ export const useStoreModal = create<IStoreModal>((set) => ({
     closeModalAdminProduct : () => set({modalAdminProduct : {type : false, option : null}}), 
 
     openAdminSubSize : (selection) => set({modalAdminSubSize : {type : true, option : selection}}),
-    closeAdminSubSize : () => set({modalAdminSubSize : {type : false, option : null}})
+    closeAdminSubSize : () => set({modalAdminSubSize : {type : false, option : null}}),
+
+    openAdminSubColor : (selection) => set({modalAdminSubColor : {type : true, option : selection}}),
+    closeAdminSubColor : () => set({modalAdminSubColor : {type : false, option : null}}),
+
+    openAdminSubPrice : (selection) => set({modalAdminSubPrice : {type : true, option : selection}}),
+    closeAdminSubPrice : () => set({modalAdminSubPrice : {type : false, option : null}})
 
     
 }))

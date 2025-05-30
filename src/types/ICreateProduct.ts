@@ -1,17 +1,15 @@
-import { IColor } from "./IColor";
-import { IPrice } from "./IPrice";
-import { ISize } from "./ISize";
 
 export interface ICreateProduct {
+    id? : number
     name: string;
     description: string
     productTypeId: number
     sex: string;
-    prices: number
+    pricesId: number
     imageId: number
     categoryId: number
-    sizes : ISize[]
-    colors : IColor[]
+    sizes : string[]
+    colors : string[]
     stock : number
     active: boolean
     }

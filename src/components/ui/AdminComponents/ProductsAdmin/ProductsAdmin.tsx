@@ -7,6 +7,8 @@ import useStoreProduct from '../../../../store/useStoreProduct';
 
 
 import { AdminProduct } from '../../Modals/AdminProduct/AdminProduct';
+import { errorAlert } from '../../../../utils/errorAlert';
+import { succesAlert } from '../../../../utils/succesAlert';
 
 
 export const ProductsAdmin = () => {
@@ -21,6 +23,21 @@ export const ProductsAdmin = () => {
     const handleEdit = (product : IProduct) => {
         openModalAdminProduct(2)
         setActiveProduct(product)
+    }
+
+    const handleDelete = async(idProduct : number) => {
+        try {
+            const deletedProduct = await deleteProduct(idProduct)
+            if (!deletedProduct) {
+                errorAlert('Error', 'No se pudo eliminar el producto')
+            }
+            succesAlert('Eliminado', 'Se elimino el producto exitosamente')
+            fetchProduct()
+        } catch (error : any) {
+            errorAlert('Error', 'No se pudo eliminar el producto')
+            console.log(error.message);
+            
+        }
     }
 
     return (
@@ -80,7 +97,7 @@ export const ProductsAdmin = () => {
                         <td>
                             <div className={styles.actionButtons}>
                                 <button onClick={() => handleEdit(product)}>Editar</button>
-                                <button >Eliminar</button>
+                                <button onClick={() => handleDelete(Number(product.id))}>Eliminar</button>
                             </div>
                         </td>
                     </tr>

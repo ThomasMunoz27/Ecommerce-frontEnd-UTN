@@ -17,34 +17,17 @@
     align-items: center;
     padding: 10px;
 }
-.containerAddSize{
+.containerAddPrice{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
-    padding: 10px;
-    gap: 10px
-}
-.containerSelect{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    gap: 10px;
-    justify-content: center;
-    align-items: center;
-}
-.containerSelect select{
-    width: 100%;
-}
-.containerAddSize input {
-    width: 100%;
-    padding: 5px;
-}
-.containerSizes{
-    display: flex;
     gap: 10px;
     padding: 10px;
+}
+.containerAddPrice select{
+    width: 100%;
 }
 .containerButtons{
     display: flex;
@@ -53,30 +36,29 @@
 }
 .containerButtons button{
     font-size: 15px;
+    padding: 5px;
     background-color: black;
     color: white;
-    padding: 5px;
 }
 .containerButtons button:hover{
     cursor: pointer;
     transform: scale(1.1);
-    transition: 0.3s ease;
+    transition: 03s ease;
 }
 .containerButtonsEdit{
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
-    padding: 10px;
     gap: 5px;
+    padding: 10px;
 }
 .containerButtonsEdit button{
     font-size: 15px;
+    padding: 5px;
     background-color: black;
     color: white;
-    padding: 5px;
 }
 .containerButtonsEdit button:hover{
     cursor: pointer;
     transform: scale(1.1);
-    transition: 0.3s ease;
+    transition: 03s ease;
 }

@@ -5,16 +5,24 @@ import { ICategory } from '../../../../types/ICategory'
 import { getAllCategories } from '../../../../cruds/crudCategory'
 import { ProductType } from '../../../../types/enums/ProductType'
 import { ICreateProduct } from '../../../../types/ICreateProduct'
+import { SubAdminSize } from '../SubAdminSizes/SubAdminSizes'
+import useStoreProduct from '../../../../store/useStoreProduct'
+import { SubAdminColor } from '../SubAdminColor/SubAdminColor'
+import { SubAdminPrice } from '../SubAdminPrices/SubAdminPrices'
+
 
 export const AdminProduct = () => {
-    const {modalAdminProduct, closeModalAdminProduct} = useStoreModal()
+    const {
+        modalAdminProduct, closeModalAdminProduct, modalAdminSubSize, openAdminSubSize, modalAdminSubColor, openAdminSubColor, modalAdminSubPrice, openAdminSubPrice
+    } = useStoreModal()
+    const {activeProduct} = useStoreProduct()
     const [categories, setCategories] = useState<ICategory[]>()
     const [newProduct, setNewProduct] = useState<ICreateProduct>({
         name : '',
         description : '',
         productTypeId : 0,
         sex : '',
-        prices : 0,
+        pricesId : 0,
         imageId : 0,
         categoryId : 0,
         sizes: [],
@@ -31,6 +39,7 @@ export const AdminProduct = () => {
         }
         getCategories()
     },[])
+    
 
 
     const handleChangeCreate = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -43,6 +52,7 @@ export const AdminProduct = () => {
         e.preventDefault()
     }
 
+    
     if (modalAdminProduct.option === 1){
 
         // Crear Producto
@@ -83,9 +93,9 @@ export const AdminProduct = () => {
                         </div>
                     </div>
                     <div className={styles.containerHandleButtons}>
-                        <button>Manejo de Talles</button>
-                        <button>Manejo de Precios</button>
-                        <button>Manejo de Colores</button>
+                        <button type='button' onClick={() => openAdminSubSize(1)}>Manejo de Talles</button>
+                        <button type='button' onClick={() => openAdminSubPrice(1)}> Manejo de Precios</button>
+                        <button type='button' onClick={() => openAdminSubColor(1)}>Manejo de Colores</button>
                     </div>
                     <div className={styles.containerDescription}>
                         <label htmlFor="">Descripcion</label>
@@ -100,6 +110,9 @@ export const AdminProduct = () => {
                         <button type='submit'>Aceptar</button>
                     </div>
                 </form>
+                {modalAdminSubSize.type && <div className={styles.modalBackdrop}><SubAdminSize product={newProduct}/></div>}
+                {modalAdminSubColor.type && <div className={styles.modalBackdrop}><SubAdminColor product={newProduct}/></div>}
+                {modalAdminSubPrice.type && <div className={styles.modalBackdrop}><SubAdminPrice product={newProduct} setProduct={setNewProduct}/></div>}
             </div>
         )
     }else if(modalAdminProduct.option === 2){
@@ -116,11 +129,11 @@ export const AdminProduct = () => {
                     <div className={styles.containerData}>
                         <div className={styles.containerColumn}>
                             <label htmlFor="">Nombre</label>
-                            <input type="text" name="name" id="" placeholder='Nombre'/>
+                            <input type="text" name="name" id="" placeholder='Nombre' value={activeProduct?.name}/>
                             <label htmlFor="">Stock</label>
-                            <input type="number" name="" id="" placeholder='Stock'/>
+                            <input type="number" name="" id="" placeholder='Stock' value={activeProduct?.stock}/>
                             <label htmlFor="">Sexo</label>
-                            <input type="text" name="" id="" placeholder='sexo'/>
+                            <input type="text" name="" id="" placeholder='sexo' value={activeProduct?.sex}/>
 
                         </div>
                         <div className={styles.containerColumn}>
@@ -133,7 +146,7 @@ export const AdminProduct = () => {
                                 ))}
                             </select>
                             <label htmlFor="">Tipo Producto</label>
-                            <select name="" id="">
+                            <select name="" id="" value={activeProduct?.productType}>
                                 <option value="">TipoProducto</option>
                                 <option value="calzado">{ProductType.calzado}</option>
                                 <option value="indumentaria">{ProductType.indumentaria}</option>
@@ -142,13 +155,13 @@ export const AdminProduct = () => {
                         </div>
                     </div>
                     <div className={styles.containerHandleButtons}>
-                        <button>Manejo de Talles</button>
-                        <button>Manejo de Precios</button>
-                        <button>Manejo de Colores</button>
+                        <button type='button' onClick={() => openAdminSubSize(2)}>Manejo de Talles</button>
+                        <button type='button' onClick={() => openAdminSubPrice(2)}>Manejo de Precios</button>
+                        <button type='button' onClick={() => openAdminSubColor(2)}>Manejo de Colores</button>
                     </div>
                     <div className={styles.containerDescription}>
                         <label htmlFor="">Descripcion</label>
-                        <textarea name="" id="" placeholder='Descripcion'></textarea>
+                        <textarea name="" id="" placeholder='Descripcion' value={activeProduct?.description}></textarea>
                     </div>
                     <div className={styles.containerImage}>
                         <label htmlFor="">Imagen</label>
@@ -159,6 +172,9 @@ export const AdminProduct = () => {
                         <button type='submit'>Aceptar</button>
                     </div>
                 </form>
+                {modalAdminSubSize.type && <div className={styles.modalBackdrop}><SubAdminSize/></div>}
+                {modalAdminSubColor.type && <div className={styles.modalBackdrop}><SubAdminColor/></div>}
+                {modalAdminSubPrice.type && <div className={styles.modalBackdrop}><SubAdminPrice/></div>}
             </div>
         )
     }

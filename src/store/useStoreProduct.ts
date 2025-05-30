@@ -2,9 +2,10 @@ import { create } from "zustand";
 import { IProduct } from "../types/IProduct";
 import { getAllProducts } from "../cruds/crudProduct";
 
+
 interface IStoreProduct {
 
-    activeProduct : IProduct | null
+    activeProduct : IProduct | null 
     products: IProduct[]
     fetchProduct : () => Promise<void>
 
