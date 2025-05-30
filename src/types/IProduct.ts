@@ -26,7 +26,7 @@ export interface IProduct {
     sex: string;
     prices: IPrice
     image: IImage
-    category: ICategory
+    category: ICategory[]
     sizes : ISize[]
     colors : IColor[]
     stock : number
