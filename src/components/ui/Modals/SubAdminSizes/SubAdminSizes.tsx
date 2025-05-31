@@ -14,11 +14,12 @@ interface ISubAdminSize {
 
 
 export const SubAdminSize : FC<ISubAdminSize> = ({product}) => {
-    const {modalAdminSubSize} = useStoreModal()
+    const {modalAdminSubSize,closeAdminSubSize} = useStoreModal()
     const {activeProduct} = useStoreProduct()
+    
+
     const [sizes, setSizes] = useState<ISize[]>()
     const [sizeToDelete, setSizeToDelete] = useState<string | null>()
-    const {closeAdminSubSize} = useStoreModal()
     const [addSizeInProduct, setAddSizeInProduct] = useState<string[]>()
 
     useEffect(() => {

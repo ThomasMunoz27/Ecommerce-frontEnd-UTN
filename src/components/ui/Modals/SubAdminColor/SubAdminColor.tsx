@@ -108,7 +108,7 @@ export const SubAdminColor: FC<ISubAdminColor> = ({product}) => {
                             {colors?.map(color => (
                                 <div className={styles.selectColors}>
                                     <input type="checkbox" name="color" id="" onChange={handleChangeAddColor}/>
-                                    <div className={styles.containerColor} style={{'backgroundColor' : `${color.value}`}}>
+                                    <div className={styles.containerColor} style={{'backgroundColor' : `${color.value}`, 'border' : '1px solid'}}>
 
                                     </div>
                                 </div>
@@ -138,7 +138,7 @@ export const SubAdminColor: FC<ISubAdminColor> = ({product}) => {
                             {colors?.map(color => (
                                 <div className={styles.selectColors}>
                                     <input type="checkbox" key={color.id} name="color" id="" onChange={handleChangeAddColor}/>
-                                    <div className={styles.containerColor} style={{'backgroundColor' : `${color.value}`}}>
+                                    <div className={styles.containerColor} style={{'backgroundColor' : `${color.value}`, 'border' : '1px solid'}}>
 
                                     </div>
                                 </div>

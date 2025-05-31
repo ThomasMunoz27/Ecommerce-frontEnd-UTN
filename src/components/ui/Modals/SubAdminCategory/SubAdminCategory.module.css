@@ -1,7 +1,7 @@
 .containerPrincipal{
     background-color: white;
     position:absolute;
-    top: 50%;
+    top: 40%;
     left: 40%;
     transform: translate(-50%, -50%);
     box-shadow: 5px 5px 15px;
@@ -17,70 +17,66 @@
     align-items: center;
     padding: 10px;
 }
-.containerAddSize{
+.containerAddCategory{
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
     padding: 10px;
-    gap: 10px
-}
-.containerSelect{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    gap: 10px;
+    gap: 5px;
     justify-content: center;
     align-items: center;
-}
-.containerSelect select{
     width: 100%;
+    
 }
-.containerAddSize input {
-    width: 100%;
-    padding: 5px;
+.containerAddCategory h3{
+    padding: 10px;
 }
-.containerSizes{
+.containerCategories{
     display: flex;
-    gap: 10px;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+    gap: 5px;
+}
+.containerDeleteCategory{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     padding: 10px;
 }
 .containerButtons{
     display: flex;
-    display: flex;
     justify-content: space-around;
     padding: 10px;
-    gap: 5px;
-    width: 100%;
-    
 }
 .containerButtons button{
     font-size: 15px;
+    padding: 5px;
     background-color: black;
     color: white;
-    padding: 5px;
 }
 .containerButtons button:hover{
     cursor: pointer;
     transform: scale(1.1);
-    transition: 0.3s ease;
+    transition: 03s ease;
 }
 .containerButtonsEdit{
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: center;
     padding: 10px;
-    gap: 5px;
+    gap: 5px
 }
 .containerButtonsEdit button{
     font-size: 15px;
+    padding: 5px;
     background-color: black;
     color: white;
-    padding: 5px;
+    ;
 }
 .containerButtonsEdit button:hover{
     cursor: pointer;
     transform: scale(1.1);
-    transition: 0.3s ease;
+    transition: 03s ease;
 }
