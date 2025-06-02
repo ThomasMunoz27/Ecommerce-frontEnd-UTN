@@ -33,7 +33,6 @@
   flex-direction: column;
   width: 140px;
   height: 40px;
-  border: 1px solid;
   overflow-y: auto;
 }
 
