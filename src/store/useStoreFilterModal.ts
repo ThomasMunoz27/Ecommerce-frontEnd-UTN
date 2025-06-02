@@ -11,6 +11,14 @@ interface IUseStoreFilterModal {
     orderByDropped : boolean
     toggleOrderBy : () => void
 
+    orderAsc: boolean
+    orderDesc: boolean
+
+    toggleAsc : () => void
+    toggleDesc : () => void
+    
+
+
     // Drop sex
 
     sexDropped : boolean
@@ -35,6 +43,14 @@ export const useStoreFilterModal = create<IUseStoreFilterModal>((set) => ({
 
     orderByDropped: false,
     toggleOrderBy : () => set((state) => ({orderByDropped: !state.orderByDropped})),
+
+
+    orderAsc: false,
+    orderDesc:  false,
+
+    toggleAsc : () => set((state) => ({orderDesc: false, orderAsc: state.orderAsc ? false : true})),
+    toggleDesc : () => set((state) => ({orderAsc: false, orderDesc: state.orderDesc ? false : true})),
+
 
     // Drop sex
 

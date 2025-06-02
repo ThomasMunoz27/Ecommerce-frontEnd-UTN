@@ -1,4 +1,4 @@
-import { FC} from 'react';
+import { FC, useEffect} from 'react';
 import { IProduct } from '../../../types/IProduct';
 import style from './ListProducts.module.css'
 import { CardProduct } from '../CardProduct/CardProduct';
@@ -24,9 +24,15 @@ export const ListProducts: FC<Props> = ({productsArray, title, customClass}) => 
       // }
 
       // const paged = getPagedProducts()
+      const {orderAsc, orderDesc} = useStoreFilterModal()
 
+      const productosOrdenados = [...productsArray].sort((a, b) => {
+      if (orderAsc) return a.prices.salePrice - b.prices.salePrice;
+      if (orderDesc) return b.prices.salePrice - a.prices.salePrice;
+      return 0; // sin orden
+    });
 
-
+   
   return (
     <div className={`${style.container} ${ customClass ? style[customClass] : ''}`}>
     <h2>{activeCategory && !title ? activeCategory.name : title}</h2>
@@ -35,7 +41,7 @@ export const ListProducts: FC<Props> = ({productsArray, title, customClass}) => 
       console.log(visible)
       }}>Filtrar</button>
     <div className={style.productsContainer}>
-    {productsArray.length > 0 ? productsArray.map((product) => {
+    {productosOrdenados.length > 0 ? productosOrdenados.map((product) => {
   return (
     <CardProduct
       key={product.id}

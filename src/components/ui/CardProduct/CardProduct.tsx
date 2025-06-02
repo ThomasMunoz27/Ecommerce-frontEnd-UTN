@@ -3,6 +3,7 @@ import { IProduct } from "../../../types/IProduct"
 import style from './CardProduct.module.css'
 import { useStoreModal } from "../../../store/useStoreModal"
 import useStoreProduct from "../../../store/useStoreProduct"
+import { useStoreFilterModal } from "../../../store/useStoreFilterModal"
 
 
 
@@ -14,6 +15,7 @@ interface Props {
 export const CardProduct: FC<Props> = ({product}) => {
     const {openModalAddProduct} = useStoreModal()
     const {setActiveProduct} = useStoreProduct()
+
 
    const handleOpenModalAddProduct = () => {
     setActiveProduct(product)

@@ -97,7 +97,12 @@
     width: 100%;
 }
 
+.orderBy .active{
+    background-color: black;
+    color: white
+}
+
 .orderBy p:hover{
     cursor: pointer;
-    background-color: rgb(216, 205, 190);
+    transform: scale(0.9);
 }

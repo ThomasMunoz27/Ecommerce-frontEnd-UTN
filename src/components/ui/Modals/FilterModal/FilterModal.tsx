@@ -4,7 +4,7 @@ export const FilterModal = () => {
 
     // State`s toggler`s
 
-    const {toggleVisible, toggleOrderBy, toggleSex, toggleColor} = useStoreFilterModal()
+    const {toggleVisible, toggleOrderBy, toggleSex, toggleColor, toggleAsc, toggleDesc, orderAsc, orderDesc} = useStoreFilterModal()
 
     // State`s
 
@@ -31,8 +31,8 @@ export const FilterModal = () => {
                     {orderByDropped && 
                     <div className={`${style.sectionDefault} ${style.sectionDropdown}`}>
                         <div className={style.orderBy}>
-                        <p>PRECIO (DE MENOR A MAYOR)</p>
-                        <p>PRECIO (DE MAYOR A MENOR)</p>
+                        <p onClick={toggleAsc} className={orderAsc ? style.active : ''}>PRECIO (DE MENOR A MAYOR)</p>
+                        <p onClick={toggleDesc} className={orderDesc ? style.active : ''}>PRECIO (DE MAYOR A MENOR)</p>
                         </div>
                     </div>
                     }
