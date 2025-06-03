@@ -9,7 +9,7 @@ import { SubAdminColor } from '../SubAdminColor/SubAdminColor'
 import { SubAdminPrice } from '../SubAdminPrices/SubAdminPrices'
 import { SubAdminCategory } from '../SubAdminCategory/SubAdminCategory'
 import { errorAlert } from '../../../../utils/errorAlert'
-import { postProduct } from '../../../../cruds/crudProduct'
+import { postProduct, putProduct } from '../../../../cruds/crudProduct'
 import { succesAlert } from '../../../../utils/succesAlert'
 
 import { IProduct } from '../../../../types/IProduct'
@@ -33,8 +33,9 @@ export const AdminProduct = () => {
         openAdminSubCategory
 
     } = useStoreModal()
-    const {activeProduct, fetchProduct} = useStoreProduct()
+    const {activeProduct, fetchProduct, setActiveProduct} = useStoreProduct()
     const [images, setImages] = useState<IImage[]>([])
+    const [editProduct, setEditProduct] = useState<IProduct>()
     const [newProduct, setNewProduct] = useState<IProduct>({
         name: "",
         description: "",
@@ -63,10 +64,32 @@ export const AdminProduct = () => {
         getImages()
     },[])
 
+    useEffect(() => {
+        if (modalAdminProduct.option === 2 && activeProduct) {
+            setEditProduct(activeProduct);
+        }
+    }, [modalAdminProduct.option, activeProduct]);
+
     // Manejo cambios de los inputs para el edit
     const handleChangeEdit = (e : React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         const {name,value} = e.target
-        console.log(name, value);
+        
+        if (name === 'image') {
+            const selectedImage = images.find(img => img.id === Number(value))
+            if(selectedImage){
+                setEditProduct(prev =>({
+                    ...prev!,
+                    image : selectedImage
+                }))
+            }
+            return
+        }
+
+        setEditProduct(prev => ({
+            ...prev!,
+            [name] : Number(value) ? Number(value) : value
+        }))
+        console.log(editProduct);
         
     }
 
@@ -83,7 +106,7 @@ export const AdminProduct = () => {
                     image: selectedImage,
                 }));
             }
-        return; // cortá acá porque ya seteaste
+        return; 
     }
 
         setNewProduct(prev => ({
@@ -104,10 +127,10 @@ export const AdminProduct = () => {
         e.preventDefault()
         try {
             
-            const productoAEnviar = mapProductToPayload(newProduct)
-            console.log(productoAEnviar);
+            const productToSend = mapProductToPayload(newProduct) // Funcion para cambiar el objeto asi lo recibe el backend
+            console.log(productToSend);
             
-            postProduct(productoAEnviar)
+            postProduct(productToSend)
 
             succesAlert('Creado', 'El producto se creo exitosamente')
             fetchProduct()
@@ -121,8 +144,30 @@ export const AdminProduct = () => {
 
 
     // Funcion para editar un producto activo
-    const handleEditProduct = (e : React.FormEvent) => {
+    const handleEditProduct = async(e : React.FormEvent) => {
         e.preventDefault()
+        if (!editProduct || !activeProduct){
+            errorAlert('Error', 'No hay producto activo')
+            return
+        }
+
+        try {
+            
+            await putProduct(editProduct)
+            succesAlert('Editado', 'El producto se edito correctamente')
+            
+            await fetchProduct()
+
+            const updated = useStoreProduct.getState().products.find(p => p.id === editProduct.id) // Busco el producto actualizado
+            if(updated){
+                setActiveProduct(updated) // Esto para actualizar el estado
+            }
+            closeModalAdminProduct()
+        } catch (error : any) {
+            console.log(error.message);
+            errorAlert('Error', 'No se pudo editar el producto')   
+        }
+
     }
 
     
@@ -225,17 +270,18 @@ export const AdminProduct = () => {
                     <div className={styles.containerData}>
                         <div className={styles.containerColumn}>
                             <label htmlFor="">Nombre</label>
-                            <input type="text" name="name" id="" placeholder='Nombre' value={activeProduct?.name} onChange={handleChangeEdit}/>
+                            <input type="text" name="name" id="" placeholder='Nombre' value={editProduct?.name} onChange={handleChangeEdit}/>
                             <label htmlFor="">Stock</label>
-                            <input type="number" name="stock" id="" placeholder='Stock' value={activeProduct?.stock} onChange={handleChangeEdit}/>
+                            <input type="number" name="stock" id="" placeholder='Stock' value={editProduct?.stock} onChange={handleChangeEdit}/>
 
                         </div>
                         <div className={styles.containerColumn}>
 
                             <label htmlFor="">Sexo</label>
-                            <input type="text" name="sex" id="" placeholder='sexo' value={activeProduct?.sex} onChange={handleChangeEdit}/>
+                            <input type="text" name="sex" id="" placeholder='sexo' value={editProduct?.sex} onChange={handleChangeEdit}/>
+
                             <label htmlFor="">Tipo Producto</label>
-                            <select name="productType" id="" value={activeProduct?.productType}>
+                            <select name="productType" id="" value={editProduct?.productType} onChange={handleChangeEdit}>
                                 <option value="" disabled selected>Sin seleccion</option>
                                 <option value="calzado">{ProductType.calzado}</option>
                                 <option value="indumentaria">{ProductType.indumentaria}</option>
@@ -251,11 +297,11 @@ export const AdminProduct = () => {
                     </div>
                     <div className={styles.containerDescription}>
                         <label htmlFor="">Descripcion</label>
-                        <textarea name="description" id="" placeholder='Descripcion' value={activeProduct?.description}></textarea>
+                        <textarea name="description" id="" placeholder='Descripcion' value={editProduct?.description} onChange={handleChangeEdit}></textarea>
                     </div>
                     <div className={styles.containerImage}>
                         <label htmlFor="">Imagen</label>
-                        <input type="text" name="image.url" id="" />
+                        <input type="text" name="image" id="" onChange={handleChangeEdit}/>
                     </div>
                     <div className={styles.containerButtons}>
                         <button onClick={closeModalAdminProduct}>Cancelar</button>

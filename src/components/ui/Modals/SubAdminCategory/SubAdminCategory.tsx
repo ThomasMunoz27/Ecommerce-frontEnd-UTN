@@ -173,7 +173,7 @@ export const SubAdminCategory : FC<ISubAdminCategory> = ({product}) => {
                             {categories?.map(category => (
                             
                                     <div style={{'display' : 'flex', 'gap' : '2px'}}>
-                                        <input type="checkbox" name="category.id" id="" value={category.id} onChange={handleAddCategory}/>
+                                        <input type="checkbox" name="category.id" id="" value={category.id} onChange={handleChangeAddCategory}/>
                                         <p>{category.name}</p>
                                     </div>
                         
