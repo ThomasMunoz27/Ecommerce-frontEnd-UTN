@@ -1,6 +1,8 @@
 import axios from "axios"
 import { IUser } from "../types/IUser"
 import { BASE_URL } from "../utils/constantes"
+import { succesAlert } from "../utils/succesAlert"
+import { errorAlert } from "../utils/errorAlert"
 
 const URL_USERS = `${BASE_URL}/api/user`
 
@@ -37,9 +39,11 @@ export const createUser = async (newUser : IUser): Promise<IUser[]> => {
 export const updateUser = async ( userUpdated : IUser): Promise<IUser[]> => {
     try{
         const response = await axios.put(`${URL_USERS}/${userUpdated.id}`, userUpdated)
+        succesAlert("Datos actualizados!")
         return response.data
     }catch (err){
         console.log("Error en updateUser" + err)
+        errorAlert("Error al actualizar Usuario")
         return []
     }
 }
