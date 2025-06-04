@@ -1,15 +1,15 @@
 import { FC, useEffect, useState } from 'react'
 import { useStoreModal } from '../../../../store/useStoreModal'
-import { ICreateProduct } from '../../../../types/ICreateProduct'
 import styles from'./SubAdminColor.module.css'
 import { getAllColors } from '../../../../cruds/crudColor'
 import { IColor } from '../../../../types/IColor'
 import useStoreProduct from '../../../../store/useStoreProduct'
 import { succesAlert } from '../../../../utils/succesAlert'
 import { errorAlert } from '../../../../utils/errorAlert'
+import { IProduct } from '../../../../types/IProduct'
 
 interface ISubAdminColor {
-    product? : ICreateProduct
+    product? : IProduct
 }
 
 export const SubAdminColor: FC<ISubAdminColor> = ({product}) => {
@@ -18,6 +18,7 @@ export const SubAdminColor: FC<ISubAdminColor> = ({product}) => {
     const [addNewColor, setAddNewColor] = useState<string[]>()
     const [colorToDelete, setColorToDelete] = useState<string | null>()
     const [colors, setColors] = useState<IColor[]>()
+    
 
     useEffect(()=>{
         const getColors = async() => {
@@ -49,23 +50,62 @@ export const SubAdminColor: FC<ISubAdminColor> = ({product}) => {
     const handleSubmitAddColor = (e: React.FormEvent) => {
         e.preventDefault();
 
-        if (!product || !addNewColor || addNewColor.length === 0) {
-            alert("Por favor, selecciona al menos un tamaño.");
-                return;
-            }
-            try {
-                product.colors = [...(product.colors || []), ...addNewColor]
-                succesAlert('Añadido', 'Se añadieron los talles')
-                closeAdminSubColor()
-                setAddNewColor([])
-            } catch (error : any) {
-                errorAlert('Error', 'No se puede agregar el talle')
-                console.log(error.message);
-                    
-            }
-    }
+        if ((!product || !addNewColor || addNewColor.length === 0)) {
+            alert("Por favor, selecciona al menos un color.");
+        return;
+        }
+
+        try {
+            // Busco los objetos IColor según los IDs seleccionados
+            const selectedColors: IColor[] = colors?.filter(color =>
+                addNewColor.includes(String(color.id))
+            ) || [];
+
+            // Evitar duplicados por si ya hay colores cargados
+            const uniqueColors = selectedColors.filter(newColor =>
+                !product.colors.some(existing => existing.id === newColor.id)
+            );
+
+            product.colors = [...(product.colors || []), ...uniqueColors];
+            succesAlert('Añadido', 'Se añadieron los colores');
+            closeAdminSubColor();
+            setAddNewColor([]);
+        } catch (error: any) {
+            errorAlert('Error', 'No se pudieron agregar los colores');
+            console.log(error.message);
+        }
+    };
 
     const handleSubmitEditColor = (e: React.FormEvent) => {
+        e.preventDefault()
+
+        if(!activeProduct){
+            errorAlert('Error', 'No se pudo agregar colores al producto')
+            return   
+        }
+
+        try {
+            // Busco los objetos IColor según los IDs seleccionados
+            const selectedColors: IColor[] = colors?.filter(color =>
+                addNewColor?.includes(String(color.id))
+            ) || [];
+
+            // Evitar duplicados por si ya hay colores cargados
+            const uniqueColors = selectedColors.filter(newColor =>
+                !activeProduct.colors.some(existing => existing.id === newColor.id)
+            );
+
+            activeProduct.colors = [...(activeProduct.colors || []), ...uniqueColors];
+            succesAlert('Añadido', 'Se añadieron los colores');
+            closeAdminSubColor();
+            setAddNewColor([]);
+        } catch (error: any) {
+            errorAlert('Error', 'No se pudieron agregar los colores');
+            console.log(error.message);
+        }
+    }
+
+    const handleDeleteColor = (e: React.FormEvent) => {
         e.preventDefault()
 
         if (!activeProduct || !colorToDelete){
@@ -106,8 +146,8 @@ export const SubAdminColor: FC<ISubAdminColor> = ({product}) => {
                         <h3>Agregar Color</h3>
                         <div className={styles.listColors}>
                             {colors?.map(color => (
-                                <div className={styles.selectColors}>
-                                    <input type="checkbox" name="color" id="" onChange={handleChangeAddColor}/>
+                                <div key={color.id} className={styles.selectColors}>
+                                    <input type="checkbox" name="color" id="" value={color.id} onChange={handleChangeAddColor}/>
                                     <div className={styles.containerColor} style={{'backgroundColor' : `${color.value}`, 'border' : '1px solid'}}>
 
                                     </div>
@@ -131,13 +171,13 @@ export const SubAdminColor: FC<ISubAdminColor> = ({product}) => {
                 <div className={styles.containerTitle}>
                     <h1>Manejo de Colores</h1>
                 </div>
-                <form action="" onSubmit={handleSubmitAddColor}>
+                <form action="" onSubmit={handleSubmitEditColor}>
                     <div className={styles.containerAddColor}>
                         <h3>Agregar Color</h3>
                         <div className={styles.listColors}>
                             {colors?.map(color => (
                                 <div className={styles.selectColors}>
-                                    <input type="checkbox" key={color.id} name="color" id="" onChange={handleChangeAddColor}/>
+                                    <input type="checkbox" key={color.id} name="color" id="" value={color.id} onChange={handleChangeAddColor}/>
                                     <div className={styles.containerColor} style={{'backgroundColor' : `${color.value}`, 'border' : '1px solid'}}>
 
                                     </div>
@@ -159,7 +199,7 @@ export const SubAdminColor: FC<ISubAdminColor> = ({product}) => {
                     </div>
                     <div className={styles.containerButtonsEdit}>
                         <button type='submit'>Agregar Color</button>
-                        <button onClick={handleSubmitEditColor}>Eliminar Color</button>
+                        <button onClick={handleDeleteColor}>Eliminar Color</button>
                         <button type='button' onClick={closeAdminSubColor}>Cancelar</button>
 
                     </div>

@@ -1,7 +1,9 @@
 import axios from "axios"
 import { BASE_URL } from "../utils/constantes"
 import { IProduct } from "../types/IProduct"
-import { ICreateProduct } from "../types/ICreateProduct"
+import { ICreateProduct } from "../types/ICreatedProducts"
+import { errorAlert } from "../utils/errorAlert"
+
 
 
 
@@ -32,7 +34,8 @@ export const postProduct = async (newProduct: ICreateProduct) => {
         const response = await axios.post(URL_PRODUCTS, newProduct)
         return response.data
     }catch (err : any){
-        console.log("Error en postProduct" + err.message)
+        console.log("Error en postProduct " + err.message.data)
+        errorAlert('Error', 'El producto no pudo ser creado')
     }
 }
 

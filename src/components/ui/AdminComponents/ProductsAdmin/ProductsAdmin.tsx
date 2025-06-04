@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import styles from './ProductsAdmin.module.css';
-import { deleteProduct, getAllProducts } from '../../../../cruds/crudProduct';
+import { deleteProduct } from '../../../../cruds/crudProduct';
 import { IProduct } from '../../../../types/IProduct';
 import { useStoreModal } from '../../../../store/useStoreModal';
 import useStoreProduct from '../../../../store/useStoreProduct';

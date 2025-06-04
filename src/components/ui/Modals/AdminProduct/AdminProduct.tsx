@@ -1,14 +1,22 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useStoreModal } from '../../../../store/useStoreModal'
 import styles from './AdminProduct.module.css'
 
 import { ProductType } from '../../../../types/enums/ProductType'
-import { ICreateProduct } from '../../../../types/ICreateProduct'
 import { SubAdminSize } from '../SubAdminSizes/SubAdminSizes'
 import useStoreProduct from '../../../../store/useStoreProduct'
 import { SubAdminColor } from '../SubAdminColor/SubAdminColor'
 import { SubAdminPrice } from '../SubAdminPrices/SubAdminPrices'
 import { SubAdminCategory } from '../SubAdminCategory/SubAdminCategory'
+import { errorAlert } from '../../../../utils/errorAlert'
+import { postProduct, putProduct } from '../../../../cruds/crudProduct'
+import { succesAlert } from '../../../../utils/succesAlert'
+
+import { IProduct } from '../../../../types/IProduct'
+import { IImage } from '../../../../types/IImage'
+import { getAllImages } from '../../../../cruds/crudImage'
+
+import { mapProductToPayload } from '../../../../utils/mapProductToPayload'
 
 
 export const AdminProduct = () => {
@@ -25,46 +33,141 @@ export const AdminProduct = () => {
         openAdminSubCategory
 
     } = useStoreModal()
-    const {activeProduct} = useStoreProduct()
-    const [newProduct, setNewProduct] = useState<ICreateProduct>({
-        name : '',
-        description : '',
-        productTypeId : 0,
-        sex : '',
-        pricesId : 0,
-        imageId : 0,
-        categoryId : [],
+    const {activeProduct, fetchProduct, setActiveProduct} = useStoreProduct()
+    const [images, setImages] = useState<IImage[]>([])
+    const [editProduct, setEditProduct] = useState<IProduct>()
+    const [newProduct, setNewProduct] = useState<IProduct>({
+        name: "",
+        description: "",
+        productType: ProductType.calzado, // reemplazar por uno válido del enum
+        sex: "",
+        prices: {
+            id : 0,
+            purchasePrice: 0,
+            salePrice: 0,
+            discount: null,
+        },
+        image: {id : 0, url : ''},    
+        category: [],
         sizes: [],
-        colors : [],
-        stock : 0,
-        active: true
+        colors: [],
+        stock: 0,
+        active: true,
 
     })
+
+    useEffect(() => {
+        const getImages = async() => {
+            const imageFetched = await getAllImages()
+            setImages(imageFetched)
+        }
+        getImages()
+    },[])
+
+    useEffect(() => {
+        if (modalAdminProduct.option === 2 && activeProduct) {
+            setEditProduct(activeProduct);
+        }
+    }, [modalAdminProduct.option, activeProduct]);
 
     // Manejo cambios de los inputs para el edit
     const handleChangeEdit = (e : React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         const {name,value} = e.target
-        console.log(name, value);
+        
+        if (name === 'image') {
+            const selectedImage = images.find(img => img.id === Number(value))
+            if(selectedImage){
+                setEditProduct(prev =>({
+                    ...prev!,
+                    image : selectedImage
+                }))
+            }
+            return
+        }
+
+        setEditProduct(prev => ({
+            ...prev!,
+            [name] : Number(value) ? Number(value) : value
+        }))
+        console.log(editProduct);
         
     }
 
 
     // Manejo cambios de los inputs para el create
     const handleChangeCreate = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-        const {name, value} = e.target
-        console.log(name, value);
+        const { name, value } = e.target
+
+        if (name === "image") {
+            const selectedImage = images.find(img => img.id === Number(value));
+            if (selectedImage) {
+                setNewProduct(prev => ({
+                    ...prev,
+                    image: selectedImage,
+                }));
+            }
+        return; 
+    }
+
+        setNewProduct(prev => ({
+            ...prev,
+            [name]: name === "stock" || name === "productType" || name === "image"
+            ? Number(value)
+            : value
+        }))
+
+        console.log(newProduct);
         
     }
+
+    
 
     // Funcion para agregar un producto nuevo
     const handleAddProduct = (e : React.FormEvent) => {
         e.preventDefault()
+        try {
+            
+            const productToSend = mapProductToPayload(newProduct) // Funcion para cambiar el objeto asi lo recibe el backend
+            console.log(productToSend);
+            
+            postProduct(productToSend)
+
+            succesAlert('Creado', 'El producto se creo exitosamente')
+            fetchProduct()
+            
+            closeModalAdminProduct()
+        } catch (error : any) {
+            errorAlert("Error", "No e pudo crear el producto")
+            console.log(error.message);
+        }
     }
 
 
     // Funcion para editar un producto activo
-    const handleEditProduct = (e : React.FormEvent) => {
+    const handleEditProduct = async(e : React.FormEvent) => {
         e.preventDefault()
+        if (!editProduct || !activeProduct){
+            errorAlert('Error', 'No hay producto activo')
+            return
+        }
+
+        try {
+            
+            await putProduct(editProduct)
+            succesAlert('Editado', 'El producto se edito correctamente')
+            
+            await fetchProduct()
+
+            const updated = useStoreProduct.getState().products.find(p => p.id === editProduct.id) // Busco el producto actualizado
+            if(updated){
+                setActiveProduct(updated) // Esto para actualizar el estado
+            }
+            closeModalAdminProduct()
+        } catch (error : any) {
+            console.log(error.message);
+            errorAlert('Error', 'No se pudo editar el producto')   
+        }
+
     }
 
     
@@ -88,22 +191,27 @@ export const AdminProduct = () => {
                             <label htmlFor="">Nombre</label>
                             <input type="text" name="name" id="" placeholder='Nombre' onChange={handleChangeCreate}/>
                             <label htmlFor="">Stock</label>
-                            <input type="number" name="" id="" placeholder='Stock' onChange={handleChangeCreate}/>
+                            <input type="number" name="stock" id="" placeholder='Stock' onChange={handleChangeCreate}/>
 
                         </div>
                         <div className={styles.containerColumn}>
 
                             {/* Sexo */}
                             <label htmlFor="">Sexo</label>
-                            <input type="text" name="" id="" placeholder='sexo' onChange={handleChangeCreate}/>
+                            <select name="sex" id="" onChange={handleChangeCreate}>
+                                <option value="" disabled selected>Sin Seleccion</option>
+                                <option value="Masculino">Masculino</option>
+                                <option value="Femenino">Femenino</option>
+                                <option value="Unisex">Unisex</option>
+                            </select>
 
 
                             {/* Tipo Producto */}
                             <label htmlFor="">Tipo Producto</label>
                             <select name="productType" id="" onChange={handleChangeCreate}>
-                                <option value="">TipoProducto</option>
-                                <option value="calzado">{ProductType.calzado}</option>
-                                <option value="indumentaria">{ProductType.indumentaria}</option>
+                                <option value="" disabled selected>Sin Seleccion</option>
+                                <option value='0'>{ProductType.calzado}</option>
+                                <option value='1'>{ProductType.indumentaria}</option>
                             </select>
 
                         </div>
@@ -127,7 +235,12 @@ export const AdminProduct = () => {
                     {/* Imagen */}
                     <div className={styles.containerImage}>
                         <label htmlFor="">Imagen</label>
-                        <input type="text" name="image.url" id="" onChange={handleChangeCreate}/>
+                        <select name="image" id="" onChange={handleChangeCreate}>
+                            <option value="" disabled selected>Sin seleccion</option>
+                            {images.map(image => (
+                                <option value={image.id}>{image.id}</option>
+                            ))}
+                        </select>
                     </div>
 
                     <div className={styles.containerButtons}>
@@ -157,18 +270,19 @@ export const AdminProduct = () => {
                     <div className={styles.containerData}>
                         <div className={styles.containerColumn}>
                             <label htmlFor="">Nombre</label>
-                            <input type="text" name="name" id="" placeholder='Nombre' value={activeProduct?.name} onChange={handleChangeEdit}/>
+                            <input type="text" name="name" id="" placeholder='Nombre' value={editProduct?.name} onChange={handleChangeEdit}/>
                             <label htmlFor="">Stock</label>
-                            <input type="number" name="stock" id="" placeholder='Stock' value={activeProduct?.stock} onChange={handleChangeEdit}/>
+                            <input type="number" name="stock" id="" placeholder='Stock' value={editProduct?.stock} onChange={handleChangeEdit}/>
 
                         </div>
                         <div className={styles.containerColumn}>
 
                             <label htmlFor="">Sexo</label>
-                            <input type="text" name="sex" id="" placeholder='sexo' value={activeProduct?.sex} onChange={handleChangeEdit}/>
+                            <input type="text" name="sex" id="" placeholder='sexo' value={editProduct?.sex} onChange={handleChangeEdit}/>
+
                             <label htmlFor="">Tipo Producto</label>
-                            <select name="productType" id="" value={activeProduct?.productType}>
-                                <option value="">TipoProducto</option>
+                            <select name="productType" id="" value={editProduct?.productType} onChange={handleChangeEdit}>
+                                <option value="" disabled selected>Sin seleccion</option>
                                 <option value="calzado">{ProductType.calzado}</option>
                                 <option value="indumentaria">{ProductType.indumentaria}</option>
                             </select>
@@ -183,11 +297,11 @@ export const AdminProduct = () => {
                     </div>
                     <div className={styles.containerDescription}>
                         <label htmlFor="">Descripcion</label>
-                        <textarea name="description" id="" placeholder='Descripcion' value={activeProduct?.description}></textarea>
+                        <textarea name="description" id="" placeholder='Descripcion' value={editProduct?.description} onChange={handleChangeEdit}></textarea>
                     </div>
                     <div className={styles.containerImage}>
                         <label htmlFor="">Imagen</label>
-                        <input type="text" name="image.url" id="" />
+                        <input type="text" name="image" id="" onChange={handleChangeEdit}/>
                     </div>
                     <div className={styles.containerButtons}>
                         <button onClick={closeModalAdminProduct}>Cancelar</button>

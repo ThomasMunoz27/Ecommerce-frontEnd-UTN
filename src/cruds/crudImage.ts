@@ -3,7 +3,7 @@ import { BASE_URL } from "../utils/constantes";
 import { IImage } from "../types/IImage";
 
 
-const URL_IMAGES = `${BASE_URL}/api/iamage`
+const URL_IMAGES = `${BASE_URL}/api/image`
 
 export const getAllImages = async (): Promise<IImage[]> => {
     try{

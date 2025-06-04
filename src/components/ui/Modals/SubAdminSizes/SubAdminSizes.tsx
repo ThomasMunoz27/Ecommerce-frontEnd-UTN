@@ -3,13 +3,14 @@ import { useStoreModal } from '../../../../store/useStoreModal'
 import styles from './SubAdminSize.module.css'
 import { getAllSizes } from '../../../../cruds/crudSize'
 import { ISize } from '../../../../types/ISize'
-import { ICreateProduct } from '../../../../types/ICreateProduct'
+
 import { errorAlert } from '../../../../utils/errorAlert'
 import { succesAlert } from '../../../../utils/succesAlert'
 import useStoreProduct from '../../../../store/useStoreProduct'
+import { IProduct } from '../../../../types/IProduct'
 
 interface ISubAdminSize {
-    product? : ICreateProduct
+    product? : IProduct 
 }
 
 
@@ -53,23 +54,35 @@ export const SubAdminSize : FC<ISubAdminSize> = ({product}) => {
     }   
 
     // Agrego talle al producto nuevo
-    const handleAddSize = (e : React.FormEvent) => {
-        e.preventDefault()
-        if (!product || !addSizeInProduct || addSizeInProduct.length === 0) {
-            alert("Por favor, selecciona al menos un tamaño.");
-            return;
-        }
-        try {
-            product.sizes = [...(product.sizes || []), ...addSizeInProduct]
-            succesAlert('Añadido', 'Se añadieron los talles')
-            closeAdminSubSize()
-            setAddSizeInProduct([])
-        } catch (error : any) {
-            errorAlert('Error', 'No se puede agregar el talle')
-            console.log(error.message);
-            
-        }
+    const handleAddSize = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!product || !addSizeInProduct || addSizeInProduct.length === 0) {
+        alert("Por favor, selecciona al menos un tamaño.");
+        return;
     }
+
+    try {
+        // Buscar los objetos ISize correspondientes a los IDs
+        const selectedSizes: ISize[] = sizes?.filter(size =>
+            addSizeInProduct.includes(String(size.id))
+        ) || [];
+
+        // Evitar duplicados si ya hay talles cargados
+        const uniqueSizes = selectedSizes.filter(newSize =>
+            !product.sizes?.some(existing => existing.id === newSize.id)
+        );
+
+        product.sizes = [...(product.sizes || []), ...uniqueSizes];
+
+        succesAlert('Añadido', 'Se añadieron los talles');
+        closeAdminSubSize();
+        setAddSizeInProduct([]);
+    } catch (error: any) {
+        errorAlert('Error', 'No se pudo agregar el talle');
+        console.log(error.message);
+    }
+};
+
 
 
     // Edito el producto activo
@@ -146,7 +159,7 @@ export const SubAdminSize : FC<ISubAdminSize> = ({product}) => {
                         <h3>Talle a agregar</h3>
                         <div className={styles.containerSizes}>
                             {sizes?.map(size => (
-                                <div style={{'display' : 'flex', 'gap' : '2px'}}>
+                                <div key={size.id} style={{'display' : 'flex', 'gap' : '2px'}}>
                                     <input type="checkbox" name="size" id="" value={size.id} onChange={handleChangeAddSize}/>
                                     <p>{size.size}</p>
                                 </div>
