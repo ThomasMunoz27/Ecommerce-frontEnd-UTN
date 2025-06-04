@@ -19,7 +19,7 @@
 }
 
 .carouselImg{
-    object-fit: contain;
+    object-fit: cover;
     height: 100%;
     width: 100%;
 }
@@ -29,14 +29,14 @@
     top: 30%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: rgba(221, 211, 211, 0.297);
-    color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.74);
+    color: rgb(255, 255, 255);
     width: 60%;
     padding: 10px;
 }
 
 .carouselText p{
-    color: black;
+    color: rgb(255, 238, 0);
 }
 
 /* <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center"> */
