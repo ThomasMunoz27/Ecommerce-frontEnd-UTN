@@ -89,9 +89,10 @@
 .edit:hover{
     background-color: black;
     color: white;
-    width: 5vw;
+    width: fit-content;
     padding: 5px;
     transition: 0.3s ease;
+    cursor: pointer;
 }
 .containerTitleData{
     padding: 15px;

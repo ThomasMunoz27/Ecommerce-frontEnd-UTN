@@ -7,6 +7,7 @@ import { DetailScreen } from "../components/screens/DetailScreen/DetailScreen"
 import { PayScreen } from "../components/screens/PayScreen/PayScreen"
 import { AdminScreen } from "../components/screens/AdminScreen/AdminScreen"
 import { SuccessPay } from "../components/ui/BackUrls/SuccessPay/SuccessPay"
+import { FailurePay } from "../components/ui/BackUrls/FailurePay/FailurePay"
 
 export const AppRoutes = () => {
 
@@ -20,6 +21,7 @@ export const AppRoutes = () => {
         <Route path="/checkout" element={<PayScreen></PayScreen>}></Route>
         <Route path="/admin" element={<AdminScreen/>}></Route>
         <Route path="/success" element={<SuccessPay/>}></Route>
+        <Route path="/failure" element={<FailurePay/>}></Route>
     </Routes>
     
   )

@@ -1,25 +1,41 @@
+import { FC, useEffect } from 'react';
+import { useStoreColor } from '../../../../store/useStoreColor';
 import { useStoreFilterModal } from '../../../../store/useStoreFilterModal';
 import style from './FilterModal.module.css'
-export const FilterModal = () => {
+
+interface FilterModal {
+    sexArray  : string[]
+}
+
+export const FilterModal: FC<FilterModal> = ({sexArray}) => {
 
     // State`s toggler`s
 
-    const {toggleVisible, toggleOrderBy, toggleSex, toggleColor, toggleAsc, toggleDesc, orderAsc, orderDesc} = useStoreFilterModal()
+    const {toggleVisible, toggleOrderBy, toggleSex, toggleColor, toggleAsc, toggleDesc, orderAsc, orderDesc, activeSex, toggleActiveSex} = useStoreFilterModal()
 
     // State`s
 
-    const {orderByDropped , sexDropped, colorDropped} = useStoreFilterModal()
+    const {orderByDropped , sexDropped, colorDropped, toggleActiveColors, activeColors, clearFilters} = useStoreFilterModal()
+
+    const {colors, fetchColors} = useStoreColor()
+    
+    useEffect(() => {
+        fetchColors()
+        console.log(activeColors)
+    }, [activeColors])
+
+
 
   return (
     <aside className={style.modal}>
         <div className={style.modalContainer}>
             
         <header className={`${style.sectionDefault} ${style.header}`}>
-            Filtrar <a>Borrar todo</a> <button onClick={toggleVisible}>X</button>
+            Filtrar <a className={style.deleteAll} onClick={clearFilters}>Borrar filtros</a> <button onClick={toggleVisible}>X</button>
         </header>
         <div>
             <div className={`${style.sectionDefault} ${style.filterSection}`}>
-                <div className={`${style.sectionDefault} ${style.sectionHandler}`}>
+                <div className={`${style.sectionDefault} ${style.sectionHandler}`} onClick={toggleOrderBy}>
                 <p>ORDENAR POR</p>  <button onClick={toggleOrderBy}>{
                 orderByDropped 
                  ?
@@ -39,7 +55,7 @@ export const FilterModal = () => {
                     
             </div>
             <div className={`${style.sectionDefault} ${style.filterSection}`}>
-                <div className={`${style.sectionDefault} ${style.sectionHandler}`}>
+                <div className={`${style.sectionDefault} ${style.sectionHandler}`} onClick={toggleSex}>
                 <p>SEXO</p>  <button onClick={toggleSex}>{
                 sexDropped 
                  ?
@@ -50,20 +66,17 @@ export const FilterModal = () => {
                 </div>
                {sexDropped && 
                     <div className={`${style.sectionDefault} ${style.sectionDropdown}`}>
-                        <div className={style.selectorContainer}>
-                        <input type='checkbox'></input><p>HOMBRE</p>
+                       {sexArray.map((sex) =>  (
+                         <div className={style.selectorContainer}>
+                        <input type='checkbox' checked={activeSex.some((insideSex) => insideSex == sex )} onChange={(e) => {toggleActiveSex(sex, e.target.checked)
+                        }}></input><p>{sex}</p>
                         </div>
-                        <div className={style.selectorContainer}>
-                        <input type='checkbox'></input><p>MUJER</p>
-                        </div>
-                        <div className={style.selectorContainer}>
-                        <input type='checkbox'></input><p>NIÑOS</p>
-                        </div>
+                       ))}
                     </div>
                }
             </div>
             <div className={`${style.sectionDefault} ${style.filterSection}`}>
-                <div className={`${style.sectionDefault} ${style.sectionHandler}`}>
+                <div className={`${style.sectionDefault} ${style.sectionHandler}`} onClick={toggleColor}>
                 <p>COLOR</p>  <button onClick={toggleColor}>{
                 colorDropped 
                  ?
@@ -74,15 +87,11 @@ export const FilterModal = () => {
                 </div>
                 {colorDropped &&
                     <div className={`${style.sectionDefault} ${style.sectionDropdown}`}>
-                        <div className={style.selectorContainer}>
-                        <input type='checkbox'></input><p>COLOR 1</p>
-                        </div>
-                        <div className={style.selectorContainer}>
-                        <input type='checkbox'></input><p>COLOR 2</p>
-                        </div>
-                        <div className={style.selectorContainer}>
-                        <input type='checkbox'></input><p>COLOR 3</p>
-                        </div>
+                        {colors.map((color) =>  (
+                              <div className={style.selectorContainer}>
+                              <input type='checkbox' key={color.id} checked={activeColors.some((activeColor) => activeColor.id == color.id)} onChange={(e) => toggleActiveColors(color, e.target.checked)}></input><span style={{backgroundColor:color.value, width: '50px'}}></span>
+                              </div>
+                        ))}
                     </div>
                 }
             </div>

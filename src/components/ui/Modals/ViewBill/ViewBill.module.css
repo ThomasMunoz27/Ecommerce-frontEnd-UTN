@@ -1,0 +1,124 @@
+.containerPrincipal {
+    
+    background-color: #fff;
+    padding: 25px;
+    box-shadow: 5px 5px 15px rgba(39, 38, 38, 0.1);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.minheader {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.containerBillType{
+    
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.containerLetter{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45px;
+    font-size: 25PX;
+    
+}
+
+.delete span {
+    cursor: pointer;
+    font-size: 24px;
+}
+.delete span:hover {
+    color: #d32f2f;
+    transition: color 0.2s ease;
+}
+.containerEnterprise {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+.containerLogo img {
+    width: 120px;
+    height: auto;
+}
+
+.containerClient {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.containerClient h3 {
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.containerClient p {
+    margin: 4px 0px;
+}
+.containerTable table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.containerTable th,
+.containerTable td {
+    border: 1px solid #ccc;
+    padding: 10px 12px;
+    text-align: left;
+}
+
+.containerTable th {
+    background-color: #f0f0f0;
+}
+.containerTotals{
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: end;
+    width: 100%;
+    padding: 10px;
+    
+}
+.totalContainer {
+    display: flex;
+    flex-direction: column;
+    
+    gap: 20px;
+    width: 45%;
+    font-size: 18px;
+    font-weight: bold;
+    color: black;
+}
+
+.buttonDownload{
+    position: absolute;
+    top: 0%;
+    left: 70%;
+    transform: translate(50%,50%);
+}
+
+.buttonDownload button{
+    padding: 10px;
+    background-color: white;
+    border-radius: 5px;
+    font-size: 20px;
+    border: none;
+}
+.buttonDownload button:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: 0.3s ease;
+}

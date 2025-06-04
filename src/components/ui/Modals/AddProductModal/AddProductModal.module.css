@@ -25,9 +25,9 @@
     justify-content: space-around;
 }
 .imageProduct{
-    height: 20vh;
+    height: 140px;
     min-height: auto;
-    width: 100%;
+    width: 180px;
     border: gray 2px solid;
     background-color: rgb(201, 198, 198);
     display: flex;

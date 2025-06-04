@@ -1,83 +1,58 @@
-import axios from "axios"
-import { BASE_URL } from "../utils/constantes"
+import interceptorApiClient from "../interceptors/axios.interceptor"
 import { IProduct } from "../types/IProduct"
 import { ICreateProduct } from "../types/ICreatedProducts"
-import { errorAlert } from "../utils/errorAlert"
 
 
 
 
-const URL_PRODUCTS = `${BASE_URL}/api/product`
 
 export const getAllProducts = async (): Promise<IProduct[]> => {
-    try{
-        const response = await axios.get<[]>(URL_PRODUCTS)
+        const response = await interceptorApiClient.get("/product")
         return response.data
-    }catch (err) {
-        console.log("Error en getAllProducts" + err)
-        return []
-    }
 }
 
 export const getProductById = async (idProduct: string) => {
-    try{
-        const response = await axios.get(`${URL_PRODUCTS}/${idProduct}`)
-        return response.data
-    }catch (err){
-        console.log("Error en getProductById" + err)
-    }
+    const response = await interceptorApiClient.get(`/product${idProduct}`)
+    return response.data
 }
 
 
 export const postProduct = async (newProduct: ICreateProduct) => {
-    try{
-        const response = await axios.post(URL_PRODUCTS, newProduct)
+   
+        const response = await interceptorApiClient.post('/product', newProduct)
         return response.data
-    }catch (err : any){
-        console.log("Error en postProduct " + err.message.data)
-        errorAlert('Error', 'El producto no pudo ser creado')
-    }
+    
 }
 
 export const putProduct = async (updatedProduct: IProduct) => {
-    try{
-        const response = await axios.put(`${URL_PRODUCTS}/${updatedProduct.id}`, updatedProduct)
+        const response = await interceptorApiClient.put(`/product/${updatedProduct.id}`, updatedProduct)
         return response.data
-
-    }catch (err){
-        console.log("Error en putProductCrud" + err)
-    }
 }
 
 export const deleteProduct = async (idProductToDelete: number) => {
-    try{
-
-        const response = await axios.delete(`${URL_PRODUCTS}/${idProductToDelete}`)
+        const response = await interceptorApiClient.delete(`/product/${idProductToDelete}`)
         return response.data
-
-    }catch (err){
-        console.log("Error en deleteProduct" + err)
-    }
 }
 
 export const getAllProductsActive = async () => {
-    try{
-        const response = await axios.get(`${URL_PRODUCTS}/active`)
+        const response = await interceptorApiClient.get(`/product/active`)
         return response.data
-    }catch (error){
-        console.log("Error en getAllProductsActive" + error)
-    }
+}
+
+export const getAllProductsInactive = async () => {
+    const response = await interceptorApiClient.get(`/product/inactive`)
+    return response.data
 }
 
 
 export const getAllProductsPaged = async (page: number, size: number, categoryId? : number) => {
     try {
         if(categoryId){
-            const response = await axios.get(`${URL_PRODUCTS}/paged?page=${page}&size=${size}&categoryId=${categoryId}`)
+            const response = await interceptorApiClient.get(`/product/paged?page=${page}&size=${size}&categoryId=${categoryId}`)
             return response.data
 
         }else{
-            const response = await axios.get(`${URL_PRODUCTS}/paged?page=${page}&size=${size}`)
+            const response = await interceptorApiClient.get(`/product/paged?page=${page}&size=${size}`)
             return response.data
         }
     } catch (error) {
@@ -87,10 +62,7 @@ export const getAllProductsPaged = async (page: number, size: number, categoryId
 }
 
 export const getProductsFiltered = async (category: string) => {
-    try {
-        const response = await axios.get(`${URL_PRODUCTS}/filter?categoria=${category}`)
+        const response = await interceptorApiClient.get(`/product/filter?categoria=${category}`)
         return response.data
-    } catch (error) {
-        console.error('Error en getProductsFiltered', error)
-    }
+   
 }

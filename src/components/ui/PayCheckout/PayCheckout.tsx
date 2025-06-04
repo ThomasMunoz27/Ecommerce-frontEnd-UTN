@@ -8,6 +8,7 @@ import styles from "./PayCheckout.module.css"
 export const PayCheckout = () => {
   const cantProducts = useStoreCart(state => state.cantProducts())
   const totalCart = useStoreCart(state => state.totalCart()*1.21)
+  const totalCartWithDiscount = useStoreCart(state => state.totalCartWithDiscount()*1.21)
   const {validFormSumbited} = useStoreCheckout()
 
 
@@ -18,8 +19,8 @@ export const PayCheckout = () => {
     <div className={styles.titleScreen}>
         <h2>PAGAR</h2>
         {cantProducts > 1 
-        ? <p>({cantProducts} productos) ${totalCart}</p> 
-        : <p>({cantProducts} producto) ${totalCart}</p>}
+        ? <p>({cantProducts} productos) ${(totalCartWithDiscount == 0 ? totalCart : totalCartWithDiscount)}</p> 
+        : <p>({cantProducts} producto) ${(totalCartWithDiscount == 0 ? totalCart : totalCartWithDiscount)}</p>}
     </div>
 
     <div className={styles.mainContainer}>

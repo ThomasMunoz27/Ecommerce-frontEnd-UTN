@@ -17,6 +17,8 @@ interface IStoreCart {
 	cantProducts: () => number;
 
 	totalCart: () => number;
+
+	totalCartWithDiscount: () => number
 }
 
 export const useStoreCart = create<IStoreCart>()(
@@ -90,6 +92,13 @@ export const useStoreCart = create<IStoreCart>()(
 				const products = get().productsInCart;
 				return products.reduce((sum, p) => sum + p.quantity * p.prices.salePrice, 0);
 			},
+
+			totalCartWithDiscount: () => {
+				const products = get().productsInCart;
+				const hasDiscount = products.some(p => p.prices.discount)
+				if (!hasDiscount) return 0;
+				return products.reduce((sum, p) => sum + p.quantity * (p.prices.salePrice - (p.prices.discount ? p.prices.discount.promotionalPrice : 0)), 0);
+			}
 		}),
 		{
 			name: "cart-storage", // clave en localStorage

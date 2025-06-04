@@ -12,10 +12,18 @@ export const SummaryCheckout = () => {
         const totalCart = useStoreCart(state => state.totalCart())
     
         const [ivaPrice, setIvaPrice] = useState(0)
-    
+        const totalCartWithDiscount = useStoreCart(state => state.totalCartWithDiscount())
+
+        const [noDiscountIvaPrice, setNoDiscountIvaPrice] = useState(0)
+
         useEffect(() => {
+        if(totalCartWithDiscount === 0){
             setIvaPrice(totalCart * 1.21)
-        }, [totalCart])
+        }else{
+            setIvaPrice(totalCartWithDiscount * 1.21)
+            setNoDiscountIvaPrice(totalCart * 1.21)
+        }
+        }, [totalCart, totalCartWithDiscount])
 
   return (
     <>
@@ -34,17 +42,27 @@ export const SummaryCheckout = () => {
                                 ? `${cantProducts} productos`
                                 : `${cantProducts} producto`
                                 }</p>
-                                <p>Entrega</p>
+                                {totalCartWithDiscount != 0 && (
+                                    <>
+                                    <p>Precio original:</p>
+                                    <p className={styles.aplicatedDiscount}>Descuento total:</p>
+                                    </>
+                                )}
                                 <p><b>Total:</b></p>
                                 <div className={styles.extraInfo}>
-                                    <p>(precio sin impuestos ${totalCart})</p>
-                                    <p>(IVA incluido ${totalCart * 0.21})</p>
+                                    <p>(precio sin impuestos ${totalCartWithDiscount == 0 ? totalCart : totalCartWithDiscount})</p>
+                                    <p>(IVA incluido ${((totalCartWithDiscount == 0 ? totalCart : totalCartWithDiscount) * 0.21).toFixed(2)})</p>
                                 </div>
                             </div>
 
                             <div className={styles.priceSide}>
-                                <p>$ {totalCart}</p>
-                                <p>$[precio_entrega]</p>
+                                <p>$ {ivaPrice}</p>
+                                {totalCartWithDiscount != 0 && (
+                                    <>
+                                        <p>$ {noDiscountIvaPrice}</p>
+                                        <p className={styles.aplicatedDiscount}>- $ {(noDiscountIvaPrice-ivaPrice).toFixed(2)}</p>
+                                    </>
+                                )}
                                 <p><b>${ivaPrice}</b></p>
                             </div>
                         </div>

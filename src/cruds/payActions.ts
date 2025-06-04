@@ -1,18 +1,16 @@
-import axios from "axios"
-import { BASE_URL } from "../utils/constantes"
 
-const PAY_URL = `${BASE_URL}/api/payments/create-preference`
+import interceptorApiClient from "../interceptors/axios.interceptor"
+
 
 
 
 export const goToPay =  async (cartItems: any) => {
+    const response = await interceptorApiClient.post(`payments/create-preference`, cartItems)
+    const prefId = response.data.preferenceId
+    return prefId
+}
 
-    try{
-        const response = await axios.post(PAY_URL, cartItems)
-        const prefId = response.data.preferenceId
-        return prefId
-
-    }catch(err:any){
-        console.log("Error en goToPay: " + err.response.data)
-    }
+export const setConfirmedBill = async (preferenceId: string) => {
+    const response = await interceptorApiClient.put(`bill/confirm/${preferenceId}`)
+    return response.data
 }

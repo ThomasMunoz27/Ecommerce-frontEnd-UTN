@@ -1,57 +1,29 @@
-import axios from "axios"
-import { BASE_URL } from "../utils/constantes"
+import interceptorApiClient from "../interceptors/axios.interceptor"
 import { IColor } from "../types/IColor"
 
 
-
-
-const URL_COLORS = `${BASE_URL}/api/color`
-
-
 export const getAllColors = async (): Promise<IColor[]> => {
-    try{
-        const response = await axios.get(URL_COLORS)
+        const response = await interceptorApiClient.get('/color')
         return response.data
-    }catch (err){
-        console.log("Error en getAllColors" + err)
-        return []
-    }
 }
 
 export const getColorById = async (colorId: string): Promise<IColor | undefined> => {
-    try{
-        const response = await axios.get(`${URL_COLORS}/${colorId}`)
+        const response = await interceptorApiClient.get(`/color/${colorId}`)
         return response.data
-    }catch (err){
-        console.log("Error en getColorById" + err)
-        return undefined
-    }
 }
 
 export const postColor = async (newColor: IColor) => {
-    try{
-        const response = await axios.post(URL_COLORS, newColor)
+        const response = await interceptorApiClient.post('/color', newColor)
         return response.data
-    }catch (err){
-        console.log("Error en postColor" + err)
-    }
 }
 
 export const putColor = async (updatedColor: IColor) => {
-    try{
-        const response = await axios.put(`${URL_COLORS}/${updatedColor.id}`, updatedColor)
+        const response = await interceptorApiClient.put(`/color/${updatedColor.id}`, updatedColor)
         return response.data
-    }catch (err){
-        console.log("Error en putPrice" + err)
-    }
 }
 
 export const deleteColor = async (idColorToDelete: string) => {
-    try{
-        const response = await axios.delete(`${URL_COLORS}/${idColorToDelete}`)
+        const response = await interceptorApiClient.delete(`/color/${idColorToDelete}`)
         return response.data
-    }catch (err){
-        console.log("Error en deleteColor" + err)
-    }
 }
 

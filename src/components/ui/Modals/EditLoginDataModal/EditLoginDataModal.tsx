@@ -4,9 +4,10 @@ import { useStoreUsers } from '../../../../store/useStoreUsers'
 import styles from './EditLoginDataModal.module.css'
 import { updateUser } from '../../../../cruds/crudUsers'
 import { IUser } from '../../../../types/IUser'
-import { succesAlert } from '../../../../utils/succesAlert'
+
 import { formChangePasswordSchema } from '../../../../yupSchemas/formChangePasswordSchema'
 import { errorAlert } from '../../../../utils/errorAlert'
+import { formChangeDataUser } from '../../../../yupSchemas/formChangeDataUser'
 
 export const EditLoginDataModal = () => {
 
@@ -25,31 +26,49 @@ export const EditLoginDataModal = () => {
     }
 
     const [formValues1, setFormValues1] = useState(initialValues1)
+    const [formErrors1, setFormErrors1] = useState<Record<string, string>>({})
 
     const handleChange1 = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormValues1({...formValues1, [e.target.name]: e.target.value})
     }
 
 
-    const handleSendForm1 = async () => {
-        if(!user)return;
+    const handleSendForm1 = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        setFormErrors1({});
+        try{
+            if(!user)return;
+    
+            await formChangeDataUser.validate(formValues1,{abortEarly: false})
+    
+            const birthdateValue = new Date(formValues1.birthdate);
+            
+            const updatedUser: IUser ={
+                ...user,
+                name: formValues1.name,
+                lastname: formValues1.lastName,
+                birthdate: !isNaN(birthdateValue.getTime())
+            ? birthdateValue
+            : user.birthdate,
+                sex: formValues1.sex
+            }
+            setUser(updatedUser)
+    
+            console.log(updatedUser.id)
+            await updateUser(updatedUser)
+            closeModalEditLogin()
 
-        const birthdateValue = new Date(formValues1.birthdate);
-        
-        const updatedUser: IUser ={
-            ...user,
-            name: formValues1.name,
-            lastname: formValues1.lastName,
-            birthdate: !isNaN(birthdateValue.getTime())
-		? birthdateValue
-		: user.birthdate,
-            sex: formValues1.sex
+        }catch (error:any){
+            const errors: Record<string, string> = {}
+            if (error.inner) {
+			error.inner.forEach((validationError: any) => {
+				errors[validationError.path] = validationError.message;
+			});
+		} else {
+			errors.general = error.message;
+		}
+            setFormErrors1(errors)
         }
-        setUser(updatedUser)
-
-        console.log(updatedUser.id)
-        await updateUser(updatedUser)
-        succesAlert("Datos actualizados!")
     }
 
     //Funciones y constantes para el Formulario 2
@@ -85,8 +104,7 @@ export const EditLoginDataModal = () => {
 
         console.log(updatedUser.id)
         await updateUser(updatedUser)
-        succesAlert("Datos actualizados!")
-
+        closeModalEditLogin()
         }catch (error: any){
             const errors: Record<string, string> = {}
             error.inner.forEach((validationError:any) =>{
@@ -99,7 +117,7 @@ export const EditLoginDataModal = () => {
     if (modalEditLogin.option == 2){
         return (
             <div className={styles.containerPrincipalPassword}>
-                <form className={styles.formContainer} action="" onSubmit={handleSubmit2}>
+                <form className={styles.formContainer2} action="" onSubmit={handleSubmit2}>
 
                     <h2>Editar tu contraseña</h2>
                     <div>
@@ -111,7 +129,6 @@ export const EditLoginDataModal = () => {
                     <div>
                         <input type="password" name="newPassword" id="" placeholder='Nueva contraseña' value={formValues2.newPassword} onChange={handleChange2}/>
                         {formErrors2.newPassword && <p className={styles.errorMessage}>{formErrors2.newPassword}</p>}
-
                     </div>
 
                     <div>
@@ -136,17 +153,27 @@ export const EditLoginDataModal = () => {
 
         
         return (
+                <form action="" className={styles.formContainer1} onSubmit={handleSendForm1}>
             <div className={styles.containerPrincipalData}>
                 <h2>Editar datos fiscales</h2>
-                <input onChange={handleChange1} type="text" name="name" id="" value={formValues1.name} required placeholder='Nombre'/>
-                <input onChange={handleChange1} type="text" name="lastName" id="" value={formValues1.lastName} required placeholder='Apellido'/>
+                <div>
+                    <input onChange={handleChange1} type="text" name="name" id="" value={formValues1.name} placeholder='Nombre'/>
+                    {formErrors1.name && <p className={styles.errorMessage}>{formErrors1.name}</p>}
+                </div>
+                <div>
+                <input onChange={handleChange1} type="text" name="lastName" id="" value={formValues1.lastName} placeholder='Apellido'/>
+                {formErrors1.lastName && <p className={styles.errorMessage}>{formErrors1.lastName}</p>}
+                </div>
 
 
                 <h3>Fecha de nacimiento</h3>
                 <div className={styles.containerBirthDate}>
+                    <div>
                     <input type="date" name='birthdate' onChange={handleChange1} value={formValues1.birthdate || ""} placeholder='dd/mm/yy'/>
-                    {/* <input type="text" name="" id=""  placeholder='mm'/>
-                    <input type="text" placeholder='yyy'/> */}
+                    {formErrors1.birthdate && <p className={styles.errorMessage}>{formErrors1.birthdate}</p>}
+                    
+
+                    </div>
                 </div>
                 <h3>Sexo</h3>
                 <div className={styles.containerSex}>
@@ -166,14 +193,15 @@ export const EditLoginDataModal = () => {
                     />
                     <label htmlFor="">Otro</label>
                 </div>
-                <button className={styles.buttonConfirm} onClick={handleSendForm1}>
+                {formErrors1.sex && <p className={styles.errorMessage}>{formErrors1.sex}</p>}
+                <button className={styles.buttonConfirm} type='submit'>
                     Guardar Cambios
                 </button>
                 <button className={styles.buttonCancel} onClick={closeModalEditLogin}>
                     Cancelar
                 </button>
-
             </div>
+            </form>
         )
     }
 

@@ -7,5 +7,6 @@ export interface IBIllDetail{
     quantity: number
     unitPrice: number
     subtotal: number
+    discount?: number
     bill?: IBill
 }

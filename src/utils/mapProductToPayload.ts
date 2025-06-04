@@ -15,7 +15,7 @@ export function mapProductToPayload(product: IProduct): ICreateProduct {
     prices: { id: product.prices.id! },
     colors: product.colors.map(c => ({ id: c.id })),
     sizes: product.sizes.map(s => ({ id: s.id })),
-    category: product.category.map(cat => ({ id: cat.id })),
+    category: product.category.map(cat => ({ id: cat.id! })),
     
   };
 }

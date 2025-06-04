@@ -5,15 +5,27 @@ interface IStoreModal{
     modalEditLogin : {type : boolean, option : 1 | 2 | null}, // Modal que edita datos del usuario logueado
     modalAddProduct : boolean, // Modal para agregar un producto al carrito
     modalPrices : boolean,
+    modalEditAddress : boolean,
+
     modalAdminColor : {type: boolean, option : 1 | 2 | null},
     modalAdminSize : {type : boolean, option : 1 | 2 | null},
     modalAdminDiscount : {type : boolean, option : 1 | 2 | null},
     modalAdminPrice : {type : boolean, option : 1 | 2 | null},
+    modalAdminImage : boolean,
+    modalAdminCountry : boolean,
+    modalAdminProvince : boolean,
+    modalAdminLocality : boolean,
+    modalAdminAdress : boolean
+    
     modalAdminProduct : {type : boolean, option : 1 | 2 | null},
     modalAdminSubSize : {type : boolean, option : 1 | 2 | null},
     modalAdminSubColor : {type : boolean, option: 1 | 2 | null},
     modalAdminSubPrice : {type : boolean, option: 1 | 2 | null},
     modalAdminSubCategory : {type : boolean, option : 1 | 2 | null},
+    modalAdminCategory : boolean,
+
+    modalViewBill : boolean
+    
     
     openModalAccount : (selection : boolean) => void,
     closeModalAccount : VoidFunction,
@@ -54,25 +66,63 @@ interface IStoreModal{
     openAdminSubCategory : (selection : 1 | 2 | null) => void,
     closeAdminSubCategory : () => void
 
+    openModalAdminCategory : () => void
+    closeModalAdminCategory : () => void,
+
+    openModalAdminImage : () => void,
+    closeModalAdminImage : () => void,
+
+    openModalAdminCountry : () => void,
+    closeModalAdminCountry  : () => void,
+
+    openModalAdminProvince : () => void,
+    closeModalAdminProvince  : () => void,
+
+    openModalAdminLocality : () => void,
+    closeModalAdminLocality  : () => void,
+
+    openModalAdminAdress : () => void,
+    closeModalAdminAdress  : () => void,
+    
+    openModalEditAddress : () => void,
+    closeModalEditAddress : () => void
+
+    openModalViewBill : () => void,
+    closeModalViewBill : () => void
+
+
 }
 
 export const useStoreModal = create<IStoreModal>((set) => ({
 
-    modalAccount : {type : false, valueLogin : false},
+    modalAccount : {type : true, valueLogin : false},
     modalEditLogin : {type : false, option : null},
     modalAddProduct : false,
     modalEditAdminProduct: false,
     modalAddAdminProduct : false,
     modalPrices : false,
+
+    modalAdminLocality : false,
+    modalAdminAdress : false,
     modalAdminColor : {type : false, option : null},
     modalAdminSize : {type : false, option : null},
     modalAdminDiscount : {type : false, option : null},
     modalAdminPrice : {type : false, option : null},
+    modalAdminCategory : false,
+    modalAdminImage : false,
+    modalAdminCountry : false,
+    modalAdminProvince : false,
+
     modalAdminProduct : {type : false, option: null},
     modalAdminSubSize : {type : false, option : null},
     modalAdminSubColor : {type : false, option : null},
     modalAdminSubPrice : {type : false, option : null},
     modalAdminSubCategory : {type : false, option : null},
+
+    modalEditAddress : false,
+
+    modalViewBill: false,
+
 
 
     
@@ -113,7 +163,31 @@ export const useStoreModal = create<IStoreModal>((set) => ({
     closeAdminSubPrice : () => set({modalAdminSubPrice : {type : false, option : null}}),
 
     openAdminSubCategory : (selection) => set({modalAdminSubCategory : {type : true, option : selection}}),
-    closeAdminSubCategory : () => set({modalAdminSubCategory : {type : false, option : null}})
+    closeAdminSubCategory : () => set({modalAdminSubCategory : {type : false, option : null}}),
+
+    openModalAdminCategory : () => set({modalAdminCategory : true}),
+    closeModalAdminCategory : () => set({modalAdminCategory : false}),
+
+    openModalAdminImage : () => set({modalAdminImage : true}),
+    closeModalAdminImage : () => set({modalAdminImage : false}),
+
+    openModalAdminCountry : () => set({modalAdminCountry : true}),
+    closeModalAdminCountry : () => set({modalAdminCountry : false}),
+
+    openModalAdminProvince : () => set({modalAdminProvince : true}),
+    closeModalAdminProvince : () => set({modalAdminProvince : false}),
+
+    openModalAdminAdress : () => set({modalAdminAdress : true}),
+    closeModalAdminAdress : () => set({modalAdminAdress : false}),
+
+    openModalAdminLocality : () => set({modalAdminLocality : true}),
+    closeModalAdminLocality : () => set({modalAdminLocality : false}),
+
+    openModalEditAddress : () => set({modalEditAddress : true}),
+    closeModalEditAddress : () => set({modalEditAddress : false}),
+
+    openModalViewBill : () => set({modalViewBill : true}),
+    closeModalViewBill : () => set({modalViewBill : false})
 
     
 }))

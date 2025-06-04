@@ -76,7 +76,7 @@ export const AddProductModal = () => {
             </div>
             <div className={styles.infoProduct}>
                 <div className={styles.imageProduct}>
-                    <img src={activeProduct?.image?.url} alt={activeProduct?.name} />
+                    <img src={activeProduct ? activeProduct.image?.url : 'https://www.publicdomainpictures.net/pictures/280000/velka/not-found-image-15383864787lu.jpg'}  onClick={handleClick} />
                 </div>
                 <div className={styles.productDetails}>
                     <p>{activeProduct?.name}</p>

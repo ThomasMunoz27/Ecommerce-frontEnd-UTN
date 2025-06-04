@@ -14,7 +14,6 @@ export const miniAlert = (title: String, subtitle: String | "") => {
         showConfirmButton: false, // ❌ Sin botón de confirmación
         background: "#fff", // Fondo blanco, o el que prefieras
         didOpen: () => {
-        Swal.showLoading();
         
         },
         willClose: () => {

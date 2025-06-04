@@ -7,6 +7,7 @@ import { IPrice } from '../../../../types/IPrice'
 import { succesAlert } from '../../../../utils/succesAlert'
 import { errorAlert } from '../../../../utils/errorAlert'
 import { IProduct } from '../../../../types/IProduct'
+import { getAllProducts } from '../../../../cruds/crudProduct'
 
 interface ISubAdminPrice {
     product?: IProduct
@@ -18,12 +19,15 @@ export const SubAdminPrice: FC<ISubAdminPrice> = ({ product, setProduct }) => {
     const { activeProduct, setActiveProduct } = useStoreProduct()
 
     const [prices, setPrices] = useState<IPrice[]>([])
+    const [products, setProducts] = useState<IProduct[]>() // Todos los productos de la bd
     const [selectedPrice, setSelectedPrice] = useState<IPrice | null>(null)
 
     useEffect(() => {
         const getPrices = async () => {
             const pricesFetched = await getAllPrices()
+            const productsFetched = await getAllProducts() // Llamo todos los productos
             setPrices(pricesFetched)
+            setProducts(productsFetched)
 
             if (modalAdminSubPrice.option === 2 && activeProduct?.prices) {
                 const found = pricesFetched.find(p => p.id === activeProduct.prices.id)
@@ -42,6 +46,15 @@ export const SubAdminPrice: FC<ISubAdminPrice> = ({ product, setProduct }) => {
 
     const handleAddPrice = (e: React.FormEvent) => {
         e.preventDefault()
+
+        const existingPrice = products?.find((product) => product.prices.id === selectedPrice?.id)
+
+        if (existingPrice){
+            errorAlert('Error', 'Este precio ya esta asignado a un producto')
+            closeAdminSubPrice()
+            return
+        }
+
         try {
             if (product && setProduct && selectedPrice) {
                 setProduct(prev => ({

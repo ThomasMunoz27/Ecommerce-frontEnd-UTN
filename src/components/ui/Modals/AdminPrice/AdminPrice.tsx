@@ -7,6 +7,8 @@ import { IDiscount } from '../../../../types/IDiscount'
 import { IPrice } from '../../../../types/IPrice'
 import { postPrice, putPrice } from '../../../../cruds/crudPrices'
 import { succesAlert } from '../../../../utils/succesAlert'
+import { formPriceSchema } from '../../../../yupSchemas/formPriceSchema'
+import { errorAlert } from '../../../../utils/errorAlert'
 
 export const AdminPrice = () => {
     const {modalAdminPrice, closeModalAdminPrice} = useStoreModal()
@@ -18,8 +20,11 @@ export const AdminPrice = () => {
         purchasePrice : 0,
         discount: null
     })
+    const [formErrors, setFormErrors] = useState<Record<string, string>>({})
+
 
     useEffect(() => {
+        
         const getDiscounts = async() => {
             const discountsFetched = await getAllDiscounts()
             setDiscounts(discountsFetched)
@@ -28,16 +33,32 @@ export const AdminPrice = () => {
     },[])
 
 
-    const handleAddDiscount = async(e : React.FormEvent) => {
+    const handleAddPrice = async(e : React.FormEvent) => {
         e.preventDefault()
+
+        // if (newPrice.discount){
+        //     if (newPrice.salePrice <= newPrice.discount.promotionalPrice){
+        //         errorAlert('Error', 'El precio de venta no puede ser menor o igual al descuento')
+        //     }
+        //     return
+        // }
+
         try {
+            await formPriceSchema.validate(newPrice, {abortEarly: false})
             await postPrice(newPrice)
             succesAlert('Creado', 'Se creo el precio existosamente')
             fetchPrice()
             closeModalAdminPrice()
         } catch (error : any) {
-            console.log(error.message);
-            
+            const errors: Record<string, string> = {}
+            if (error.inner) {
+			error.inner.forEach((validationError: any) => {
+				errors[validationError.path] = validationError.message;
+			});
+		} else {
+			errors.general = error.message;
+		}
+            setFormErrors(errors)
         }
     }
 
@@ -96,15 +117,31 @@ export const AdminPrice = () => {
 
     const handleEdit = async(e: React.FormEvent) => {
         e.preventDefault()
+
+        if (editPrice.discount) {
+            if (editPrice.salePrice <= editPrice.discount.promotionalPrice){
+                errorAlert('Error', 'El precio de venta no puede ser menor o igual al decuento')
+                return
+            }
+        }
+
         try {
+            await formPriceSchema.validate(editPrice, {abortEarly: false})
+
             await putPrice(editPrice)
-            alert('Se actualizo el precio')
+            succesAlert('Se actualizo el precio')
             fetchPrice()
             closeModalAdminPrice()
         } catch (error : any) {
-            alert('No se pudo actualizar el precio')
-            console.log(error.message);
-            
+            const errors: Record<string, string> = {}
+            if (error.inner) {
+			error.inner.forEach((validationError: any) => {
+				errors[validationError.path] = validationError.message;
+			});
+		} else {
+			errors.general = error.message;
+		}
+            setFormErrors(errors)
         }
     }
 
@@ -114,15 +151,23 @@ export const AdminPrice = () => {
                 <div className={styles.containerTitle}>
                     <h1>Agregar Precio</h1>
                 </div>
-                <form action="" onSubmit={handleAddDiscount}>
+                <form action="" onSubmit={handleAddPrice}>
                     <div className={styles.containerPrices}>
 
                         <label htmlFor="">Precio de Compra</label>
-                        <input type="number" name='purchasePrice' onChange={handleChange}/>
+                        <div className={styles.inputContainer}>
+                            <input type="number" name='purchasePrice' onChange={handleChange}/>
+                            {formErrors.purchasePrice && <p className={styles.errorMessage}>{formErrors.purchasePrice}</p>}
+                        </div>
 
                         <label htmlFor="">Precio de Venta</label>
-                        <input type="number" name="salePrice" id="" onChange={handleChange}/>
+                        <div>
 
+                        </div>
+                        <div className={styles.inputContainer}>
+                            <input type="number" name="salePrice" id="" onChange={handleChange}/>
+                            {formErrors.salePrice && <p className={styles.errorMessage}>{formErrors.salePrice}</p>}
+                        </div>
                         <label htmlFor="">Descuento</label>
                         <select name="discount" id="" onChange={handleChange}>
                             <option value="disable" disabled selected>Descuentos</option>
@@ -141,6 +186,7 @@ export const AdminPrice = () => {
             </div>
         )
     } else if(modalAdminPrice.option === 2) {
+        
         return (
             <div className={styles.containerPrincipal}>
                 <div className={styles.containerTitle}>
@@ -150,10 +196,18 @@ export const AdminPrice = () => {
                     <div className={styles.containerPrices}>
 
                         <label htmlFor="">Precio de Compra</label>
-                        <input type="number" name="purchasePrice" value={editPrice?.purchasePrice} onChange={handleEditChange}/>
+                    
+                            <input type="number" name="purchasePrice" value={editPrice?.purchasePrice} onChange={handleEditChange}/>
+                            {formErrors.purchasePrice && <p className={styles.errorMessage}>{formErrors.purchasePrice}</p>}
+
+                        
 
                         <label htmlFor="">Precio de Venta</label>
-                        <input type="number" name="salePrice" value={editPrice?.salePrice} id="" onChange={handleEditChange}/>
+                    
+                            <input type="number" name="salePrice" value={editPrice?.salePrice} id="" onChange={handleEditChange}/>
+                            {formErrors.salePrice && <p className={styles.errorMessage}>{formErrors.salePrice}</p>}
+
+                        
 
                         <label htmlFor="">Descuento</label>
                         <select name="discount" id="" value={editPrice.discount ? String(editPrice.discount.id) : "sin-descuento"} onChange={handleEditChange}>

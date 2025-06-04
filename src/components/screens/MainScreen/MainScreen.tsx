@@ -7,15 +7,16 @@ import HeroCarousel from "../../ui/HeroCarousel/HeroCarousel";
 import { ListProducts } from "../../ui/ListProducts/ListProducts";
 import style from "./MainScreen.module.css";
 import { IProduct } from "../../../types/IProduct";
-import {getAllProductsPaged } from "../../../cruds/crudProduct";
+import { getAllProductsPaged } from "../../../cruds/crudProduct";
 import { Header } from "../../ui/Headers/Header/Header";
 import { AddProductModal } from "../../ui/Modals/AddProductModal/AddProductModal";
 import { useStoreFilterModal } from "../../../store/useStoreFilterModal";
 import { FilterModal } from "../../ui/Modals/FilterModal/FilterModal";
+import { useStoreUsers } from "../../../store/useStoreUsers";
 
 export const MainScreen = () => {
-
-  const {visible} = useStoreFilterModal()
+  const { userName } = useStoreUsers()
+  const { visible } = useStoreFilterModal();
 
   const { modalAddProduct } = useStoreModal();
 
@@ -25,10 +26,11 @@ export const MainScreen = () => {
 
   const [totalPages, setTotalPages] = useState(0);
 
+
+
   const { closeModalAddProduct } = useStoreModal();
   const getPagedProducts = async () => {
     const pagedProducts = await getAllProductsPaged(paginaActual, 6);
-    console.log(pagedProducts.content)
     setProducts(pagedProducts.content);
 
     setTotalPages(pagedProducts.totalPages);
@@ -37,15 +39,25 @@ export const MainScreen = () => {
     closeModalAddProduct();
 
     getPagedProducts();
-  }, [paginaActual]);
+  }, [paginaActual, userName]);
+
+
+  let sexArray: string[] = []
+  if(products.length > 0){
+    
+      products.map((product) => {
+      if(!sexArray.includes(product.sex)){
+         sexArray.push(product.sex) 
+      }
+    })
+  }
 
   return (
     <>
       <div className={style.screen}>
         <Header />
-
         <HeroCarousel />
-        <ListProducts productsArray={products} title={"Todos los productos"} />
+        <ListProducts productsArray={products} title={"Todos los productos"} customClass='containerMainScreen'/>
         {modalAddProduct && (
           <div className={style.modalBackdrop}>
             <AddProductModal />
@@ -69,11 +81,10 @@ export const MainScreen = () => {
           ))}
         </div>
 
-          {/* Filter modal */}
+        {/* Filter modal */}
 
-          {visible && <FilterModal/>}
+        {visible && <FilterModal sexArray={sexArray}/>}
         <Footer />
-
       </div>
     </>
   );

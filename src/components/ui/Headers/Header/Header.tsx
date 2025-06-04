@@ -4,17 +4,44 @@ import { useEffect, useState } from 'react';
 import { useStoreCart } from '../../../../store/useStoreCart';
 import { useStoreCategory } from '../../../../store/useStoreCategory';
 import { getCategoryByName } from '../../../../cruds/crudCategory';
+import { useStoreUsers } from '../../../../store/useStoreUsers';
+import { getUserById, getUserByName } from '../../../../cruds/crudUsers';
 
 export const Header = () => {
+
+   const [showAdmin, setShowAdmin] = useState(false)
+
+   const {user, userName, setUser} = useStoreUsers()
+
 
   const [cantProductsInCart, setCantProductsInCart] = useState(0)
    const {setActiveCategory} = useStoreCategory()
   const {productsInCart} = useStoreCart()
   const navigate = useNavigate()
   const [isVisible, setIsVisible] = useState(false)
+  
+      useEffect(() => {
+          const fetchUser = async() => {
+              const usuarioName = localStorage.getItem('username')
+              if(usuarioName){
+                  const usuario = await getUserByName(usuarioName) 
+                  setUser(usuario)
+                  if(usuario.user === 'admin'){
+                    setShowAdmin(true)
+                  }else{
+                    false
+                  }
+              }
+          } 
+          fetchUser()
+      }, [userName])
 
   const handleClick = () => {
     navigate("/my-account")
+  }
+
+  const handleNavigateToAdmin = () => {
+    navigate("/admin")
   }
   const handleCloseResponsive = () => {
     setIsVisible(false)
@@ -41,6 +68,7 @@ export const Header = () => {
 
 
   }, [productsInCart])
+  // console.log("Valor de user.user:", user?.user);
 
   return (
     <>
@@ -56,12 +84,21 @@ export const Header = () => {
       <a onClick={() => setIsVisible(true)} className={style.hamburguerIcon}><img src='./icons/hamburguerMenu.svg'/></a>
     </nav>
     <div className={style.searchBarIconsContainer}>
+      {showAdmin && (
+        <div className={style.adminIcon}>
+          <span onClick={handleNavigateToAdmin} className="material-symbols-outlined">
+                                inventory_2
+          </span>
+
+        </div>
+        )
+      } 
       
     <input type="text" placeholder='Buscar' className={style.searchBar}/>
 
     <a href=""><img src="./icons/userCircle.svg" alt="" onClick={handleClick}/></a>
     <div className={style.cartContainer}>
-      {cantProductsInCart > 0 && <span className={style.cartCounter}>{cantProductsInCart}</span>}
+      {cantProductsInCart > 0 && <span className={style.cartCounter} onClick={() => navigate("/my-cart")}>{cantProductsInCart}</span>}
       <Link to="/my-cart"><img src="./icons/cartIcon.svg" alt="" /></Link>
     </div>
     </div>
@@ -72,24 +109,26 @@ export const Header = () => {
       <nav>
         <a  onClick={handleCategoryClick}>Niños</a>
         <a  onClick={handleCategoryClick}>Deportes</a>
-        <a  onClick={handleCategoryClick}>Calzado</a>
+        <a  onClick={handleCategoryClick}>Calzados</a>
         <a  onClick={handleCategoryClick}>Indumentaria</a>
         <a  onClick={handleCategoryClick}>Hombre</a>
         <a  onClick={handleCategoryClick}>Mujer</a>
-        <a  onClick={handleCategoryClick}>Ofertas</a>
       </nav>
     </div>
     {/* <DropdownHeader></DropdownHeader> */}
     </div>
     {isVisible && ( <div className={style.responsiveModal}>
        <nav>
+        <a  onClick={() => {
+          navigate('/')
+          setIsVisible(false)
+        }}>Inicio</a>
         <a  onClick={handleCategoryClick}>Niños</a>
         <a  onClick={handleCategoryClick}>Deportes</a>
-        <a  onClick={handleCategoryClick}>Calzado</a>
+        <a  onClick={handleCategoryClick}>Calzados</a>
         <a  onClick={handleCategoryClick}>Indumentaria</a>
         <a  onClick={handleCategoryClick}>Hombre</a>
         <a  onClick={handleCategoryClick}>Mujer</a>
-        <a  onClick={handleCategoryClick}>Ofertas</a>
       </nav>
       <button onClick={handleCloseResponsive}>X</button>
     </div>)}

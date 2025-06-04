@@ -1,57 +1,36 @@
-import axios from "axios"
-import { BASE_URL } from "../utils/constantes"
+
 import { IPrice } from "../types/IPrice"
+import interceptorApiClient from "../interceptors/axios.interceptor"
 
 
-
-
-const URL_PRICES = `${BASE_URL}/api/prices`
 
 
 export const getAllPrices = async (): Promise<IPrice[]> => {
-    try{
-        const response = await axios.get(URL_PRICES)
+        const response = await interceptorApiClient.get('/prices')
         return response.data
-    }catch (err){
-        console.log("Error en getAllPrices" + err)
-        return []
-    }
 }
 
 export const getPriceById = async (priceId: string): Promise<IPrice | undefined> => {
-    try{
-        const response = await axios.get(`${URL_PRICES}/${priceId}`)
+
+        const response = await interceptorApiClient.get(`/prices/${priceId}`)
         return response.data
-    }catch (err){
-        console.log("Error en getPriceById" + err)
-        return undefined
-    }
+
 }
 
 export const postPrice = async (newPrice: IPrice) => {
-    try{
-        const response = await axios.post(URL_PRICES, newPrice)
+    
+        const response = await interceptorApiClient.post('/prices', newPrice)
         return response.data
-    }catch (err){
-        console.log("Error en postPrice" + err)
-    }
+   
 }
 
 export const putPrice = async (updatedPrice: IPrice) => {
-    try{
-        const response = await axios.put(`${URL_PRICES}/${updatedPrice.id}`, updatedPrice)
+        const response = await interceptorApiClient.put(`/prices/${updatedPrice.id}`, updatedPrice)
         return response.data
-    }catch (err){
-        console.log("Error en putPrice" + err)
-    }
 }
 
 export const deletePrice = async (idPriceToDelete: string) => {
-    try{
-        const response = await axios.delete(`${URL_PRICES}/${idPriceToDelete}`)
+        const response = await interceptorApiClient.delete(`/prices/${idPriceToDelete}`)
         return response.data
-    }catch (err){
-        console.log("Error en deletePrice" + err)
-    }
 }
 

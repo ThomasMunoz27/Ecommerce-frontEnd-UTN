@@ -105,3 +105,10 @@
     align-items: center;
     z-index: 1000;
 }
+
+.errorMessage {
+	padding: 8px;
+    color: red;
+    text-align: left;
+    
+}

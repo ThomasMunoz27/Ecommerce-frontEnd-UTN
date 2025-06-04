@@ -1,55 +1,34 @@
-import axios from "axios";
-import { BASE_URL } from "../utils/constantes";
 import { IBill } from "../types/IBIll";
+import interceptorApiClient from "../interceptors/axios.interceptor";
 
 
-const URL_BILL = `${BASE_URL}/api/bill`
 
 export const getAllBills = async (): Promise<IBill[]> => {
-    try {
-        const response = await axios.get(URL_BILL)
-        return response.data
-    } catch (error) {
-        console.log('Error en getAllSizes', error);
-        return []   
-    }
+    const response = await interceptorApiClient.get(`/bill`)
+    return response.data
+
 }
-export const getBillById = async (sizeId: string): Promise<IBill | undefined> => {
-    try{
-        const response = await axios.get(`${URL_BILL}/${sizeId}`)
-        return response.data
-    }catch (err){
-        console.log("Error en getBillById" + err)
-        return undefined
-    }
+export const getBillById = async (billId: string): Promise<IBill | undefined> => {
+    const response = await interceptorApiClient.get(`/bill/${billId}`)
+    return response.data
 }
 
 export const postBill = async (newBill: IBill) => {
-    try{
-        const response = await axios.post(URL_BILL, newBill)
-        console.log("Datos de factura enviados")
-
-        return response.data
-    }catch (err){
-        console.log("Error en postBill" + err)
-    }
+    const response = await interceptorApiClient.post(`/bill`, newBill)
+    return response.data
 }
 
 export const putBill = async (updatedBill: IBill) => {
-    try{
-        const response = await axios.put(`${URL_BILL}/${updatedBill.id}`, updatedBill)
-        return response.data
-    }catch (err){
-        console.log("Error en putBill" + err)
-    }
+    const response = await interceptorApiClient.put(`/bill/${updatedBill.id}`, updatedBill)
+    return response.data
 }
 
 export const deleteBill = async (idBillToDelete: string) => {
-    try{
-        const response = await axios.delete(`${URL_BILL}/${idBillToDelete}`)
-        return response.data
-    }catch (err){
-        console.log("Error en deleteBill" + err)
-    }
+    const response = await interceptorApiClient.put(`/bill/${idBillToDelete}`)
+    return response.data
 }
 
+export const getBillByPreferenceId = async (preferenceID: string) => {
+    const response = await interceptorApiClient.get(`bill/confirm/${preferenceID}`)
+    return response.data
+}

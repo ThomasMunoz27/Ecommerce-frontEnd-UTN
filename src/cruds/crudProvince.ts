@@ -1,63 +1,34 @@
-import axios from "axios"
-import { IProvince } from "../types/IProvince"
-import { BASE_URL } from "../utils/constantes"
+import { IProvince, IProvinceRequest } from "../types/IProvince"
+import interceptorApiClient from "../interceptors/axios.interceptor"
 
-const URL_PROVINCES = `${BASE_URL}/api/province`
 
 export const getAllProvinces = async (): Promise<IProvince[]> => {
-    try {
-    const response = await axios.get(URL_PROVINCES)
+    const response = await interceptorApiClient.get(`/province`)
     return response.data
-    } catch (err) {
-    console.log("Error en getAllProvinces: " + err)
-    return []
-    }
 }
 
 export const getProvinceById = async (provinceId: string): Promise<IProvince | undefined> => {
-    try {
-    const response = await axios.get(`${URL_PROVINCES}/${provinceId}`)
+    const response = await interceptorApiClient.get(`/province/${provinceId}`)
     return response.data
-        } catch (err) {
-    console.log("Error en getProvinceById: " + err)
-    return undefined
-    }
 }
 
 export const getProvincesByCountryId = async (countryId: string): Promise<IProvince[]> => {
-    try{
-        const response = await axios.get(`${URL_PROVINCES}/by-country/${countryId}`)
-        return response.data
-    } catch (err) {
-        console.log("Error en getProvincesByCountryId: " + err)
-        return []
-    }
+    const response = await interceptorApiClient.get(`/province/by-country/${countryId}`)
+    return response.data
+    
 }
 
-
-export const postProvince = async (newProvince: IProvince) => {
-    try {
-    const response = await axios.post(URL_PROVINCES, newProvince)
+export const postProvince = async (newProvince: IProvince | IProvinceRequest) => {
+    const response = await interceptorApiClient.post(`/province`, newProvince)
     return response.data
-    } catch (err) {
-    console.log("Error en postProvince: " + err)
-    }
 }
 
-export const putProvince = async (updatedProvince: IProvince) => {
-    try {
-    const response = await axios.put(`${URL_PROVINCES}/${updatedProvince.id}`, updatedProvince)
+export const putProvince = async (updatedProvince: IProvince | IProvinceRequest) => {
+    const response = await interceptorApiClient.put(`/province/${updatedProvince.id}`, updatedProvince)
     return response.data
-    } catch (err) {
-    console.log("Error en putProvince: " + err)
-    }
 }
 
 export const deleteProvince = async (provinceIdToDelete: string) => {
-    try {
-    const response = await axios.delete(`${URL_PROVINCES}/${provinceIdToDelete}`)
+    const response = await interceptorApiClient.delete(`/province/${provinceIdToDelete}`)
     return response.data
-    } catch (err) {
-    console.log("Error en deleteProvince: " + err)
-    }
 }
