@@ -21,14 +21,22 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 1rem;
+    gap: .8rem;
     padding: 10px;
     width: 100%;
 }
-.containerPrices input{
+
+.inputContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 100%;
 }
-.containerPrices select{
+.inputContainer input{
+    width: 100%;
+}
+.inputContainer select{
     width: 100%;
 }
 .containerButtons{
@@ -46,4 +54,10 @@
     cursor: pointer;
     transform: scale(1.1);
     transition: 0.3s ease;
+}
+.errorMessage {
+	padding: 8px;
+    color: red;
+    text-align: left;
+    
 }

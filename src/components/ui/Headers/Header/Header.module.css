@@ -110,6 +110,7 @@
 .cartContainer{
     position: relative;
     display: inline-block;
+    height: 20px;
 }
 
 .cartCounter{
