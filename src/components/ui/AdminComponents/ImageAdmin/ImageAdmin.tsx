@@ -1,12 +1,19 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import styles from './ImageAdmin.module.css'
-import { getAllImages } from '../../../../cruds/crudImage'
+import { deleteImage, getAllImages } from '../../../../cruds/crudImage'
+import { useStoreImages } from '../../../../store/useStoreImages'
+import { succesAlert } from '../../../../utils/succesAlert'
+import { useStoreModal } from '../../../../store/useStoreModal'
+import { AdminImage } from '../../Modals/AdminImage/AdminImage'
 import { IImage } from '../../../../types/IImage'
 
 
 export const ImageAdmin = () => {
 
-    const [images, setImages] = useState<IImage[]>()
+    
+    const {images, setImages, setActiveImage} = useStoreImages()
+    const {modalAdminImage, openModalAdminImage} = useStoreModal()
+    
 
     useEffect(() => {
         const getAImages = async() => {
@@ -16,6 +23,25 @@ export const ImageAdmin = () => {
         getAImages()
     },[])
 
+    const handleDelete = async(imageId : string) => {
+        try {
+            await deleteImage(imageId)
+            succesAlert('Eliminado', 'Se elimino la imagen exitosamente')
+        } catch (error : any) {
+            console.log(error.message);
+            
+        }
+    }
+
+    const handleAddModal = () => {
+        setActiveImage(null)
+        openModalAdminImage()
+    }
+
+    const handleEditModal = (image : IImage) => {
+        setActiveImage(image)
+        openModalAdminImage()
+    }
 
     return (
         <div className={styles.containerPrincipal}>
@@ -24,7 +50,7 @@ export const ImageAdmin = () => {
                     <h1>Gestión de Imagenes</h1>
                 </div>
                 <div className={styles.containerButtons}>
-                    <button>
+                    <button onClick={handleAddModal}>
                         Añadir
                     </button>
                 </div>
@@ -35,6 +61,7 @@ export const ImageAdmin = () => {
                     <tr>
                         <th>Id</th>
                         <th>Url</th>
+                        <th>Imagen</th>
                         <th>Opciones</th>
                     </tr>
                 </thead>
@@ -42,12 +69,15 @@ export const ImageAdmin = () => {
                     {images?.map(image => (
                     <tr key={image.id}>
                         <td>{image.id}</td>
-                        <td>{image.url}</td>
+                        <td >{image.url}</td>
+                        <td>
+                            <img src={image.url} alt=""  className={styles.images}/>
+                        </td>
         
                         <td>
                             <div className={styles.actionButtons}>
-                                <button >Editar</button>
-                                <button>Eliminar</button>
+                                <button onClick={() => handleEditModal(image)}>Editar</button>
+                                <button onClick={() => handleDelete(String(image.id))}>Eliminar</button>
                             </div>
                         </td>
                     </tr>
@@ -55,6 +85,7 @@ export const ImageAdmin = () => {
                 </tbody>
             </table>
         </div>
+        {modalAdminImage && <div className={styles.modalBackdrop}><AdminImage/></div>}
         </div>
     )
 }

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { BASE_URL } from "../utils/constantes";
 import { IImage } from "../types/IImage";
+import { errorAlert } from "../utils/errorAlert";
 
 
 const URL_IMAGES = `${BASE_URL}/api/image`
@@ -50,6 +51,7 @@ export const deleteImage = async (idImageToDelete: string) => {
         return response.data
     }catch (err){
         console.log("Error en deleteImage" + err)
+        errorAlert('Error', 'No se pudo eliminar la imagen exitosamente')
     }
 }
 
