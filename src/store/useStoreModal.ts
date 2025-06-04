@@ -14,6 +14,7 @@ interface IStoreModal{
     modalAdminSubColor : {type : boolean, option: 1 | 2 | null},
     modalAdminSubPrice : {type : boolean, option: 1 | 2 | null},
     modalAdminSubCategory : {type : boolean, option : 1 | 2 | null},
+    modalAdminCategory : boolean
     
     openModalAccount : (selection : boolean) => void,
     closeModalAccount : VoidFunction,
@@ -54,6 +55,9 @@ interface IStoreModal{
     openAdminSubCategory : (selection : 1 | 2 | null) => void,
     closeAdminSubCategory : () => void
 
+    openModalAdminCategory : () => void
+    closeModalAdminCategory : () => void
+
 }
 
 export const useStoreModal = create<IStoreModal>((set) => ({
@@ -68,6 +72,7 @@ export const useStoreModal = create<IStoreModal>((set) => ({
     modalAdminSize : {type : false, option : null},
     modalAdminDiscount : {type : false, option : null},
     modalAdminPrice : {type : false, option : null},
+    modalAdminCategory : false,
     modalAdminProduct : {type : false, option: null},
     modalAdminSubSize : {type : false, option : null},
     modalAdminSubColor : {type : false, option : null},
@@ -113,7 +118,10 @@ export const useStoreModal = create<IStoreModal>((set) => ({
     closeAdminSubPrice : () => set({modalAdminSubPrice : {type : false, option : null}}),
 
     openAdminSubCategory : (selection) => set({modalAdminSubCategory : {type : true, option : selection}}),
-    closeAdminSubCategory : () => set({modalAdminSubCategory : {type : false, option : null}})
+    closeAdminSubCategory : () => set({modalAdminSubCategory : {type : false, option : null}}),
+
+    openModalAdminCategory : () => set({modalAdminCategory : true}),
+    closeModalAdminCategory : () => set({modalAdminCategory : false})
 
     
 }))

@@ -1,11 +1,20 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import styles from './CategoriesAdmin.module.css'
-import { getAllCategories } from '../../../../cruds/crudCategory'
+import { deleteCategory, getAllCategories } from '../../../../cruds/crudCategory'
+
+import { succesAlert } from '../../../../utils/succesAlert'
+import { errorAlert } from '../../../../utils/errorAlert'
+
+import { useStoreCategory } from '../../../../store/useStoreCategory'
+import { useStoreModal } from '../../../../store/useStoreModal'
 import { ICategory } from '../../../../types/ICategory'
+import { AdminCategory } from '../../Modals/AdminCategory/AdminCategory'
 
 export const CategoriesAdmin = () => {
 
-    const [categories, setCategories] = useState<ICategory[]>()
+    
+    const {categories, setCategories, fetchCategory, setActiveCategory} = useStoreCategory()
+    const {openModalAdminCategory, modalAdminCategory} = useStoreModal()
 
     useEffect(() => {
         const getCategories = async() => {
@@ -13,7 +22,34 @@ export const CategoriesAdmin = () => {
             setCategories(categoriesFetched)
         }
         getCategories()
+        fetchCategory()
+        
     },[])
+
+    // Funcion para eliminar una categoria
+    const handleDelete = async (idCategory : number) => {
+        try {
+            const deletedCategory = await deleteCategory(idCategory)
+
+            succesAlert('Eliminado', 'La categoria se elimino correctamente')
+            console.log(deletedCategory); 
+            fetchCategory()
+        } catch (error : any) {
+            errorAlert('Error', 'Ocurrio un error al eliminar la categoria')
+            console.log(error.message);
+            
+        }
+    }
+
+    const handleModalEdit = async (category : ICategory) => {
+        openModalAdminCategory()
+        setActiveCategory(category)
+    }
+
+    const handleModalAdd = () => {
+        openModalAdminCategory()
+        setActiveCategory(null)
+    }
 
     return (
         <div className={styles.containerPrincipal}>
@@ -22,7 +58,7 @@ export const CategoriesAdmin = () => {
                     <h1>Gestión de Categorias</h1>
                 </div>
                 <div className={styles.containerButtons}>
-                    <button>
+                    <button onClick={handleModalAdd}>
                         Añadir
                     </button>
                 </div>
@@ -44,8 +80,8 @@ export const CategoriesAdmin = () => {
         
                         <td>
                             <div className={styles.actionButtons}>
-                                <button >Editar</button>
-                                <button>Eliminar</button>
+                                <button onClick={() => handleModalEdit(category)}>Editar</button>
+                                <button onClick={() => handleDelete(category.id!)}>Eliminar</button>
                             </div>
                         </td>
                     </tr>
@@ -53,6 +89,7 @@ export const CategoriesAdmin = () => {
                 </tbody>
             </table>
         </div>
+        {modalAdminCategory && <div className={styles.containerBackdrop}><AdminCategory/></div>}
         </div>
     )
 }

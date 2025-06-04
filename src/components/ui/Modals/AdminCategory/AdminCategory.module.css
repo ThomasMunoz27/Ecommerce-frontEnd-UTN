@@ -1,0 +1,37 @@
+.containerPrincipal{
+    background-color: white;
+    padding: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 5px 5px 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.containerValue{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 20px;
+}
+.containerButtons{
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+}
+.containerButtons button{
+    padding: 5px;
+    background-color: black;
+    color: white;
+    font-size: 15px;
+}
+.containerButtons button:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: 0.3s ease;
+}

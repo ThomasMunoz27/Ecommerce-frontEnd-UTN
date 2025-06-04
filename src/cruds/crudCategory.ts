@@ -1,6 +1,7 @@
 import axios from "axios"
 import { ICategory } from "../types/ICategory"
 import { BASE_URL } from "../utils/constantes"
+import { errorAlert } from "../utils/errorAlert"
 
 
 const URL_CATEGORIES = `${BASE_URL}/api/category`
@@ -53,12 +54,13 @@ export const putCategory = async (updatedCategory: ICategory) => {
     }
 }
 
-export const deleteCategory = async (idCategoryToDelete: string) => {
+export const deleteCategory = async (idCategoryToDelete: number) => {
     try{
         const response = await axios.delete(`${URL_CATEGORIES}/${idCategoryToDelete}`)
         return response.data
     }catch (err){
         console.log("Error en deleteCategory" + err)
+        errorAlert('Error', 'No se pudo eliminar la categoria')
     }
 }
 
