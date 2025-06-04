@@ -4,17 +4,38 @@ import { useEffect, useState } from 'react';
 import { useStoreCart } from '../../../../store/useStoreCart';
 import { useStoreCategory } from '../../../../store/useStoreCategory';
 import { getCategoryByName } from '../../../../cruds/crudCategory';
+import { useStoreUsers } from '../../../../store/useStoreUsers';
+import { getUserById } from '../../../../cruds/crudUsers';
 
 export const Header = () => {
+
+
+  //PARA PODER ACCEDER A ADMIN EN DESARROLLO
+  const {user, setUser} = useStoreUsers()
+  useEffect(() => {
+    const fetchUser = async() => {
+      const userDesarrollo = await getUserById(1)
+      
+      setUser(userDesarrollo!)
+
+    }
+    fetchUser()
+  }, [])
+
 
   const [cantProductsInCart, setCantProductsInCart] = useState(0)
    const {setActiveCategory} = useStoreCategory()
   const {productsInCart} = useStoreCart()
   const navigate = useNavigate()
   const [isVisible, setIsVisible] = useState(false)
+  
 
   const handleClick = () => {
     navigate("/my-account")
+  }
+
+  const handleNavigateToAdmin = () => {
+    navigate("/admin")
   }
   const handleCloseResponsive = () => {
     setIsVisible(false)
@@ -41,6 +62,7 @@ export const Header = () => {
 
 
   }, [productsInCart])
+  console.log("Valor de user.user:", user?.user);
 
   return (
     <>
@@ -56,6 +78,15 @@ export const Header = () => {
       <a onClick={() => setIsVisible(true)} className={style.hamburguerIcon}><img src='./icons/hamburguerMenu.svg'/></a>
     </nav>
     <div className={style.searchBarIconsContainer}>
+      {user?.user === "admin" && (
+        <div className={style.adminIcon}>
+          <span onClick={handleNavigateToAdmin} className="material-symbols-outlined">
+                                inventory_2
+          </span>
+
+        </div>
+        )
+      }
       
     <input type="text" placeholder='Buscar' className={style.searchBar}/>
 

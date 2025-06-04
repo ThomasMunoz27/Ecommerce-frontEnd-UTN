@@ -16,13 +16,13 @@ export const getAllUsers = async (): Promise<IUser[]> => {
     }
 }
 
-export const getUserById = async (idUser : number): Promise<IUser[]> => {
+export const getUserById = async (idUser : number): Promise<IUser | undefined> => {
     try{
         const response = await axios.get(`${URL_USERS}/${idUser}`)
         return response.data
     }catch (err){
         console.log("Error en getUserById" + err)
-        return []
+        return undefined
     }
 }
 
