@@ -3,7 +3,7 @@ import { IProduct } from "../../../types/IProduct"
 import style from './CardProduct.module.css'
 import { useStoreModal } from "../../../store/useStoreModal"
 import useStoreProduct from "../../../store/useStoreProduct"
-import { useStoreFilterModal } from "../../../store/useStoreFilterModal"
+import { useNavigate } from "react-router"
 
 
 
@@ -11,8 +11,8 @@ interface Props {
     product: IProduct,
   }
 
-
-export const CardProduct: FC<Props> = ({product}) => {
+  
+  export const CardProduct: FC<Props> = ({product}) => {
     const {openModalAddProduct} = useStoreModal()
     const {setActiveProduct} = useStoreProduct()
 
@@ -21,10 +21,16 @@ export const CardProduct: FC<Props> = ({product}) => {
     setActiveProduct(product)
     openModalAddProduct()
    }
+   const navigate = useNavigate()
+   const handleDetails = () => {
+        setActiveProduct(product)
+        navigate("/product-detail")
+    }
 
   return (
     <div className={style.productCard}>
-    <img className={style.cardImg} src={product.image.url ? product.image.url : 'https://www.publicdomainpictures.net/pictures/280000/velka/not-found-image-15383864787lu.jpg'} alt="" />
+    <img className={style.cardImg} src={
+      product.image ? product.image.url : 'https://www.publicdomainpictures.net/pictures/280000/velka/not-found-image-15383864787lu.jpg'} alt="" onClick={handleDetails}/>
     <div className={style.notImgContainer}>
     <div className={style.cardText}>
         <p className={style.productName}>{`${product.name} ${product.sex}`}</p>
