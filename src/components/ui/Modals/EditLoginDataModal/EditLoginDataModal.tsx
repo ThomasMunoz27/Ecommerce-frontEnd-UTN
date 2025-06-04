@@ -4,7 +4,7 @@ import { useStoreUsers } from '../../../../store/useStoreUsers'
 import styles from './EditLoginDataModal.module.css'
 import { updateUser } from '../../../../cruds/crudUsers'
 import { IUser } from '../../../../types/IUser'
-import { succesAlert } from '../../../../utils/succesAlert'
+
 import { formChangePasswordSchema } from '../../../../yupSchemas/formChangePasswordSchema'
 import { errorAlert } from '../../../../utils/errorAlert'
 import { formChangeDataUser } from '../../../../yupSchemas/formChangeDataUser'
