@@ -6,6 +6,8 @@ import { succesAlert } from '../../../../utils/succesAlert'
 import { useStoreModal } from '../../../../store/useStoreModal'
 import { AdminImage } from '../../Modals/AdminImage/AdminImage'
 import { IImage } from '../../../../types/IImage'
+import useStoreProduct from '../../../../store/useStoreProduct'
+import { errorAlert } from '../../../../utils/errorAlert'
 
 
 export const ImageAdmin = () => {
@@ -13,6 +15,7 @@ export const ImageAdmin = () => {
     
     const {images, setImages, setActiveImage} = useStoreImages()
     const {modalAdminImage, openModalAdminImage} = useStoreModal()
+    const {products} = useStoreProduct()
     
 
     useEffect(() => {
@@ -25,6 +28,11 @@ export const ImageAdmin = () => {
 
     const handleDelete = async(imageId : string) => {
         try {
+            const existInProduct = products.map(product => product.image?.id === Number(imageId))
+            if (existInProduct) { 
+                errorAlert('Error', 'La imagen esta asociada a un producto')
+                return
+            } 
             await deleteImage(imageId)
             succesAlert('Eliminado', 'Se elimino la imagen exitosamente')
         } catch (error : any) {
