@@ -7,15 +7,14 @@ import HeroCarousel from "../../ui/HeroCarousel/HeroCarousel";
 import { ListProducts } from "../../ui/ListProducts/ListProducts";
 import style from "./MainScreen.module.css";
 import { IProduct } from "../../../types/IProduct";
-import {getAllProductsPaged } from "../../../cruds/crudProduct";
+import { getAllProductsPaged } from "../../../cruds/crudProduct";
 import { Header } from "../../ui/Headers/Header/Header";
 import { AddProductModal } from "../../ui/Modals/AddProductModal/AddProductModal";
 import { useStoreFilterModal } from "../../../store/useStoreFilterModal";
 import { FilterModal } from "../../ui/Modals/FilterModal/FilterModal";
 
 export const MainScreen = () => {
-
-  const {visible} = useStoreFilterModal()
+  const { visible } = useStoreFilterModal();
 
   const { modalAddProduct } = useStoreModal();
 
@@ -28,7 +27,6 @@ export const MainScreen = () => {
   const { closeModalAddProduct } = useStoreModal();
   const getPagedProducts = async () => {
     const pagedProducts = await getAllProductsPaged(paginaActual, 6);
-    console.log(pagedProducts.content)
     setProducts(pagedProducts.content);
 
     setTotalPages(pagedProducts.totalPages);
@@ -69,11 +67,10 @@ export const MainScreen = () => {
           ))}
         </div>
 
-          {/* Filter modal */}
+        {/* Filter modal */}
 
-          {visible && <FilterModal/>}
+        {visible && <FilterModal />}
         <Footer />
-
       </div>
     </>
   );

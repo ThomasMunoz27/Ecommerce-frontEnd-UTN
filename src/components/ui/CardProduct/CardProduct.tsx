@@ -28,19 +28,19 @@ interface Props {
     }
 
   return (
-    <div className={style.productCard}>
+    <div className={style.productCard} key={product.id}>
     <img className={style.cardImg} src={
       product.image ? product.image.url : 'https://www.publicdomainpictures.net/pictures/280000/velka/not-found-image-15383864787lu.jpg'} alt="" onClick={handleDetails}/>
     <div className={style.notImgContainer}>
     <div className={style.cardText}>
         <p className={style.productName}>{`${product.name} ${product.sex}`}</p>
-        <p className={style.textCategory}>
+        <div className={style.textCategory}>
           <div className={style.categoryContainer}>
           {product.category.map((categoria) => (
-          <p>{categoria.name}</p>
+          <p key={categoria.id}>{categoria.name}</p>
 
          
-          ))}</div>  <span className={style.prices}>${product.prices.salePrice}</span></p>
+          ))}</div>  <span className={style.prices}>${product.prices.salePrice}</span></div>
     </div>
     <button onClick={handleOpenModalAddProduct} className={style.cardBtn}>Añadir al carrito</button>
     </div>
