@@ -41,6 +41,8 @@ export const HeaderAdmin = () => {
                     <p onClick={() => setActiveOption('prices')}>Precios</p>
                     <p onClick={() => setActiveOption('sizes')}>Talles</p>
                     <p onClick={() => setActiveOption('colors')}>Color</p>
+                    <p onClick={() => setActiveOption('images')}>Imagenes</p>
+                    <p onClick={() => setActiveOption('categories')}>Categorias</p>
                 </div>
             </div>
     </div>

@@ -8,6 +8,8 @@ import { DiscountsAdmin } from '../../ui/AdminComponents/DiscountsAdmin/Discount
 import { ColorsAdmin } from '../../ui/AdminComponents/ColorsAdmin/ColorsAdmin'
 import { SizesAdmin } from '../../ui/AdminComponents/SizesAdmin/SizesAdmin'
 import { PricesAdmin } from '../../ui/AdminComponents/PricesAdmin/PricesAdmin'
+import { ImageAdmin } from '../../ui/AdminComponents/ImageAdmin/ImageAdmin'
+import { CategoriesAdmin } from '../../ui/AdminComponents/CategoriesAdmin/CategoriesAdmin'
 
 export const AdminScreen = () => {
 
@@ -22,6 +24,8 @@ export const AdminScreen = () => {
             {activeOption === 'colors' && <ColorsAdmin/>}
             {activeOption === 'sizes' && <SizesAdmin/>}
             {activeOption === 'prices' && <PricesAdmin/>}
+            {activeOption === 'images' && <ImageAdmin/>}
+            {activeOption === 'categories' && <CategoriesAdmin/>}
             {activeOption === '' &&
              <div className={styles.containerAdmin}>
                 <h1>ADMIN</h1>
