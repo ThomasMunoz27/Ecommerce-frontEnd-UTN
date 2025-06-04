@@ -2,20 +2,39 @@ import { useEffect, useState } from 'react'
 import styles from './UserAdmin.module.css'
 
 
-import { getAllUsers } from '../../../../cruds/crudUsers'
-import { IUser } from '../../../../types/IUser'
+
+import { useStoreUsers } from '../../../../store/useStoreUsers'
+import { deleteUser } from '../../../../cruds/crudUsers'
+import { succesAlert } from '../../../../utils/succesAlert'
+
 
 export const UsersAdmin = () => {
 
-    const [users, setUsers] = useState<IUser[]>()
+    const [active, setActive] = useState<string>('active')
+    const {users, fetchUsers} = useStoreUsers()
 
     useEffect(() => {
-        const getUsers = async() => {
-            const usersList = await getAllUsers()
-            setUsers(usersList)
+        fetchUsers(active)
+        
+    },[active])
+
+    const handleState = (state : string) => {
+        setActive(state)
+        console.log(active);
+        
+    }
+
+    const handleDelete = async(userId : number) => {
+        try {
+            await deleteUser(userId)
+            succesAlert('Eliminado', 'Se dio de baja al usuario efectivamente')
+            fetchUsers(active)
+
+        } catch (error : any) {
+            console.log(error.message);
+
         }
-        getUsers()
-    },[])
+    }
 
 
     return(
@@ -25,6 +44,9 @@ export const UsersAdmin = () => {
                     <h1>Gestion de Usuarios</h1>
                 </div>
                 <div className={styles.containerButtons}>
+                    <button onClick={() => handleState('active')}>Activos</button>
+                    <button onClick={() => handleState('inactive')}>Inactivos</button>
+                    <button onClick={() => handleState('alls')}>Todos</button>
                     <button>Añadir</button>
                 </div>
             </div>
@@ -44,6 +66,7 @@ export const UsersAdmin = () => {
                             <th>Direccion</th>
                             <th>Talle</th>
                             <th>Rol</th>
+                            <th>Opciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -60,6 +83,16 @@ export const UsersAdmin = () => {
                                 <td>{user.adress.street} {user.adress.number} ({user.adress.locality.name})</td>
                                 <td>{user.size.size}</td>
                                 <td>{user.user}</td>
+                                <td>
+                                    <div className={styles.actionButtons}>
+                                        <button onClick={() => handleDelete(user.id)}>
+                                            Eliminar
+                                        </button>
+                                        <button>
+                                            {user.active}
+                                        </button>
+                                    </div>
+                                </td>
                             </tr>
                         ))}
                     </tbody>

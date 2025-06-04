@@ -18,9 +18,6 @@ export const ProductsAdmin = () => {
     const [active, setActive] = useState<string>('active')
     
     
-
-
-
     useEffect(() => {
         fetchProduct(active)  
     },[active])
@@ -59,14 +56,14 @@ export const ProductsAdmin = () => {
                     <h1>Gestión de Productos</h1>
                 </div>
                 <div className={styles.containerButtons}>
-                    <button onClick={() => handleActive('alls')}>
-                        Todos
+                    <button onClick={() => handleActive('active')}>
+                        Activos
                     </button>
                     <button onClick={() => handleActive('inactive')}>
                         Inactivos
                     </button>
-                    <button onClick={() => handleActive('active')}>
-                        Activos
+                    <button onClick={() => handleActive('alls')}>
+                        Todos
                     </button>
                     <button onClick={() => openModalAdminProduct(1)}>
                         Añadir
