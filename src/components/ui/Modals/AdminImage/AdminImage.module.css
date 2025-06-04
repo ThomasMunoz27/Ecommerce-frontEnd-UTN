@@ -1,0 +1,46 @@
+.containerPrincipal{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    box-shadow: 5px 5px 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.containerTitle{
+    padding: 10px;
+}
+.containerImage{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    gap: 10px;
+}
+.image{
+    height: 70px;
+    width: 70px;
+
+}
+.containerButtons{
+    padding: 10px;
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+.containerButtons button{
+    font-size: 15px;
+    background-color: black;
+    color: white;
+    padding: 5px;
+}
+.containerButtons button:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: 0.3s ease;
+}

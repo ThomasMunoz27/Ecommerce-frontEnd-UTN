@@ -44,7 +44,10 @@
     background-color: #007bff;
     color: white;
 }
-
+.images{
+    width: 80px;
+    height: 80px;
+}
 .imagesTable {
     width: 100%;
     overflow-x: auto;

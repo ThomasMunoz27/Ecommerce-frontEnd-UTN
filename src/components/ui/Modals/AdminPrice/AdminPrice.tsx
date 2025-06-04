@@ -168,6 +168,7 @@ export const AdminPrice = () => {
             </div>
         )
     } else if(modalAdminPrice.option === 2) {
+        
         return (
             <div className={styles.containerPrincipal}>
                 <div className={styles.containerTitle}>
