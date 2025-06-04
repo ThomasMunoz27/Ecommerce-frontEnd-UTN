@@ -51,8 +51,7 @@ export const Header = () => {
     }}/>
     <nav>
       <a onClick={() => navigate("/")}>Inicio</a>
-
-      <a onClick={() => navigate("/products-NUEVA-RUTA-POR-HACER")}>Productos</a>
+      
       <a onClick={() => setIsVisible(true)} className={style.hamburguerIcon}><img src='./icons/hamburguerMenu.svg'/></a>
     </nav>
     <div className={style.searchBarIconsContainer}>

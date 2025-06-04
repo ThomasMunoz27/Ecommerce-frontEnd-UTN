@@ -1,4 +1,4 @@
-import { FC, useEffect} from 'react';
+import { FC } from 'react';
 import { IProduct } from '../../../types/IProduct';
 import style from './ListProducts.module.css'
 import { CardProduct } from '../CardProduct/CardProduct';
@@ -31,7 +31,7 @@ export const ListProducts: FC<Props> = ({productsArray, title, customClass}) => 
       if (orderDesc) return b.prices.salePrice - a.prices.salePrice;
       return 0; // sin orden
     });
-
+    
    
   return (
     <div className={`${style.container} ${ customClass ? style[customClass] : ''}`}>
