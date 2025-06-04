@@ -76,7 +76,7 @@ export const AddProductModal = () => {
             </div>
             <div className={styles.infoProduct}>
                 <div className={styles.imageProduct}>
-                    <img src={activeProduct?.image.url} alt={activeProduct?.name} />
+                    <img src={activeProduct?.image?.url} alt={activeProduct?.name} />
                 </div>
                 <div className={styles.productDetails}>
                     <p>{activeProduct?.name}</p>
