@@ -27,6 +27,7 @@
 
 .pagination button{
     border: none;
+    cursor: pointer;
     background-color: black;
     color: white;
     height: 40px;

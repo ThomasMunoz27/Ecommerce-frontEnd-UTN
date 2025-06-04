@@ -30,6 +30,7 @@ export const Header = () => {
         navigate("/product-category")
       }
     }
+    setIsVisible(false)
     // Aqui deberiamos establecer el store de categoria seleccionada a la variable category y listo
     // navigate("/product-category")
   }
@@ -51,7 +52,7 @@ export const Header = () => {
     }}/>
     <nav>
       <a onClick={() => navigate("/")}>Inicio</a>
-      
+
       <a onClick={() => setIsVisible(true)} className={style.hamburguerIcon}><img src='./icons/hamburguerMenu.svg'/></a>
     </nav>
     <div className={style.searchBarIconsContainer}>
