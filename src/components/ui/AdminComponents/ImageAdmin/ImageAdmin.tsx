@@ -68,8 +68,8 @@ export const ImageAdmin = () => {
                 <thead>
                     <tr>
                         <th>Id</th>
-                        <th>Url</th>
                         <th>Imagen</th>
+                        <th>Url</th>
                         <th>Opciones</th>
                     </tr>
                 </thead>
@@ -77,10 +77,10 @@ export const ImageAdmin = () => {
                     {images?.map(image => (
                     <tr key={image.id}>
                         <td>{image.id}</td>
-                        <td >{image.url}</td>
                         <td>
                             <img src={image.url} alt=""  className={styles.images}/>
                         </td>
+                        <td className={styles.urlColumn}>{image.url}</td>
         
                         <td>
                             <div className={styles.actionButtons}>

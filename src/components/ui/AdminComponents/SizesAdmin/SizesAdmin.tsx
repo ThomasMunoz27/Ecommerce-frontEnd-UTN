@@ -96,7 +96,7 @@ export const SizesAdmin = () => {
                         <td>
                             <div className={styles.actionButtons}>
                                 <button onClick={() => handleEditSize(size)}>Editar</button>
-                                <button onClick={() => handleDelete(size.id!)}>Eliminar</button>
+                                <button onClick={() => handleDelete(String(size.id!))}>Eliminar</button>
                             </div>
                         </td>
                     </tr>
