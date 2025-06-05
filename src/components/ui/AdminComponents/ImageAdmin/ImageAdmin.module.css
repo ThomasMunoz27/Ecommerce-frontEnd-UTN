@@ -45,7 +45,7 @@
     color: white;
 }
 .imagesTable {
-    width: 100%;
+    width: 95%;
     overflow-x: auto;
 }
 
@@ -74,13 +74,20 @@
     background-color: #f9f9f9;
 }
 
+.urlColumn {
+    max-width: 100px;
+    overflow-x: auto;
+}
+
 .actionButtons {
     display: flex;
     gap: 10px;
+    justify-content: space-around;
 }
-
 .actionButtons button {
     padding: 5px 10px;
+    width: 49%;
+    height: 40px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
