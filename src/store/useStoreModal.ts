@@ -17,6 +17,7 @@ interface IStoreModal{
     modalAdminSubCategory : {type : boolean, option : 1 | 2 | null},
     modalAdminCategory : boolean,
     modalAdminImage : boolean,
+    modalAdminCountry : boolean,
     
     
     openModalAccount : (selection : boolean) => void,
@@ -63,9 +64,13 @@ interface IStoreModal{
 
     openModalAdminImage : () => void,
     closeModalAdminImage : () => void,
+
+    openModalAdminCountry : () => void,
+    closeModalAdminCountry  : () => void,
     
     openModalEditAddress : () => void,
     closeModalEditAddress : () => void
+
 
 }
 
@@ -77,17 +82,21 @@ export const useStoreModal = create<IStoreModal>((set) => ({
     modalEditAdminProduct: false,
     modalAddAdminProduct : false,
     modalPrices : false,
+
     modalAdminColor : {type : false, option : null},
     modalAdminSize : {type : false, option : null},
     modalAdminDiscount : {type : false, option : null},
     modalAdminPrice : {type : false, option : null},
     modalAdminCategory : false,
     modalAdminImage : false,
+    modalAdminCountry : false,
+
     modalAdminProduct : {type : false, option: null},
     modalAdminSubSize : {type : false, option : null},
     modalAdminSubColor : {type : false, option : null},
     modalAdminSubPrice : {type : false, option : null},
     modalAdminSubCategory : {type : false, option : null},
+
     modalEditAddress : false,
 
 
@@ -137,6 +146,9 @@ export const useStoreModal = create<IStoreModal>((set) => ({
 
     openModalAdminImage : () => set({modalAdminImage : true}),
     closeModalAdminImage : () => set({modalAdminImage : false}),
+
+    openModalAdminCountry : () => set({modalAdminCountry : true}),
+    closeModalAdminCountry : () => set({modalAdminCountry : false}),
 
     openModalEditAddress : () => set({modalEditAddress : true}),
     closeModalEditAddress : () => set({modalEditAddress : false})

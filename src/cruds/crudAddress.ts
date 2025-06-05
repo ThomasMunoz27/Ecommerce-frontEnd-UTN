@@ -1,12 +1,12 @@
 import axios from "axios";
 import { BASE_URL } from "../utils/constantes";
 
-import { IAdress } from "../types/IAdress";
+import { IAdress, IAdressRequest } from "../types/IAdress";
 import { errorAlert } from "../utils/errorAlert";
 import { succesAlert } from "../utils/succesAlert";
 
 
-const URL_ADRESS = `${BASE_URL}/api/adress`
+const URL_ADRESS = `${BASE_URL}/adress`
 
 export const getAllAdress = async (): Promise<IAdress[]> => {
     try {
@@ -38,7 +38,7 @@ export const postAdress = async (newAdress: IAdress) => {
     }
 }
 
-export const putAdress = async (updatedAdress: IAdress) => {
+export const putAdress = async (updatedAdress: IAdress | IAdressRequest) => {
     try{
         const response = await axios.put(`${URL_ADRESS}/${updatedAdress.id}`, updatedAdress)
         succesAlert('Actualizado', 'Se actualizo la direccion')

@@ -20,12 +20,12 @@ export const postCountry = async (newCountry: ICountry) => {
     return response.data
 }
 
-export const putCategory = async (updatedCountry: ICountry) => {
+export const putCountry = async (updatedCountry: ICountry) => {
     const response = await interceptorApiClient.put(`/country/${updatedCountry.id}`, updatedCountry)
     return response.data
 }
 
-export const deleteCategory = async (idCountryToDelete: string) => {
+export const deleteCountry = async (idCountryToDelete: string) => {
     const response = await interceptorApiClient.delete(`/country/${idCountryToDelete}`)
     return response.data
 }

@@ -13,5 +13,5 @@ export interface IAdressRequest {
   street: string;
   number: number;
   cp: number;
-  localityId: number; // solo el ID
+  localityId: {id : number}
 }
