@@ -17,7 +17,8 @@
 .formContainer2{
     display: flex;
     flex-direction: column;
-    gap: 1rem
+    gap: 1rem;
+    border: 1px solid;
 }
 
 .errorMessage{
@@ -35,10 +36,14 @@
 
 /* Estilos del modal para cambiar datos fiscales */
 .containerPrincipalData{
-    min-height: 35vh;
-    width: auto;
+    min-height: 500px;
+    height: 400px;
+    width: 400px;
     background-color: white;
     position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     box-shadow: 5px 5px 20px;
     padding: 15px;
     display: flex;
@@ -49,8 +54,9 @@
 .formContainer1{
     display: flex;
     position: absolute;
-    min-height: 35vh;
-    width: 45vw;
+    min-height: 300px;
+    height: 400px;
+    width: 300px;
     
 }
 
