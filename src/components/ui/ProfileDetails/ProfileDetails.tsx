@@ -61,7 +61,7 @@ export const ProfileDetails = () => {
                 <div className={styles.containerAccessData}>
                     <h1>Direccion</h1>
                     <p>Direccion: {user?.adress.street} {user?.adress.number}</p>
-                    <p className={styles.edit} onClick={openModalEditAddress}>Editar</p>
+                    <p className={styles.edit} onClick={openModalEditAddress}>Editar Direccion</p>
                 </div>
                 <div className={styles.containerAccessData}>
                     <h1>Datos de Acceso</h1>
