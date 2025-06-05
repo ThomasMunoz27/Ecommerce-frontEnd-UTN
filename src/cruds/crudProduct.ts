@@ -1,4 +1,5 @@
 import axios from "axios"
+import interceptorApiClient from "../interceptors/axios.interceptor"
 import { BASE_URL } from "../utils/constantes"
 import { IProduct } from "../types/IProduct"
 import { ICreateProduct } from "../types/ICreatedProducts"
@@ -10,38 +11,26 @@ import { errorAlert } from "../utils/errorAlert"
 const URL_PRODUCTS = `${BASE_URL}/api/product`
 
 export const getAllProducts = async (): Promise<IProduct[]> => {
-    try{
-        const response = await axios.get<[]>(URL_PRODUCTS)
+        const response = await interceptorApiClient.get("/product")
         return response.data
-    }catch (err) {
-        console.log("Error en getAllProducts" + err)
-        return []
-    }
 }
 
 export const getProductById = async (idProduct: string) => {
-    try{
-        const response = await axios.get(`${URL_PRODUCTS}/${idProduct}`)
-        return response.data
-    }catch (err){
-        console.log("Error en getProductById" + err)
-    }
+    const response = await interceptorApiClient.get(`/product${idProduct}`)
+    return response.data
 }
 
 
 export const postProduct = async (newProduct: ICreateProduct) => {
-    try{
-        const response = await axios.post(URL_PRODUCTS, newProduct)
+   
+        const response = await interceptorApiClient.post('/product', newProduct)
         return response.data
-    }catch (err : any){
-        console.log("Error en postProduct " + err.message.data)
-        errorAlert('Error', 'El producto no pudo ser creado')
-    }
+    
 }
 
 export const putProduct = async (updatedProduct: IProduct) => {
     try{
-        const response = await axios.put(`${URL_PRODUCTS}/${updatedProduct.id}`, updatedProduct)
+        const response = await interceptorApiClient.post(`product/${updatedProduct.id}`, updatedProduct)
         return response.data
 
     }catch (err){

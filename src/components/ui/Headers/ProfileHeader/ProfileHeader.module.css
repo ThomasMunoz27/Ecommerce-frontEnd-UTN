@@ -6,6 +6,9 @@
     display: flex;
     gap: 3rem;
 }
+.headerLogo{
+    cursor: pointer;
+}
 .arrowBack{
     color: white;
     height: 100%;
