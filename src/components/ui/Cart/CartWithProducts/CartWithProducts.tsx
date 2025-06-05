@@ -61,7 +61,7 @@ const {setUser} = useStoreUsers()
                                 ? `${cantProducts} productos`
                                 : `${cantProducts} producto`
                                 }</p>
-                                <p>Entrega</p>
+                                
                                 <p><b>Total:</b></p>
 
                                 <div className={styles.extraInfo}>
@@ -72,7 +72,6 @@ const {setUser} = useStoreUsers()
 
                             <div className={styles.priceSide}>
                                 <p>$ {ivaPrice}</p>
-                                <p>$[precio_entrega]</p>
                                 <p><b>${ivaPrice}</b></p>
                             </div>
                         </div>

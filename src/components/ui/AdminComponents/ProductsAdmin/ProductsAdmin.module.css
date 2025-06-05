@@ -29,6 +29,7 @@
     height: 100%;
     width: 40%;
     padding: 10px;
+    gap: 10px;
 }
 
 .containerButtons button{

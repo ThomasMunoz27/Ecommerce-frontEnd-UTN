@@ -21,11 +21,14 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+    cursor: pointer;
 }
+
 
 
 .header a{
     text-decoration: underline;
+    cursor: pointer;
 }
 
 .header button{
@@ -35,6 +38,7 @@
     background-color: black;
     color: white;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .filterSection{
@@ -77,7 +81,6 @@
 
 .selectorContainer{
     display: flex;
-    
     width: 100%;
     justify-content: space-around;
 }

@@ -69,6 +69,15 @@ export const getAllProductsActive = async () => {
     }
 }
 
+export const getAllProductsInactive = async () => {
+    try{
+        const response = await axios.get(`${URL_PRODUCTS}/inactive`)
+        return response.data
+    }catch (error){
+        console.log("Error en getAllProductsActive" + error)
+    }
+}
+
 
 export const getAllProductsPaged = async (page: number, size: number, categoryId? : number) => {
     try {

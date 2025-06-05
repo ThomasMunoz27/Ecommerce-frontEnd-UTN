@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './ProductsAdmin.module.css';
 import { deleteProduct } from '../../../../cruds/crudProduct';
 import { IProduct } from '../../../../types/IProduct';
@@ -15,14 +15,21 @@ export const ProductsAdmin = () => {
     const {setActiveProduct, fetchProduct, products} = useStoreProduct()
     
     const {modalAdminProduct, openModalAdminProduct} = useStoreModal()
-
+    const [active, setActive] = useState<string>('active')
+    
+    
     useEffect(() => {
-        fetchProduct()
-    },[])
+        fetchProduct(active)  
+    },[active])
 
     const handleEdit = (product : IProduct) => {
         openModalAdminProduct(2)
         setActiveProduct(product)
+    }
+
+    const handleActive = (state : string) => {
+        setActive(state)
+        
     }
 
     const handleDelete = async(idProduct : number) => {
@@ -32,13 +39,15 @@ export const ProductsAdmin = () => {
                 errorAlert('Error', 'No se pudo eliminar el producto')
             }
             succesAlert('Eliminado', 'Se elimino el producto exitosamente')
-            fetchProduct()
+            fetchProduct(active)
         } catch (error : any) {
             errorAlert('Error', 'No se pudo eliminar el producto')
             console.log(error.message);
             
         }
     }
+
+
 
     return (
         <div className={styles.containerPrincipal}>
@@ -47,6 +56,15 @@ export const ProductsAdmin = () => {
                     <h1>Gestión de Productos</h1>
                 </div>
                 <div className={styles.containerButtons}>
+                    <button onClick={() => handleActive('active')}>
+                        Activos
+                    </button>
+                    <button onClick={() => handleActive('inactive')}>
+                        Inactivos
+                    </button>
+                    <button onClick={() => handleActive('alls')}>
+                        Todos
+                    </button>
                     <button onClick={() => openModalAdminProduct(1)}>
                         Añadir
                     </button>

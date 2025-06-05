@@ -54,6 +54,7 @@ export const deleteUser = async (idUser : number): Promise<IUser[]> => {
         return response.data
     }catch (err){
         console.log("Error en getAllCategories" + err)
+        errorAlert('Error', 'No se pudo dar de baja al usuario')
         return []
     }
 }
@@ -64,5 +65,14 @@ export const getAllUsersActive = async () => {
         return response.data
     }catch (error){
         console.log("Error en getAllUsersActive" + error)
+    }
+}
+
+export const getAllUsersInactive = async () => {
+    try{
+        const response = await axios.get(`${URL_USERS}/inactive`)
+        return response.data
+    }catch (error :any){
+        console.log("Error en getAllUsersActive" + error.message)
     }
 }
