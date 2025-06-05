@@ -11,6 +11,9 @@ import { PricesAdmin } from '../../ui/AdminComponents/PricesAdmin/PricesAdmin'
 import { ImageAdmin } from '../../ui/AdminComponents/ImageAdmin/ImageAdmin'
 import { CategoriesAdmin } from '../../ui/AdminComponents/CategoriesAdmin/CategoriesAdmin'
 import { CountryAdmin } from '../../ui/AdminComponents/CountryAdmin/CountryAdmin'
+import { ProvincesAdmin } from '../../ui/AdminComponents/ProvincesAdmin/ProvincesAdmin'
+import { LocalitiesAdmin } from '../../ui/AdminComponents/LocalitiesAdmin/LocalitiesAdmin'
+import { AdressesAdmin } from '../../ui/AdminComponents/AdressesAdmin/AdressesAdmin'
 
 export const AdminScreen = () => {
 
@@ -28,6 +31,9 @@ export const AdminScreen = () => {
             {activeOption === 'images' && <ImageAdmin/>}
             {activeOption === 'categories' && <CategoriesAdmin/>}
             {activeOption === 'countries' && <CountryAdmin/>}
+            {activeOption === 'provinces' && <ProvincesAdmin/>}
+            {activeOption === 'localities' && <LocalitiesAdmin/>}
+            {activeOption === 'addresses' && <AdressesAdmin/>}
             {activeOption === '' &&
              <div className={styles.containerAdmin}>
                 <h1>ADMIN</h1>

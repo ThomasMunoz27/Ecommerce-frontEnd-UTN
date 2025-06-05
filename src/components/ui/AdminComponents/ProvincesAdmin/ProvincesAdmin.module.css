@@ -44,7 +44,11 @@
     background-color: #007bff;
     color: white;
 }
-.imagesTable {
+.images{
+    width: 80px;
+    height: 80px;
+}
+.provincesTable {
     width: 100%;
     overflow-x: auto;
 }

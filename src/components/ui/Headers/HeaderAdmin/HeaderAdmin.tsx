@@ -44,6 +44,9 @@ export const HeaderAdmin = () => {
                     <p onClick={() => setActiveOption('images')}>Imagenes</p>
                     <p onClick={() => setActiveOption('categories')}>Categorias</p>
                     <p onClick={() => setActiveOption('countries')}>Paises</p>
+                    <p onClick={() => setActiveOption('provinces')}>Provincias</p>
+                    <p onClick={() => setActiveOption('localities')}>Localidades</p>
+                    <p onClick={() => setActiveOption('addresses')}>Direcciones</p>
                 </div>
             </div>
     </div>
