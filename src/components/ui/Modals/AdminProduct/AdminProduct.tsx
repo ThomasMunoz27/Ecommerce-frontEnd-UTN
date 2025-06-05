@@ -133,7 +133,7 @@ export const AdminProduct = () => {
             postProduct(productToSend)
 
             succesAlert('Creado', 'El producto se creo exitosamente')
-            fetchProduct()
+            fetchProduct('alls')
             
             closeModalAdminProduct()
         } catch (error : any) {
@@ -156,7 +156,7 @@ export const AdminProduct = () => {
             await putProduct(editProduct)
             succesAlert('Editado', 'El producto se edito correctamente')
             
-            await fetchProduct()
+            await fetchProduct('alls')
 
             const updated = useStoreProduct.getState().products.find(p => p.id === editProduct.id) // Busco el producto actualizado
             if(updated){
