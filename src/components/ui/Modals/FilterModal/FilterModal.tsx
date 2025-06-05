@@ -15,11 +15,11 @@ export const FilterModal = () => {
         <div className={style.modalContainer}>
             
         <header className={`${style.sectionDefault} ${style.header}`}>
-            Filtrar <a>Borrar todo</a> <button onClick={toggleVisible}>X</button>
+            Filtrar <a className={style.deleteAll}>Borrar todo</a> <button onClick={toggleVisible}>X</button>
         </header>
         <div>
             <div className={`${style.sectionDefault} ${style.filterSection}`}>
-                <div className={`${style.sectionDefault} ${style.sectionHandler}`}>
+                <div className={`${style.sectionDefault} ${style.sectionHandler}`} onClick={toggleOrderBy}>
                 <p>ORDENAR POR</p>  <button onClick={toggleOrderBy}>{
                 orderByDropped 
                  ?
@@ -39,7 +39,7 @@ export const FilterModal = () => {
                     
             </div>
             <div className={`${style.sectionDefault} ${style.filterSection}`}>
-                <div className={`${style.sectionDefault} ${style.sectionHandler}`}>
+                <div className={`${style.sectionDefault} ${style.sectionHandler}`} onClick={toggleSex}>
                 <p>SEXO</p>  <button onClick={toggleSex}>{
                 sexDropped 
                  ?
@@ -63,7 +63,7 @@ export const FilterModal = () => {
                }
             </div>
             <div className={`${style.sectionDefault} ${style.filterSection}`}>
-                <div className={`${style.sectionDefault} ${style.sectionHandler}`}>
+                <div className={`${style.sectionDefault} ${style.sectionHandler}`} onClick={toggleColor}>
                 <p>COLOR</p>  <button onClick={toggleColor}>{
                 colorDropped 
                  ?

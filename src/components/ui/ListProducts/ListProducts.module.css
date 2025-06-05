@@ -11,22 +11,29 @@
 }
 .productsContainer{
     display: flex;
-    padding: 10px;
+    padding: 8px 0px;
     width: 100%;
     flex-wrap: wrap;
     flex-direction: row;
     overflow: auto;
-    gap: 40px;
-    margin: 0 auto;
     height: 100%;
-    
-    margin: 0 auto;
+
+    margin: 15px auto;
+
     align-items: center;
     justify-content: center;
 
 }
 
-
+.containerFlex{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    gap: 40px;
+    width: 90%;
+    padding: 20px 20px 20px 50px;
+    margin: 0 auto;
+}
 
 /* Mapeo de productos */
 
@@ -70,4 +77,13 @@
     cursor: pointer;
     border: none;
     box-shadow: 2px 2px 0px  rgb(255, 255, 255), 4px 4px 0px black;
+}
+
+@media (max-width: 750px){
+   
+   .containerFlex{
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+   }
 }

@@ -40,7 +40,6 @@ export const ProfileDetails = () => {
                     <button>
                         Cerrar Sesion
                         <span className="material-symbols-outlined">
-                            keyboard_double_arrow_right
                         </span>
                     </button>
                 </div>
@@ -57,7 +56,7 @@ export const ProfileDetails = () => {
                     <p>Nombre: {user?.name}</p>
                     <p>Fecha de Naciemiento : {user?.birthdate ? new Date(user.birthdate).toLocaleDateString() : 'No disponible'}</p>
                     <p>Sexo : {user?.sex}</p>
-                    <p className={styles.edit} onClick={() => openModalEditLogin(1)}>Editar</p>
+                    <p className={styles.edit} onClick={() => openModalEditLogin(1)}>Editar datos fiscales</p>
                 </div>
                 <div className={styles.containerAccessData}>
                     <h1>Direccion</h1>

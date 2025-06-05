@@ -41,14 +41,17 @@ export const ListProducts: FC<Props> = ({productsArray, title, customClass}) => 
       console.log(visible)
       }}>Filtrar</button>
     <div className={style.productsContainer}>
+      <div className={style.containerFlex}>
+
     {productosOrdenados.length > 0 ? productosOrdenados.map((product) => {
-  return (
-    <CardProduct
-      key={product.id}
-      product={product}
-    />
-  );
-}) : <h2 className={style.stockText}>No hay productos en stock</h2>}
+      return (
+        <CardProduct
+        key={product.id}
+        product={product}
+        />
+      );
+    }) : <h2 className={style.stockText}>No hay productos en stock</h2>}
+    </div>
 
     </div>
         </div>
