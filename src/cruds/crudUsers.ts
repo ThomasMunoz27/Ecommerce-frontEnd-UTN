@@ -1,78 +1,47 @@
-import axios from "axios"
-import { IUser } from "../types/IUser"
-import { BASE_URL } from "../utils/constantes"
-import { succesAlert } from "../utils/succesAlert"
-import { errorAlert } from "../utils/errorAlert"
 
-const URL_USERS = `${BASE_URL}/api/user`
+import interceptorApiClient from "../interceptors/axios.interceptor"
+import { IUser } from "../types/IUser"
+
+
+
 
 export const getAllUsers = async (): Promise<IUser[]> => {
-    try{
-        const response = await axios.get(URL_USERS)
+        const response = await interceptorApiClient.get("/user")
         return response.data
-    }catch (err){
-        console.log("Error en getAllUsers" + err)
-        return []
-    }
 }
 
-export const getUserById = async (idUser : number): Promise<IUser | undefined> => {
-    try{
-        const response = await axios.get(`${URL_USERS}/${idUser}`)
+export const getUserById = async (idUser : number): Promise<IUser[]> => {
+    
+        const response = await interceptorApiClient.get(`/user/${idUser}`)
         return response.data
-    }catch (err){
-        console.log("Error en getUserById" + err)
-        return undefined
-    }
 }
 
 export const createUser = async (newUser : IUser): Promise<IUser[]> => {
-    try{
-        const response = await axios.post(URL_USERS, newUser)
+        const response = await interceptorApiClient.post("/user", newUser)
         return response.data
-    }catch (err){
-        console.log("Error en createUser" + err)
-        return []
-    }
+  
 }
 
 export const updateUser = async ( userUpdated : IUser): Promise<IUser[]> => {
-    try{
-        const response = await axios.put(`${URL_USERS}/${userUpdated.id}`, userUpdated)
-        succesAlert("Datos actualizados!")
+        const response = await interceptorApiClient.put(`/user/${userUpdated.id}`, userUpdated)
         return response.data
-    }catch (err){
-        console.log("Error en updateUser" + err)
-        errorAlert("Error al actualizar Usuario")
-        return []
-    }
 }
 
 export const deleteUser = async (idUser : number): Promise<IUser[]> => {
-    try{
-        const response = await axios.delete(`${URL_USERS}/${idUser}`)
+        const response = await interceptorApiClient.delete(`/user/${idUser}`)
         return response.data
-    }catch (err){
-        console.log("Error en getAllCategories" + err)
-        errorAlert('Error', 'No se pudo dar de baja al usuario')
-        return []
-    }
 }
 
 export const getAllUsersActive = async () => {
-    try{
-        const response = await axios.get(`${URL_USERS}/active`)
+   
+        const response = await interceptorApiClient.get(`/user/active`)
         return response.data
-    }catch (error){
-        console.log("Error en getAllUsersActive" + error)
-    }
+  
 }
 
 export const getAllUsersInactive = async () => {
-    try{
-        const response = await axios.get(`${URL_USERS}/inactive`)
+   
+        const response = await interceptorApiClient.get(`/user/inactive`)
         return response.data
-    }catch (error :any){
-        console.log("Error en getAllUsersActive" + error.message)
-    }
+   
 }
