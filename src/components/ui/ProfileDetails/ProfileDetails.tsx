@@ -54,9 +54,9 @@ export const ProfileDetails = () => {
                 <div className={styles.containerContentData}>
                     <h1>Resumen</h1>
                     <p>Nombre: {user?.name}</p>
-                    <p>Fecha de Naciemiento : {user?.birthdate ? new Date(user.birthdate).toLocaleDateString() : 'No disponible'}</p>
+                    <p>Fecha de Nacimiento: {user?.birthdate ? new Date(user.birthdate).toLocaleDateString() : 'No disponible'}</p>
                     <p>Direccion: {user?.adress.street} {user?.adress.number}</p>
-                    <p>Sexo : {user?.sex}</p>
+                    <p>Sexo: {user?.sex}</p>
                     <p className={styles.edit} onClick={() => openModalEditLogin(1)}>Editar datos fiscales</p>
                 </div>
                 <div className={styles.containerAccessData}>
@@ -64,7 +64,7 @@ export const ProfileDetails = () => {
                     <p>Correo Electronico: {user?.email}</p>
                     <p>Nombre de usuario: {user?.username}</p>
                     <p>Contraseña: {user?.password}</p>
-                    <p className={styles.edit} onClick={() => openModalEditLogin(2)}>Editar</p>
+                    <p className={styles.edit} onClick={() => openModalEditLogin(2)}>Editar contraseña</p>
                 </div>
                 <div className={styles.containerButtonData}>
                     <p>Si eliminas la cuenta perderas todos los datos que tengas vinculado a nuestros servicios</p>
