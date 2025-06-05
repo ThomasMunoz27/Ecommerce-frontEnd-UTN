@@ -3,7 +3,6 @@ import interceptorApiClient from "../interceptors/axios.interceptor"
 import { BASE_URL } from "../utils/constantes"
 import { IProduct } from "../types/IProduct"
 import { ICreateProduct } from "../types/ICreatedProducts"
-import { errorAlert } from "../utils/errorAlert"
 
 
 
@@ -52,11 +51,11 @@ export const getAllProductsInactive = async () => {
 export const getAllProductsPaged = async (page: number, size: number, categoryId? : number) => {
     try {
         if(categoryId){
-            const response = await axios.get(`${URL_PRODUCTS}/paged?page=${page}&size=${size}&categoryId=${categoryId}`)
+            const response = await interceptorApiClient.get(`product/paged?page=${page}&size=${size}&categoryId=${categoryId}`)
             return response.data
 
         }else{
-            const response = await axios.get(`${URL_PRODUCTS}/paged?page=${page}&size=${size}`)
+            const response = await interceptorApiClient.get(`product/paged?page=${page}&size=${size}`)
             return response.data
         }
     } catch (error) {
@@ -66,10 +65,7 @@ export const getAllProductsPaged = async (page: number, size: number, categoryId
 }
 
 export const getProductsFiltered = async (category: string) => {
-    try {
-        const response = await axios.get(`${URL_PRODUCTS}/filter?categoria=${category}`)
+        const response = await interceptorApiClient.get(`product/filter?categoria=${category}`)
         return response.data
-    } catch (error) {
-        console.error('Error en getProductsFiltered', error)
-    }
+   
 }
