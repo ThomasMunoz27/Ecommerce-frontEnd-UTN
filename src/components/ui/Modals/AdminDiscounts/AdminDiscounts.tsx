@@ -5,7 +5,6 @@ import styles from './AdminDsicounts.module.css'
 import { IDiscount } from '../../../../types/IDiscount'
 import { getAllDiscounts, postDiscount, putDiscount } from '../../../../cruds/crudDiscount'
 import { succesAlert } from '../../../../utils/succesAlert'
-import { errorAlert } from '../../../../utils/errorAlert'
 import { formDiscountSchema } from '../../../../yupSchemas/formDiscountSchema'
 
 
