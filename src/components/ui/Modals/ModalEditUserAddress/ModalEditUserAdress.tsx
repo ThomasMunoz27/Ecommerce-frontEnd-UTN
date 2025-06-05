@@ -5,21 +5,24 @@ import { ILocality } from '../../../../types/ILocality'
 import { useStoreModal } from '../../../../store/useStoreModal'
 import { useStoreUsers } from '../../../../store/useStoreUsers'
 
-import { IAdress } from '../../../../types/IAdress'
+import {  IAdressRequest } from '../../../../types/IAdress'
 import { putAdress } from '../../../../cruds/crudAddress'
 import { succesAlert } from '../../../../utils/succesAlert'
+import { errorAlert } from '../../../../utils/errorAlert'
 
 export const ModalEditUserAdress = () => {
 
     const {closeModalEditAddress} = useStoreModal()
     const [localities, setLocalities] = useState<ILocality[]>()
-    const {user, setUser} = useStoreUsers()
-    const [newAddress, setNewAddress] = useState<IAdress>({
+    const {user} = useStoreUsers()
+
+
+    const [newAddress, setNewAddress] = useState<IAdressRequest>({
         id: user?.adress.id,
         street: user?.adress.street!,
         number: user?.adress.number!,
         cp: user?.adress.cp!,
-        locality: user?.adress.locality!
+        localityId: {id : user?.adress.locality.id!}
     })
     
 
@@ -31,35 +34,38 @@ export const ModalEditUserAdress = () => {
         getLocalities()
     },[])
 
-    const handleChange = (e : React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        const {name, value} = e.target
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        const { name, value } = e.target;
 
-        if(name === 'locality.name'){
-            const selectedLocality = localities?.find(locality => locality.id === Number(value))
-            if(selectedLocality) {
-
-                setNewAddress((prev)=> ({
-                    ...prev,
-                    locality : selectedLocality
-                }))
-            }
+        if (name === 'localityId') {
+            setNewAddress(prev => ({
+                ...prev,
+                localityId: { id: Number(value) }
+            }));
+            return;
         }
 
-        setNewAddress((prev) => ({
+        setNewAddress(prev => ({
             ...prev,
-            [name] : value
+            [name]: value
         }))
+        console.log(newAddress);
         
-    } 
+    }
 
     const handleSubmit = async(e : React.FormEvent) => {
         e.preventDefault()
 
         try {
-            await putAdress(newAddress)
+            console.log(newAddress);
+            const updatedAdress = await putAdress(newAddress)
+            
+            succesAlert('Actuaizado', 'Se actualizo la direccion')
+            console.log(updatedAdress);
+            closeModalEditAddress()
         } catch (error: any) {
             console.log(error.message);
-
+            errorAlert('Error', 'No se pudo actualizar la direccion')
         }
     }
 
@@ -79,11 +85,13 @@ export const ModalEditUserAdress = () => {
                     <input type="number" name="cp" id="" value={newAddress.cp} onChange={handleChange}/>
 
                     <label htmlFor="">Localidad</label>
-                    <select name="locality" value={newAddress.locality.name} id="">
+                    <select name="localityId" value={newAddress.localityId.id} onChange={handleChange}>
                         <option value="" disabled selected>Sin seleccion</option>
+
                         {localities?.map(locality => (
                             <option key={locality.id} value={locality.id} >{locality.name}</option>
                         ))}
+
                     </select>
                     
                 </div>
