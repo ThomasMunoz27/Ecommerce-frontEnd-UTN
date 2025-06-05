@@ -1,14 +1,43 @@
 import { useEffect } from 'react'
 import styles from './ProvincesAdmin.module.css'
 import { useStoreProvince } from '../../../../store/useStoreProvince'
+import { deleteProvince } from '../../../../cruds/crudProvince'
+import { succesAlert } from '../../../../utils/succesAlert'
+import { errorAlert } from '../../../../utils/errorAlert'
+import { useStoreModal } from '../../../../store/useStoreModal'
+import { AdminProvince } from '../../Modals/AdminProvince/AdminProvince'
+import { IProvince } from '../../../../types/IProvince'
 
 export const ProvincesAdmin = () => {
 
-    const {fetchProvince, provinces} = useStoreProvince()
+    const {fetchProvince, provinces, setActiveProvince} = useStoreProvince()
+    const {modalAdminProvince, openModalAdminProvince} = useStoreModal()
 
     useEffect(() => {
         fetchProvince()
     },[])
+
+    const handleDelete = async(provinceId : string) => {
+    
+        try {
+            await deleteProvince(provinceId)
+            succesAlert('Eliminado', 'Se elimino correctamente la provincia')
+            fetchProvince()
+        } catch (error : any) {
+            console.log(error.message);
+            errorAlert('Error', 'No se pudo eliminar la provincia')
+        }
+    }
+
+    const handleEditModal = (province : IProvince) => {
+        openModalAdminProvince()
+        setActiveProvince(province)
+    }
+
+    const handleAddModal = () => {
+        openModalAdminProvince()
+        setActiveProvince(null)
+    }
     
     return (
         <div className={styles.containerPrincipal}>
@@ -17,7 +46,7 @@ export const ProvincesAdmin = () => {
                     <h1>Gestión de Provincias</h1>
                 </div>
                 <div className={styles.containerButtons}>
-                    <button >
+                    <button onClick={() => handleAddModal()}>
                         Añadir
                     </button>
                 </div>
@@ -42,8 +71,8 @@ export const ProvincesAdmin = () => {
         
                         <td>
                             <div className={styles.actionButtons}>
-                                <button >Editar</button>
-                                <button >Eliminar</button>
+                                <button onClick={() => handleEditModal(province)}>Editar</button>
+                                <button onClick={() => handleDelete(String(province.id))}>Eliminar</button>
                             </div>
                         </td>
                     </tr>
@@ -51,7 +80,7 @@ export const ProvincesAdmin = () => {
                 </tbody>
             </table>
         </div>
-        
+        {modalAdminProvince && <div className={styles.modalBackdrop}><AdminProvince/></div>}
         </div>
     )
 }

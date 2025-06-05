@@ -18,6 +18,9 @@ interface IStoreModal{
     modalAdminCategory : boolean,
     modalAdminImage : boolean,
     modalAdminCountry : boolean,
+    modalAdminProvince : boolean,
+    modalAdminLocality : boolean,
+    modalAdminAdress : boolean
     
     
     openModalAccount : (selection : boolean) => void,
@@ -67,6 +70,15 @@ interface IStoreModal{
 
     openModalAdminCountry : () => void,
     closeModalAdminCountry  : () => void,
+
+    openModalAdminProvince : () => void,
+    closeModalAdminProvince  : () => void,
+
+    openModalAdminLocality : () => void,
+    closeModalAdminLocality  : () => void,
+
+    openModalAdminAdress : () => void,
+    closeModalAdminAdress  : () => void,
     
     openModalEditAddress : () => void,
     closeModalEditAddress : () => void
@@ -82,6 +94,8 @@ export const useStoreModal = create<IStoreModal>((set) => ({
     modalEditAdminProduct: false,
     modalAddAdminProduct : false,
     modalPrices : false,
+    modalAdminLocality : false,
+    modalAdminAdress : false,
 
     modalAdminColor : {type : false, option : null},
     modalAdminSize : {type : false, option : null},
@@ -90,6 +104,7 @@ export const useStoreModal = create<IStoreModal>((set) => ({
     modalAdminCategory : false,
     modalAdminImage : false,
     modalAdminCountry : false,
+    modalAdminProvince : false,
 
     modalAdminProduct : {type : false, option: null},
     modalAdminSubSize : {type : false, option : null},
@@ -149,6 +164,15 @@ export const useStoreModal = create<IStoreModal>((set) => ({
 
     openModalAdminCountry : () => set({modalAdminCountry : true}),
     closeModalAdminCountry : () => set({modalAdminCountry : false}),
+
+    openModalAdminProvince : () => set({modalAdminProvince : true}),
+    closeModalAdminProvince : () => set({modalAdminProvince : false}),
+
+    openModalAdminAdress : () => set({modalAdminAdress : true}),
+    closeModalAdminAdress : () => set({modalAdminAdress : false}),
+
+    openModalAdminLocality : () => set({modalAdminLocality : true}),
+    closeModalAdminLocality : () => set({modalAdminLocality : false}),
 
     openModalEditAddress : () => set({modalEditAddress : true}),
     closeModalEditAddress : () => set({modalEditAddress : false})

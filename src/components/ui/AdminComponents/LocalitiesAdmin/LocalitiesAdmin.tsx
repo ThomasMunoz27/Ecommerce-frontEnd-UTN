@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
 import styles from './LocalitiesAdmin.module.css'
 import { useStoreLocality } from '../../../../store/useStoreLocalities'
-import { deleteLocality, putLocality } from '../../../../cruds/crudLocality'
 import { succesAlert } from '../../../../utils/succesAlert'
 import { errorAlert } from '../../../../utils/errorAlert'
+import { deleteLocality } from '../../../../cruds/crudLocality'
 
 export const LocalitiesAdmin = () => {
 
@@ -14,6 +14,7 @@ export const LocalitiesAdmin = () => {
     },[])
     
     const handleDelete = async(localityId : string) => {
+
         try {
             await deleteLocality(localityId)
             succesAlert('Eliminado', 'Se elimino correctamente la localidad')

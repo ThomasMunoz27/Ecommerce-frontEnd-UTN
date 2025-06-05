@@ -5,3 +5,9 @@ export interface IProvince {
     name: string,
     country: ICountry
 }
+
+export interface IProvinceRequest {
+    id : number | null,
+    name : string,
+    country : {id : number}
+}
