@@ -1,10 +1,5 @@
-import axios from "axios"
 import { IDiscount } from "../types/IDiscount"
-import { BASE_URL } from "../utils/constantes"
 import interceptorApiClient from "../interceptors/axios.interceptor"
-
-
-const URL_DISCOUNT = `${BASE_URL}/api/discount`
 
 
 export const getAllDiscounts = async (): Promise<IDiscount[]> => {

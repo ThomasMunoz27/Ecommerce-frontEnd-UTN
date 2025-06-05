@@ -1,4 +1,3 @@
-
 import interceptorApiClient from "../interceptors/axios.interceptor"
 import { IProduct } from "../types/IProduct"
 import { ICreateProduct } from "../types/ICreatedProducts"
