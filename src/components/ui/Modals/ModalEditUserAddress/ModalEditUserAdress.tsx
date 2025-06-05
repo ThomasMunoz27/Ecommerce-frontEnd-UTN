@@ -22,7 +22,7 @@ export const ModalEditUserAdress = () => {
         street: user?.adress.street!,
         number: user?.adress.number!,
         cp: user?.adress.cp!,
-        localityId: {id : user?.adress.locality.id!}
+        locality: {id : user?.adress.locality.id!}
     })
     
 
@@ -37,10 +37,10 @@ export const ModalEditUserAdress = () => {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
 
-        if (name === 'localityId') {
+        if (name === 'locality') {
             setNewAddress(prev => ({
                 ...prev,
-                localityId: { id: Number(value) }
+                locality: { id: Number(value) }
             }));
             return;
         }
@@ -85,8 +85,8 @@ export const ModalEditUserAdress = () => {
                     <input type="number" name="cp" id="" value={newAddress.cp} onChange={handleChange}/>
 
                     <label htmlFor="">Localidad</label>
-                    <select name="localityId" value={newAddress.localityId.id} onChange={handleChange}>
-                        <option value="" disabled selected>Sin seleccion</option>
+                    <select name="locality" value={newAddress.locality.id} onChange={handleChange}>
+                        <option value="" disabled >Sin seleccion</option>
 
                         {localities?.map(locality => (
                             <option key={locality.id} value={locality.id} >{locality.name}</option>
