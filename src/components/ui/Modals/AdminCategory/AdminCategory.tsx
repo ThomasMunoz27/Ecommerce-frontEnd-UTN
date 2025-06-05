@@ -5,7 +5,7 @@ import styles from './AdminCategory.module.css'
 import { ICategory } from "../../../../types/ICategory"
 import { postCategory, putCategory } from "../../../../cruds/crudCategory"
 import { succesAlert } from "../../../../utils/succesAlert"
-import { errorAlert } from "../../../../utils/errorAlert"
+import { formOneSlotSchema } from "../../../../yupSchemas/formOneSlotSchema"
 
 export const AdminCategory = () => {
 
@@ -14,7 +14,8 @@ export const AdminCategory = () => {
     const [category, setCategory] = useState<ICategory>({
         id : activeCategory?.id,
         name :activeCategory?.name  || ''
-    })
+    }) 
+    const [formErrors, setFormErrors] =useState<Record<string, string>>({})
 
     const handleChange = (e : React.ChangeEvent<HTMLInputElement>) => {
         const {name, value} = e.target
@@ -30,24 +31,40 @@ export const AdminCategory = () => {
         e.preventDefault()
         if (activeCategory){
             try {
+                await formOneSlotSchema.validate(category, {abortEarly: false})
                 await putCategory(category)
                 succesAlert('Editado', 'Se edito la categoria')
                 fetchCategory()
                 closeModalAdminCategory()
             } catch (error : any) {
-                errorAlert('Error', 'No se pudo editar la categoria exitosamente')
-                console.log(error.message);
-                
+                const errors: Record<string,string> ={}
+                if(error.inner){
+                    error.inner.forEach((validationError:any) =>{
+                        errors[validationError.path] = validationError.message;
+                    });
+                }else{
+                    error.general = error.message
+                }
+                setFormErrors(errors)
             }
         } else {
             try {
+                await formOneSlotSchema.validate(category, {abortEarly: false})
+
                 await postCategory(category)
                 succesAlert('Creado', 'Se creo la categoria exitosamente')
                 fetchCategory()
                 closeModalAdminCategory()
             } catch (error : any) {
-                errorAlert('Error', 'No se pudo crear la categoria')
-                console.log(error.message);
+                const errors: Record<string,string> ={}
+                if(error.inner){
+                    error.inner.forEach((validationError:any) =>{
+                        errors[validationError.path] = validationError.message;
+                    });
+                }else{
+                    error.general = error.message
+                }
+                setFormErrors(errors)
             }
         }
     }
@@ -59,6 +76,7 @@ export const AdminCategory = () => {
                 <div className={styles.containerValue}>
                     <h3>{activeCategory ? 'Editar Categoria' : 'Agregar Categoria'}</h3>
                     <input type="text" name="name" value={category.name} placeholder="Nombre" onChange={handleChange}/>
+                    {formErrors.name && <p className={styles.errorMessage}>{formErrors.name}</p>}
                 </div>
                 <div className={styles.containerButtons}>
                     <button onClick={closeModalAdminCategory}>Cancelar</button>

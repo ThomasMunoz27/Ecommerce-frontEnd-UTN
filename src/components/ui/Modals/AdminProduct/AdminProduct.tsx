@@ -36,6 +36,7 @@ export const AdminProduct = () => {
     const {activeProduct, fetchProduct, setActiveProduct} = useStoreProduct()
     const [images, setImages] = useState<IImage[]>([])
     const [editProduct, setEditProduct] = useState<IProduct>()
+    
     const [newProduct, setNewProduct] = useState<IProduct>({
         name: "",
         description: "",

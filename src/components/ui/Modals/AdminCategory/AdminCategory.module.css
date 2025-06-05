@@ -35,3 +35,10 @@
     transform: scale(1.1);
     transition: 0.3s ease;
 }
+
+.errorMessage {
+	padding: 8px;
+    color: red;
+    text-align: left;
+    
+}

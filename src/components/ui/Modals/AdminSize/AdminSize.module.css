@@ -18,6 +18,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
     padding: 10px;
 }
 .containerButtons{
@@ -35,5 +36,11 @@
 .containerButtons button:hover{
     transform: scale(1.1);
     transition: 0.3s ease;
+    
+}
+.errorMessage {
+	padding: 8px;
+    color: red;
+    text-align: left;
     
 }
