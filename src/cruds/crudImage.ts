@@ -1,57 +1,32 @@
-import axios from "axios";
-import { BASE_URL } from "../utils/constantes";
 import { IImage } from "../types/IImage";
-import { errorAlert } from "../utils/errorAlert";
+import interceptorApiClient from "../interceptors/axios.interceptor";
 
 
-const URL_IMAGES = `${BASE_URL}/api/image`
 
 export const getAllImages = async (): Promise<IImage[]> => {
-    try{
-        const response = await axios.get<[]>(URL_IMAGES)
+        const response = await interceptorApiClient.get<[]>('/image')
         return response.data
-    }catch (err){
-        console.log("Error en getAllImages" + err)
-        return []
-    }
 }
 
 
 export const getImageById = async (imageId: string): Promise<IImage | undefined> => {
-    try{
-        const response = await axios.get(`${URL_IMAGES}/${imageId}`)
+        const response = await interceptorApiClient.get(`/image/${imageId}`)
         return response.data
-    }catch (err){
-        console.log("Error en getImageById" + err)
-        return undefined
-    }
 }
 
 export const postImage = async (newImage: IImage) => {
-    try{
-        const response = await axios.post(URL_IMAGES, newImage)
+        const response = await interceptorApiClient.post('/image', newImage)
         return response.data
-    }catch (err){
-        console.log("Error en postImage" + err)
-    }
+
 }
 
 export const putImage = async (updatedImage: IImage) => {
-    try{
-        const response = await axios.put(`${URL_IMAGES}/${updatedImage.id}`, updatedImage)
+        const response = await interceptorApiClient.put(`/image/${updatedImage.id}`, updatedImage)
         return response.data
-    }catch (err){
-        console.log("Error en putImage" + err)
-    }
 }
 
 export const deleteImage = async (idImageToDelete: string) => {
-    try{
-        const response = await axios.put(`${URL_IMAGES}/${idImageToDelete}`)
+        const response = await interceptorApiClient.put(`/image/${idImageToDelete}`)
         return response.data
-    }catch (err){
-        console.log("Error en deleteImage" + err)
-        errorAlert('Error', 'No se pudo eliminar la imagen exitosamente')
-    }
 }
 

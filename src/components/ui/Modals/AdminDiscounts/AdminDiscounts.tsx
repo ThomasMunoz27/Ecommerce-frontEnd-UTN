@@ -6,6 +6,7 @@ import { IDiscount } from '../../../../types/IDiscount'
 import { getAllDiscounts, postDiscount, putDiscount } from '../../../../cruds/crudDiscount'
 import { succesAlert } from '../../../../utils/succesAlert'
 import { errorAlert } from '../../../../utils/errorAlert'
+import { formDiscountSchema } from '../../../../yupSchemas/formDiscountSchema'
 
 
 
@@ -22,6 +23,8 @@ export const AdminDsicounts = () => {
         timeFrom : '',
         promotionalPrice : 0
     })
+
+    const [formErrors, setFormErrors] = useState<Record<string, string>>({})
 
     useEffect(() => {
         const getDiscounts = async() => {
@@ -53,17 +56,24 @@ export const AdminDsicounts = () => {
 
     const handleEdit = async(e : React.FormEvent) => {
         e.preventDefault()
-        if (!activeDiscount) return
         try {
-            const updatedDiscount = await putDiscount(activeDiscount)
+            await formDiscountSchema.validate(activeDiscount, {abortEarly: false})
+
+            const updatedDiscount = await putDiscount(activeDiscount!)
             console.log(updatedDiscount);    
             succesAlert('Actualizado', 'Se actualizo el descuento exitosamente')
             fetchDiscount()
             closeModalAdminDiscount()
         } catch (error : any) {
-            errorAlert('Error','No se puede actualizar el descuento')
-            console.log(error.message);
-            
+            const errors: Record<string, string> = {}
+            if(error.inner){
+                error.inner.forEach((validationError: any) => {
+                    errors[validationError.path] = validationError.message
+                })
+            }else{
+                errors.general = error.message
+            }
+            setFormErrors(errors)
         }
     }
 
@@ -71,15 +81,17 @@ export const AdminDsicounts = () => {
         
         e.preventDefault()
 
-        const existDiscount = discounts?.some(discount => discount.name === newDiscount.name)
-        if (existDiscount){
-            alert('El dexcuento ya existe')
-            return 
-        }
-
+        
         try {
-            const addDiscount = await postDiscount(newDiscount)
+            await formDiscountSchema.validate(newDiscount, {abortEarly: false})
             
+            const existDiscount = discounts?.some(discount => discount.name === newDiscount.name)
+            if (existDiscount){
+                alert('El dexcuento ya existe')
+                return 
+            }
+            
+            const addDiscount = await postDiscount(newDiscount)
             console.log(addDiscount);
             succesAlert('Creado', 'Se agrego un nuevo descuento')
             
@@ -87,10 +99,15 @@ export const AdminDsicounts = () => {
             closeModalAdminDiscount()
             
         } catch (error : any) {
-            errorAlert('Error', 'No se pudo agregar el descuento')
-            
-            console.log(error.message);
-            
+            const errors:Record<string, string> = {} 
+            if(error.inner){
+                error.inner.forEach((ValidationError:any)=> {
+                    errors[ValidationError.path] = ValidationError.message
+                })
+            }else{
+                errors.general = error.message
+            }
+            setFormErrors(errors)
         }
         
     }
@@ -106,21 +123,42 @@ export const AdminDsicounts = () => {
                         <div className={styles.containerLeft}>
 
                             <label htmlFor="">Nombre</label>
-                            <input type="text" name="name" id=""  onChange={handleChange}/>
+                            <div>
+                                <input type="text" name="name" id=""  onChange={handleChange}/>
+                                {formErrors.name && <p className={styles.errorMessage}>{formErrors.name}</p>}
+                            </div>
+                            
                             <label htmlFor="">Fecha Desde</label>
-                            <input type="date" name="dateTo" id=""  onChange={handleChange}/>
+                            <div>
+                                <input type="date" name="dateTo" id=""  onChange={handleChange}/>
+                                {formErrors.dateTo && <p className={styles.errorMessage}>{formErrors.dateTo}</p>}
+                            </div>
+
                             <label htmlFor="">Fecha Hasta</label>
-                            <input type="date" name="dateFrom" id="" onChange={handleChange}/>
+                            <div>
+                                <input type="date" name="dateFrom" id="" onChange={handleChange}/>
+                                {formErrors.dateFrom && <p className={styles.errorMessage}>{formErrors.dateFrom}</p>}
+                            </div>
 
                         </div>
                         <div className={styles.containerRigth}>
 
                             <label htmlFor="">Hora Desde</label>
-                            <input type="text" name="timeTo" id="" onChange={handleChange}/>
+                            <div>
+                                <input type="text" name="timeTo" id="" onChange={handleChange}/>
+                                {formErrors.timeTo && <p className={styles.errorMessage}>{formErrors.timeTo}</p>}
+                            </div>
                             <label htmlFor="">Hora Hasta</label>
-                            <input type="text" name="timeFrom" id="" onChange={handleChange}/>
+
+                            <div>
+                                <input type="text" name="timeFrom" id="" onChange={handleChange}/>
+                                {formErrors.timeFrom && <p className={styles.errorMessage}>{formErrors.timeFrom}</p>}
+                            </div>
                             <label htmlFor="">Precio Promocional</label>
-                            <input type="number" name="promotionalPrice" id="" onChange={handleChange}/>
+                            <div>
+                                <input type="number" name="promotionalPrice" id="" onChange={handleChange}/>
+                                {formErrors.promotionalPrice && <p className={styles.errorMessage}>{formErrors.promotionalPrice}</p>}
+                            </div>
 
                         </div>
                         
@@ -128,7 +166,10 @@ export const AdminDsicounts = () => {
                     <div className={styles.textarea}>
 
                         <label htmlFor="">Descripcion</label>
-                        <textarea name="discountDescription" id="" onChange={handleChange}></textarea>
+                        <div>
+                            <textarea name="discountDescription" id="" onChange={handleChange}></textarea>
+                            {formErrors.discountDescription && <p className={styles.errorMessage}>{formErrors.discountDescription}</p>}
+                        </div>
 
                     </div>
                     <div className={styles.containerButtons}>
@@ -149,28 +190,53 @@ export const AdminDsicounts = () => {
                         <div className={styles.containerLeft}>
                             
                             <label htmlFor="">Nombre</label>
-                            <input type="text"  name="name" value={activeDiscount?.name} id="" onChange={handleEditChange}/>
+                            <div>
+                                <input type="text"  name="name" value={activeDiscount?.name} id="" onChange={handleEditChange}/>
+                                {formErrors.name && <p className={styles.errorMessage}>{formErrors.name}</p>}
+                            </div>
+
                             <label htmlFor="">Fecha Desde</label>
-                            <input type="date" name="dateTo" value={activeDiscount?.dateFrom} id="" onChange={handleEditChange}/>
+                            <div>
+                                <input type="date" name="dateTo" value={activeDiscount?.dateFrom} id="" onChange={handleEditChange}/>
+                                {formErrors.dateTo && <p className={styles.errorMessage}>{formErrors.dateTo}</p>}
+                            </div>
+
                             <label htmlFor="">Fecha Hasta</label>
-                            <input type="date" name="dateFrom" value={activeDiscount?.dateFrom} id="" onChange={handleEditChange}/>
+                            <div>
+                                <input type="date" name="dateFrom" value={activeDiscount?.dateFrom} id="" onChange={handleEditChange}/>
+                                {formErrors.dateFrom && <p className={styles.errorMessage}>{formErrors.dateFrom}</p>}
+                            </div>
 
                         </div>
                         <div className={styles.containerRigth}>
 
                             <label htmlFor="">Hora Desde</label>
-                            <input type="text" name="timeTo" value={activeDiscount?.timeTo} id="" onChange={handleEditChange}/>
+                            <div>
+                                <input type="text" name="timeTo" value={activeDiscount?.timeTo} id="" onChange={handleEditChange}/>
+                                {formErrors.timeTo && <p className={styles.errorMessage}>{formErrors.timeTo}</p>}
+                            </div>
+
                             <label htmlFor="">Hora Hasta</label>
-                            <input type="text" name="timeFrom" value={activeDiscount?.timeFrom} id="" onChange={handleEditChange}/>
+                            <div>
+                                <input type="text" name="timeFrom" value={activeDiscount?.timeFrom} id="" onChange={handleEditChange}/>
+                                {formErrors.timeFrom && <p className={styles.errorMessage}>{formErrors.timeFrom}</p>}
+                            </div>
+
                             <label htmlFor="">Precio Promocional</label>
-                            <input type="number" name="promotionalPrice" value={activeDiscount?.promotionalPrice} id="" onChange={handleEditChange}/>
+                            <div>
+                                <input type="number" name="promotionalPrice" value={activeDiscount?.promotionalPrice} id="" onChange={handleEditChange}/>
+                                {formErrors.promotionalPrice && <p className={styles.errorMessage}>{formErrors.promotionalPrice}</p>}
+                            </div>
 
                         </div>
                         
                     </div>
                     <div className={styles.textarea}>
                         <label htmlFor="">Descripcion</label>
-                        <textarea name="discountDescription" id="" value={activeDiscount?.discountDescription} onChange={handleEditChange}></textarea>
+                        <div>
+                            <textarea name="discountDescription" id="" value={activeDiscount?.discountDescription} onChange={handleEditChange}></textarea>
+                            {formErrors.discountDescription && <p className={styles.errorMessage}>{formErrors.discountDescription}</p>}
+                        </div>
                     </div>
                     <div className={styles.containerButtons}>
                         <button onClick={closeModalAdminDiscount}>Cancelar</button>

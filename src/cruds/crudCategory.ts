@@ -1,29 +1,19 @@
 import axios from "axios"
 import { ICategory } from "../types/ICategory"
 import { BASE_URL } from "../utils/constantes"
-import { errorAlert } from "../utils/errorAlert"
+import interceptorApiClient from "../interceptors/axios.interceptor"
 
 
 const URL_CATEGORIES = `${BASE_URL}/api/category`
 
 export const getAllCategories = async (): Promise<ICategory[]> => {
-    try{
-        const response = await axios.get(URL_CATEGORIES)
-        return response.data
-    }catch (err){
-        console.log("Error en getAllCategories" + err)
-        return []
-    }
+    const response = await interceptorApiClient.get("/category")
+    return response.data
 }
 
 export const getCategoryById = async (categoryId: string): Promise<ICategory | undefined> => {
-    try{
-        const response = await axios.get(`${URL_CATEGORIES}/${categoryId}`)
-        return response.data
-    }catch (err){
-        console.log("Error en getCategoryById" + err)
-        return undefined
-    }
+    const response = await interceptorApiClient.get(`/category/${categoryId}`)
+    return response.data
 }
 
 export const getCategoryByName = async (categoryName: string): Promise<ICategory | undefined> => {
@@ -37,30 +27,17 @@ export const getCategoryByName = async (categoryName: string): Promise<ICategory
 }
 
 export const postCategory = async (newCategory: ICategory) => {
-    try{
-        const response = await axios.post(URL_CATEGORIES, newCategory)
-        return response.data
-    }catch (err){
-        console.log("Error en postCategory" + err)
-    }
+    const response = await interceptorApiClient.post(`/category`, newCategory)
+    return response.data
 }
 
 export const putCategory = async (updatedCategory: ICategory) => {
-    try{
-        const response = await axios.put(`${URL_CATEGORIES}/${updatedCategory.id}`, updatedCategory)
-        return response.data
-    }catch (err){
-        console.log("Error en putCategory" + err)
-    }
+    const response = await interceptorApiClient.put(`/category/${updatedCategory.id}`, updatedCategory)
+    return response.data
 }
 
 export const deleteCategory = async (idCategoryToDelete: number) => {
-    try{
-        const response = await axios.delete(`${URL_CATEGORIES}/${idCategoryToDelete}`)
-        return response.data
-    }catch (err){
-        console.log("Error en deleteCategory" + err)
-        errorAlert('Error', 'No se pudo eliminar la categoria')
-    }
+    const response = await interceptorApiClient.delete(`/category/${idCategoryToDelete}`)
+    return response.data
 }
 

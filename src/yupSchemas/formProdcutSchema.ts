@@ -7,15 +7,7 @@ export const productSchema = yup.object().shape({
     productType : yup.string().oneOf(Object.values(ProductType)),
     sex : yup.string().required("Campo obligatorio"),
     stock : yup.number().required("Campo obligatorio"),
-
-    prices : yup.object().shape({
-        purchasePrice : yup.number().required("Campo obligatorio").min(0),
-        salePrice : yup.number().required("Campo obligatorio").min(0),
-        discount : yup.object().optional().shape({
-            promotionalPrice : yup.number().min(0),
-            discountDescription: yup.string().optional()
-        })
-    }),
+    
 
     image : yup.object().shape({
         url : yup.string().required("Campo obligatorio")

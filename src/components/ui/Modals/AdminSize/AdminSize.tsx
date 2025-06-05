@@ -6,6 +6,7 @@ import { postSize, putSize } from "../../../../cruds/crudSize"
 import { useStoreSize } from "../../../../store/useStoreSize"
 import { errorAlert } from "../../../../utils/errorAlert"
 import { succesAlert } from "../../../../utils/succesAlert"
+import { formOneSlotSchema } from "../../../../yupSchemas/formOneSlotSchema"
 
 
 
@@ -17,6 +18,7 @@ export const AdminSize = () => {
     const {sizes, fetchSize, activeSize} = useStoreSize()
     const [newSize, setNewSize] = useState<string>()
     const [editSize, setEditSize] = useState<ISize>(activeSize!)
+    const [formErrors, setFormErrors] = useState<Record<string, string>>({})
 
     useEffect(()=> {
         fetchSize()
@@ -28,30 +30,35 @@ export const AdminSize = () => {
 
     const handleAddSize = async(e: React.FormEvent) => {
         e.preventDefault()
-        if(!newSize){
-            errorAlert('Error','Talle no valido')
-            return
-        }
+        
 
         try {
+            const size : ISize = {
+                size : newSize!
+            }
+            await formOneSlotSchema.validate(size, {abortEarly: false})
+            
             const existingSize = sizes?.some(size => size.size === newSize)
             if (existingSize){
                 errorAlert('Error','El talle ya existe')
                 return
             }
-
-            const size : ISize = {
-                size : newSize
-            }
+            
 
             await postSize(size)
             succesAlert('Creado','Se creo un nuevo talle exitosamente')
             fetchSize()
             closeModalAdminSize()
         } catch (error : any) {
-            errorAlert('Error','Ocurrio un error en agregar un talle')
-            console.log(error.message);
-            
+            const errors: Record<string, string> = {}
+            if(error.inner){
+                error.inner.forEach((ValidationError: any) => {
+                    errors[ValidationError.path] = ValidationError.message
+                })
+            }else{
+                errors.general = error.message
+            }
+            setFormErrors(errors)
         }
     }
 
@@ -63,6 +70,7 @@ export const AdminSize = () => {
         }
 
         try {
+            await formOneSlotSchema.validate(editSize, {abortEarly: false})
             const existingSize = sizes?.some(size => size.size === editSize.size)
             if(existingSize){
                 errorAlert('Error','El talle ya existe')
@@ -73,9 +81,15 @@ export const AdminSize = () => {
             fetchSize()
             closeModalAdminSize()    
         } catch (error : any) {
-            errorAlert('Error','Ocurrio un error en editar talle')
-            console.log(error.message);
-            
+            const errors: Record<string, string> = {}
+            if(error.inner){
+                error.inner.forEach((ValidationError: any) => {
+                    errors[ValidationError.path] = ValidationError.message
+                })
+            }else{
+                errors.general = error.message
+            }
+            setFormErrors(errors)
         }
     }
 
@@ -90,6 +104,7 @@ export const AdminSize = () => {
                 <form action="" onSubmit={handleAddSize}>
                     <div className={styles.containerSizes}>
                         <input type="text" name="" id="" placeholder="Ingrese Talle" onChange={handleChange}/>
+                        {formErrors.name && <p className={styles.errorMessage}>{formErrors.name}</p>}
                     </div>
                     <div className={styles.containerButtons}>
                         <button onClick={closeModalAdminSize}>Cancelar</button>
@@ -108,6 +123,8 @@ export const AdminSize = () => {
                 <form action="" onSubmit={handleEditSize}>
                     <div className={styles.containerSizes}>
                         <input type="text" name="size" id="" value={editSize?.size} placeholder={`${editSize?.size}`} onChange={(e) => setEditSize({...editSize, size: e.target.value})}/>
+                        {formErrors.name && <p className={styles.errorMessage}>{formErrors.name}</p>}
+                        
                     </div>
                     <div className={styles.containerButtons}>
                         <button onClick={closeModalAdminSize}>Cancelar</button>
