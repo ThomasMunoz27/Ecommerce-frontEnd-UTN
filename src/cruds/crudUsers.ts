@@ -1,11 +1,9 @@
-import axios from "axios"
+
 import interceptorApiClient from "../interceptors/axios.interceptor"
 import { IUser } from "../types/IUser"
-import { BASE_URL } from "../utils/constantes"
-import { succesAlert } from "../utils/succesAlert"
-import { errorAlert } from "../utils/errorAlert"
 
-const URL_USERS = `${BASE_URL}/api/user`
+
+
 
 export const getAllUsers = async (): Promise<IUser[]> => {
         const response = await interceptorApiClient.get("/user")

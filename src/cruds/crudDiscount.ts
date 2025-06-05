@@ -1,55 +1,35 @@
 import axios from "axios"
 import { IDiscount } from "../types/IDiscount"
 import { BASE_URL } from "../utils/constantes"
+import interceptorApiClient from "../interceptors/axios.interceptor"
 
 
 const URL_DISCOUNT = `${BASE_URL}/api/discount`
 
 
 export const getAllDiscounts = async (): Promise<IDiscount[]> => {
-    try{
-        const response = await axios.get(URL_DISCOUNT)
+        const response = await interceptorApiClient.get('/discount')
         return response.data
-    }catch (err){
-        console.log("Error en getAllDiscounts" + err)
-        return []
-    }
 }
 
 export const getDiscountById = async (discountId: string): Promise<IDiscount | undefined> => {
-    try{
-        const response = await axios.get(`${URL_DISCOUNT}/${discountId}`)
+        const response = await interceptorApiClient.get(`/discount/${discountId}`)
         return response.data
-    }catch (err){
-        console.log("Error en getDiscountById" + err)
-        return undefined
-    }
 }
 
 export const postDiscount = async (newDiscount: IDiscount) => {
-    try{
-        const response = await axios.post(URL_DISCOUNT, newDiscount)
+        const response = await interceptorApiClient.post('/discount', newDiscount)
         return response.data
-    }catch (err){
-        console.log("Error en postDiscount" + err)
-    }
 }
 
 export const putDiscount = async (updateDiscount: IDiscount) => {
-    try{
-        const response = await axios.put(`${URL_DISCOUNT}/${updateDiscount.id}`, updateDiscount)
+        const response = await interceptorApiClient.put(`/discount/${updateDiscount.id}`, updateDiscount)
         return response.data
-    }catch (err){
-        console.log("Error en putDiscount" + err)
-    }
+   
 }
 
 export const deleteDiscount = async (idDiscountToDelete: string) => {
-    try{
-        const response = await axios.delete(`${URL_DISCOUNT}/${idDiscountToDelete}`)
+        const response = await interceptorApiClient.delete(`/discount/${idDiscountToDelete}`)
         return response.data
-    }catch (err){
-        console.log("Error en deleteDiscount" + err)
-    }
 }
 
