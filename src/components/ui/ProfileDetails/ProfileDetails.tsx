@@ -64,7 +64,7 @@ export const ProfileDetails = () => {
                     <p>Correo Electronico: {user?.email}</p>
                     <p>Nombre de usuario: {user?.username}</p>
                     <p>Contraseña: {user?.password}</p>
-                    <p className={styles.edit} onClick={() => openModalEditLogin(2)}>Editar</p>
+                    <p className={styles.edit} onClick={() => openModalEditLogin(2)}>Editar contraseña</p>
                 </div>
                 <div className={styles.containerButtonData}>
                     <p>Si eliminas la cuenta perderas todos los datos que tengas vinculado a nuestros servicios</p>

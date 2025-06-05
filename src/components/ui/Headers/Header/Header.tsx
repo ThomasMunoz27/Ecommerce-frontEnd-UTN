@@ -76,20 +76,22 @@ export const Header = () => {
         <a  onClick={handleCategoryClick}>Indumentaria</a>
         <a  onClick={handleCategoryClick}>Hombre</a>
         <a  onClick={handleCategoryClick}>Mujer</a>
-        <a  onClick={handleCategoryClick}>Ofertas</a>
       </nav>
     </div>
     {/* <DropdownHeader></DropdownHeader> */}
     </div>
     {isVisible && ( <div className={style.responsiveModal}>
        <nav>
+        <a  onClick={() => {
+          navigate('/')
+          setIsVisible(false)
+        }}>Inicio</a>
         <a  onClick={handleCategoryClick}>Niños</a>
         <a  onClick={handleCategoryClick}>Deportes</a>
         <a  onClick={handleCategoryClick}>Calzado</a>
         <a  onClick={handleCategoryClick}>Indumentaria</a>
         <a  onClick={handleCategoryClick}>Hombre</a>
         <a  onClick={handleCategoryClick}>Mujer</a>
-        <a  onClick={handleCategoryClick}>Ofertas</a>
       </nav>
       <button onClick={handleCloseResponsive}>X</button>
     </div>)}
