@@ -1,53 +1,29 @@
-import axios from "axios";
+import interceptorApiClient from "../interceptors/axios.interceptor"
 import { ISize } from "../types/ISize";
-import { BASE_URL } from "../utils/constantes";
 
 
-const URL_SIZES = `${BASE_URL}/api/size`
 
 export const getAllSizes = async (): Promise<ISize[]> => {
-    try {
-        const response = await axios.get(URL_SIZES)
+        const response = await interceptorApiClient.get('/size')
         return response.data
-    } catch (error) {
-        console.log('Error en getAllSizes', error);
-        return []   
-    }
 }
 export const getSizeById = async (sizeId: string): Promise<ISize | undefined> => {
-    try{
-        const response = await axios.get(`${URL_SIZES}/${sizeId}`)
+        const response = await interceptorApiClient.get(`/size/${sizeId}`)
         return response.data
-    }catch (err){
-        console.log("Error en getSizeById" + err)
-        return undefined
-    }
 }
 
 export const postSize = async (newSize: ISize) => {
-    try{
-        const response = await axios.post(URL_SIZES, newSize)
+        const response = await interceptorApiClient.post('/size', newSize)
         return response.data
-    }catch (err){
-        console.log("Error en postSize" + err)
-    }
 }
 
 export const putSize = async (updatedSize: ISize) => {
-    try{
-        const response = await axios.put(`${URL_SIZES}/${updatedSize.id}`, updatedSize)
+        const response = await interceptorApiClient.put(`/size/${updatedSize.id}`, updatedSize)
         return response.data
-    }catch (err){
-        console.log("Error en putSize" + err)
-    }
 }
 
 export const deleteSize = async (idSizeToDelete: string) => {
-    try{
-        const response = await axios.delete(`${URL_SIZES}/${idSizeToDelete}`)
+        const response = await interceptorApiClient.delete(`/size/${idSizeToDelete}`)
         return response.data
-    }catch (err){
-        console.log("Error en deleteSize" + err)
     }
-}
 
