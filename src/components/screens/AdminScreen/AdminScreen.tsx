@@ -10,6 +10,7 @@ import { SizesAdmin } from '../../ui/AdminComponents/SizesAdmin/SizesAdmin'
 import { PricesAdmin } from '../../ui/AdminComponents/PricesAdmin/PricesAdmin'
 import { ImageAdmin } from '../../ui/AdminComponents/ImageAdmin/ImageAdmin'
 import { CategoriesAdmin } from '../../ui/AdminComponents/CategoriesAdmin/CategoriesAdmin'
+import { CountryAdmin } from '../../ui/AdminComponents/CountryAdmin/CountryAdmin'
 
 export const AdminScreen = () => {
 
@@ -26,6 +27,7 @@ export const AdminScreen = () => {
             {activeOption === 'prices' && <PricesAdmin/>}
             {activeOption === 'images' && <ImageAdmin/>}
             {activeOption === 'categories' && <CategoriesAdmin/>}
+            {activeOption === 'countries' && <CountryAdmin/>}
             {activeOption === '' &&
              <div className={styles.containerAdmin}>
                 <h1>ADMIN</h1>

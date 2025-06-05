@@ -43,6 +43,7 @@ export const HeaderAdmin = () => {
                     <p onClick={() => setActiveOption('colors')}>Color</p>
                     <p onClick={() => setActiveOption('images')}>Imagenes</p>
                     <p onClick={() => setActiveOption('categories')}>Categorias</p>
+                    <p onClick={() => setActiveOption('countries')}>Paises</p>
                 </div>
             </div>
     </div>

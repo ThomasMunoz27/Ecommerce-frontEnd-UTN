@@ -3,6 +3,7 @@ import { BASE_URL } from "../utils/constantes";
 
 import { IAdress } from "../types/IAdress";
 import { errorAlert } from "../utils/errorAlert";
+import { succesAlert } from "../utils/succesAlert";
 
 
 const URL_ADRESS = `${BASE_URL}/api/adress`
@@ -40,6 +41,7 @@ export const postAdress = async (newAdress: IAdress) => {
 export const putAdress = async (updatedAdress: IAdress) => {
     try{
         const response = await axios.put(`${URL_ADRESS}/${updatedAdress.id}`, updatedAdress)
+        succesAlert('Actualizado', 'Se actualizo la direccion')
         return response.data
     }catch (err){
         console.log("Error en putAdress" + err)

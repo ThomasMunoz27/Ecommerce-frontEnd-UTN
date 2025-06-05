@@ -54,14 +54,8 @@ export const ProfileDetails = () => {
                 <div className={styles.containerContentData}>
                     <h1>Resumen</h1>
                     <p>Nombre: {user?.name}</p>
-<<<<<<< HEAD
                     <p>Fecha de Naciemiento : {user?.birthdate ? new Date(user.birthdate).toLocaleDateString() : 'No disponible'}</p>
                     <p>Sexo : {user?.sex}</p>
-=======
-                    <p>Fecha de Nacimiento: {user?.birthdate ? new Date(user.birthdate).toLocaleDateString() : 'No disponible'}</p>
-                    <p>Direccion: {user?.adress.street} {user?.adress.number}</p>
-                    <p>Sexo: {user?.sex}</p>
->>>>>>> 6111b721cb2a954232a76e0fcc382b17a2fbeb9e
                     <p className={styles.edit} onClick={() => openModalEditLogin(1)}>Editar datos fiscales</p>
                 </div>
                 <div className={styles.containerAccessData}>

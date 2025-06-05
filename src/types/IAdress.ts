@@ -7,3 +7,11 @@ export interface IAdress {
     cp: number,
     locality: ILocality
 }
+
+export interface IAdressRequest {
+  id?: number;
+  street: string;
+  number: number;
+  cp: number;
+  localityId: number; // solo el ID
+}

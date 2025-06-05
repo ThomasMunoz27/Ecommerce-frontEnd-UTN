@@ -57,11 +57,9 @@ export const ModalEditUserAdress = () => {
 
         try {
             await putAdress(newAddress)
-            succesAlert('Editado', 'La direccion se edito con exito')
         } catch (error: any) {
             console.log(error.message);
 
-            
         }
     }
 
