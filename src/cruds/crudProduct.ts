@@ -29,42 +29,23 @@ export const postProduct = async (newProduct: ICreateProduct) => {
 }
 
 export const putProduct = async (updatedProduct: IProduct) => {
-    try{
         const response = await interceptorApiClient.post(`product/${updatedProduct.id}`, updatedProduct)
         return response.data
-
-    }catch (err){
-        console.log("Error en putProductCrud" + err)
-    }
 }
 
 export const deleteProduct = async (idProductToDelete: number) => {
-    try{
-
-        const response = await axios.delete(`${URL_PRODUCTS}/${idProductToDelete}`)
+        const response = await interceptorApiClient.delete(`product/${idProductToDelete}`)
         return response.data
-
-    }catch (err){
-        console.log("Error en deleteProduct" + err)
-    }
 }
 
 export const getAllProductsActive = async () => {
-    try{
-        const response = await axios.get(`${URL_PRODUCTS}/active`)
+        const response = await interceptorApiClient.get(`product/active`)
         return response.data
-    }catch (error){
-        console.log("Error en getAllProductsActive" + error)
-    }
 }
 
 export const getAllProductsInactive = async () => {
-    try{
-        const response = await axios.get(`${URL_PRODUCTS}/inactive`)
-        return response.data
-    }catch (error){
-        console.log("Error en getAllProductsActive" + error)
-    }
+    const response = await interceptorApiClient.get(`product/inactive`)
+    return response.data
 }
 
 
