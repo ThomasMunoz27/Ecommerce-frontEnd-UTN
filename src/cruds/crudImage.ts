@@ -1,11 +1,7 @@
-import axios from "axios";
-import { BASE_URL } from "../utils/constantes";
 import { IImage } from "../types/IImage";
-import { errorAlert } from "../utils/errorAlert";
 import interceptorApiClient from "../interceptors/axios.interceptor";
 
 
-const URL_IMAGES = `${BASE_URL}/api/image`
 
 export const getAllImages = async (): Promise<IImage[]> => {
         const response = await interceptorApiClient.get<[]>('/image')
