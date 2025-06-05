@@ -20,7 +20,7 @@ export const ProfileDetails = () => {
 
     console.log(user)
 
-    const {openModalEditLogin} = useStoreModal()
+    const {openModalEditLogin, openModalEditAddress} = useStoreModal()
 
     return (
         <div className={styles.containerPrincipal}>
@@ -54,10 +54,14 @@ export const ProfileDetails = () => {
                 <div className={styles.containerContentData}>
                     <h1>Resumen</h1>
                     <p>Nombre: {user?.name}</p>
-                    <p>Fecha de Nacimiento: {user?.birthdate ? new Date(user.birthdate).toLocaleDateString() : 'No disponible'}</p>
-                    <p>Direccion: {user?.adress.street} {user?.adress.number}</p>
-                    <p>Sexo: {user?.sex}</p>
+                    <p>Fecha de Naciemiento : {user?.birthdate ? new Date(user.birthdate).toLocaleDateString() : 'No disponible'}</p>
+                    <p>Sexo : {user?.sex}</p>
                     <p className={styles.edit} onClick={() => openModalEditLogin(1)}>Editar datos fiscales</p>
+                </div>
+                <div className={styles.containerAccessData}>
+                    <h1>Direccion</h1>
+                    <p>Direccion: {user?.adress.street} {user?.adress.number}</p>
+                    <p className={styles.edit} onClick={openModalEditAddress}>Editar Direccion</p>
                 </div>
                 <div className={styles.containerAccessData}>
                     <h1>Datos de Acceso</h1>

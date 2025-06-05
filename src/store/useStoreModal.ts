@@ -5,6 +5,7 @@ interface IStoreModal{
     modalEditLogin : {type : boolean, option : 1 | 2 | null}, // Modal que edita datos del usuario logueado
     modalAddProduct : boolean, // Modal para agregar un producto al carrito
     modalPrices : boolean,
+    modalEditAddress : boolean,
     modalAdminColor : {type: boolean, option : 1 | 2 | null},
     modalAdminSize : {type : boolean, option : 1 | 2 | null},
     modalAdminDiscount : {type : boolean, option : 1 | 2 | null},
@@ -16,6 +17,7 @@ interface IStoreModal{
     modalAdminSubCategory : {type : boolean, option : 1 | 2 | null},
     modalAdminCategory : boolean,
     modalAdminImage : boolean,
+    
     
     openModalAccount : (selection : boolean) => void,
     closeModalAccount : VoidFunction,
@@ -60,7 +62,10 @@ interface IStoreModal{
     closeModalAdminCategory : () => void,
 
     openModalAdminImage : () => void,
-    closeModalAdminImage : () => void
+    closeModalAdminImage : () => void,
+    
+    openModalEditAddress : () => void,
+    closeModalEditAddress : () => void
 
 }
 
@@ -83,6 +88,7 @@ export const useStoreModal = create<IStoreModal>((set) => ({
     modalAdminSubColor : {type : false, option : null},
     modalAdminSubPrice : {type : false, option : null},
     modalAdminSubCategory : {type : false, option : null},
+    modalEditAddress : false,
 
 
 
@@ -130,7 +136,10 @@ export const useStoreModal = create<IStoreModal>((set) => ({
     closeModalAdminCategory : () => set({modalAdminCategory : false}),
 
     openModalAdminImage : () => set({modalAdminImage : true}),
-    closeModalAdminImage : () => set({modalAdminImage : false})
+    closeModalAdminImage : () => set({modalAdminImage : false}),
+
+    openModalEditAddress : () => set({modalEditAddress : true}),
+    closeModalEditAddress : () => set({modalEditAddress : false})
 
     
 }))
