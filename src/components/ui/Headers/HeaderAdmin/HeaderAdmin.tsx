@@ -41,12 +41,16 @@ export const HeaderAdmin = () => {
                     <p onClick={() => setActiveOption('prices')}>Precios</p>
                     <p onClick={() => setActiveOption('sizes')}>Talles</p>
                     <p onClick={() => setActiveOption('colors')}>Color</p>
+                </div>
+                <div className={style.minHeader}>
                     <p onClick={() => setActiveOption('images')}>Imagenes</p>
                     <p onClick={() => setActiveOption('categories')}>Categorias</p>
                     <p onClick={() => setActiveOption('countries')}>Paises</p>
                     <p onClick={() => setActiveOption('provinces')}>Provincias</p>
                     <p onClick={() => setActiveOption('localities')}>Localidades</p>
                     <p onClick={() => setActiveOption('addresses')}>Direcciones</p>
+                    <p onClick={() => setActiveOption('bills')}>Facturas</p>
+
                 </div>
             </div>
     </div>
