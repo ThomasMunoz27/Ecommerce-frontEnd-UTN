@@ -16,7 +16,7 @@ export const Header = () => {
     const fetchUser = async() => {
       const userDesarrollo = await getUserById(1)
       
-      setUser(userDesarrollo!)
+      setUser(userDesarrollo[0]!)
 
     }
     fetchUser()
@@ -103,7 +103,7 @@ export const Header = () => {
       <nav>
         <a  onClick={handleCategoryClick}>Niños</a>
         <a  onClick={handleCategoryClick}>Deportes</a>
-        <a  onClick={handleCategoryClick}>Calzado</a>
+        <a  onClick={handleCategoryClick}>Calzados</a>
         <a  onClick={handleCategoryClick}>Indumentaria</a>
         <a  onClick={handleCategoryClick}>Hombre</a>
         <a  onClick={handleCategoryClick}>Mujer</a>
@@ -119,7 +119,7 @@ export const Header = () => {
         }}>Inicio</a>
         <a  onClick={handleCategoryClick}>Niños</a>
         <a  onClick={handleCategoryClick}>Deportes</a>
-        <a  onClick={handleCategoryClick}>Calzado</a>
+        <a  onClick={handleCategoryClick}>Calzados</a>
         <a  onClick={handleCategoryClick}>Indumentaria</a>
         <a  onClick={handleCategoryClick}>Hombre</a>
         <a  onClick={handleCategoryClick}>Mujer</a>
