@@ -84,17 +84,24 @@
 }
 
 .textCategory{
-    color: rgba(104, 104, 104, 0.788);
     display: flex;
-    justify-content: space-between;
-    font-weight: bold;
+    justify-content: flex-end;
+
+    gap: 3px;
 }
 
 .prices{
     color: black;
-    
 }
 
+.pricesOnDiscount{
+    color: rgba(104, 104, 104, 0.788);
+    text-decoration-line:line-through;
+}
+
+.cheaperPrice{
+    color: #E32B54;
+}
 /* BtnCard, quizas componente a largo plazo */
 
 .cardBtn{

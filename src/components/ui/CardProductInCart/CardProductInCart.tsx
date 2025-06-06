@@ -17,6 +17,8 @@ export const CardProductInCart: FC<IProductInCart> = ({productInCart}) => {
     
     const product = productsInCart.find(p => p.size.id === productInCart.size.id && p.id === productInCart.id && p.color.id === productInCart.color.id)
 
+    const newPrice = (product?.prices.salePrice ? product?.prices.salePrice : 0) - (product?.prices.discount? product.prices.discount.promotionalPrice : 0)
+    
     if(!product) return null
     
     const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -31,7 +33,7 @@ export const CardProductInCart: FC<IProductInCart> = ({productInCart}) => {
   return (
     <div className={style.productCard}>
         <div className={style.imgContainer}>
-            <img className={style.cardImg} src={product.image.url ? product.image.url : 'https://www.publicdomainpictures.net/pictures/280000/velka/not-found-image-15383864787lu.jpg'} alt="" />
+            <img className={style.cardImg} src={product.image?.url ? product.image.url : 'https://www.publicdomainpictures.net/pictures/280000/velka/not-found-image-15383864787lu.jpg'} alt="" />
 
         </div>
         <div className={style.notImgContainer}>
@@ -53,7 +55,14 @@ export const CardProductInCart: FC<IProductInCart> = ({productInCart}) => {
             </select>
 
             <div className={style.productDetails}>
-                <p className={style.textCategory}>{product.category.name}  <span className={style.prices}>${product.prices.salePrice}</span></p>
+              {productInCart.prices.discount 
+              ?<p className={style.textCategory}>  <span className={style.pricesOnDiscount}>${product.prices.salePrice}</span><span className={style.cheaperPrice}>${newPrice}</span></p>
+
+              
+              : 
+              <p className={style.textCategory}><span className={style.prices}>${product.prices.salePrice}</span></p>
+
+              }
             </div>
         </div>
 </div>

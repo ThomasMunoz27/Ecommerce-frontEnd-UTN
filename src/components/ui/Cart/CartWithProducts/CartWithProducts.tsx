@@ -14,6 +14,8 @@ const {setUser} = useStoreUsers()
 
     const totalCart = useStoreCart(state => state.totalCart())
 
+    const totalCartWithDiscount = useStoreCart(state => state.totalCartWithDiscount())
+    
     const [ivaPrice, setIvaPrice] = useState(0)
 
     useEffect(() =>  {
