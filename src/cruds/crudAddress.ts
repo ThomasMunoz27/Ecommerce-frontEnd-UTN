@@ -28,7 +28,7 @@ export const getAdressById = async (adressId: string): Promise<IAdress | undefin
     }
 }
 
-export const postAdress = async (newAdress: IAdress) => {
+export const postAdress = async (newAdress: IAdress | IAdressRequest) => {
     try{
         const response = await axios.post(URL_ADRESS, newAdress)
         return response.data

@@ -6,21 +6,23 @@ interface IStoreModal{
     modalAddProduct : boolean, // Modal para agregar un producto al carrito
     modalPrices : boolean,
     modalEditAddress : boolean,
+
     modalAdminColor : {type: boolean, option : 1 | 2 | null},
     modalAdminSize : {type : boolean, option : 1 | 2 | null},
     modalAdminDiscount : {type : boolean, option : 1 | 2 | null},
     modalAdminPrice : {type : boolean, option : 1 | 2 | null},
+    modalAdminImage : boolean,
+    modalAdminCountry : boolean,
+    modalAdminProvince : boolean,
+    modalAdminLocality : boolean,
+    modalAdminAdress : boolean
+    
     modalAdminProduct : {type : boolean, option : 1 | 2 | null},
     modalAdminSubSize : {type : boolean, option : 1 | 2 | null},
     modalAdminSubColor : {type : boolean, option: 1 | 2 | null},
     modalAdminSubPrice : {type : boolean, option: 1 | 2 | null},
     modalAdminSubCategory : {type : boolean, option : 1 | 2 | null},
     modalAdminCategory : boolean,
-    modalAdminImage : boolean,
-    modalAdminCountry : boolean,
-    modalAdminProvince : boolean,
-    modalAdminLocality : boolean,
-    modalAdminAdress : boolean
     
     
     openModalAccount : (selection : boolean) => void,
@@ -94,9 +96,9 @@ export const useStoreModal = create<IStoreModal>((set) => ({
     modalEditAdminProduct: false,
     modalAddAdminProduct : false,
     modalPrices : false,
+
     modalAdminLocality : false,
     modalAdminAdress : false,
-
     modalAdminColor : {type : false, option : null},
     modalAdminSize : {type : false, option : null},
     modalAdminDiscount : {type : false, option : null},

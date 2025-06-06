@@ -4,16 +4,30 @@ import { useStoreAdress } from '../../../../store/useStoreAdresses'
 import { deleteAdress} from '../../../../cruds/crudAddress'
 import { succesAlert } from '../../../../utils/succesAlert'
 import { errorAlert } from '../../../../utils/errorAlert'
+import { useStoreModal } from '../../../../store/useStoreModal'
+import { IAdress } from '../../../../types/IAdress'
+import { AdminAddresses } from '../../Modals/AdminAddresses/AdminAddresses'
 
 
 
 export const AdressesAdmin = () => {
 
-    const {fetchAdress, adresses} = useStoreAdress()
+    const {fetchAdress, adresses, setActiveAdress} = useStoreAdress()
+    const {openModalAdminAdress, modalAdminAdress} = useStoreModal()
 
     useEffect(() => {
         fetchAdress()
     },[])
+
+    const handleAddModal = () => {
+        setActiveAdress(null)
+        openModalAdminAdress()
+    }
+
+    const handleEditModal = (address : IAdress) => {
+        setActiveAdress(address)
+        openModalAdminAdress()
+    }
 
     const handleDelete = async(idAdress : string) => {
         try {
@@ -33,7 +47,7 @@ export const AdressesAdmin = () => {
                     <h1>Gestión de Direcciones</h1>
                 </div>
                 <div className={styles.containerButtons}>
-                    <button >
+                    <button onClick={() => handleAddModal()}>
                         Añadir
                     </button>
                 </div>
@@ -61,7 +75,7 @@ export const AdressesAdmin = () => {
                         
                         <td>
                             <div className={styles.actionButtons}>
-                                <button >Editar</button>
+                                <button onClick={() => handleEditModal(adress)}>Editar</button>
                                 <button onClick={() => handleDelete(String(adress.id))}>Eliminar</button>
                             </div>
                         </td>
@@ -70,7 +84,7 @@ export const AdressesAdmin = () => {
                 </tbody>
             </table>
         </div>
-        
+        {modalAdminAdress && <div className={styles.modalBackdrop}><AdminAddresses/></div>}
         </div>
     )
 }

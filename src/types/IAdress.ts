@@ -9,7 +9,7 @@ export interface IAdress {
 }
 
 export interface IAdressRequest {
-  id?: number;
+  id?: number | null;
   street: string;
   number: number;
   cp: number;
