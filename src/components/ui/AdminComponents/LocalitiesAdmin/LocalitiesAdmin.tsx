@@ -4,10 +4,14 @@ import { useStoreLocality } from '../../../../store/useStoreLocalities'
 import { succesAlert } from '../../../../utils/succesAlert'
 import { errorAlert } from '../../../../utils/errorAlert'
 import { deleteLocality } from '../../../../cruds/crudLocality'
+import { useStoreModal } from '../../../../store/useStoreModal'
+import { ILocality } from '../../../../types/ILocality'
+import { AdminLocalities } from '../../Modals/AdminLocalities/AdminLocalities'
 
 export const LocalitiesAdmin = () => {
 
-    const {fetchLocality, localities} = useStoreLocality()
+    const {fetchLocality, localities, setActiveLocality} = useStoreLocality()
+    const {openModalAdminLocality, modalAdminLocality} = useStoreModal()
 
     useEffect(() => {
         fetchLocality()
@@ -25,6 +29,17 @@ export const LocalitiesAdmin = () => {
         }
     }
 
+
+    const handleAddModal = () => {
+        setActiveLocality(null)
+        openModalAdminLocality()
+    }
+
+    const handleEditModal = (locality : ILocality) => {
+        setActiveLocality(locality)
+        openModalAdminLocality()
+    }
+
     return (
         <div className={styles.containerPrincipal}>
             <div className={styles.containerTitleAndButton}>
@@ -32,7 +47,7 @@ export const LocalitiesAdmin = () => {
                     <h1>Gestión de Localidades</h1>
                 </div>
                 <div className={styles.containerButtons}>
-                    <button >
+                    <button onClick={() => handleAddModal()}>
                         Añadir
                     </button>
                 </div>
@@ -57,7 +72,7 @@ export const LocalitiesAdmin = () => {
         
                         <td>
                             <div className={styles.actionButtons}>
-                                <button >Editar</button>
+                                <button onClick={() => handleEditModal(locality)}>Editar</button>
                                 <button onClick={() => handleDelete(String(locality.id))}>Eliminar</button>
                             </div>
                         </td>
@@ -66,7 +81,7 @@ export const LocalitiesAdmin = () => {
                 </tbody>
             </table>
         </div>
-        
+        {modalAdminLocality && <div className={styles.modalBackdrop}><AdminLocalities/></div>}
         </div>
     )
 }

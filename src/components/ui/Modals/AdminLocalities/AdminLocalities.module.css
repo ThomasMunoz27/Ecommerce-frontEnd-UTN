@@ -1,0 +1,46 @@
+.containerPrincipal{
+    background-color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: 5px 5px 15px;
+}
+.containerValues{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 10px;
+    width: 100%;
+}
+.containerValues select{
+    width: 100%;
+}
+.containerValues input{
+    width: 100%;
+}
+
+.containerButtons{
+    padding: 10px;
+    display: flex;
+    justify-content: space-around;
+}
+.containerButtons button{
+    font-size: 15px;
+    background-color: black;
+    color: white;
+    padding: 5px;
+}
+.containerButtons button:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: 0.3s ease;
+}

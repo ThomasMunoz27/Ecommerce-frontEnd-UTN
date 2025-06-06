@@ -1,4 +1,4 @@
-import { ILocality } from "../types/ILocality"
+import { ILocality, ILocalityRequest } from "../types/ILocality"
 import interceptorApiClient from "../interceptors/axios.interceptor"
 
 
@@ -20,12 +20,12 @@ export const getLocalitiesByProvinceId = async (provinceId: string): Promise<ILo
 }
 
 
-export const postLocality = async (newLocality: ILocality) => {
+export const postLocality = async (newLocality: ILocality | ILocalityRequest) => {
 	const response = await interceptorApiClient.post(`/locality`, newLocality)
 	return response.data
 }
 
-export const putLocality = async (updatedLocality: ILocality) => {
+export const putLocality = async (updatedLocality: ILocality | ILocalityRequest) => {
 	const response = await interceptorApiClient.put(`/locality/${updatedLocality.id}`, updatedLocality)
 	return response.data
 }

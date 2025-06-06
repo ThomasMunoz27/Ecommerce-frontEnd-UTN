@@ -5,3 +5,9 @@ export interface ILocality {
     name: string,
     province: IProvince
 }
+
+export interface ILocalityRequest {
+    id: number | null,
+    name: string,
+    province: {id : number}
+}
