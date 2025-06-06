@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import { useStoreColor } from '../../../../store/useStoreColor';
 import { useStoreFilterModal } from '../../../../store/useStoreFilterModal';
 import style from './FilterModal.module.css'
 export const FilterModal = () => {
@@ -9,6 +11,12 @@ export const FilterModal = () => {
     // State`s
 
     const {orderByDropped , sexDropped, colorDropped} = useStoreFilterModal()
+
+    const {colors, fetchColors} = useStoreColor()
+    
+    useEffect(() => {
+        fetchColors()
+    }, [])
 
   return (
     <aside className={style.modal}>
@@ -74,15 +82,11 @@ export const FilterModal = () => {
                 </div>
                 {colorDropped &&
                     <div className={`${style.sectionDefault} ${style.sectionDropdown}`}>
-                        <div className={style.selectorContainer}>
-                        <input type='checkbox'></input><p>COLOR 1</p>
-                        </div>
-                        <div className={style.selectorContainer}>
-                        <input type='checkbox'></input><p>COLOR 2</p>
-                        </div>
-                        <div className={style.selectorContainer}>
-                        <input type='checkbox'></input><p>COLOR 3</p>
-                        </div>
+                        {colors.map((color) =>  (
+                              <div className={style.selectorContainer}>
+                              <input type='checkbox' value={color.id}></input><span style={{backgroundColor:color.value, width: '50px'}}></span>
+                              </div>
+                        ))}
                     </div>
                 }
             </div>

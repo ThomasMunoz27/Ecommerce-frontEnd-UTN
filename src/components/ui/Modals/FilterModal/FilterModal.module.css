@@ -81,8 +81,13 @@
 
 .selectorContainer{
     display: flex;
-    width: 100%;
+    width: 80%;
     justify-content: space-around;
+    margin: 2px 0px;
+}
+.selectorContainer input{
+    width: 30px;
+    height: 20px;
 }
 .modalContainer{
     width: 100%;
@@ -98,6 +103,7 @@
 .orderBy p{
     border-left: 5px solid black;
     width: 100%;
+    cursor: pointer;
 }
 
 .orderBy .active{
@@ -106,6 +112,5 @@
 }
 
 .orderBy p:hover{
-    cursor: pointer;
-    transform: scale(0.9);
+    background-color: rgba(0, 0, 0, 0.445);
 }
