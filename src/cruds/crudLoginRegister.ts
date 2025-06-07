@@ -1,18 +1,21 @@
 import axios from "axios";
-import { BASE_URL } from "../utils/constantes";
 import { errorAlert } from "../utils/errorAlert";
+import { succesAlert } from "../utils/succesAlert";
+import { useStoreLogin } from "../store/useStoreLogin";
 
 
-export const login = async (user: string, pass: string) => {
+export const login = async (user: string, pass: string, setToken: (token: string) => void) => {
+
     const userRequest = {
-        name: user,
+        username: user,
         password: pass
     }
     try {
         const response = await axios.post(`http://localhost:9000/auth/login`, userRequest)
-        console.log('EXITO')
+        setToken(response.data.token)
+        succesAlert('Sesion Iniciada.', 'Sesion iniciada con exito.')
     } catch (error) {
-        errorAlert('Error', 'Error al logear')
+        errorAlert('Error', 'Credenciales invalidas')
     }
 
 }

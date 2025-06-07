@@ -1,16 +1,18 @@
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { AccountModal } from './components/ui/Modals/AccountRegisterModal/AccountModal'
 import { AppRoutes } from './routes/AppRoutes'
+import { useStoreLogin } from './store/useStoreLogin'
 
 
 function App() {
-  const [logged, setLogged] = useState(false)
+  const {token} = useStoreLogin()
 
+  const logged = token.length > 1
   return (
     <>
       <AppRoutes/>
-      {logged &&
+      {!logged &&
       <AccountModal/>
       }
       </>
