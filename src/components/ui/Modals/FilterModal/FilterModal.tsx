@@ -12,7 +12,7 @@ export const FilterModal = () => {
 
     const {orderByDropped , sexDropped, colorDropped, toggleActiveColors, activeColors} = useStoreFilterModal()
 
-    const {colors, fetchColors} = useStoreColor()
+    const {colors, fetchColors, activeColor} = useStoreColor()
     
     useEffect(() => {
         fetchColors()
@@ -85,7 +85,7 @@ export const FilterModal = () => {
                     <div className={`${style.sectionDefault} ${style.sectionDropdown}`}>
                         {colors.map((color) =>  (
                               <div className={style.selectorContainer}>
-                              <input type='checkbox' key={color.id} onChange={(e) => toggleActiveColors(color, e.target.checked)}></input><span style={{backgroundColor:color.value, width: '50px'}}></span>
+                              <input type='checkbox' key={color.id} checked={activeColors.some((activeColor) => activeColor.id == color.id)} onChange={(e) => toggleActiveColors(color, e.target.checked)}></input><span style={{backgroundColor:color.value, width: '50px'}}></span>
                               </div>
                         ))}
                     </div>
