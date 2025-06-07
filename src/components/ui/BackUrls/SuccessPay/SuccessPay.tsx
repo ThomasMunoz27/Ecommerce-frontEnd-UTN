@@ -1,8 +1,29 @@
-import { Link } from "react-router"
+import { Link, useNavigate } from "react-router"
 import { Footer } from "../../footer/Footer"
 import { Header } from "../../Headers/Header/Header"
 import styles from "./SuccessPay.module.css"
+import { useEffect } from "react"
+import { setConfirmedBill } from "../../../../cruds/payActions"
 export const SuccessPay = () => {
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        const urlParams = new URLSearchParams(window.location.search)
+        const preferenceId = urlParams.get("preference_id")
+
+        if(preferenceId){
+            const confirmBill = async () =>{
+                try{
+                    await setConfirmedBill(preferenceId)
+
+                }catch (error){
+                    navigate("/failure")
+                }
+            }
+            confirmBill()
+        }
+    }, [])
+
   return (
     <>
         <Header></Header>

@@ -42,7 +42,7 @@ export const FormSended = () => {
                 : product.prices.salePrice ) * 1.21,
 		    quantity: product.quantity,
 		    category: product.category?.[0].name,
-	}));
+	        }));
 
 	const mpPreferenceId = await goToPay(mappedProducts);
     console.log(productsInCart)
@@ -72,7 +72,9 @@ export const FormSended = () => {
         buyerName: formSumbited?.name,
         buyerDni: formSumbited?.dni,
         buyerAddress: `${formSumbited?.country}, ${formSumbited?.province}, ${formSumbited?.locality}, ${formSumbited?.street}, CP:${formSumbited?.cp}`,
-        details: billDetails
+        details: billDetails,
+        confirmed: false,
+        preferenceId: mpPreferenceId
     }
 
     await postBill(billData)
