@@ -14,6 +14,7 @@ import { CountryAdmin } from '../../ui/AdminComponents/CountryAdmin/CountryAdmin
 import { ProvincesAdmin } from '../../ui/AdminComponents/ProvincesAdmin/ProvincesAdmin'
 import { LocalitiesAdmin } from '../../ui/AdminComponents/LocalitiesAdmin/LocalitiesAdmin'
 import { AdressesAdmin } from '../../ui/AdminComponents/AdressesAdmin/AdressesAdmin'
+import { BillAdmin } from '../../ui/AdminComponents/BillAdmin/BillAdmin'
 
 export const AdminScreen = () => {
 
@@ -34,6 +35,7 @@ export const AdminScreen = () => {
             {activeOption === 'provinces' && <ProvincesAdmin/>}
             {activeOption === 'localities' && <LocalitiesAdmin/>}
             {activeOption === 'addresses' && <AdressesAdmin/>}
+            {activeOption === 'bills' && <BillAdmin/>}
             {activeOption === '' &&
              <div className={styles.containerAdmin}>
                 <h1>ADMIN</h1>

@@ -1,0 +1,74 @@
+.containerPrincipal {
+    width: 600px;
+    min-height: 650px;
+    background-color: #fff;
+    padding: 25px;
+    box-shadow: 5px 5px 15px rgba(39, 38, 38, 0.1);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.minheader {
+    display: flex;
+    justify-content: flex-end;
+}
+.delete span {
+    cursor: pointer;
+    font-size: 24px;
+}
+.delete span:hover {
+    color: #d32f2f;
+    transition: color 0.2s ease;
+}
+.containerEnterprise {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+.containerLogo img {
+    width: 120px;
+    height: auto;
+}
+
+.containerClient {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.containerClient h3 {
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.containerClient p {
+    margin: 4px 0px;
+}
+.containerTable table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.containerTable th,
+.containerTable td {
+    border: 1px solid #ccc;
+    padding: 10px 12px;
+    text-align: left;
+}
+
+.containerTable th {
+    background-color: #f0f0f0;
+}
+
+.totalContainer {
+    margin-top: 100px;
+    text-align: right;
+    font-size: 18px;
+    font-weight: bold;
+    color: black;
+}

@@ -1,10 +1,8 @@
-import axios from "axios"
 import { ICategory } from "../types/ICategory"
-import { BASE_URL } from "../utils/constantes"
 import interceptorApiClient from "../interceptors/axios.interceptor"
 
 
-const URL_CATEGORIES = `${BASE_URL}/api/category`
+
 
 export const getAllCategories = async (): Promise<ICategory[]> => {
     const response = await interceptorApiClient.get("/category")
@@ -17,13 +15,8 @@ export const getCategoryById = async (categoryId: string): Promise<ICategory | u
 }
 
 export const getCategoryByName = async (categoryName: string): Promise<ICategory | undefined> => {
-   try{
-        const response = await axios.get(`${URL_CATEGORIES}/search?name=${categoryName}`)
+        const response = await interceptorApiClient.get(`/category/search?name=${categoryName}`)
         return response.data
-    }catch (err){
-        console.log("Error en getCategoryByName" + err)
-        return undefined
-    }
 }
 
 export const postCategory = async (newCategory: ICategory) => {

@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { IColor } from "../types/IColor";
 
 interface IUseStoreFilterModal {
 
@@ -29,7 +30,9 @@ interface IUseStoreFilterModal {
     colorDropped : boolean
     toggleColor : () => void
 
+    activeColors: IColor[]
 
+    toggleActiveColors: (color: IColor, checked: boolean) => void
 }
 
 export const useStoreFilterModal = create<IUseStoreFilterModal>((set) => ({
@@ -60,6 +63,20 @@ export const useStoreFilterModal = create<IUseStoreFilterModal>((set) => ({
     // Drop color
 
     colorDropped: false,
-    toggleColor : () => set((state) => ({colorDropped: !state.colorDropped}))
+
+    toggleColor : () => set((state) => ({colorDropped: !state.colorDropped})),
+    activeColors: [],
+    toggleActiveColors: (color, checked) => set((state) => {
+        if(checked){
+            return {
+                activeColors: state.activeColors.includes(color) ? state.activeColors : [...state.activeColors, color]
+            }
+        }else{
+            return {
+                activeColors: state.activeColors.filter((c) => c.id !== color.id)
+            }
+        }
+    }) 
+
 
 }))

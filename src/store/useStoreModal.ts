@@ -23,6 +23,8 @@ interface IStoreModal{
     modalAdminSubPrice : {type : boolean, option: 1 | 2 | null},
     modalAdminSubCategory : {type : boolean, option : 1 | 2 | null},
     modalAdminCategory : boolean,
+
+    modalViewBill : boolean
     
     
     openModalAccount : (selection : boolean) => void,
@@ -85,6 +87,9 @@ interface IStoreModal{
     openModalEditAddress : () => void,
     closeModalEditAddress : () => void
 
+    openModalViewBill : () => void,
+    closeModalViewBill : () => void
+
 
 }
 
@@ -115,6 +120,8 @@ export const useStoreModal = create<IStoreModal>((set) => ({
     modalAdminSubCategory : {type : false, option : null},
 
     modalEditAddress : false,
+
+    modalViewBill: false,
 
 
 
@@ -177,7 +184,10 @@ export const useStoreModal = create<IStoreModal>((set) => ({
     closeModalAdminLocality : () => set({modalAdminLocality : false}),
 
     openModalEditAddress : () => set({modalEditAddress : true}),
-    closeModalEditAddress : () => set({modalEditAddress : false})
+    closeModalEditAddress : () => set({modalEditAddress : false}),
+
+    openModalViewBill : () => set({modalViewBill : true}),
+    closeModalViewBill : () => set({modalViewBill : false})
 
     
 }))
