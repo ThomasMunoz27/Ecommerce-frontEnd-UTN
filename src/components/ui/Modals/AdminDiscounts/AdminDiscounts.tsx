@@ -6,6 +6,7 @@ import { IDiscount } from '../../../../types/IDiscount'
 import { getAllDiscounts, postDiscount, putDiscount } from '../../../../cruds/crudDiscount'
 import { succesAlert } from '../../../../utils/succesAlert'
 import { formDiscountSchema } from '../../../../yupSchemas/formDiscountSchema'
+import { errorAlert } from '../../../../utils/errorAlert'
 
 
 
@@ -86,7 +87,7 @@ export const AdminDsicounts = () => {
             
             const existDiscount = discounts?.some(discount => discount.name === newDiscount.name)
             if (existDiscount){
-                alert('El dexcuento ya existe')
+                errorAlert('Error', 'El descuento ya existe')
                 return 
             }
             

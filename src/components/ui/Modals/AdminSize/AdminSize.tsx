@@ -6,7 +6,7 @@ import { postSize, putSize } from "../../../../cruds/crudSize"
 import { useStoreSize } from "../../../../store/useStoreSize"
 import { errorAlert } from "../../../../utils/errorAlert"
 import { succesAlert } from "../../../../utils/succesAlert"
-import { formOneSlotSchema } from "../../../../yupSchemas/formOneSlotSchema"
+import { formOneSlotSchema } from "../../../../yupSchemas/formSizeSchema"
 
 
 

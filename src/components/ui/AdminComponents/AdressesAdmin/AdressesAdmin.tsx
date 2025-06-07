@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import styles from './AdressesAdmin.module.css'
 import { useStoreAdress } from '../../../../store/useStoreAdresses'
 import { deleteAdress} from '../../../../cruds/crudAddress'
@@ -7,6 +7,8 @@ import { errorAlert } from '../../../../utils/errorAlert'
 import { useStoreModal } from '../../../../store/useStoreModal'
 import { IAdress } from '../../../../types/IAdress'
 import { AdminAddresses } from '../../Modals/AdminAddresses/AdminAddresses'
+import { getAllUsers } from '../../../../cruds/crudUsers'
+import { IUser } from '../../../../types/IUser'
 
 
 
@@ -14,8 +16,14 @@ export const AdressesAdmin = () => {
 
     const {fetchAdress, adresses, setActiveAdress} = useStoreAdress()
     const {openModalAdminAdress, modalAdminAdress} = useStoreModal()
+    const [users, setUsers] = useState<IUser[]>()
 
     useEffect(() => {
+        const getEntities = async() => {
+            const usersFetched = await getAllUsers()
+            setUsers(usersFetched)
+        }
+        getEntities()
         fetchAdress()
     },[])
 
@@ -30,6 +38,13 @@ export const AdressesAdmin = () => {
     }
 
     const handleDelete = async(idAdress : string) => {
+
+        const existingInUser = users?.find((user) => user.adress.id === Number(idAdress))
+        if (existingInUser) {
+            errorAlert('Error', 'La direccion se encuentra asignada a un usuario')
+            return
+        }
+
         try {
             await deleteAdress(idAdress)
             succesAlert('Eliminado', 'Se elimino la direccion exitosamente')

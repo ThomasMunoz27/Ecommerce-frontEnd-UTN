@@ -2,13 +2,13 @@ import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import { errorAlert } from "./errorAlert";
 
-export const downloadBill = () => {
+export const downloadBill = (billId : string) => {
     const closeBill = document.querySelector(".disguiseInPdf") as HTMLElement
     if (closeBill !== null) {
         closeBill.style.display = "none"; // Oculto al x
     }
 
-    const bill = document.getElementById('bill') // Busco la factura para imprimir
+    const bill = document.getElementById(billId) // Busco la factura para imprimir
     if (!bill){
         errorAlert('Error', 'No se pudo descargar la factura')
         if (closeBill) closeBill.style.display = "block" 
