@@ -10,9 +10,9 @@ export const FilterModal = () => {
 
     // State`s
 
-    const {orderByDropped , sexDropped, colorDropped, toggleActiveColors, activeColors} = useStoreFilterModal()
+    const {orderByDropped , sexDropped, colorDropped, toggleActiveColors, activeColors, clearFilters} = useStoreFilterModal()
 
-    const {colors, fetchColors, activeColor} = useStoreColor()
+    const {colors, fetchColors} = useStoreColor()
     
     useEffect(() => {
         fetchColors()
@@ -24,7 +24,7 @@ export const FilterModal = () => {
         <div className={style.modalContainer}>
             
         <header className={`${style.sectionDefault} ${style.header}`}>
-            Filtrar <a className={style.deleteAll}>Borrar todo</a> <button onClick={toggleVisible}>X</button>
+            Filtrar <a className={style.deleteAll} onClick={clearFilters}>Borrar filtros</a> <button onClick={toggleVisible}>X</button>
         </header>
         <div>
             <div className={`${style.sectionDefault} ${style.filterSection}`}>

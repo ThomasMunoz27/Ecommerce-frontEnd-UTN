@@ -33,6 +33,12 @@ interface IUseStoreFilterModal {
     activeColors: IColor[]
 
     toggleActiveColors: (color: IColor, checked: boolean) => void
+
+
+    // Clear filters
+
+    clearFilters: () => void
+
 }
 
 export const useStoreFilterModal = create<IUseStoreFilterModal>((set) => ({
@@ -76,7 +82,12 @@ export const useStoreFilterModal = create<IUseStoreFilterModal>((set) => ({
                 activeColors: state.activeColors.filter((c) => c.id !== color.id)
             }
         }
-    }) 
+    }) ,
 
+    clearFilters: () => set((state) => ({
+        activeColors: [],
+        orderAsc: false, orderDesc: false
+        
+    }))
 
 }))
