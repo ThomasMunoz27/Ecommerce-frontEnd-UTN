@@ -1,12 +1,17 @@
-import { useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { useStoreColor } from '../../../../store/useStoreColor';
 import { useStoreFilterModal } from '../../../../store/useStoreFilterModal';
 import style from './FilterModal.module.css'
-export const FilterModal = () => {
+
+interface FilterModal {
+    sexArray  : string[]
+}
+
+export const FilterModal: FC<FilterModal> = ({sexArray}) => {
 
     // State`s toggler`s
 
-    const {toggleVisible, toggleOrderBy, toggleSex, toggleColor, toggleAsc, toggleDesc, orderAsc, orderDesc} = useStoreFilterModal()
+    const {toggleVisible, toggleOrderBy, toggleSex, toggleColor, toggleAsc, toggleDesc, orderAsc, orderDesc, activeSex, toggleActiveSex} = useStoreFilterModal()
 
     // State`s
 
@@ -18,6 +23,8 @@ export const FilterModal = () => {
         fetchColors()
         console.log(activeColors)
     }, [activeColors])
+
+
 
   return (
     <aside className={style.modal}>
@@ -59,15 +66,12 @@ export const FilterModal = () => {
                 </div>
                {sexDropped && 
                     <div className={`${style.sectionDefault} ${style.sectionDropdown}`}>
-                        <div className={style.selectorContainer}>
-                        <input type='checkbox'></input><p>HOMBRE</p>
+                       {sexArray.map((sex) =>  (
+                         <div className={style.selectorContainer}>
+                        <input type='checkbox' checked={activeSex.some((insideSex) => insideSex == sex )} onChange={(e) => {toggleActiveSex(sex, e.target.checked)
+                        }}></input><p>{sex}</p>
                         </div>
-                        <div className={style.selectorContainer}>
-                        <input type='checkbox'></input><p>MUJER</p>
-                        </div>
-                        <div className={style.selectorContainer}>
-                        <input type='checkbox'></input><p>NIÑOS</p>
-                        </div>
+                       ))}
                     </div>
                }
             </div>

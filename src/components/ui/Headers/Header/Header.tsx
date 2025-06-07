@@ -62,7 +62,7 @@ export const Header = () => {
 
 
   }, [productsInCart])
-  console.log("Valor de user.user:", user?.user);
+  // console.log("Valor de user.user:", user?.user);
 
   return (
     <>

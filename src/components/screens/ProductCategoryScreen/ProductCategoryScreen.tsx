@@ -45,6 +45,16 @@ export const ProductCategoryScreen = () => {
             }
                  
 
+  let sexArray: string[] = []
+  if(products.length > 0){
+    
+      products.map((product) => {
+      if(!sexArray.includes(product.sex)){
+         sexArray.push(product.sex) 
+      }
+    })
+  }
+
   
 
   return (
@@ -76,9 +86,11 @@ export const ProductCategoryScreen = () => {
         ))}
       </div>
 
+      
+
       {/* Filter modal */}
       
-                {visible && <FilterModal/>}
+                {visible && <FilterModal sexArray={sexArray}/>}
 
     <Footer/>
 

@@ -36,6 +36,15 @@ export const MainScreen = () => {
 
     getPagedProducts();
   }, [paginaActual]);
+  let sexArray: string[] = []
+  if(products.length > 0){
+    
+      products.map((product) => {
+      if(!sexArray.includes(product.sex)){
+         sexArray.push(product.sex) 
+      }
+    })
+  }
 
   return (
     <>
@@ -69,7 +78,7 @@ export const MainScreen = () => {
 
         {/* Filter modal */}
 
-        {visible && <FilterModal />}
+        {visible && <FilterModal sexArray={sexArray}/>}
         <Footer />
       </div>
     </>
