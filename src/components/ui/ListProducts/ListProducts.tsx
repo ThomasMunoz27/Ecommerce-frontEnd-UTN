@@ -26,12 +26,26 @@ export const ListProducts: FC<Props> = ({productsArray, title, customClass}) => 
       // const paged = getPagedProducts()
       const {orderAsc, orderDesc} = useStoreFilterModal()
 
-      const productosOrdenados = [...productsArray].sort((a, b) => {
+      let productosOrdenados = [...productsArray].sort((a, b) => {
       if (orderAsc) return a.prices.salePrice - b.prices.salePrice;
       if (orderDesc) return b.prices.salePrice - a.prices.salePrice;
       return 0; // sin orden
     });
+
+    // Colores: 
+
+    const {activeColors} = useStoreFilterModal()
     
+    let productosReordenados
+
+    if(activeColors.length > 0){
+      productosReordenados = productosOrdenados.filter((producto) => producto.colors.some((color) =>
+  activeColors.some((activeColor) => activeColor.id === color.id)
+))
+      console.log(productosReordenados)
+    }else{
+      productosReordenados = [...productosOrdenados]
+    }
    
   return (
     <div className={`${style.container} ${ customClass ? style[customClass] : ''}`}>
@@ -43,7 +57,7 @@ export const ListProducts: FC<Props> = ({productsArray, title, customClass}) => 
     <div className={style.productsContainer}>
       <div className={style.containerFlex}>
 
-    {productosOrdenados.length > 0 ? productosOrdenados.map((product) => {
+    {productosReordenados.length > 0 ? productosReordenados.map((product) => {
       return (
         <CardProduct
         key={product.id}

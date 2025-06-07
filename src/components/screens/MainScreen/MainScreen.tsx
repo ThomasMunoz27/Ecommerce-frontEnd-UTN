@@ -43,7 +43,7 @@ export const MainScreen = () => {
         <Header />
 
         <HeroCarousel />
-        <ListProducts productsArray={products} title={"Todos los productos"} />
+        <ListProducts productsArray={products} title={"Todos los productos"} customClass='containerMainScreen'/>
         {modalAddProduct && (
           <div className={style.modalBackdrop}>
             <AddProductModal />

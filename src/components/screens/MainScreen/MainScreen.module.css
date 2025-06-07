@@ -11,6 +11,8 @@
     z-index: 1000;
 }
 
+
+
 .screen{
     position: relative;
 }
@@ -27,6 +29,7 @@
     padding: 10px;
     display: flex;
     align-items: center;
+    margin-top: -50px;
 }
 
 .pagination button{

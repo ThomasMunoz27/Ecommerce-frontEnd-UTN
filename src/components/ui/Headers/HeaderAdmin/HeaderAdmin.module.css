@@ -2,6 +2,7 @@
     height: auto;
     width: 100%;
 }
+
 .navContainer{
     display: flex;
     flex-direction: column;

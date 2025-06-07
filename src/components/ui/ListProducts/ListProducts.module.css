@@ -4,7 +4,12 @@
     padding-bottom: 80px ;
 }
 .containerCategoryScreen{
-    height: 500px;  
+    height: 600px;  
+}
+.containerMainScreen{
+    padding-top: -50px;
+    height: fit-content;
+    max-height: 1000px;
 }
 .container h2{
     text-align: center;
@@ -17,12 +22,12 @@
     flex-direction: row;
     overflow: auto;
     height: 100%;
-
-    margin: 15px auto;
-
+    max-height: 900px;
+    max-width: 1100px;
+    margin: 0 auto;
     align-items: center;
     justify-content: center;
-
+  
 }
 
 .containerFlex{
@@ -30,34 +35,14 @@
     flex-wrap: wrap;
     justify-content: left;
     gap: 40px;
-    width: 90%;
+    width: 100%;
     padding: 20px 20px 20px 50px;
     margin: 0 auto;
+
+    height: 90%;
+    overflow: auto;
+    height: 100%;
 }
-
-/* Mapeo de productos */
-
-.productCard{
-    width: 300px;
-    height: 50vh;
-    border: 1px solid black;
-    box-shadow: 4px 4px 6px rgb(95, 95, 95);
-}
-
-.cardImg{
-    width: 100%;
-    height: 40vh;
-}
-
-.cardText{
-    padding: 5px 8px;
-    font-weight: bold;
-}
-
-.textCategory{
-    color: rgb(141, 137, 137);
-}
-
 
 .stockText{
     color: gray;
@@ -79,11 +64,12 @@
     box-shadow: 2px 2px 0px  rgb(255, 255, 255), 4px 4px 0px black;
 }
 
-@media (max-width: 750px){
+@media (max-width: 1050px){
    
    .containerFlex{
     display: flex;
     justify-content: center;
-    padding-top: 20px;
-   }
+    width: 80%;
+    margin: 0 auto;
+}
 }
