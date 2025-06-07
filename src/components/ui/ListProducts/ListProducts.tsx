@@ -47,6 +47,14 @@ export const ListProducts: FC<Props> = ({productsArray, title, customClass}) => 
       productosReordenados = [...productosOrdenados]
     }
    
+    // Sex
+
+    const {activeSex} = useStoreFilterModal()
+
+    if(activeSex.length > 0){
+      productosReordenados = productosReordenados.filter((producto) => activeSex.includes(producto.sex))
+    }
+
   return (
     <div className={`${style.container} ${ customClass ? style[customClass] : ''}`}>
     <h2>{activeCategory && !title ? activeCategory.name : title}</h2>

@@ -22,8 +22,13 @@ interface IUseStoreFilterModal {
 
     // Drop sex
 
-    sexDropped : boolean
-    toggleSex : () => void
+    sexDropped: boolean
+    
+    toggleSex: () => void
+
+    activeSex: string[]
+
+    toggleActiveSex: (sex: string, checked: boolean) => void
 
     // Drop color
 
@@ -33,6 +38,12 @@ interface IUseStoreFilterModal {
     activeColors: IColor[]
 
     toggleActiveColors: (color: IColor, checked: boolean) => void
+
+
+    // Clear filters
+
+    clearFilters: () => void
+
 }
 
 export const useStoreFilterModal = create<IUseStoreFilterModal>((set) => ({
@@ -60,6 +71,19 @@ export const useStoreFilterModal = create<IUseStoreFilterModal>((set) => ({
     sexDropped: false,
     toggleSex : () => set((state) => ({sexDropped: !state.sexDropped})),
 
+    activeSex: [],
+    
+    toggleActiveSex: (sex, checked) => set((state) => {
+        if(checked) {
+            return {
+                activeSex: state.activeSex.includes(sex) ? state.activeSex : [...state.activeSex, sex]
+            }
+        }else{
+                return {
+                    activeSex: state.activeSex.filter((s) => s !== sex)
+                }
+            }
+        }),
     // Drop color
 
     colorDropped: false,
@@ -76,7 +100,12 @@ export const useStoreFilterModal = create<IUseStoreFilterModal>((set) => ({
                 activeColors: state.activeColors.filter((c) => c.id !== color.id)
             }
         }
-    }) 
+    }) ,
 
+    clearFilters: () => set(() => ({
+        activeColors: [],
+        orderAsc: false, orderDesc: false,
+        activeSex: []
+    }))
 
 }))
