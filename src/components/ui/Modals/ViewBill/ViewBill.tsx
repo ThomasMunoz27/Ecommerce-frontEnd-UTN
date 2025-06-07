@@ -1,5 +1,6 @@
 import { useStoreBill } from '../../../../store/useStoreBill'
 import { useStoreModal } from '../../../../store/useStoreModal'
+import { downloadBill } from '../../../../utils/downloadBill'
 import styles from './ViewBill.module.css'
 
 
@@ -12,23 +13,31 @@ export const ViewBill = () => {
 
     return (
 
-        <div className={styles.containerPrincipal}>
+        <div className={styles.allContainer}>
+        <div className={styles.containerPrincipal} id='bill'>
             <div className={styles.minheader}>
                 <div className={styles.delete}>
-                    <span onClick={closeModalViewBill} className="material-symbols-outlined">
+                    <span onClick={closeModalViewBill} className="material-symbols-outlined disguiseInPdf">
                         close
                     </span>
                 </div>
+            </div>
+
+            <div className={styles.containerBillType}>
+                <p className={styles.containerLetter}><strong>B</strong></p>
+                <p>CODIGO NRO.06</p>
             </div>
 
             <div className={styles.containerEnterprise}>
                 <div className={styles.containerLogo}>
                     <img src="./img/Logo.png" alt="Logo" />
                 </div>
+
                 <div>
                     <h2>CAMPEONES.COM</h2>
                     <p>Dirección de la Empresa</p>
                     <p>CUIT: 30-00000000-0</p>
+                    <p>INICIO ACTIVIDAD: 7/06/2025</p>
                 </div>
             </div>
 
@@ -69,11 +78,19 @@ export const ViewBill = () => {
 
             </div>
 
-            <div className={styles.totalContainer}>
-                <p><strong>Total :</strong> {activeBill?.total}</p>
+            <div className={styles.containerTotals}>
+                <div className={styles.totalContainer}>
+                    <p>Descuento aplicado: ${activeBill?.totalDiscount ? activeBill.totalDiscount : 0}</p>
+                    <p>Total: ${activeBill?.total}</p>
+                </div>
+
             </div>
 
-        </div>
         
+        </div>
+            <div className={styles.buttonDownload}>
+                <button onClick={downloadBill}>Descargar</button>
+            </div>
+        </div>
     )
 }
