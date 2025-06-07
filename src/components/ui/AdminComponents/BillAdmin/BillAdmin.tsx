@@ -5,6 +5,8 @@ import { useStoreModal } from '../../../../store/useStoreModal'
 import { ViewBill } from '../../Modals/ViewBill/ViewBill'
 import { IBill } from '../../../../types/IBIll'
 
+
+
 export const BillAdmin = () => {
 
     const {fetchBill, bills, setActiveBill} = useStoreBill()
@@ -36,6 +38,7 @@ export const BillAdmin = () => {
                         <th>DNI comprador</th>
                         <th>Direccion comprador</th>
                         <th>Fecha de la compra</th>
+                        <th>Descuento aplicado</th>
                         <th>Total</th>
                         <th>Opciones</th>
                     </tr>
@@ -49,13 +52,13 @@ export const BillAdmin = () => {
                         <td>{bill.buyerDni}</td>
                         <td>{bill.buyerAddress}</td>
                         <td>{bill.datePurchase}</td>
+                        <td>{bill.totalDiscount ? bill.totalDiscount : 'Sin descuento'}</td>
                         <td>{bill.total}</td>
                         
                         
                         <td>
                             <div className={styles.actionButtons}>
                                 <button onClick={() => handleAdd(bill)}>Ver</button>
-                                <button>Descargar</button>
                             </div>
                         </td>
                     </tr>
