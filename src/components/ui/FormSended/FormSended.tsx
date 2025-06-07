@@ -18,7 +18,9 @@ export const FormSended = () => {
     const{formSumbited, setValidFormSumbited} = useStoreCheckout()
     const {user} = useStoreUsers()
     const {productsInCart} = useStoreCart()
-
+    const totalDiscount = productsInCart.reduce((sum, productInCart) => sum + (productInCart.prices.discount 
+            ? productInCart.prices.discount.promotionalPrice
+            : 0) * productInCart.quantity, 0)
     const {validFormSumbited} = useStoreCheckout()
 
     const[preferenceIdMp, setPreferenceIdMp] = useState('')
@@ -35,27 +37,37 @@ export const FormSended = () => {
 		    id: product.id,
 		    name: product.name,
 		    imageUrl: product.image?.url,
-		    price: product.prices?.salePrice * 1.21,
+		    price: (product.prices?.discount 
+                ? product.prices.salePrice - product.prices.discount.promotionalPrice 
+                : product.prices.salePrice ) * 1.21,
 		    quantity: product.quantity,
-		    category: product.category?.name,
+		    category: product.category?.[0].name,
 	}));
 
 	const mpPreferenceId = await goToPay(mappedProducts);
     console.log(productsInCart)
     setPreferenceIdMp(mpPreferenceId)
 
-
+    
     const billDetails: IBIllDetail[] = productsInCart.map(productInCart => ({
 	product: productInCart,
 	quantity: productInCart.quantity,
-	unitPrice: productInCart.prices.salePrice * 1.21,
-	subtotal: (productInCart.prices.salePrice * 1.21) * productInCart.quantity
+	unitPrice: (productInCart.prices.discount 
+        ? productInCart.prices.salePrice - productInCart.prices.discount.promotionalPrice 
+        :productInCart.prices.salePrice) * 1.21,
+	subtotal: ((productInCart.prices.discount 
+        ? productInCart.prices.salePrice - productInCart.prices.discount.promotionalPrice 
+        :productInCart.prices.salePrice) * 1.21) * productInCart.quantity,
+    discount: productInCart.prices.discount?.promotionalPrice
 }));
     //Generar los datos de la factura
     const billData: IBill = {
-        total: productsInCart.reduce((sum, productInCart) => sum + (productInCart.prices.salePrice * 1.21) * productInCart.quantity, 0),
+        total: productsInCart.reduce((sum, productInCart) => sum + ((productInCart.prices.discount 
+            ? productInCart.prices.salePrice - productInCart.prices.discount.promotionalPrice
+            : productInCart.prices.salePrice) * 1.21) * productInCart.quantity, 0),
         datePurchase: new Date().toISOString().split("T")[0],
         user: user, 
+        totalDiscount: totalDiscount,
 
         buyerName: formSumbited?.name,
         buyerDni: formSumbited?.dni,

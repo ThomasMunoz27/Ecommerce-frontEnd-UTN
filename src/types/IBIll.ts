@@ -4,6 +4,7 @@ import { IUser } from "./IUser";
 export interface IBill{
     id?: number,
     total: number,
+    totalDiscount:number
     datePurchase: string,
     user: IUser | null
     details: IBIllDetail[]

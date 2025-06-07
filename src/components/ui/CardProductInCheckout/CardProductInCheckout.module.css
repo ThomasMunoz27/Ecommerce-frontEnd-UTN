@@ -60,7 +60,7 @@
 }
 
 .productDetails{
-    font-size: 10px;
+    font-size: 12px;
     padding: 4px;
     margin-top: auto;
 }
@@ -75,6 +75,14 @@
 .prices{
     color: black;
     
+}
+.pricesOnDiscount{
+    color: rgba(104, 104, 104, 0.788);
+    text-decoration-line:line-through;
+}
+
+.cheaperPrice{
+    color: #E32B54;
 }
 
 /* BtnCard, quizas componente a largo plazo */
