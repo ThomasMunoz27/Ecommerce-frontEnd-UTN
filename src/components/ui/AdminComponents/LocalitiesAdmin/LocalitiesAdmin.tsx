@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import styles from './LocalitiesAdmin.module.css'
 import { useStoreLocality } from '../../../../store/useStoreLocalities'
 import { succesAlert } from '../../../../utils/succesAlert'
@@ -7,17 +7,32 @@ import { deleteLocality } from '../../../../cruds/crudLocality'
 import { useStoreModal } from '../../../../store/useStoreModal'
 import { ILocality } from '../../../../types/ILocality'
 import { AdminLocalities } from '../../Modals/AdminLocalities/AdminLocalities'
+import { getAllAdress } from '../../../../cruds/crudAddress'
+
+import { IAdress } from '../../../../types/IAdress'
 
 export const LocalitiesAdmin = () => {
 
     const {fetchLocality, localities, setActiveLocality} = useStoreLocality()
     const {openModalAdminLocality, modalAdminLocality} = useStoreModal()
+    const [addresses , setAddresses] = useState<IAdress[]>()
 
     useEffect(() => {
+        const getEntities = async () => {
+            const addressFetched = await getAllAdress()
+            setAddresses(addressFetched)
+        }
+        getEntities()
         fetchLocality()
     },[])
     
     const handleDelete = async(localityId : string) => {
+
+        const existInAddress = addresses?.find((address) => address.locality.id === Number(localityId))
+        if(existInAddress){
+            errorAlert('Error', 'La localidad se encuentra vinculada a una direccion')
+            return
+        }
 
         try {
             await deleteLocality(localityId)

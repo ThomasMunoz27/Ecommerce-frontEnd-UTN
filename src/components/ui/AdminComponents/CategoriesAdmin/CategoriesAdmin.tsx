@@ -30,7 +30,7 @@ export const CategoriesAdmin = () => {
 
     // Funcion para eliminar una categoria
     const handleDelete = async (idCategory : number) => {
-        const existInProduct = products.map(product =>
+        const existInProduct = products.some(product =>
             product.category.some(category => category.id === idCategory))
 
         if (existInProduct){ 
