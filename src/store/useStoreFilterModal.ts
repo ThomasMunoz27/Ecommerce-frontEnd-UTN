@@ -104,8 +104,8 @@ export const useStoreFilterModal = create<IUseStoreFilterModal>((set) => ({
 
     clearFilters: () => set(() => ({
         activeColors: [],
-        orderAsc: false, orderDesc: false
-
+        orderAsc: false, orderDesc: false,
+        activeSex: []
     }))
 
 }))
