@@ -3,17 +3,16 @@ import { useStoreModal } from '../../../../store/useStoreModal'
 
 import { login } from '../../../../cruds/crudLoginRegister'
 import { useState } from 'react'
+import { useStoreLogin } from '../../../../store/useStoreLogin'
 
 export const AccountModal = () => {
 
     const {modalAccount, closeModalAccount} = useStoreModal()
 
-
-
     // Login
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-
+    const {setToken} = useStoreLogin()
     // Registro
     const [registerData, setRegisterData] = useState({
     username: '',
@@ -39,12 +38,15 @@ export const AccountModal = () => {
                 <div className={styles.containerLogoLogin}>
                     <img src="./img/Logo.png" alt="" />
                 </div>
-                <form action="" className={styles.containerFormLogin}>
+                <form  className={styles.containerFormLogin}>
                     <input type="text" name="" id=""  placeholder='Usuario' value={username} onChange={(e) => setUsername(e.target.value)}/>
                     <input type="text" name="" id=""  placeholder='Ingrese su contraseña' value={password} onChange={(e) => setPassword(e.target.value)}/>
                     <div className={styles.containerButtonsLogin}>
                         <button>Cancelar</button>
-                        <button onClick={() => login(username, password)}>Iniciar Sesion</button>
+                        <button onClick={(e) => {
+                            e.preventDefault()
+                            login(username, password, setToken)
+                        }}>Iniciar Sesion</button>
                     </div>
                     <hr />
                 </form>
@@ -145,7 +147,6 @@ export const AccountModal = () => {
                     <div className={styles.containerButtonsRegister}>
                         <button>Cancelar</button>
                         <button onClick={(e) => {
-                            e.preventDefault()
                             console.log(registerData)
                         }}>Crear Cuenta</button>
                     </div>
