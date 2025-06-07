@@ -89,7 +89,7 @@ export const ViewBill = () => {
         
         </div>
             <div className={styles.buttonDownload}>
-                <button onClick={downloadBill}>Descargar</button>
+                <button onClick={() => downloadBill('bill')}>Descargar</button>
             </div>
         </div>
     )

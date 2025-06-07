@@ -30,14 +30,14 @@ export const CategoriesAdmin = () => {
 
     // Funcion para eliminar una categoria
     const handleDelete = async (idCategory : number) => {
-        try {
-            const existInProduct = products.map(product =>
-                product.category.some(category => category.id === idCategory))
+        const existInProduct = products.map(product =>
+            product.category.some(category => category.id === idCategory))
 
-            if (existInProduct){ 
-                errorAlert('Error', 'La categoria esta asociada a un producto')
-                return
-            }
+        if (existInProduct){ 
+            errorAlert('Error', 'La categoria esta asociada a un producto')
+            return
+        }
+        try {
             const deletedCategory = await deleteCategory(idCategory)
 
             succesAlert('Eliminado', 'La categoria se elimino correctamente')

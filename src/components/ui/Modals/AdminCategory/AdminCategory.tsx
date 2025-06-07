@@ -5,7 +5,7 @@ import styles from './AdminCategory.module.css'
 import { ICategory } from "../../../../types/ICategory"
 import { postCategory, putCategory } from "../../../../cruds/crudCategory"
 import { succesAlert } from "../../../../utils/succesAlert"
-import { formOneSlotSchema } from "../../../../yupSchemas/formOneSlotSchema"
+import { formOneSlotSchema } from "../../../../yupSchemas/formSizeSchema"
 
 export const AdminCategory = () => {
 
