@@ -1,13 +1,19 @@
 
+import { useState } from 'react'
+import { AccountModal } from './components/ui/Modals/AccountRegisterModal/AccountModal'
 import { AppRoutes } from './routes/AppRoutes'
 
-function App() {
 
+function App() {
+  const [logged, setLogged] = useState(false)
 
   return (
     <>
       <AppRoutes/>
-    </>
+      {logged &&
+      <AccountModal/>
+      }
+      </>
   )
 }
 

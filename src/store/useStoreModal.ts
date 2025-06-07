@@ -95,7 +95,7 @@ interface IStoreModal{
 
 export const useStoreModal = create<IStoreModal>((set) => ({
 
-    modalAccount : {type : false, valueLogin : false},
+    modalAccount : {type : true, valueLogin : false},
     modalEditLogin : {type : false, option : null},
     modalAddProduct : false,
     modalEditAdminProduct: false,
