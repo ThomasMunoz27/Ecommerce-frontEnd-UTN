@@ -1,15 +1,16 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useStoreCountry } from '../../../../store/useStoreCountry'
 import { useStoreModal } from '../../../../store/useStoreModal'
 import styles from './AdminCountry.module.css'
 import { ICountry } from '../../../../types/ICountry'
 import { postCountry, putCountry} from '../../../../cruds/crudCountry'
 import { succesAlert } from '../../../../utils/succesAlert'
-import { formCountrySchema } from '../../../../yupSchemas/formCountryShema'
+import { formOnlyNameSchema } from '../../../../yupSchemas/formOnlyNameShema'
+import { errorAlert } from '../../../../utils/errorAlert'
 
 export const AdminCountry = () => {
 
-    const {activeCountry, fetchCountry} = useStoreCountry()
+    const {activeCountry, fetchCountry, countries} = useStoreCountry()
     const {closeModalAdminCountry} = useStoreModal()
     const [country, setCountry] = useState<ICountry>({
         id : activeCountry?.id || 0,
@@ -17,6 +18,10 @@ export const AdminCountry = () => {
     })
     const [formErrors, setFormErrors] =useState<Record<string, string>>({})
 
+
+    useEffect(()=>{
+        fetchCountry()
+    })
 
     const handleChange = (e : React.ChangeEvent<HTMLInputElement>) => {
         const {name, value} = e.target
@@ -33,7 +38,15 @@ export const AdminCountry = () => {
 
             try {
                 
-                await formCountrySchema.validate(country, {abortEarly:false})
+                
+                await formOnlyNameSchema.validate(country, {abortEarly:false})
+
+                const existingCountry = countries?.some(countryFeched => countryFeched.name.toLowerCase() === country.name.toLowerCase())
+                if(existingCountry){
+                    errorAlert("Error", "Este país ya existe")
+                    return
+                }
+
                 await putCountry(country)
                 succesAlert('Editado', 'El pais se edito correctamente')
                 fetchCountry()
@@ -54,7 +67,13 @@ export const AdminCountry = () => {
         }else {
             
             try {                
-                await formCountrySchema.validate(country, {abortEarly:false})
+                await formOnlyNameSchema.validate(country, {abortEarly:false})
+
+                const existingCountry = countries?.some(countryFeched => countryFeched.name.toLowerCase() === country.name.toLowerCase())
+                if(existingCountry){
+                    errorAlert("Error", "Este país ya existe")
+                    return
+                }
 
                 await postCountry({name : country.name})
                 succesAlert('Creado', 'El pais se creo correctamente')
