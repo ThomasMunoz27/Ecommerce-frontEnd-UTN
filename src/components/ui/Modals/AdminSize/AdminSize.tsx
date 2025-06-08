@@ -6,7 +6,7 @@ import { postSize, putSize } from "../../../../cruds/crudSize"
 import { useStoreSize } from "../../../../store/useStoreSize"
 import { errorAlert } from "../../../../utils/errorAlert"
 import { succesAlert } from "../../../../utils/succesAlert"
-import { formOneSlotSchema } from "../../../../yupSchemas/formSizeSchema"
+import { formSizeSchema } from "../../../../yupSchemas/formSizeSchema"
 
 
 
@@ -36,7 +36,7 @@ export const AdminSize = () => {
             const size : ISize = {
                 size : newSize!
             }
-            await formOneSlotSchema.validate(size, {abortEarly: false})
+            await formSizeSchema.validate(size, {abortEarly: false})
             
             const existingSize = sizes?.some(size => size.size === newSize)
             if (existingSize){
@@ -70,7 +70,7 @@ export const AdminSize = () => {
         }
 
         try {
-            await formOneSlotSchema.validate(editSize, {abortEarly: false})
+            await formSizeSchema.validate(editSize, {abortEarly: false})
             const existingSize = sizes?.some(size => size.size === editSize.size)
             if(existingSize){
                 errorAlert('Error','El talle ya existe')

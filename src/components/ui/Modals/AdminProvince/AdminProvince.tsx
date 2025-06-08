@@ -5,14 +5,16 @@ import styles from './AdminProvince.module.css'
 import {IProvinceRequest } from '../../../../types/IProvince'
 import { postProvince, putProvince } from '../../../../cruds/crudProvince'
 import { succesAlert } from '../../../../utils/succesAlert'
-import { errorAlert } from '../../../../utils/errorAlert'
 import { getAllCountries } from '../../../../cruds/crudCountry'
 import { ICountry } from '../../../../types/ICountry'
+import { formOnlyNameSchema } from '../../../../yupSchemas/formOnlyNameShema'
+import { errorAlert } from '../../../../utils/errorAlert'
 
 export const AdminProvince = () => {
-    const {activeProvince, fetchProvince} = useStoreProvince()
+    const {activeProvince, fetchProvince, provinces} = useStoreProvince()
     const {closeModalAdminProvince} = useStoreModal()
     const [countries, setCountries] = useState<ICountry[]>()
+    const [formErrors, setFormErrors] =useState<Record<string, string>>({})
 
     
     const [province, setProvince] = useState<IProvinceRequest>({
@@ -30,6 +32,7 @@ export const AdminProvince = () => {
             setCountries(countriesFetched)
         }
         getCountries()
+        fetchProvince()
     },[])
 
     const handleChange = (e : React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -52,6 +55,14 @@ export const AdminProvince = () => {
     const handleSubmit = async(e : React.FormEvent) => {
         e.preventDefault()
         try {
+            await formOnlyNameSchema.validate(province, {abortEarly:false})
+
+            const existingProvince = provinces?.some(provinceFeched => provinceFeched.name.toLowerCase() === province.name.toLowerCase() && provinceFeched.country.id === province.country.id)
+                            if(existingProvince){
+                                errorAlert("Error", "Esta provincia ya existe")
+                                return
+                            }
+
             if (activeProvince) {
                 console.log('province enviado:', province);
                 await putProvince(province)
@@ -67,9 +78,15 @@ export const AdminProvince = () => {
             }
             
         } catch (error : any) {
-            console.log(error.message);
-            activeProvince ? errorAlert('Error', 'No se pudo editar la provincia') : errorAlert('Error', 'No se pudo crear la provincia')   
-            closeModalAdminProvince()
+           const errors: Record<string, string> = {}
+                if(error.inner){
+                    error.inner.forEach((validationError:any) =>{
+                        errors[validationError.path] = validationError.message;
+                    });
+                }else{
+                    error.general = error.message
+                }
+                setFormErrors(errors)
         }
     }
 
@@ -84,7 +101,11 @@ export const AdminProvince = () => {
                     <h3>{activeProvince ? 'Editar Provincia' : 'Crear Provincia'}</h3>
 
                     <label htmlFor="">Nombre</label>
+
+                    <div>
                     <input type="text" name="name" value={province.name} id="" onChange={handleChange}/>
+                    {formErrors.name && <p className={styles.errorMessage}>{formErrors.name}</p>}
+                    </div>
 
                     <label htmlFor="">Pais</label>
                     <select name="country" value={province.country.id || ''} id="" onChange={handleChange}>

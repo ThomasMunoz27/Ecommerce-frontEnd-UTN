@@ -8,12 +8,15 @@ import { IAdressRequest } from '../../../../types/IAdress'
 import { errorAlert } from '../../../../utils/errorAlert'
 import { postAdress, putAdress } from '../../../../cruds/crudAddress'
 import { succesAlert } from '../../../../utils/succesAlert'
+import { formAdressSchema } from '../../../../yupSchemas/formAdressSchema'
 
 export const AdminAddresses = () => {
 
     const {closeModalAdminAdress} = useStoreModal()
     const {fetchAdress, activeAdress} = useStoreAdress()
     const [localities, setLocalities] = useState<ILocality[]>()
+    const [formErrors, setFormErrors] =useState<Record<string, string>>({})
+
     const [address, setAddress] = useState<IAdressRequest>({
         id: activeAdress?.id || null,
         street: activeAdress?.street || '',
@@ -50,7 +53,13 @@ export const AdminAddresses = () => {
 
     const hanldeSubmit = async(e : React.FormEvent) => {
         e.preventDefault()
+        console.log(address)
         try {
+            await formAdressSchema.validate(address, {abortEarly: false})
+            if(!address.id){
+                errorAlert("Seleccione una localidad")
+                return
+            }
             if (activeAdress){
                 await putAdress(address)
                 fetchAdress()
@@ -63,9 +72,15 @@ export const AdminAddresses = () => {
                 closeModalAdminAdress()
             }
         } catch (error : any) {
-            console.log(error.message);
-            activeAdress ? errorAlert('Error', 'No se pudo actualizar la direccion') : errorAlert('Error', 'No se pudo crear la direccion')
-            closeModalAdminAdress()
+            const errors: Record<string, string> = {}
+                if(error.inner){
+                    error.inner.forEach((validationError:any) =>{
+                        errors[validationError.path] = validationError.message;
+                    });
+                }else{
+                    error.general = error.message
+                }
+                setFormErrors(errors)
         }
     }
 
@@ -80,13 +95,26 @@ export const AdminAddresses = () => {
                     <h3>{activeAdress ? 'Editar Direccion' : 'Crear Direccion'}</h3>
 
                     <label htmlFor="">Codigo Postal</label>
-                    <input type="number" name="cp" value={address.cp} id="" onChange={handleChange}/>
+                    <div>
+                        <input type="number" name="cp" value={address.cp} id="" onChange={handleChange}/>
+                        {formErrors.number && <p className={styles.errorMessage}>{formErrors.number}</p>}
+
+                    </div>
 
                     <label htmlFor="">Numero</label>
-                    <input type="number" name="number" value={address.number} id="" onChange={handleChange}/>
+                    <div>
+                        <input type="number" name="number" value={address.number} id="" onChange={handleChange}/>
+                        {formErrors.cp && <p className={styles.errorMessage}>{formErrors.cp}</p>}
+
+                    </div>
 
                     <label htmlFor="">Calle</label>
-                    <input type="text" name="street" value={address.street} id="" onChange={handleChange}/>
+
+                    <div>
+                        <input type="text" name="street" value={address.street} id="" onChange={handleChange}/>
+                        {formErrors.street && <p className={styles.errorMessage}>{formErrors.street}</p>}
+
+                    </div>
 
                     <label htmlFor="">Localidad</label>
                     <select name="locality" value={address.locality.id} id="" onChange={handleChange}>

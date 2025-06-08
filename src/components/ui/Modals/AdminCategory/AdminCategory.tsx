@@ -5,7 +5,7 @@ import styles from './AdminCategory.module.css'
 import { ICategory } from "../../../../types/ICategory"
 import { postCategory, putCategory } from "../../../../cruds/crudCategory"
 import { succesAlert } from "../../../../utils/succesAlert"
-import { formOneSlotSchema } from "../../../../yupSchemas/formSizeSchema"
+import { formCategorySchema } from "../../../../yupSchemas/formCategorySchema"
 
 export const AdminCategory = () => {
 
@@ -31,7 +31,7 @@ export const AdminCategory = () => {
         e.preventDefault()
         if (activeCategory){
             try {
-                await formOneSlotSchema.validate(category, {abortEarly: false})
+                await formCategorySchema.validate(category, {abortEarly: false})
                 await putCategory(category)
                 succesAlert('Editado', 'Se edito la categoria')
                 fetchCategory()
@@ -49,7 +49,7 @@ export const AdminCategory = () => {
             }
         } else {
             try {
-                await formOneSlotSchema.validate(category, {abortEarly: false})
+                await formCategorySchema.validate(category, {abortEarly: false})
 
                 await postCategory(category)
                 succesAlert('Creado', 'Se creo la categoria exitosamente')

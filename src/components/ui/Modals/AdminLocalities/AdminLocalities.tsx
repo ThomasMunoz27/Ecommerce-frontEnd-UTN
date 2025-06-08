@@ -5,15 +5,18 @@ import styles from './AdminLocalities.module.css'
 import { getAllProvinces } from '../../../../cruds/crudProvince'
 import { IProvince } from '../../../../types/IProvince'
 import { ILocalityRequest } from '../../../../types/ILocality'
-import { errorAlert } from '../../../../utils/errorAlert'
 import { postLocality, putLocality } from '../../../../cruds/crudLocality'
 import { succesAlert } from '../../../../utils/succesAlert'
+import { formOnlyNameSchema } from '../../../../yupSchemas/formOnlyNameShema'
+import { errorAlert } from '../../../../utils/errorAlert'
 
 export const AdminLocalities = () => {
 
     const {closeModalAdminLocality} = useStoreModal()
-    const {fetchLocality, activeLocality} = useStoreLocality()
+    const {fetchLocality, activeLocality, localities} = useStoreLocality()
     const [provinces, setProvinces] = useState<IProvince[]>()
+    const [formErrors, setFormErrors] =useState<Record<string, string>>({})
+
 
     const [locality, setLocality] = useState<ILocalityRequest>({
         id : activeLocality?.id || null,
@@ -27,6 +30,7 @@ export const AdminLocalities = () => {
             setProvinces(fetchedProvinces)
         }
         getProvinces()
+        fetchLocality()
     },[])
 
     const handleChange = (e : React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -49,6 +53,14 @@ export const AdminLocalities = () => {
     const handleSubmit = async(e : React.FormEvent) => {
         e.preventDefault()
         try {
+            await formOnlyNameSchema.validate(locality, {abortEarly:false})
+
+            const existingLocality = localities?.some(localityFeched => localityFeched.name.toLowerCase().trim() === locality.name.toLowerCase().trim() && localityFeched.province.id === locality.province.id)
+                            if(existingLocality){
+                                errorAlert("Error", "Esta localidad ya existe")
+                                return
+                            }
+
             if (activeLocality){
                 await putLocality(locality)
                 fetchLocality()
@@ -61,9 +73,15 @@ export const AdminLocalities = () => {
                 closeModalAdminLocality()
             }
         } catch (error : any) {
-            console.log(error.message);
-            activeLocality ? errorAlert('Error', 'No se pudo actualizar la localidad') : errorAlert('Error', 'No se pudo crear la localidad')    
-            closeModalAdminLocality()
+            const errors: Record<string, string> = {}
+                if(error.inner){
+                    error.inner.forEach((validationError:any) =>{
+                        errors[validationError.path] = validationError.message;
+                    });
+                }else{
+                    error.general = error.message
+                }
+                setFormErrors(errors)
         }
     }
 
@@ -77,7 +95,11 @@ export const AdminLocalities = () => {
                     <h3>{activeLocality ? 'Editar localidad' : 'Crear Localidad'}</h3>
 
                     <label htmlFor="">Nombre</label>
-                    <input type="text" name="name" value={locality.name} id="" onChange={handleChange} />
+
+                    <div>
+                        <input type="text" name="name" value={locality.name} id="" onChange={handleChange} />
+                        {formErrors.name && <p className={styles.errorMessage}>{formErrors.name}</p>}
+                    </div>
 
                     <label htmlFor="">Provincia</label>
                     <select name="province" value={locality.province.id || ''} id="" onChange={handleChange}>

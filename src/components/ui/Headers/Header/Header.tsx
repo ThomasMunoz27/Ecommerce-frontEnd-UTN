@@ -16,7 +16,7 @@ export const Header = () => {
     const fetchUser = async() => {
       const userDesarrollo = await getUserById(1)
       
-      setUser(userDesarrollo[0]!)
+      setUser(userDesarrollo!)
 
     }
     fetchUser()
