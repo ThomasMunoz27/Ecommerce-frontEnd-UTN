@@ -13,6 +13,7 @@ export const login = async (user: string, pass: string, setToken: (token: string
     try {
         const response = await axios.post(`http://localhost:9000/auth/login`, userRequest)
         setToken(response.data.token)
+        console.log(response.data.token)
         succesAlert('Sesion Iniciada.', 'Sesion iniciada con exito.')
     } catch (error) {
         errorAlert('Error', 'Credenciales invalidas')
