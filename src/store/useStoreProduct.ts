@@ -7,7 +7,7 @@ interface IStoreProduct {
 
     activeProduct : IProduct | null 
     products: IProduct[]
-    fetchProduct : (state : string) => Promise<void>
+    fetchProduct : (state : string ) => Promise<void>
    
 
 
@@ -21,15 +21,15 @@ export const useStoreProduct = create<IStoreProduct>((set) => ({
 
     fetchProduct : async( state : string) => {
         if(state === 'alls'){
-            const productsFetched = await getAllProducts()
-            set({products : productsFetched})
+            const productsFetchedAlls = await getAllProducts()
+            set({products : productsFetchedAlls})
         } else if (state === 'active'){
-            const productsFetched = await getAllProductsActive()
-            set({products : productsFetched})
+            const productsFetchedActive = await getAllProductsActive()
+            set({products : productsFetchedActive})
         } else if (state === 'inactive'){
-            const productsFetched = await getAllProductsInactive()
-            set({products : productsFetched})
-        }
+            const productsFetchedInactive = await getAllProductsInactive()
+            set({products : productsFetchedInactive})
+        } 
     },
 
     

@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import styles from './ImageAdmin.module.css'
-import { deleteImage, getAllImages } from '../../../../cruds/crudImage'
+import { deleteImage } from '../../../../cruds/crudImage'
 import { useStoreImages } from '../../../../store/useStoreImages'
 import { succesAlert } from '../../../../utils/succesAlert'
 import { useStoreModal } from '../../../../store/useStoreModal'
@@ -13,31 +13,28 @@ import { errorAlert } from '../../../../utils/errorAlert'
 export const ImageAdmin = () => {
 
     
-    const {images, setImages, setActiveImage} = useStoreImages()
+    const {images, setActiveImage, fetchImages} = useStoreImages()
     const {modalAdminImage, openModalAdminImage} = useStoreModal()
     const {products} = useStoreProduct()
     
 
     useEffect(() => {
-        const getAImages = async() => {
-            const imagesFetched = await getAllImages()
-            setImages(imagesFetched)
-        }
-        getAImages()
+        fetchImages()
     },[])
 
     const handleDelete = async(imageId : string) => {
         try {
-            const existInProduct = products.map(product => product.image?.id === Number(imageId))
+            const existInProduct = products.some(product => product.image?.id === Number(imageId))
             if (existInProduct) { 
                 errorAlert('Error', 'La imagen esta asociada a un producto')
                 return
             } 
             await deleteImage(imageId)
+            fetchImages()
             succesAlert('Eliminado', 'Se elimino la imagen exitosamente')
         } catch (error : any) {
             console.log(error.message);
-            
+            errorAlert('Error', 'No se pudo eliminar la imagen')
         }
     }
 
