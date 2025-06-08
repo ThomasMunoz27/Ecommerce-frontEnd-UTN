@@ -41,7 +41,11 @@ export const UsersAdmin = () => {
         <div className={styles.containerPrincipal}>
             <div className={styles.containerTitleAndButton}>
                 <div className={styles.containerTitle}>
-                    <h1>Gestion de Usuarios</h1>
+                    <h1>
+                        {active == 'active' && 'Gestion de Usuarios Activos'}
+                        {active == 'inactive' && 'Gestion de Usuarios Inactivos'}
+                        {active == 'alls' && 'Gestion de Todos Usuarios'}
+                    </h1>
                 </div>
                 <div className={styles.containerButtons}>
                     <button onClick={() => handleState('active')}>Activos</button>
@@ -89,7 +93,7 @@ export const UsersAdmin = () => {
                                             Eliminar
                                         </button>
                                         <button>
-                                            {user.active}
+                                            Editar
                                         </button>
                                     </div>
                                 </td>
