@@ -2,26 +2,29 @@
 import { useEffect } from 'react'
 import { useStoreModal } from '../../../store/useStoreModal'
 import styles from './ProfileDetails.module.css'
-import { getAllUsers } from '../../../cruds/crudUsers'
+import { getUserById } from '../../../cruds/crudUsers'
 import { useStoreUsers } from '../../../store/useStoreUsers'
+import { useNavigate } from 'react-router'
+import { useStoreLogin } from '../../../store/useStoreLogin'
 
 export const ProfileDetails = () => {
 
-    const {setUser, user} = useStoreUsers()
+    const {user, setUser} = useStoreUsers()
 
     useEffect(() => {
         const fetchUsers = async() => {
-            const arrayUsers = await getAllUsers()
-            setUser(arrayUsers[1])
+            const user = await getUserById(9)
+            setUser(user)
         }
         
         fetchUsers()
-    },[])
+    },[user])
+    const navigate = useNavigate()
 
     console.log(user)
 
     const {openModalEditLogin, openModalEditAddress} = useStoreModal()
-
+    const {deleteToken} = useStoreLogin()
     return (
         <div className={styles.containerPrincipal}>
 
@@ -37,7 +40,11 @@ export const ProfileDetails = () => {
                     <p>{user?.email}</p>
                 </div>
                 <div className={styles.containerButtonSummary}>
-                    <button>
+                    <button onClick={() => {
+
+                       deleteToken()
+                      navigate('/')
+                    }}>
                         Cerrar Sesion
                         <span className="material-symbols-outlined">
                         </span>

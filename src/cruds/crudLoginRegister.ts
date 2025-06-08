@@ -1,7 +1,7 @@
 import axios from "axios";
 import { errorAlert } from "../utils/errorAlert";
 import { succesAlert } from "../utils/succesAlert";
-import { useStoreLogin } from "../store/useStoreLogin";
+
 
 
 export const login = async (user: string, pass: string, setToken: (token: string) => void) => {
@@ -13,6 +13,7 @@ export const login = async (user: string, pass: string, setToken: (token: string
     try {
         const response = await axios.post(`http://localhost:9000/auth/login`, userRequest)
         setToken(response.data.token)
+        console.log(response.data.token)
         succesAlert('Sesion Iniciada.', 'Sesion iniciada con exito.')
     } catch (error) {
         errorAlert('Error', 'Credenciales invalidas')
@@ -53,7 +54,7 @@ export const register = async (
   try {
       console.log(registerRequest)
       const response = await axios.post(`http://localhost:9000/auth/register`, registerRequest)
-      console.log(response)
+      console.log(response.data.id)
       succesAlert('Registro exitoso', 'Usuario registrado con exito')
     
   } catch (error){

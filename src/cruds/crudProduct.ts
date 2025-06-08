@@ -25,7 +25,7 @@ export const postProduct = async (newProduct: ICreateProduct) => {
 }
 
 export const putProduct = async (updatedProduct: IProduct) => {
-        const response = await interceptorApiClient.post(`/product/${updatedProduct.id}`, updatedProduct)
+        const response = await interceptorApiClient.put(`/product/${updatedProduct.id}`, updatedProduct)
         return response.data
 }
 

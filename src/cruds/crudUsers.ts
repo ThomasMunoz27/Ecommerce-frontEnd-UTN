@@ -10,7 +10,7 @@ export const getAllUsers = async (): Promise<IUser[]> => {
         return response.data
 }
 
-export const getUserById = async (idUser : number): Promise<IUser[]> => {
+export const getUserById = async (idUser : number): Promise<IUser> => {
     
         const response = await interceptorApiClient.get(`/user/${idUser}`)
         return response.data

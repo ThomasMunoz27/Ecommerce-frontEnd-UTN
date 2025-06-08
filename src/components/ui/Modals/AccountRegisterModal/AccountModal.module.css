@@ -3,7 +3,7 @@
     height: 400px;
     width: 550px;
     background-color: white;
-    position: absolute;
+    position: fixed;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
@@ -15,9 +15,6 @@
     z-index: 1000;
     justify-content: center;
 }
-.containerButtonsRegister button:hover{
-    background-color: rgba(68, 68, 68, 0.822);
-}
 .containerButtonsLogin button:hover{
     background-color: rgba(68, 68, 68, 0.822);
 }
@@ -25,13 +22,13 @@
     padding: 10px;
 }
 .containerLogoLogin img{
-    height: 10vh;
-    width: 5vw;
+    height: 100px;
+    width: 100px;
 }
 .containerFormLogin{
     width: 600px;
-
-  
+    
+    
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -50,13 +47,14 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
+    gap: 10px;
 }
 .containerButtonsLogin button{
     border: none;
     background-color: black;
     color: white;
     padding: 10px;
-    width: 8vw;
+    width: 80%;
     font-size: 15px;
     cursor: pointer;
 }
@@ -79,11 +77,11 @@
 
 /*------ Estilos de modalAccount------ */
 .containerPrincipalRegister {
-    min-height: 60vh;
+    height: 550px;
     min-width: 550px;
     background-color: white;
-    position: absolute;
-
+    position: fixed;
+    
     left: 50%;
     top: 50%;
     transform : translate(-50%, -50%);
@@ -123,6 +121,8 @@
     gap: 10px;
     width: 100%;
     padding: 10px;
+    height: 300px;
+    overflow-y: auto;
 }
 .loginDetails{
     display: flex;
@@ -165,6 +165,9 @@
     font-size: 15px;
     cursor: pointer;
     border : none;
+}
+.containerButtonsRegister button:hover{
+    background-color: rgba(68, 68, 68, 0.822);
 }
 
 

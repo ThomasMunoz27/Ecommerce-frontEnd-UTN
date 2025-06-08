@@ -50,7 +50,6 @@ export const MainScreen = () => {
     <>
       <div className={style.screen}>
         <Header />
-        <p onClick={() => localStorage.removeItem('token')}>borrar token</p>
         <HeroCarousel />
         <ListProducts productsArray={products} title={"Todos los productos"} customClass='containerMainScreen'/>
         {modalAddProduct && (

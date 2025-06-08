@@ -4,6 +4,8 @@ import { AccountModal } from './components/ui/Modals/AccountRegisterModal/Accoun
 import { AppRoutes } from './routes/AppRoutes'
 import { useStoreLogin } from './store/useStoreLogin'
 
+import './App.css'
+
 
 function App() {
   const {token} = useStoreLogin()
@@ -13,7 +15,10 @@ function App() {
     <>
       <AppRoutes/>
       {!logged &&
+      <>
       <AccountModal/>
+      <div className='divBlur'>a</div>
+      </>
       }
       </>
   )
