@@ -4,6 +4,8 @@ import { useStoreModal } from '../../../store/useStoreModal'
 import styles from './ProfileDetails.module.css'
 import { getAllUsers } from '../../../cruds/crudUsers'
 import { useStoreUsers } from '../../../store/useStoreUsers'
+import { useNavigate } from 'react-router'
+import { useStoreLogin } from '../../../store/useStoreLogin'
 
 export const ProfileDetails = () => {
 
@@ -17,11 +19,12 @@ export const ProfileDetails = () => {
         
         fetchUsers()
     },[])
+    const navigate = useNavigate()
 
     console.log(user)
 
     const {openModalEditLogin, openModalEditAddress} = useStoreModal()
-
+    const {deleteToken} = useStoreLogin()
     return (
         <div className={styles.containerPrincipal}>
 
@@ -37,7 +40,11 @@ export const ProfileDetails = () => {
                     <p>{user?.email}</p>
                 </div>
                 <div className={styles.containerButtonSummary}>
-                    <button>
+                    <button onClick={() => {
+                       localStorage.removeItem('token')
+                       deleteToken()
+                       navigate('/')
+                    }}>
                         Cerrar Sesion
                         <span className="material-symbols-outlined">
                         </span>

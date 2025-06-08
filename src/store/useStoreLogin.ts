@@ -4,6 +4,7 @@ import { persist } from "zustand/middleware"
 interface useStoreLogin {
   token: string
   setToken: (newToken: string) => void
+  deleteToken: () => void
 }
 
 export const useStoreLogin = create<useStoreLogin>()(
@@ -11,6 +12,10 @@ export const useStoreLogin = create<useStoreLogin>()(
     (set) => ({
       token: '',
       setToken: (newToken: string) => set({ token: newToken }),
+      deleteToken: () => set ({
+        token: ''
+        
+      })
     }),
     {
       name: 'token', // nombre de la clave en localStorage
