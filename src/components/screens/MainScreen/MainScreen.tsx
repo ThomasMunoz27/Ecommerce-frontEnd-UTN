@@ -12,8 +12,10 @@ import { Header } from "../../ui/Headers/Header/Header";
 import { AddProductModal } from "../../ui/Modals/AddProductModal/AddProductModal";
 import { useStoreFilterModal } from "../../../store/useStoreFilterModal";
 import { FilterModal } from "../../ui/Modals/FilterModal/FilterModal";
+import { useStoreUsers } from "../../../store/useStoreUsers";
 
 export const MainScreen = () => {
+  const { userName } = useStoreUsers()
   const { visible } = useStoreFilterModal();
 
   const { modalAddProduct } = useStoreModal();
@@ -23,6 +25,8 @@ export const MainScreen = () => {
   const [paginaActual, setPaginaActual] = useState(0);
 
   const [totalPages, setTotalPages] = useState(0);
+
+
 
   const { closeModalAddProduct } = useStoreModal();
   const getPagedProducts = async () => {
@@ -35,7 +39,9 @@ export const MainScreen = () => {
     closeModalAddProduct();
 
     getPagedProducts();
-  }, [paginaActual]);
+  }, [paginaActual, userName]);
+
+
   let sexArray: string[] = []
   if(products.length > 0){
     

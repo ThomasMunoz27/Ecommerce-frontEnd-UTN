@@ -1,8 +1,11 @@
 import styles from './AccountModal.module.css'
 import { useStoreModal } from '../../../../store/useStoreModal'
 import { login, register } from '../../../../cruds/crudLoginRegister'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useStoreLogin } from '../../../../store/useStoreLogin'
+import { useStoreUsers } from '../../../../store/useStoreUsers'
+import { getUserByName } from '../../../../cruds/crudUsers'
+
 
 export const AccountModal = () => {
   const { modalAccount, closeModalAccount } = useStoreModal()
@@ -11,6 +14,7 @@ export const AccountModal = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const { setToken } = useStoreLogin()
+  const { setUser, setUserName, userName} = useStoreUsers()
 
   // Registro
   const [registerData, setRegisterData] = useState({
@@ -27,6 +31,16 @@ export const AccountModal = () => {
     sex: ''
   })
 
+      useEffect(() => {
+          const fetchUser = async() => {
+              const usuarioName = localStorage.getItem('username')
+              if(usuarioName){
+                  const usuario = await getUserByName(usuarioName) 
+                  setUser(usuario)
+              }
+          } 
+          fetchUser()
+      }, [username])
   const handleRegisterChange = (e: any) => {
     const { name, value } = e.target
     setRegisterData(prev => ({ ...prev, [name]: value }))
@@ -54,9 +68,11 @@ export const AccountModal = () => {
           <div className={styles.containerButtonsLogin}>
             <button>Cancelar</button>
             <button
-              onClick={(e) => {
+              onClick={async (e) => {
                 e.preventDefault()
-                login(username, password, setToken)
+                await login(username, password, setToken)
+                localStorage.setItem('username', username)
+                setUserName(username)
               }}
             >
               Iniciar Sesión
@@ -194,7 +210,9 @@ export const AccountModal = () => {
                     registerData.sex
                   )
                   closeModalAccount()
-                  login(registerData.username, registerData.password, setToken)
+                  await login(registerData.username, registerData.password, setToken)
+                  localStorage.setItem('username', registerData.username)
+                  setUserName(registerData.username)
                 } catch (error: unknown) {
                   if(error instanceof Error)
                   console.error(error.message)

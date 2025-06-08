@@ -93,20 +93,30 @@ export const DetailScreen = () => {
     <Header/>
         <div className={style.hero}>
             <div className={style.imgContainer}>
-                <img src={activeProduct?.image.url} alt="" className={style.productImg} />
+                <img src={activeProduct?.image?.url} alt="" className={style.productImg} />
             </div>
             <div className={style.textContainer}>
                 <h1 className={style.textTitle}>{activeProduct?.name}</h1>
-                <p className={style.productCategory}>{activeProduct?.category.name}</p>
-                <p className={style.productPrice}>${activeProduct?.prices.salePrice}</p>
+                <p className={style.productPrice}>Precio: ${activeProduct?.prices.salePrice}</p>
+                
+                <div className={style.categories}>
+                    <h3>Categorias</h3>
+                    <p className={style.productCategory}>{activeProduct?.category.map(category => 
+                        `${category.name} `)}</p>
+                </div>
 
+                <div className={style.description}>
+                    <h3>Descripcion</h3>
+                    <p>{activeProduct?.description}</p>
+
+                </div>
                 <div className={style.sizeSection}>
-                <h3>Talles:</h3>
-                <div className={style.sizeContainer}>
+                    <h3>Talles:</h3>
+                    <div className={style.sizeContainer}>
+                        {activeProduct?.sizes.map((size) => (<p className={selectedSizeId === size.id ? style.sizeCardSelected : style.sizeTag}  onClick={() => handleClickSize(Number(size.id))}>{size.size}</p>))}
+                    </div>
+                </div>
 
-                    {activeProduct?.sizes.map((size) => (<p className={selectedSizeId === size.id ? style.sizeCardSelected : style.sizeTag}  onClick={() => handleClickSize(size.id)}>{size.size}</p>))}
-                </div>
-                </div>
                 
                 <div className={style.colorSection}>
                     <h3>Colores:</h3>
@@ -114,7 +124,7 @@ export const DetailScreen = () => {
                         {activeProduct?.colors.map((color) => (  <div key={color.id}
                             className={selectedColorId === color.id ? style.colorSelected : style.color}
                             style={getColorStyle(color.value)}
-                            onClick={() => handleClickColor(color.id)}>
+                            onClick={() => handleClickColor(color.id!)}>
                         </div>))}
                     </div>
                 </div>

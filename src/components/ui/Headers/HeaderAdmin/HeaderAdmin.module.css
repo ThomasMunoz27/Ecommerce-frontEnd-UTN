@@ -52,16 +52,14 @@
     border: none;
     max-width: 300px;
 }
-.minHeader{
+.minHeader {
     background-color: gray;
     height: 5vh;
-    padding: 10px;
+    overflow-x: auto;
+    overflow-y: hidden;
     display: flex;
-    justify-content: center;
     align-items: center;
-    gap: 1rem;
-    cursor: pointer;
-    
+    width: 100%;
 }
 .minHeader p {
     cursor: pointer;
@@ -73,10 +71,11 @@
     align-items: center;
     padding: 10px;
     
+    
 }
 
 .minHeader p:hover {
-    transform: scale(1.07);
-    transition: 0.3s ease ;
+    background-color: rgb(169, 168, 168);
+    
 }
 

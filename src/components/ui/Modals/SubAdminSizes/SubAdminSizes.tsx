@@ -205,7 +205,7 @@ export const SubAdminSize : FC<ISubAdminSize> = ({product}) => {
                         </div>
                     </div>
                     <div className={styles.containerButtonsEdit}>
-                        <button type='submit'>Agreagr Talle</button>
+                        <button type='submit'>Agregar Talle</button>
                         <button onClick={handleDeleteSize}>Eliminar Talle</button>
                         <button onClick={closeAdminSubSize}>Cancelar</button>
                     </div>
