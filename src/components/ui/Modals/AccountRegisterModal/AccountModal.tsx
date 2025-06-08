@@ -65,7 +65,7 @@ export const AccountModal = () => {
               onClick={async (e) => {
                 e.preventDefault()
                 await login(username, password, setToken)
-                await setearUser(username)
+                localStorage.setItem('username', username)
               }}
             >
               Iniciar Sesión
@@ -204,6 +204,7 @@ export const AccountModal = () => {
                   )
                   closeModalAccount()
                   await login(registerData.username, registerData.password, setToken)
+                  localStorage.setItem('username', registerData.username)
                 } catch (error: unknown) {
                   if(error instanceof Error)
                   console.error(error.message)

@@ -6,12 +6,23 @@ import { getUserByName } from '../../../cruds/crudUsers'
 import { useStoreUsers } from '../../../store/useStoreUsers'
 import { useNavigate } from 'react-router'
 import { useStoreLogin } from '../../../store/useStoreLogin'
+import { useEffect } from 'react'
 
 export const ProfileDetails = () => {
 
-    const {user} = useStoreUsers()
+    const {user, setUser} = useStoreUsers()
 
-  
+    useEffect(() => {
+        const fetchUser = async() => {
+            const usuarioName = localStorage.getItem('username')
+            if(usuarioName){
+                const usuario = await getUserByName(usuarioName) 
+                setUser(usuario)
+            }
+        } 
+        fetchUser()
+    }, [])
+
     const navigate = useNavigate()
 
     console.log(user)
