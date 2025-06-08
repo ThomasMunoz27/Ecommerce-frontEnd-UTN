@@ -59,3 +59,37 @@
   border: none;
   box-shadow: 2px 2px 0px rgb(255, 255, 255), 4px 4px 0px black;
 }
+
+/*Para mostrar los precios en caso de descuento*/
+
+.showPricesContainer{
+  display: flex;
+  flex-direction: column;
+}
+
+.pricesOnDiscount{
+      color: #E32B54;
+      text-decoration: line-through;
+      font-weight: normal;
+}
+
+.imageWrapper {
+	position: relative;
+	width: 100%;
+}
+
+.discountBadge {
+	position: absolute;
+	top: 8px;
+	right: 8px;
+	background: linear-gradient(45deg, #FFD700, #FFEF8B);
+	color: #000;
+	font-size: 0.75rem;
+	font-weight: bold;
+	padding: 4px 10px;
+	border-radius: 10px;
+	box-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+	border: 1px solid #e6c200;
+	z-index: 2;
+	text-shadow: 0 0 1px #fff;
+}

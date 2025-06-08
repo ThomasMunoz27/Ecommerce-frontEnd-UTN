@@ -8,10 +8,12 @@ import { ViewBill } from "../../Modals/ViewBill/ViewBill"
 import { useStoreModal } from "../../../../store/useStoreModal"
 import { getBillByPreferenceId } from "../../../../cruds/crudBill"
 import { useStoreBill } from "../../../../store/useStoreBill"
+import { useStoreCart } from "../../../../store/useStoreCart"
 export const SuccessPay = () => {
     const navigate = useNavigate()
 
     const {modalViewBill, openModalViewBill} = useStoreModal()
+    const {cleanCart} = useStoreCart()
 
     const{setActiveBill} = useStoreBill()
     const handleShowBill = () => {
@@ -19,6 +21,7 @@ export const SuccessPay = () => {
     }
 
     useEffect(() => {
+        cleanCart()
         const urlParams = new URLSearchParams(window.location.search)
         const preferenceId = urlParams.get("preference_id")
 
