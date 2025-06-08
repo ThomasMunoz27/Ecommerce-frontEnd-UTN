@@ -3,21 +3,23 @@ import { IUser } from "../types/IUser";
 import { getAllUsers, getAllUsersActive, getAllUsersInactive } from "../cruds/crudUsers";
 
 interface IStoreUsers {
+    username: string
     user : IUser | null, // Usuario ,
     users : IUser[] // Momentaneo para probar
     setUser : (userData : IUser) => void, // setear usuario
     clearUser: () => void  // desloguear usuario
     fetchUsers : (state : string) => Promise<void>
-    
+    setUserName: (username: string) => void
 }
 
 
 export const useStoreUsers = create<IStoreUsers>((set) => ({
+    username : '',
     user : null,
     users : [] as IUser[], 
     setUser: (userData) => set({user : userData}),
     clearUser: () => set({user : null}),
-
+    setUserName: (userName) => set({username: userName}),
     fetchUsers : async(state : string) => {
 
         if(state === 'alls'){

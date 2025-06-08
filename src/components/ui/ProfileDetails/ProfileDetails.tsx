@@ -46,7 +46,8 @@ export const ProfileDetails = () => {
                 <div className={styles.containerButtonSummary}>
                     <button onClick={() => {
 
-                       deleteToken()
+                      deleteToken()
+                      localStorage.clear()
                       navigate('/')
                     }}>
                         Cerrar Sesion

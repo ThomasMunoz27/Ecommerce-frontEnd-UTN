@@ -4,8 +4,7 @@ import { login, register } from '../../../../cruds/crudLoginRegister'
 import { useState } from 'react'
 import { useStoreLogin } from '../../../../store/useStoreLogin'
 import { useStoreUsers } from '../../../../store/useStoreUsers'
-import { getUserByName } from '../../../../cruds/crudUsers'
-import { IUser } from '../../../../types/IUser'
+
 
 export const AccountModal = () => {
   const { modalAccount, closeModalAccount } = useStoreModal()
@@ -14,12 +13,8 @@ export const AccountModal = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const { setToken } = useStoreLogin()
-  const { setUser } = useStoreUsers()
-  const setearUser = async (username: string) => {
-    const user: IUser = await getUserByName(username)
-    console.log(user)
-    setUser(user)
-  }
+  const { setUser, setUserName } = useStoreUsers()
+
   // Registro
   const [registerData, setRegisterData] = useState({
     username: '',
@@ -66,6 +61,7 @@ export const AccountModal = () => {
                 e.preventDefault()
                 await login(username, password, setToken)
                 localStorage.setItem('username', username)
+                setUserName(username)
               }}
             >
               Iniciar Sesión
@@ -205,6 +201,7 @@ export const AccountModal = () => {
                   closeModalAccount()
                   await login(registerData.username, registerData.password, setToken)
                   localStorage.setItem('username', registerData.username)
+                   setUserName(registerData.username)
                 } catch (error: unknown) {
                   if(error instanceof Error)
                   console.error(error.message)
