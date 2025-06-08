@@ -1,7 +1,7 @@
 import axios from "axios";
 import { errorAlert } from "../utils/errorAlert";
 import { succesAlert } from "../utils/succesAlert";
-import { useStoreLogin } from "../store/useStoreLogin";
+
 
 
 export const login = async (user: string, pass: string, setToken: (token: string) => void) => {
@@ -54,7 +54,7 @@ export const register = async (
   try {
       console.log(registerRequest)
       const response = await axios.post(`http://localhost:9000/auth/register`, registerRequest)
-      console.log(response)
+      console.log(response.data.id)
       succesAlert('Registro exitoso', 'Usuario registrado con exito')
     
   } catch (error){
