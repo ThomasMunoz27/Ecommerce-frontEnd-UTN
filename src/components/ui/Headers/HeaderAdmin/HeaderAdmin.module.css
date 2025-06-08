@@ -55,12 +55,13 @@
 .minHeader{
     background-color: gray;
     height: 5vh;
-    padding: 10px;
+    
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 1rem;
-    cursor: pointer;
+    width: 100%;
+    
+    
     
 }
 .minHeader p {
@@ -73,10 +74,11 @@
     align-items: center;
     padding: 10px;
     
+    
 }
 
 .minHeader p:hover {
-    transform: scale(1.07);
+    background-color: rgb(169, 168, 168);
     transition: 0.3s ease ;
 }
 
