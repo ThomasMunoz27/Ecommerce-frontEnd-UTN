@@ -5,7 +5,7 @@ import styles from './AdminCountry.module.css'
 import { ICountry } from '../../../../types/ICountry'
 import { postCountry, putCountry} from '../../../../cruds/crudCountry'
 import { succesAlert } from '../../../../utils/succesAlert'
-import { errorAlert } from '../../../../utils/errorAlert'
+import { formCountrySchema } from '../../../../yupSchemas/formCountryShema'
 
 export const AdminCountry = () => {
 
@@ -15,6 +15,8 @@ export const AdminCountry = () => {
         id : activeCountry?.id || 0,
         name : activeCountry?.name || ''
     })
+    const [formErrors, setFormErrors] =useState<Record<string, string>>({})
+
 
     const handleChange = (e : React.ChangeEvent<HTMLInputElement>) => {
         const {name, value} = e.target
@@ -30,25 +32,44 @@ export const AdminCountry = () => {
         if (activeCountry){
 
             try {
+                
+                await formCountrySchema.validate(country, {abortEarly:false})
                 await putCountry(country)
                 succesAlert('Editado', 'El pais se edito correctamente')
                 fetchCountry()
                 closeModalAdminCountry()
             } catch (error : any) {
-                console.log(error.message);
-                errorAlert('Error', 'No se pudo editar el pais')
+                const errors: Record<string, string> = {}
+                if(error.inner){
+                    error.inner.forEach((validationError:any) =>{
+                        errors[validationError.path] = validationError.message;
+                    });
+                }else{
+                    error.general = error.message
+                }
+                setFormErrors(errors)
+                
             }
 
         }else {
             
-            try {
+            try {                
+                await formCountrySchema.validate(country, {abortEarly:false})
+
                 await postCountry({name : country.name})
                 succesAlert('Creado', 'El pais se creo correctamente')
                 fetchCountry()
                 closeModalAdminCountry()
             } catch (error : any) {
-                console.log(error.message);
-                errorAlert('Error', 'No se pudo crear el pais')
+                const errors: Record<string, string> = {}
+                if(error.inner){
+                    error.inner.forEach((validationError:any) =>{
+                        errors[validationError.path] = validationError.message;
+                    });
+                }else{
+                    error.general = error.message
+                }
+                setFormErrors(errors)
             }
         }
 
@@ -64,6 +85,8 @@ export const AdminCountry = () => {
                     <h3>{activeCountry ? 'Editar Pais' : 'Crear Pais'}</h3>
                     <label htmlFor="">Nombre</label>
                     <input type="text" name="name" id="" value={country.name} onChange={handleChange}/>
+                    {formErrors.name && <p className={styles.errorMessage}>{formErrors.name}</p>}
+
                 </div>
                 <div className={styles.containerButtons}>
                     <button onClick={closeModalAdminCountry}>Cancelar</button>

@@ -44,3 +44,10 @@
     transition: 0.3s ease;
     cursor: pointer;
 }
+
+.errorMessage {
+	padding: 8px;
+    color: red;
+    text-align: left;
+    
+}
