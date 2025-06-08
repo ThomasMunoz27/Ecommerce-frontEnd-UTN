@@ -3,6 +3,9 @@ import { useStoreModal } from '../../../../store/useStoreModal'
 import { login, register } from '../../../../cruds/crudLoginRegister'
 import { useState } from 'react'
 import { useStoreLogin } from '../../../../store/useStoreLogin'
+import { useStoreUsers } from '../../../../store/useStoreUsers'
+import { getUserByName } from '../../../../cruds/crudUsers'
+import { IUser } from '../../../../types/IUser'
 
 export const AccountModal = () => {
   const { modalAccount, closeModalAccount } = useStoreModal()
@@ -11,7 +14,12 @@ export const AccountModal = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const { setToken } = useStoreLogin()
-
+  const { setUser } = useStoreUsers()
+  const setearUser = async (username: string) => {
+    const user: IUser = await getUserByName(username)
+    console.log(user)
+    setUser(user)
+  }
   // Registro
   const [registerData, setRegisterData] = useState({
     username: '',
@@ -54,9 +62,10 @@ export const AccountModal = () => {
           <div className={styles.containerButtonsLogin}>
             <button>Cancelar</button>
             <button
-              onClick={(e) => {
+              onClick={async (e) => {
                 e.preventDefault()
                 login(username, password, setToken)
+                await setearUser(username)
               }}
             >
               Iniciar Sesión

@@ -1,5 +1,6 @@
 import { IImage } from "../types/IImage";
 import interceptorApiClient from "../interceptors/axios.interceptor";
+import axios from "axios";
 
 
 
@@ -33,11 +34,7 @@ export const deleteImage = async (idImageToDelete: string) => {
 export const postImageToCloudinary = async(image : File) => {
         const formData = new FormData()
         formData.append("file", image)
-        const response = await interceptorApiClient.post(`/upload`, formData, {
-                headers : {
-                        "Content-Type" : "multipart/form-data",
-                },
-        })
+        const response = await axios.post(`http://localhost:9000/api/upload`, formData)
         return response.data
 }
 
