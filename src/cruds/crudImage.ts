@@ -26,7 +26,18 @@ export const putImage = async (updatedImage: IImage) => {
 }
 
 export const deleteImage = async (idImageToDelete: string) => {
-        const response = await interceptorApiClient.put(`/image/${idImageToDelete}`)
+        const response = await interceptorApiClient.delete(`/image/${idImageToDelete}`)
+        return response.data
+}
+
+export const postImageToCloudinary = async(image : File) => {
+        const formData = new FormData()
+        formData.append("file", image)
+        const response = await interceptorApiClient.post(`/upload`, formData, {
+                headers : {
+                        "Content-Type" : "multipart/form-data",
+                },
+        })
         return response.data
 }
 

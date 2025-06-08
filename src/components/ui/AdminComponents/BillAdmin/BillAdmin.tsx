@@ -39,6 +39,7 @@ export const BillAdmin = () => {
                         <th>Direccion comprador</th>
                         <th>Fecha de la compra</th>
                         <th>Descuento aplicado</th>
+                        <th>Confirmacion de pago</th>
                         <th>Total</th>
                         <th>Opciones</th>
                     </tr>
@@ -53,6 +54,7 @@ export const BillAdmin = () => {
                         <td>{bill.buyerAddress}</td>
                         <td>{bill.datePurchase}</td>
                         <td>{bill.totalDiscount ? bill.totalDiscount : 'Sin descuento'}</td>
+                        <td>{bill.confirmed ? 'Si' : 'No'}</td>
                         <td>{bill.total}</td>
                         
                         

@@ -237,7 +237,7 @@ export const AdminProduct = () => {
                     <div className={styles.containerImage}>
                         <label htmlFor="">Imagen</label>
                         <select name="image" id="" onChange={handleChangeCreate}>
-                            <option value="" disabled selected>Sin seleccion</option>
+                            <option value="" disabled >Sin seleccion</option>
                             {images.map(image => (
                                 <option value={image.id}>{image.id}</option>
                             ))}
@@ -302,7 +302,12 @@ export const AdminProduct = () => {
                     </div>
                     <div className={styles.containerImage}>
                         <label htmlFor="">Imagen</label>
-                        <input type="text" name="image" id="" onChange={handleChangeEdit}/>
+                        <select name="image" id="" value={editProduct?.image?.id} onChange={handleChangeEdit}>
+                            <option value="" disabled >Sin seleccion</option>
+                            {images.map(image => (
+                                <option value={image.id}>{image.id}</option>
+                            ))}
+                        </select>
                     </div>
                     <div className={styles.containerButtons}>
                         <button onClick={closeModalAdminProduct}>Cancelar</button>
