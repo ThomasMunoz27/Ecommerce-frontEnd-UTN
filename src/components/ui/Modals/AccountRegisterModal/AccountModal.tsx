@@ -198,7 +198,6 @@ export const AccountModal = () => {
                 } catch (error: unknown) {
                   if(error instanceof Error)
                   console.error(error.message)
-                  alert('Error al registrar usuario')
                 }
               }}
             >
