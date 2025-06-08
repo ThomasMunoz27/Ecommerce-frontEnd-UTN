@@ -64,7 +64,7 @@ export const AccountModal = () => {
             <button
               onClick={async (e) => {
                 e.preventDefault()
-                login(username, password, setToken)
+                await login(username, password, setToken)
                 await setearUser(username)
               }}
             >
@@ -203,7 +203,7 @@ export const AccountModal = () => {
                     registerData.sex
                   )
                   closeModalAccount()
-                  login(registerData.username, registerData.password, setToken)
+                  await login(registerData.username, registerData.password, setToken)
                 } catch (error: unknown) {
                   if(error instanceof Error)
                   console.error(error.message)
