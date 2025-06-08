@@ -15,7 +15,7 @@ import { FilterModal } from "../../ui/Modals/FilterModal/FilterModal";
 import { useStoreUsers } from "../../../store/useStoreUsers";
 
 export const MainScreen = () => {
-  const { username } = useStoreUsers()
+  const { userName } = useStoreUsers()
   const { visible } = useStoreFilterModal();
 
   const { modalAddProduct } = useStoreModal();
@@ -39,7 +39,7 @@ export const MainScreen = () => {
     closeModalAddProduct();
 
     getPagedProducts();
-  }, [paginaActual, username]);
+  }, [paginaActual, userName]);
 
 
   let sexArray: string[] = []

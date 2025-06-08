@@ -5,22 +5,13 @@ import { useStoreCart } from '../../../../store/useStoreCart';
 import { useStoreCategory } from '../../../../store/useStoreCategory';
 import { getCategoryByName } from '../../../../cruds/crudCategory';
 import { useStoreUsers } from '../../../../store/useStoreUsers';
-import { getUserById } from '../../../../cruds/crudUsers';
+import { getUserById, getUserByName } from '../../../../cruds/crudUsers';
 
 export const Header = () => {
 
+   const [showAdmin, setShowAdmin] = useState(false)
 
-  //PARA PODER ACCEDER A ADMIN EN DESARROLLO
-  const {user, setUser} = useStoreUsers()
-  useEffect(() => {
-    const fetchUser = async() => {
-      const userDesarrollo = await getUserById(1)
-      
-      setUser(userDesarrollo!)
-
-    }
-    fetchUser()
-  }, [])
+   const {user, userName, setUser} = useStoreUsers()
 
 
   const [cantProductsInCart, setCantProductsInCart] = useState(0)
@@ -29,6 +20,21 @@ export const Header = () => {
   const navigate = useNavigate()
   const [isVisible, setIsVisible] = useState(false)
   
+      useEffect(() => {
+          const fetchUser = async() => {
+              const usuarioName = localStorage.getItem('username')
+              if(usuarioName){
+                  const usuario = await getUserByName(usuarioName) 
+                  setUser(usuario)
+                  if(usuario.user === 'admin'){
+                    setShowAdmin(true)
+                  }else{
+                    false
+                  }
+              }
+          } 
+          fetchUser()
+      }, [userName])
 
   const handleClick = () => {
     navigate("/my-account")
@@ -78,7 +84,7 @@ export const Header = () => {
       <a onClick={() => setIsVisible(true)} className={style.hamburguerIcon}><img src='./icons/hamburguerMenu.svg'/></a>
     </nav>
     <div className={style.searchBarIconsContainer}>
-      {user?.user === "admin" && (
+      {showAdmin && (
         <div className={style.adminIcon}>
           <span onClick={handleNavigateToAdmin} className="material-symbols-outlined">
                                 inventory_2
@@ -86,7 +92,7 @@ export const Header = () => {
 
         </div>
         )
-      }
+      } 
       
     <input type="text" placeholder='Buscar' className={style.searchBar}/>
 
