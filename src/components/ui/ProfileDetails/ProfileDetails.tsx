@@ -41,9 +41,9 @@ export const ProfileDetails = () => {
                 </div>
                 <div className={styles.containerButtonSummary}>
                     <button onClick={() => {
-                       localStorage.removeItem('token')
+
                        deleteToken()
-                       navigate('/')
+                      navigate('/')
                     }}>
                         Cerrar Sesion
                         <span className="material-symbols-outlined">

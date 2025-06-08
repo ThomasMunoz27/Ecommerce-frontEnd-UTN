@@ -7,15 +7,17 @@ interface useStoreLogin {
   deleteToken: () => void
 }
 
+
+
 export const useStoreLogin = create<useStoreLogin>()(
   persist(
     (set) => ({
       token: '',
       setToken: (newToken: string) => set({ token: newToken }),
-      deleteToken: () => set ({
-        token: ''
-        
-      })
+      deleteToken: () => {
+        set({token: ''})
+        localStorage.removeItem('token')
+      }
     }),
     {
       name: 'token', // nombre de la clave en localStorage

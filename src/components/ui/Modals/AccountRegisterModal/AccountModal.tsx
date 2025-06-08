@@ -194,6 +194,7 @@ export const AccountModal = () => {
                     registerData.sex
                   )
                   closeModalAccount()
+                  login(registerData.username, registerData.password, setToken)
                 } catch (error: unknown) {
                   if(error instanceof Error)
                   console.error(error.message)
