@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { IBill } from "../types/IBIll";
 import { getAllBills } from "../cruds/crudBill";
+import { persist } from "zustand/middleware";
 
 
 interface IStoreBill {
@@ -10,7 +11,7 @@ interface IStoreBill {
     fetchBill : () => Promise<void>
 }
 
-export const useStoreBill = create<IStoreBill>((set) => ({
+export const useStoreBill = create<IStoreBill>()(persist((set, get) => ({
     bills : [],
 
     activeBill : null,
@@ -21,4 +22,11 @@ export const useStoreBill = create<IStoreBill>((set) => ({
         const billsFetched = await getAllBills()
         set ({bills : billsFetched})
     }
-}))
+}),
+		{
+			name: "bill-storage", // clave en localStorage
+			partialize: (state) => ({
+				activeBill: state.activeBill,
+			}), // solo persistimos la billActiva, no las funciones
+		}
+))

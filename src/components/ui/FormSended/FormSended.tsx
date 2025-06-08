@@ -22,6 +22,7 @@ export const FormSended = () => {
             ? productInCart.prices.discount.promotionalPrice
             : 0) * productInCart.quantity, 0)
     const {validFormSumbited} = useStoreCheckout()
+    
 
     const[preferenceIdMp, setPreferenceIdMp] = useState('')
     const [isLoading, setIsLoading] = useState(false);
@@ -78,7 +79,6 @@ export const FormSended = () => {
     }
 
     await postBill(billData)
-
         }catch(err){
             console.log(err)
         }finally{

@@ -4,8 +4,19 @@ import { Header } from "../../Headers/Header/Header"
 import styles from "./SuccessPay.module.css"
 import { useEffect } from "react"
 import { setConfirmedBill } from "../../../../cruds/payActions"
+import { ViewBill } from "../../Modals/ViewBill/ViewBill"
+import { useStoreModal } from "../../../../store/useStoreModal"
+import { getBillByPreferenceId } from "../../../../cruds/crudBill"
+import { useStoreBill } from "../../../../store/useStoreBill"
 export const SuccessPay = () => {
     const navigate = useNavigate()
+
+    const {modalViewBill, openModalViewBill} = useStoreModal()
+
+    const{setActiveBill} = useStoreBill()
+    const handleShowBill = () => {
+        openModalViewBill()
+    }
 
     useEffect(() => {
         const urlParams = new URLSearchParams(window.location.search)
@@ -15,7 +26,8 @@ export const SuccessPay = () => {
             const confirmBill = async () =>{
                 try{
                     await setConfirmedBill(preferenceId)
-
+                    const billConfirmed = await getBillByPreferenceId(preferenceId)
+                    setActiveBill(billConfirmed)
                 }catch (error){
                     navigate("/failure")
                 }
@@ -31,7 +43,11 @@ export const SuccessPay = () => {
             <div className={styles.successContainer}>
                 <h2>Gracias por tu compra!!!</h2>
 
-                <p>Recibiras un correo con tu comprobante de compra</p>
+                <div className={styles.viewBillButton}>
+                    <button className={styles.buttonFactura} onClick={handleShowBill}>
+                        Ver Factura
+                    </button>
+                </div>
 
             </div>
             <div className={styles.otherProducts}>
@@ -39,6 +55,7 @@ export const SuccessPay = () => {
 
                 <Link to="/" className={styles.button}>Ver productos <img src="src\assets\arrow_right.svg" alt="flecha" /></Link>
             </div>
+            {modalViewBill && <div className={styles.modalBackdrop}><ViewBill/></div>}
         </div>
         
         <Footer></Footer>

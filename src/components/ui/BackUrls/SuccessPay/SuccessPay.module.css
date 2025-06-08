@@ -36,5 +36,50 @@
     border: none;
     cursor: pointer;
     text-decoration: none;
+}
 
+.buttonFactura{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    color: white;
+    background-color: black;
+    width: 100%;
+    max-width: 270px;
+    height: 40px;
+    font-size: 18px;
+    gap: 24px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.viewBillButton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    color: white;
+    background-color: black;
+    width: 100%;
+    max-width: 270px;
+    height: 40px;
+    font-size: 18px;
+    gap: 24px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.modalBackdrop{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
 }

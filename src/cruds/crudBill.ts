@@ -28,3 +28,7 @@ export const deleteBill = async (idBillToDelete: string) => {
     return response.data
 }
 
+export const getBillByPreferenceId = async (preferenceID: string) => {
+    const response = await interceptorApiClient.get(`bill/confirm/${preferenceID}`)
+    return response.data
+}
