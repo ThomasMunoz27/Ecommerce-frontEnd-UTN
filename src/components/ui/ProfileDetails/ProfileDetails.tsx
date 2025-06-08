@@ -6,15 +6,26 @@ import { getUserByName } from '../../../cruds/crudUsers'
 import { useStoreUsers } from '../../../store/useStoreUsers'
 import { useNavigate } from 'react-router'
 import { useStoreLogin } from '../../../store/useStoreLogin'
+import { useEffect } from 'react'
 
 export const ProfileDetails = () => {
 
-    const {user} = useStoreUsers()
+    const {user, setUser} = useStoreUsers()
 
-  
+    useEffect(() => {
+        const fetchUser = async() => {
+            const usuarioName = localStorage.getItem('username')
+            if(usuarioName){
+                const usuario = await getUserByName(usuarioName) 
+                setUser(usuario)
+            }
+        } 
+        fetchUser()
+    }, [])
+
     const navigate = useNavigate()
 
-    console.log(user)
+
 
     const {openModalEditLogin, openModalEditAddress} = useStoreModal()
     const {deleteToken} = useStoreLogin()
@@ -24,9 +35,9 @@ export const ProfileDetails = () => {
             {/* Muestra datos resumidos en la izquierda */}
             <div className={styles.userSummary}>
                 <div className={styles.containerPhoto}>
-                    <div className={styles.photo}>
+                    {/* <div className={styles.photo}> */}
                         {/* <img src='' alt="" /> */}
-                    </div>
+                    {/* </div> */}
                 </div>
                 <div className={styles.containerNameAndEmailSummary}>
                     <p>{user?.name} {user?.lastname}</p>
@@ -35,9 +46,11 @@ export const ProfileDetails = () => {
                 <div className={styles.containerButtonSummary}>
                     <button onClick={() => {
 
-                       deleteToken()
+                      deleteToken()
+                      localStorage.clear()
                       navigate('/')
-                    }}>
+                      setUser(null)
+                    }} type='button'>
                         Cerrar Sesion
                         <span className="material-symbols-outlined">
                         </span>
@@ -67,12 +80,11 @@ export const ProfileDetails = () => {
                     <h1>Datos de Acceso</h1>
                     <p>Correo electronico: {user?.email}</p>
                     <p>Nombre de usuario: {user?.username}</p>
-                    <p>Contraseña: {user?.password}</p>
-                    <p className={styles.edit} onClick={() => openModalEditLogin(2)}>Editar contraseña</p>
+                    <p className={styles.edit} onClick={() => openModalEditLogin(2)}>Cambiar contraseña</p>
                 </div>
                 <div className={styles.containerButtonData}>
                     <p>Si eliminas la cuenta perderas todos los datos que tengas vinculado a nuestros servicios</p>
-                    <button>
+                    <button type='button'>
                         Eliminar Cuenta
                         <span className="material-symbols-outlined">
                             delete
