@@ -21,7 +21,42 @@ export const login = async (user: string, pass: string, setToken: (token: string
 }
 
 
+export const register = async (
+  name: string,
+  password: string,
+//   user: number,
+  email: string,
+  dni: string,
+  username: string,
+  birthdate: string,
+  lastname: string,
+  phoneNumber: number,
+  sex: string,
+//   addressId: number,
+//   sizeId: number
+) => {
+  const registerRequest = {
+    name,
+    password,
+    user: 0,
+    email,
+    dni,
+    username,
+    birthdate,
+    lastname,
+    phoneNumber,
+    sex,
+    adressId: 1,
+    sizeId: 1
+  };
 
-export const register = async () => {
-
-}
+  try {
+      console.log(registerRequest)
+      const response = await axios.post(`http://localhost:9000/auth/register`, registerRequest)
+      console.log(response)
+      succesAlert('Registro exitoso', 'Usuario registrado con exito')
+    
+  } catch (error){
+    errorAlert('Error', 'Error al registrar usuario')
+  }
+};
