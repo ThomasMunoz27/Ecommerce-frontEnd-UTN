@@ -1,0 +1,1 @@
+export const checkImageUsed = (imageId: number, currentProductId:)

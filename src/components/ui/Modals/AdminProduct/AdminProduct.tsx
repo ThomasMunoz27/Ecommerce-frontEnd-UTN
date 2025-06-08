@@ -17,6 +17,8 @@ import { IImage } from '../../../../types/IImage'
 import { getAllImages } from '../../../../cruds/crudImage'
 
 import { mapProductToPayload } from '../../../../utils/mapProductToPayload'
+import { checkProductAtributes } from '../../../../utils/checkProductAtributes'
+import { formProductSchema } from '../../../../yupSchemas/formProductSchema'
 
 
 export const AdminProduct = () => {
@@ -36,7 +38,10 @@ export const AdminProduct = () => {
     const {activeProduct, fetchProduct, setActiveProduct} = useStoreProduct()
     const [images, setImages] = useState<IImage[]>([])
     const [editProduct, setEditProduct] = useState<IProduct>()
-    
+    const [formErrors, setFormErrors] =useState<Record<string, string>>({})
+
+
+
     const [newProduct, setNewProduct] = useState<IProduct>({
         name: "",
         description: "",
@@ -124,22 +129,36 @@ export const AdminProduct = () => {
     
 
     // Funcion para agregar un producto nuevo
-    const handleAddProduct = (e : React.FormEvent) => {
+    const handleAddProduct = async (e : React.FormEvent) => {
         e.preventDefault()
         try {
-            
+            await formProductSchema.validate(newProduct, {abortEarly: false})
+
+            const validated = checkProductAtributes(newProduct)
+            if(!validated){
+                return
+            }
             const productToSend = mapProductToPayload(newProduct) // Funcion para cambiar el objeto asi lo recibe el backend
             console.log(productToSend);
             
-            postProduct(productToSend)
+            
+            await postProduct(productToSend)
 
             succesAlert('Creado', 'El producto se creo exitosamente')
-            fetchProduct('alls')
+            await fetchProduct('alls')
             
             closeModalAdminProduct()
         } catch (error : any) {
-            errorAlert("Error", "No e pudo crear el producto")
-            console.log(error.message);
+            
+            const errors: Record<string, string> = {}
+                if(error.inner){
+                    error.inner.forEach((validationError:any) =>{
+                        errors[validationError.path] = validationError.message;
+                    });
+                }else{
+                    error.general = error.message
+                }
+                setFormErrors(errors)
         }
     }
 
@@ -153,7 +172,14 @@ export const AdminProduct = () => {
         }
 
         try {
-            
+            await formProductSchema.validate(editProduct, {abortEarly: false})
+
+
+            const validated = checkProductAtributes(editProduct)
+            if(!validated){
+                return
+            }
+
             await putProduct(editProduct)
             succesAlert('Editado', 'El producto se edito correctamente')
             
@@ -165,8 +191,15 @@ export const AdminProduct = () => {
             }
             closeModalAdminProduct()
         } catch (error : any) {
-            console.log(error.message);
-            errorAlert('Error', 'No se pudo editar el producto')   
+            const errors: Record<string, string> = {}
+                if(error.inner){
+                    error.inner.forEach((validationError:any) =>{
+                        errors[validationError.path] = validationError.message;
+                    });
+                }else{
+                    error.general = error.message
+                }
+                setFormErrors(errors) 
         }
 
     }
@@ -190,21 +223,31 @@ export const AdminProduct = () => {
                             {/* Nombre, stock del producto  */}
 
                             <label htmlFor="">Nombre</label>
-                            <input type="text" name="name" id="" placeholder='Nombre' onChange={handleChangeCreate}/>
+                            <div>
+                                <input type="text" name="name" id="" placeholder='Nombre' onChange={handleChangeCreate}/>
+                                {formErrors.name && <p className={styles.errorMessage}>{formErrors.name}</p>}
+                            </div>
                             <label htmlFor="">Stock</label>
-                            <input type="number" name="stock" id="" placeholder='Stock' onChange={handleChangeCreate}/>
+                            <div>
+                                <input type="number" name="stock" id="" placeholder='Stock' onChange={handleChangeCreate}/>
+                                {formErrors.stock && <p className={styles.errorMessage}>{formErrors.stock}</p>}
+
+                            </div>
 
                         </div>
                         <div className={styles.containerColumn}>
 
                             {/* Sexo */}
                             <label htmlFor="">Sexo</label>
+                            <div>
                             <select name="sex" id="" onChange={handleChangeCreate}>
                                 <option value="" disabled selected>Sin Seleccion</option>
                                 <option value="Masculino">Masculino</option>
                                 <option value="Femenino">Femenino</option>
                                 <option value="Unisex">Unisex</option>
                             </select>
+                            {formErrors.sex && <p className={styles.errorMessage}>{formErrors.sex}</p>}
+                            </div>
 
 
                             {/* Tipo Producto */}
@@ -230,7 +273,11 @@ export const AdminProduct = () => {
                     {/* Descripcion */}
                     <div className={styles.containerDescription}>
                         <label htmlFor="">Descripcion</label>
-                        <textarea name="description" id="" placeholder='Descripcion' onChange={handleChangeCreate}></textarea>
+                        
+                            <textarea name="description" id="" placeholder='Descripcion' onChange={handleChangeCreate}></textarea>
+                            {formErrors.description && <p className={styles.errorMessage}>{formErrors.description}</p>}
+
+                        
                     </div>
 
                     {/* Imagen */}

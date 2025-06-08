@@ -121,15 +121,15 @@ export const AdminPrice = () => {
         if (editPrice.discount) {
             if (editPrice.salePrice <= editPrice.discount.promotionalPrice){
                 errorAlert('Error', 'El precio de venta no puede ser menor o igual al decuento')
+                return
             }
-            return
         }
 
         try {
             await formPriceSchema.validate(editPrice, {abortEarly: false})
 
             await putPrice(editPrice)
-            alert('Se actualizo el precio')
+            succesAlert('Se actualizo el precio')
             fetchPrice()
             closeModalAdminPrice()
         } catch (error : any) {
@@ -196,10 +196,18 @@ export const AdminPrice = () => {
                     <div className={styles.containerPrices}>
 
                         <label htmlFor="">Precio de Compra</label>
-                        <input type="number" name="purchasePrice" value={editPrice?.purchasePrice} onChange={handleEditChange}/>
+                    
+                            <input type="number" name="purchasePrice" value={editPrice?.purchasePrice} onChange={handleEditChange}/>
+                            {formErrors.purchasePrice && <p className={styles.errorMessage}>{formErrors.purchasePrice}</p>}
+
+                        
 
                         <label htmlFor="">Precio de Venta</label>
-                        <input type="number" name="salePrice" value={editPrice?.salePrice} id="" onChange={handleEditChange}/>
+                    
+                            <input type="number" name="salePrice" value={editPrice?.salePrice} id="" onChange={handleEditChange}/>
+                            {formErrors.salePrice && <p className={styles.errorMessage}>{formErrors.salePrice}</p>}
+
+                        
 
                         <label htmlFor="">Descuento</label>
                         <select name="discount" id="" value={editPrice.discount ? String(editPrice.discount.id) : "sin-descuento"} onChange={handleEditChange}>
