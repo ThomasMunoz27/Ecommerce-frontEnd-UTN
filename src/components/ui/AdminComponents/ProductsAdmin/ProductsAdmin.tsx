@@ -53,7 +53,11 @@ export const ProductsAdmin = () => {
         <div className={styles.containerPrincipal}>
             <div className={styles.containerTitleAndButton}>
                 <div className={styles.containerTitle}>
-                    <h1>Gestión de Productos</h1>
+                    <h1>
+                        {active === 'active' && 'Gestión de Productos Activos'}
+                        {active === 'inactive' && 'Gestión de Productos Inactivos'}
+                        {active === 'alls' && 'Gestión de Todos Productos'}
+                    </h1>
                 </div>
                 <div className={styles.containerButtons}>
                     <button onClick={() => handleActive('active')}>

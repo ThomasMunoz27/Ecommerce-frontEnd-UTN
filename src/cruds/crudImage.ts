@@ -1,7 +1,9 @@
 import { IImage } from "../types/IImage";
 import interceptorApiClient from "../interceptors/axios.interceptor";
+import axios from "axios";
+import { BASE_URL } from "../utils/constantes";
 
-
+const BASE_CLOUDINARY = `${BASE_URL}/upload` 
 
 export const getAllImages = async (): Promise<IImage[]> => {
         const response = await interceptorApiClient.get<[]>('/image')
@@ -31,13 +33,7 @@ export const deleteImage = async (idImageToDelete: string) => {
 }
 
 export const postImageToCloudinary = async(image : File) => {
-        const formData = new FormData()
-        formData.append("file", image)
-        const response = await interceptorApiClient.post(`/upload`, formData, {
-                headers : {
-                        "Content-Type" : "multipart/form-data",
-                },
-        })
+        const response = await axios.post(BASE_CLOUDINARY, image)
         return response.data
 }
 
