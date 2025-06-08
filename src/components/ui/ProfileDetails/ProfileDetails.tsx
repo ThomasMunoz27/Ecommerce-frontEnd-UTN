@@ -1,24 +1,17 @@
 
-import { useEffect } from 'react'
+
 import { useStoreModal } from '../../../store/useStoreModal'
 import styles from './ProfileDetails.module.css'
-import { getUserById } from '../../../cruds/crudUsers'
+import { getUserByName } from '../../../cruds/crudUsers'
 import { useStoreUsers } from '../../../store/useStoreUsers'
 import { useNavigate } from 'react-router'
 import { useStoreLogin } from '../../../store/useStoreLogin'
 
 export const ProfileDetails = () => {
 
-    const {user, setUser} = useStoreUsers()
+    const {user} = useStoreUsers()
 
-    useEffect(() => {
-        const fetchUsers = async() => {
-            const user = await getUserById(9)
-            setUser(user)
-        }
-        
-        fetchUsers()
-    },[user])
+  
     const navigate = useNavigate()
 
     console.log(user)

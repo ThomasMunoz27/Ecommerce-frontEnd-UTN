@@ -16,6 +16,11 @@ export const getUserById = async (idUser : number): Promise<IUser> => {
         return response.data
 }
 
+export const getUserByName = async (userName : string): Promise<IUser> => {
+        const response = await interceptorApiClient.get(`/user/search?userName=${userName}`)
+        return response.data
+}
+ 
 export const createUser = async (newUser : IUser): Promise<IUser[]> => {
         const response = await interceptorApiClient.post("/user", newUser)
         return response.data

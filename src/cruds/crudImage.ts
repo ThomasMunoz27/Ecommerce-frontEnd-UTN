@@ -33,7 +33,9 @@ export const deleteImage = async (idImageToDelete: string) => {
 }
 
 export const postImageToCloudinary = async(image : File) => {
-        const response = await axios.post(BASE_CLOUDINARY, image)
+        const formData = new FormData()
+        formData.append("file", image)
+        const response = await axios.post(`http://localhost:9000/api/upload`, formData)
         return response.data
 }
 
