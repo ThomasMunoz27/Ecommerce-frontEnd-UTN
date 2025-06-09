@@ -34,6 +34,11 @@ export const deleteProduct = async (idProductToDelete: number) => {
         return response.data
 }
 
+export const activateProduct = async (idProductToActivate : number) => {
+    const response = await interceptorApiClient.patch(`/product/activate/${idProductToActivate}`)
+    return response.data
+}
+
 export const getAllProductsActive = async () => {
         const response = await interceptorApiClient.get(`/product/active`)
         return response.data

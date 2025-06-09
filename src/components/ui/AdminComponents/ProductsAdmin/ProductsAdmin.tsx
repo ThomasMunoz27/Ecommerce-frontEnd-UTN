@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import styles from './ProductsAdmin.module.css';
-import { deleteProduct } from '../../../../cruds/crudProduct';
+import { activateProduct, deleteProduct } from '../../../../cruds/crudProduct';
 import { IProduct } from '../../../../types/IProduct';
 import { useStoreModal } from '../../../../store/useStoreModal';
 import useStoreProduct from '../../../../store/useStoreProduct';
@@ -44,6 +44,18 @@ export const ProductsAdmin = () => {
             errorAlert('Error', 'No se pudo eliminar el producto')
             console.log(error.message);
             
+        }
+    }
+
+    // Funcion para activar el producto
+    const handleActivate = async(idProduct : number) => {
+        try {
+            await activateProduct(idProduct)
+            succesAlert('Activado', 'Se activo el producto')
+            fetchProduct('alls')
+        } catch (error : any) {
+            console.log(error.message);
+            errorAlert('Error', 'No se pudo activar el producto')
         }
     }
 
@@ -120,6 +132,9 @@ export const ProductsAdmin = () => {
                             <div className={styles.actionButtons}>
                                 <button onClick={() => handleEdit(product)}>Editar</button>
                                 <button onClick={() => handleDelete(Number(product.id))}>Eliminar</button>
+                                {active === 'inactive' ? (
+                                    <button onClick={() => handleActivate(Number(product.id))}>Activar</button>
+                                ) : null}
                             </div>
                         </td>
                     </tr>
