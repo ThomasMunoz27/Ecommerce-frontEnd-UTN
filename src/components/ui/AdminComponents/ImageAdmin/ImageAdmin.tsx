@@ -74,7 +74,7 @@ export const ImageAdmin = () => {
                     {images?.map(image => (
                     <tr key={image.id}>
                         <td>{image.id}</td>
-                        <td>
+                        <td className={styles.imgSection}>
                             <img src={image.url} alt=""  className={styles.images}/>
                         </td>
                         <td className={styles.urlColumn}>{image.url}</td>
