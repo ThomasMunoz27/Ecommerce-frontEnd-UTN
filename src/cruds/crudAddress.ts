@@ -1,13 +1,7 @@
-import axios from "axios";
-import { BASE_URL } from "../utils/constantes";
-
 import { IAdress, IAdressRequest } from "../types/IAdress";
-import { errorAlert } from "../utils/errorAlert";
-import { succesAlert } from "../utils/succesAlert";
 import interceptorApiClient from "../interceptors/axios.interceptor";
 
 
-const URL_ADRESS = `${BASE_URL}/adress`
 
 export const getAllAdress = async() : Promise<IAdress[]> => {
     const response = await interceptorApiClient.get(`/adress`)
