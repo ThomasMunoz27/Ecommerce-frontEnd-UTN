@@ -66,6 +66,7 @@ export const ListProducts: FC<Props> = ({productsArray, title, customClass}) => 
       <div className={style.containerFlex}>
 
     {productosReordenados.length > 0 ? productosReordenados.map((product) => {
+      if(product.active)
       return (
         <CardProduct
         key={product.id}
