@@ -14,55 +14,25 @@ export const getAllAdress = async() : Promise<IAdress[]> => {
     return response.data
 }
 
-
-// export const getAllAdress = async (): Promise<IAdress[]> => {
-//     try {
-//         const response = await axios.get(URL_ADRESS)
-//         return response.data
-//     } catch (error) {
-//         console.log('Error en getAllAdress', error);
-//         return []   
-//     }
-// }
 export const getAdressById = async (adressId: string): Promise<IAdress | undefined> => {
-    try{
-        const response = await axios.get(`${URL_ADRESS}/${adressId}`)
+        const response = await interceptorApiClient.get(`adress/${adressId}`)
         return response.data
-    }catch (err){
-        console.log("Error en getAdressById" + err)
-        errorAlert('Error', 'No se pudo traer la direccion')
-        return undefined
-    }
+    
 }
 
 export const postAdress = async (newAdress: IAdress | IAdressRequest) => {
-    try{
-        const response = await axios.post(URL_ADRESS, newAdress)
+        const response = await interceptorApiClient.post("/adress", newAdress)
         return response.data
-    }catch (err){
-        console.log("Error en postAdress" + err)
-        errorAlert('Error', 'No se pudo crear la direccion')
-    }
+    
 }
 
 export const putAdress = async (updatedAdress: IAdress | IAdressRequest) => {
-    try{
-        const response = await axios.put(`${URL_ADRESS}/${updatedAdress.id}`, updatedAdress)
-        succesAlert('Actualizado', 'Se actualizo la direccion')
+        const response = await interceptorApiClient.put(`adress/${updatedAdress.id}`, updatedAdress)
         return response.data
-    }catch (err){
-        console.log("Error en putAdress" + err)
-        errorAlert('Error', 'No se puede actualizar la direccion')
-    }
 }
 
 export const deleteAdress = async (idAdressToDelete: string) => {
-    try{
-        const response = await axios.delete(`${URL_ADRESS}/${idAdressToDelete}`)
+        const response = await interceptorApiClient.delete(`adress/${idAdressToDelete}`)
         return response.data
-    }catch (err){
-        console.log("Error en deleteAdress" + err)
-        errorAlert('Error','No se pudo eliminar la direccion')
-    }
 }
 
