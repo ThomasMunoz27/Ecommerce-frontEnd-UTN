@@ -80,6 +80,15 @@ export const SubAdminPrice: FC<ISubAdminPrice> = ({ product, setProduct }) => {
             return
         }
 
+
+        const existingPrice = products?.find((product) => product.prices.id === selectedPrice?.id)
+
+        if (existingPrice){
+            errorAlert('Error', 'Este precio ya esta asignado a un producto')
+            closeAdminSubPrice()
+            return
+        }
+
         try {
             const updatedActiveProduct = { ...activeProduct, prices: selectedPrice }
             setActiveProduct(updatedActiveProduct)

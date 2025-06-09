@@ -1,7 +1,7 @@
 import { IProduct } from "../types/IProduct";
 import { errorAlert } from "./errorAlert";
 
-export const checkProductAtributes = (product: IProduct): boolean => {
+export const checkProductAtributes =  (product: IProduct): boolean => {
 	const validations = [
 		{
 			condition: product.colors.length === 0,
@@ -25,8 +25,10 @@ export const checkProductAtributes = (product: IProduct): boolean => {
         }
 	];
 
+	console.log(validations)
 	for (const validation of validations) {
 		if (validation.condition) {
+			console.log(validation)
 			errorAlert("Error", validation.message);
 			return false;
 		}

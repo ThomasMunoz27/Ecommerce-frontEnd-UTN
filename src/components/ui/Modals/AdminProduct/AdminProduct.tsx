@@ -143,7 +143,7 @@ export const AdminProduct = () => {
             //hay que revisar esta funcion con el Mauro
             if (newProduct.image?.id && await checkImageUsed(newProduct.image.id)) {
 	            errorAlert("⚠️ La imagen ya está asignada a otro producto. Por favor, selecciona una nueva imagen.");
-	            return;
+                return;
             }
             const productToSend = mapProductToPayload(newProduct) // Funcion para cambiar el objeto asi lo recibe el backend
             console.log(productToSend);
@@ -172,6 +172,7 @@ export const AdminProduct = () => {
 
     // Funcion para editar un producto activo
     const handleEditProduct = async(e : React.FormEvent) => {
+        
         e.preventDefault()
         if (!editProduct || !activeProduct){
             errorAlert('Error', 'No hay producto activo')
@@ -179,11 +180,13 @@ export const AdminProduct = () => {
         }
 
         try {
-            await formProductSchema.validate(editProduct, {abortEarly: false})
-
+            console.log("ando lol")
+            const r1 =  formProductSchema.validate(editProduct, {abortEarly: false})
+            
+            console.log(r1)
 
             const validated = checkProductAtributes(editProduct)
-            if(!validated){
+            if(validated == false){
                 return
             }
                        //hay que revisar esta funcion con el Mauro
