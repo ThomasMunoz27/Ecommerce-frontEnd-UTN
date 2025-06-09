@@ -11,7 +11,6 @@ import Swal from "sweetalert2";
 //TODO: documentacion axios interceptor https://axios-http.com/docs/interceptors
 
 
-import { createHTTPError } from "../utils/errors"
 
 
 // Crear instancia
@@ -68,7 +67,8 @@ interceptorApiClient.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     
     const token = getToken();
-    console.log(token)
+    
+    
     if (token) {
       config.headers["Authorization"] =  `Bearer ${token}`;
     }

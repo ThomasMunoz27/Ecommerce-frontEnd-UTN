@@ -48,6 +48,12 @@
     width: 95%;
     overflow-x: auto;
 }
+.imgSection{
+    width: 80px;
+}
+.imgSection img {
+    width: 100%;
+}
 
 .table {
     width: 100%;

@@ -54,7 +54,7 @@
 }
 .minHeader {
     background-color: gray;
-    height: 5vh;
+    height: 30%;
     overflow-x: auto;
     overflow-y: hidden;
     display: flex;
