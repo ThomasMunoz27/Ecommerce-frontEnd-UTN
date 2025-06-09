@@ -56,7 +56,7 @@ export const ProductsAdmin = () => {
                     <h1>
                         {active === 'active' && 'Gestión de Productos Activos'}
                         {active === 'inactive' && 'Gestión de Productos Inactivos'}
-                        {active === 'alls' && 'Gestión de Todos Productos'}
+                        {active === 'alls' && 'Gestión de Todos los Productos'}
                     </h1>
                 </div>
                 <div className={styles.containerButtons}>

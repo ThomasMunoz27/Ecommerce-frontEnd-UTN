@@ -19,6 +19,7 @@ import { getAllImages } from '../../../../cruds/crudImage'
 import { mapProductToPayload } from '../../../../utils/mapProductToPayload'
 import { checkProductAtributes } from '../../../../utils/checkProductAtributes'
 import { formProductSchema } from '../../../../yupSchemas/formProductSchema'
+import { checkImageUsed } from '../../../../utils/checkImageUsed'
 
 
 export const AdminProduct = () => {
@@ -138,6 +139,12 @@ export const AdminProduct = () => {
             if(!validated){
                 return
             }
+
+            //hay que revisar esta funcion con el Mauro
+            if (newProduct.image?.id && await checkImageUsed(newProduct.image.id)) {
+	            errorAlert("⚠️ La imagen ya está asignada a otro producto. Por favor, selecciona una nueva imagen.");
+	            return;
+            }
             const productToSend = mapProductToPayload(newProduct) // Funcion para cambiar el objeto asi lo recibe el backend
             console.log(productToSend);
             
@@ -178,6 +185,12 @@ export const AdminProduct = () => {
             const validated = checkProductAtributes(editProduct)
             if(!validated){
                 return
+            }
+                       //hay que revisar esta funcion con el Mauro
+
+            if (editProduct.image?.id && await checkImageUsed(editProduct.image.id)) {
+	            errorAlert("⚠️ La imagen ya está asignada a otro producto. Por favor, selecciona una nueva imagen.");
+	            return;
             }
 
             await putProduct(editProduct)
