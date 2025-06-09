@@ -6,6 +6,7 @@ interface IStoreModal{
     modalAddProduct : boolean, // Modal para agregar un producto al carrito
     modalPrices : boolean,
     modalEditAddress : boolean,
+    modalAdminEditUser : boolean,
 
     modalAdminColor : {type: boolean, option : 1 | 2 | null},
     modalAdminSize : {type : boolean, option : 1 | 2 | null},
@@ -90,6 +91,9 @@ interface IStoreModal{
     openModalViewBill : () => void,
     closeModalViewBill : () => void
 
+    openAdminModalEditUser : () => void,
+    closeAdminModalEditUser : () => void
+
 
 }
 
@@ -101,6 +105,7 @@ export const useStoreModal = create<IStoreModal>((set) => ({
     modalEditAdminProduct: false,
     modalAddAdminProduct : false,
     modalPrices : false,
+    
 
     modalAdminLocality : false,
     modalAdminAdress : false,
@@ -112,6 +117,7 @@ export const useStoreModal = create<IStoreModal>((set) => ({
     modalAdminImage : false,
     modalAdminCountry : false,
     modalAdminProvince : false,
+    modalAdminEditUser : false,
 
     modalAdminProduct : {type : false, option: null},
     modalAdminSubSize : {type : false, option : null},
@@ -187,7 +193,10 @@ export const useStoreModal = create<IStoreModal>((set) => ({
     closeModalEditAddress : () => set({modalEditAddress : false}),
 
     openModalViewBill : () => set({modalViewBill : true}),
-    closeModalViewBill : () => set({modalViewBill : false})
+    closeModalViewBill : () => set({modalViewBill : false}),
+
+    openAdminModalEditUser : () => set({modalAdminEditUser : true}),
+    closeAdminModalEditUser : () => set({modalAdminEditUser : false})
 
     
 }))

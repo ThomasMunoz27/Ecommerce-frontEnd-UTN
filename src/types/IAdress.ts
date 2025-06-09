@@ -5,7 +5,7 @@ export interface IAdress {
     street: string,
     number: number,
     cp: number,
-    locality: ILocality
+    locality: ILocality 
 }
 
 export interface IAdressRequest {

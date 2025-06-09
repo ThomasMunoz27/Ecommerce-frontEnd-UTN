@@ -59,6 +59,7 @@
     background-color: black;
     color: white;
     padding: 5px;
+    border: none;
 }
 .containerButtons button:hover{
     cursor: pointer;
@@ -77,6 +78,7 @@
     background-color: black;
     color: white;
     padding: 5px;
+    border: none;
 }
 .containerButtonsEdit button:hover{
     cursor: pointer;

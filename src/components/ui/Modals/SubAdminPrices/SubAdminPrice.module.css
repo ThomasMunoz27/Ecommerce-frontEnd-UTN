@@ -39,6 +39,7 @@
     padding: 5px;
     background-color: black;
     color: white;
+    border: none;
 }
 .containerButtons button:hover{
     cursor: pointer;
@@ -56,6 +57,7 @@
     padding: 5px;
     background-color: black;
     color: white;
+    border: none;
 }
 .containerButtonsEdit button:hover{
     cursor: pointer;

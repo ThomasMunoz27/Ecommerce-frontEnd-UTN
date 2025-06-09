@@ -6,12 +6,19 @@ import styles from './UserAdmin.module.css'
 import { useStoreUsers } from '../../../../store/useStoreUsers'
 import { deleteUser } from '../../../../cruds/crudUsers'
 import { succesAlert } from '../../../../utils/succesAlert'
+import { IUser } from '../../../../types/IUser'
+import { useStoreModal } from '../../../../store/useStoreModal'
+import { AdminEditUser } from '../../Modals/EditRol/AdminEditUser'
+
+
+
 
 
 export const UsersAdmin = () => {
 
     const [active, setActive] = useState<string>('active')
-    const {users, fetchUsers} = useStoreUsers()
+    const {users, fetchUsers, setActiveUser} = useStoreUsers()
+    const {modalAdminEditUser, openAdminModalEditUser} = useStoreModal()
 
     useEffect(() => {
         fetchUsers(active)
@@ -36,6 +43,14 @@ export const UsersAdmin = () => {
         }
     }
 
+    // Funcion para editar usuario
+    const handleEditUser = (user : IUser) => {
+        setActiveUser(user)
+        openAdminModalEditUser()
+    }
+
+    
+
 
     return(
         <div className={styles.containerPrincipal}>
@@ -51,7 +66,7 @@ export const UsersAdmin = () => {
                     <button onClick={() => handleState('active')}>Activos</button>
                     <button onClick={() => handleState('inactive')}>Inactivos</button>
                     <button onClick={() => handleState('alls')}>Todos</button>
-                    <button>Añadir</button>
+                    <button >Añadir</button>
                 </div>
             </div>
             <div className={styles.usersTable}>
@@ -92,9 +107,10 @@ export const UsersAdmin = () => {
                                         <button onClick={() => handleDelete(user.id)}>
                                             Eliminar
                                         </button>
-                                        <button>
+                                        <button onClick={() =>handleEditUser(user) }>
                                             Editar
                                         </button>
+                                        
                                     </div>
                                 </td>
                             </tr>
@@ -102,6 +118,8 @@ export const UsersAdmin = () => {
                     </tbody>
                 </table>
             </div>
+            {modalAdminEditUser && <div className={styles.modalBackdrop}><AdminEditUser/></div>}
+            
         </div>
     )
 }

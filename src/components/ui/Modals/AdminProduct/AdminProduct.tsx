@@ -300,9 +300,9 @@ export const AdminProduct = () => {
                     <div className={styles.containerImage}>
                         <label htmlFor="">Imagen</label>
                         <select name="image" id="" onChange={handleChangeCreate}>
-                            <option value="" disabled >Sin seleccion</option>
+                            <option value="" disabled selected>Sin seleccion</option>
                             {images.map(image => (
-                                <option value={image.id}>{image.id}</option>
+                                <option key={image.id} value={image.id}>{image.id}</option>
                             ))}
                         </select>
                     </div>
@@ -366,9 +366,9 @@ export const AdminProduct = () => {
                     <div className={styles.containerImage}>
                         <label htmlFor="">Imagen</label>
                         <select name="image" id="" value={editProduct?.image?.id} onChange={handleChangeEdit}>
-                            <option value="" disabled >Sin seleccion</option>
+                            <option value="" disabled selected>Sin seleccion</option>
                             {images.map(image => (
-                                <option value={image.id}>{image.id}</option>
+                                <option key={image.id} value={image.id}>{image.id}</option>
                             ))}
                         </select>
                     </div>
