@@ -6,7 +6,7 @@ import {  register } from '../../../../cruds/crudLoginRegister'
 import { useStoreUsers } from '../../../../store/useStoreUsers'
 
 import { succesAlert } from '../../../../utils/succesAlert'
-import { ModalEditUserAdress } from '../ModalEditUserAddress/ModalEditUserAdress'
+
 import { SubAdminAddress } from '../SubAdminAddress/SubAdminAddress'
 import { IAdressRequest } from '../../../../types/IAdress'
 import { postAdress } from '../../../../cruds/crudAddress'
@@ -35,7 +35,6 @@ export const AdminAddUser = () => {
 
       //Direccion
     const [newAddress, setNewAddress] = useState<IAdressRequest>({
-        id: 0,
         street: '',
         number: 0,
         cp: 0,
@@ -58,8 +57,7 @@ export const AdminAddUser = () => {
             try {
 
                 const createAddress = await postAdress(newAddress)
-                succesAlert('Adrees creado')
-                console.log(createAddress)
+
                 await register(
                     registerData.nombre,
                     registerData.password,
