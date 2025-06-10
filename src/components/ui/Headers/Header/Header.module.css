@@ -173,7 +173,7 @@
     }
 /* Responsive modal */
 @media (max-width: 750px){
-    .header{
+    .searchBarIconsContainer{
         width: 65%;
     }
     .subHeader{
