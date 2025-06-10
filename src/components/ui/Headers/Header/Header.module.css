@@ -36,7 +36,7 @@
 
     display: flex;
     justify-content: space-between;
-    width: 55%;
+    width: 25%;
 }
 
 .adminIcon{
@@ -173,6 +173,9 @@
     }
 /* Responsive modal */
 @media (max-width: 750px){
+    .header{
+        width: 65%;
+    }
     .subHeader{
         display: none;
         background-color: red;
