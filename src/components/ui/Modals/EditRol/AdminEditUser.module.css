@@ -12,7 +12,7 @@
     justify-content: center;
     align-items: center;
     gap: 20px;
-    min-width: 450px;
+    min-width: 550px;
 }
 .containerPrincipal select{
     width: 100%;
@@ -85,7 +85,6 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0, 0, 0, 0.5); 
     display: flex;
     justify-content: center;
     align-items: center;

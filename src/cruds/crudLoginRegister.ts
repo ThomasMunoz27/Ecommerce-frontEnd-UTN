@@ -25,7 +25,6 @@ export const login = async (user: string, pass: string, setToken: (token: string
 export const register = async (
   name: string,
   password: string,
-//   user: number,
   email: string,
   dni: string,
   username: string,
@@ -33,7 +32,7 @@ export const register = async (
   lastname: string,
   phoneNumber: number,
   sex: string,
-//   sizeId: number
+
 ) => {
   const registerRequest = {
     name,
@@ -46,7 +45,7 @@ export const register = async (
     lastname,
     phoneNumber,
     sex,
-    addressId: 1,
+    adressId: 1,
     sizeId: 1
   };
 

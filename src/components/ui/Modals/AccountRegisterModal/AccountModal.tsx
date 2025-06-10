@@ -6,8 +6,7 @@ import { useStoreLogin } from '../../../../store/useStoreLogin'
 import { useStoreUsers } from '../../../../store/useStoreUsers'
 import { getUserByName } from '../../../../cruds/crudUsers'
 import { errorAlert } from '../../../../utils/errorAlert'
-import { postAdress } from '../../../../cruds/crudAddress'
-import { IAdressRequest } from '../../../../types/IAdress'
+
 
 
 export const AccountModal = () => {
@@ -18,9 +17,9 @@ export const AccountModal = () => {
   const [password, setPassword] = useState('')
   const { setToken } = useStoreLogin()
   
-  const { setUser, setUserName, userName} = useStoreUsers()
+  const { setUser, setUserName,} = useStoreUsers()
   
-  const [logged, setLogged] = useState(false)
+  const [logged] = useState(false)
 
   
 
@@ -38,15 +37,10 @@ export const AccountModal = () => {
     direccion: '',
     phoneNumber: '',
     sex: '',
+  
   })
 
-  const [newAddress, setNewAddress] = useState<IAdressRequest>({
-          id: 0,
-          street: '',
-          number: 0,
-          cp: 0,
-          locality: {id : 0}
-      })
+  
 
       useEffect(() => {
           const fetchUser = async() => {
@@ -125,6 +119,8 @@ export const AccountModal = () => {
       return
     }
     try {
+      
+
       await register(
         registerData.nombre,
         registerData.password,

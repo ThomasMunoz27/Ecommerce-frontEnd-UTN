@@ -10,6 +10,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    width: 550px;
 }
 .containerTitle{
     padding: 10px;
