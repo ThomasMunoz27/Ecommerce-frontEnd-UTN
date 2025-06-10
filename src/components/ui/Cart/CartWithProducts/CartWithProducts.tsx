@@ -89,7 +89,7 @@ const {setUser} = useStoreUsers()
                                 {totalCartWithDiscount != 0 && (
                                     <>
                                         <p>$ {noDiscountIvaPrice}</p>
-                                        <p className={styles.aplicatedDiscount}>- $ {(noDiscountIvaPrice-ivaPrice).toFixed(2)}</p>
+                                        <p className={styles.aplicatedDiscount}>-${(noDiscountIvaPrice-ivaPrice).toFixed(2)}</p>
                                     </>
                                 )}
                                 <p><b>${(ivaPrice).toFixed(2)}</b></p>

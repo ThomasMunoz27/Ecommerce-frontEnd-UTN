@@ -13,7 +13,7 @@ export const SuccessPay = () => {
     const navigate = useNavigate()
 
     const {modalViewBill, openModalViewBill} = useStoreModal()
-    const {cleanCart} = useStoreCart()
+    const {reduceStock} = useStoreCart()
 
     const{setActiveBill} = useStoreBill()
     const handleShowBill = () => {
@@ -21,7 +21,9 @@ export const SuccessPay = () => {
     }
 
     useEffect(() => {
-        cleanCart()
+
+        reduceStock()
+
         const urlParams = new URLSearchParams(window.location.search)
         const preferenceId = urlParams.get("preference_id")
 

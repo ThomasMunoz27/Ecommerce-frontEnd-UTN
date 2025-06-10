@@ -3,6 +3,9 @@ import { persist } from "zustand/middleware";
 import { ICartProduct } from "../types/ICartProduct";
 import { miniAlert } from "../utils/miniAlert";
 import { miniErrorAlert } from "../utils/miniErrorAlert";
+import { deleteProduct, putProduct } from "../cruds/crudProduct";
+import { errorAlert } from "../utils/errorAlert";
+import { succesAlert } from "../utils/succesAlert";
 
 interface IStoreCart {
 	productsInCart: ICartProduct[];
@@ -14,12 +17,14 @@ interface IStoreCart {
 	removeProductFromCart: (productToRemove: ICartProduct) => void;
 
 	cleanCart: () => void;
-
+	
 	cantProducts: () => number;
-
+	
 	totalCart: () => number;
-
+	
 	totalCartWithDiscount: () => number
+
+	reduceStock: () => void;
 }
 
 export const useStoreCart = create<IStoreCart>()(
@@ -37,7 +42,7 @@ export const useStoreCart = create<IStoreCart>()(
 					);
 
 					if (existingProduct) {
-						if(existingProduct.quantity < 10){
+						if(existingProduct.quantity < 10 && existingProduct.quantity < existingProduct.stock){
 							return {
 								productsInCart: state.productsInCart.map((p) =>
 									p.id === product.id &&
@@ -104,6 +109,39 @@ export const useStoreCart = create<IStoreCart>()(
 				const hasDiscount = products.some(p => p.prices.discount)
 				if (!hasDiscount) return 0;
 				return products.reduce((sum, p) => sum + p.quantity * (p.prices.salePrice - (p.prices.discount ? p.prices.discount.promotionalPrice : 0)), 0);
+			},
+
+			reduceStock: async () => {
+				try{
+					const productsSelled = get().productsInCart
+					for(const product of productsSelled){
+						const updatedStock = product.stock - product.quantity
+						if(updatedStock <= 0){
+							console.log("Producto desactivado")
+							await deleteProduct(Number(product.id))
+							continue
+						}
+						const productToUpdate = {
+							...product,
+							stock: updatedStock
+						}
+						try{
+							await putProduct(productToUpdate)
+	
+						}catch (error){
+							errorAlert("Error", `Stock negativo para producto ID: ${product.id}`)
+	
+						}
+					}
+
+				}catch (error){
+					errorAlert("Error", `Error en la compra`)
+
+				}finally{
+					get().cleanCart()
+					succesAlert("Compra Finalizada", "Tu compra se ha completado con exito")
+				}
+				
 			}
 		}),
 		{
