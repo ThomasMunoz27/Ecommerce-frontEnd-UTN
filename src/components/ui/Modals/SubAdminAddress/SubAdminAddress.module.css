@@ -11,6 +11,7 @@
     align-items: center;
     gap: 1rem;
     box-shadow: 5px 5px 15px;
+    min-width: 450px;
 }
 .containerValues{
     display: flex;

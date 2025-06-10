@@ -1,0 +1,124 @@
+.containerPrincipalRegister {
+    height: 550px;
+    min-width: 550px;
+    background-color: white;
+    position: fixed;
+    
+    left: 50%;
+    top: 50%;
+    transform : translate(-50%, -50%);
+    box-shadow: 7px 5px 30px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+.containerLogoRegister{
+    min-height: 30px;
+    min-width: 30px;
+}
+
+.imgLogo{
+    width: 60px;
+    height: 60px;
+}
+.containerTitleRegister{
+    padding: 5px;
+    text-align: center;
+    
+}
+
+.containerFormRegister{
+    padding: 5px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 20px;
+}
+.data{
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    padding: 10px;
+    height: 300px;
+    overflow-y: auto;
+}
+.loginDetails{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    
+    align-items: center;
+    gap: 10px
+}
+.taxData{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+.containerFormRegister input{
+    background-color: rgb(214, 212, 212);
+    padding: 10px;
+    border: none;
+    text-align: center;
+}
+.containerFormRegister ::placeholder{
+    color: black;
+}
+.containerFormRegister hr {
+    height: 4px;
+    background-color: black;
+}
+.containerButtonsRegister{
+    display: flex;
+    gap: 20px;
+}
+.containerButtonsRegister button{
+    background-color: black;
+    color: white;
+    padding: 10px;
+    width: 50%;
+    font-size: 15px;
+    cursor: pointer;
+    border : none;
+}
+.containerButtonsRegister button:hover{
+    background-color: rgba(68, 68, 68, 0.822);
+}
+.modalBackdrop{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+.buttonAddress{
+    padding: 10px;
+    font-size: 15px;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+.buttonAddress:hover{
+    cursor: pointer;
+    background-color: rgba(68, 68, 68, 0.822);
+}
+
+
+@media (max-width : 785px) {
+    .containerLogoRegister img {
+        width: auto;
+    }
+    
+}

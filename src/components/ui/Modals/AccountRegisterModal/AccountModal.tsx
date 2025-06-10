@@ -6,6 +6,8 @@ import { useStoreLogin } from '../../../../store/useStoreLogin'
 import { useStoreUsers } from '../../../../store/useStoreUsers'
 import { getUserByName } from '../../../../cruds/crudUsers'
 import { errorAlert } from '../../../../utils/errorAlert'
+import { postAdress } from '../../../../cruds/crudAddress'
+import { IAdressRequest } from '../../../../types/IAdress'
 
 
 export const AccountModal = () => {
@@ -35,8 +37,17 @@ export const AccountModal = () => {
     dni: '',
     direccion: '',
     phoneNumber: '',
-    sex: ''
+    sex: '',
+    addressId : ''
   })
+
+  const [newAddress, setNewAddress] = useState<IAdressRequest>({
+          id: 0,
+          street: '',
+          number: 0,
+          cp: 0,
+          locality: {id : 0}
+      })
 
       useEffect(() => {
           const fetchUser = async() => {
@@ -115,6 +126,8 @@ export const AccountModal = () => {
       return
     }
     try {
+      const createAddress = await postAdress(newAddress)
+
       await register(
         registerData.nombre,
         registerData.password,
@@ -124,7 +137,9 @@ export const AccountModal = () => {
         registerData.fechaNacimiento,
         registerData.apellido,
         parseInt(registerData.phoneNumber),
-        registerData.sex
+        registerData.sex,
+        registerData.addressId = createAddress.id
+
       )
       closeModalAccount()
       await login(registerData.username, registerData.password, setToken)

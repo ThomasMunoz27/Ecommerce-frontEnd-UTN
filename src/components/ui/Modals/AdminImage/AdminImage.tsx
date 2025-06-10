@@ -3,7 +3,7 @@ import { useStoreImages } from '../../../../store/useStoreImages'
 import { useStoreModal } from '../../../../store/useStoreModal'
 import styles from './AdminImage.module.css'
 import { errorAlert } from '../../../../utils/errorAlert'
-import { getAllImages, postImageToCloudinary, putImage, putImageToCloudinary } from '../../../../cruds/crudImage'
+import { getAllImages, postImageToCloudinary, putImageToCloudinary } from '../../../../cruds/crudImage'
 import { succesAlert } from '../../../../utils/succesAlert'
 import { IImage } from '../../../../types/IImage'
 

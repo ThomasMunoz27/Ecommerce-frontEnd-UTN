@@ -4,6 +4,7 @@ import styles from './SubAdminAddress.module.css'
 import { getAllLocalities } from '../../../../cruds/crudLocality'
 import { ILocality } from '../../../../types/ILocality'
 import { useStoreModal } from '../../../../store/useStoreModal'
+import { formAdressSchema } from '../../../../yupSchemas/formAdressSchema'
 
 
 interface ISubAdminAddress {
@@ -15,6 +16,7 @@ export const SubAdminAddress : FC<ISubAdminAddress> = ({address, setAddress}) =>
 
     const {closeSubAdminAddress} = useStoreModal()
     const [localities, setLocalities] = useState<ILocality[]>()
+    const [formErrors, setFormErrors] =useState<Record<string, string>>({})
 
     useEffect(() => {
         const getLocalities = async() => {
@@ -41,9 +43,23 @@ export const SubAdminAddress : FC<ISubAdminAddress> = ({address, setAddress}) =>
         }) )
     }
 
-    const handleSubmit = (e : React.FormEvent) => {
+    const handleSubmit = async(e : React.FormEvent) => {
         e.preventDefault()
-        closeSubAdminAddress()
+        try {
+            await formAdressSchema.validate(address, {abortEarly : false})
+            closeSubAdminAddress()
+            
+        } catch (error : any) {
+            const errors: Record<string, string> = {}
+                if(error.inner){
+                    error.inner.forEach((validationError:any) =>{
+                        errors[validationError.path] = validationError.message;
+                    });
+                }else{
+                    error.general = error.message
+                }
+                setFormErrors(errors)
+        }
     }
 
     return (
@@ -59,22 +75,21 @@ export const SubAdminAddress : FC<ISubAdminAddress> = ({address, setAddress}) =>
                     <label htmlFor="">Codigo Postal</label>
                     <div>
                         <input type="number" name="cp" value={address.cp} id="" onChange={handleChange}/>
-                        
+                        {formErrors.cp && <p className={styles.errorMessage}>{formErrors.cp}</p>}
 
                     </div>
 
                     <label htmlFor="">Numero</label>
                     <div>
                         <input type="number" name="number" value={address.number} id="" onChange={handleChange}/>
-                        
+                        {formErrors.number && <p className={styles.errorMessage}>{formErrors.number}</p>}
 
                     </div>
 
                     <label htmlFor="">Calle</label>
-
                     <div>
                         <input type="text" name="street" value={address.street} id="" onChange={handleChange}/>
-                        
+                        {formErrors.street && <p className={styles.errorMessage}>{formErrors.street}</p>}
 
                     </div>
 
