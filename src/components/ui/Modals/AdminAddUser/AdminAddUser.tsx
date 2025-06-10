@@ -58,7 +58,8 @@ export const AdminAddUser = () => {
             try {
 
                 const createAddress = await postAdress(newAddress)
-
+                succesAlert('Adrees creado')
+                console.log(createAddress)
                 await register(
                     registerData.nombre,
                     registerData.password,
