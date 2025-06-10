@@ -17,9 +17,9 @@ export const AccountModal = () => {
   const [password, setPassword] = useState('')
   const { setToken } = useStoreLogin()
   
-  const { setUser, setUserName, userName} = useStoreUsers()
+  const { setUser, setUserName,} = useStoreUsers()
   
-  const [logged, setLogged] = useState(false)
+  const [logged] = useState(false)
 
   
 
@@ -131,7 +131,6 @@ export const AccountModal = () => {
         registerData.apellido,
         parseInt(registerData.phoneNumber),
         registerData.sex,
-        
 
       )
       closeModalAccount()
