@@ -7,13 +7,10 @@ import { useStoreUsers } from '../../../../store/useStoreUsers'
 
 import { succesAlert } from '../../../../utils/succesAlert'
 
-import { SubAdminAddress } from '../SubAdminAddress/SubAdminAddress'
-import { IAdressRequest } from '../../../../types/IAdress'
-import { postAdress } from '../../../../cruds/crudAddress'
 
 export const AdminAddUser = () => {
 
-    const {closeAdminAddUser, modalAdminSubAddress, openSubAdminAddress} = useStoreModal()
+    const {closeAdminAddUser} = useStoreModal()
     const { fetchUsers} = useStoreUsers()
 
 
@@ -30,16 +27,10 @@ export const AdminAddUser = () => {
         direccion: '',
         phoneNumber: '',
         sex: '',
-        addressId: ''
+        
       })
 
-      //Direccion
-    const [newAddress, setNewAddress] = useState<IAdressRequest>({
-        street: '',
-        number: 0,
-        cp: 0,
-        locality: {id : 0}
-    })
+      
 
 
     const handleRegisterChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -56,7 +47,7 @@ export const AdminAddUser = () => {
         
             try {
 
-                const createAddress = await postAdress(newAddress)
+                
 
                 await register(
                     registerData.nombre,
@@ -68,7 +59,7 @@ export const AdminAddUser = () => {
                     registerData.apellido,
                     parseInt(registerData.phoneNumber),
                     registerData.sex,
-                    registerData.addressId = createAddress.id
+                    
                 )
                 succesAlert('Registrado')
                 fetchUsers('alls')
@@ -114,8 +105,6 @@ export const AdminAddUser = () => {
 
                         <input type="text" name="dni" placeholder="DNI" value={registerData.dni} onChange={handleRegisterChange}/>
 
-                        <button type='button' className={styles.buttonAddress} onClick={openSubAdminAddress}>Agregar Direccion</button>
-
                         <input type="tel" name="phoneNumber" placeholder="Teléfono" value={registerData.phoneNumber} onChange={handleRegisterChange}/>
 
                         <select name="sex" value={registerData.sex} onChange={handleRegisterChange}>
@@ -138,7 +127,7 @@ export const AdminAddUser = () => {
                 </div>
 
             </form>
-            { modalAdminSubAddress && <div className={styles.modalBackdrop}><SubAdminAddress address={newAddress} setAddress={setNewAddress}/></div>}
+           
         </div>
     )
 }

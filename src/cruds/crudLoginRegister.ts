@@ -33,7 +33,7 @@ export const register = async (
   lastname: string,
   phoneNumber: number,
   sex: string,
-  addressId: number,
+//   addressId: number,
 //   sizeId: number
 ) => {
   const registerRequest = {
@@ -47,7 +47,7 @@ export const register = async (
     lastname,
     phoneNumber,
     sex,
-    addressId,
+    adressId: 1,
     sizeId: 1
   };
 
