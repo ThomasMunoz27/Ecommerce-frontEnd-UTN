@@ -38,7 +38,6 @@ export const AccountModal = () => {
     direccion: '',
     phoneNumber: '',
     sex: '',
-    addressId : ''
   })
 
   const [newAddress, setNewAddress] = useState<IAdressRequest>({
@@ -126,8 +125,6 @@ export const AccountModal = () => {
       return
     }
     try {
-      const createAddress = await postAdress(newAddress)
-
       await register(
         registerData.nombre,
         registerData.password,
@@ -138,7 +135,6 @@ export const AccountModal = () => {
         registerData.apellido,
         parseInt(registerData.phoneNumber),
         registerData.sex,
-        registerData.addressId = createAddress.id
 
       )
       closeModalAccount()
