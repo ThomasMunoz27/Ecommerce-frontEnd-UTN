@@ -2,8 +2,8 @@
 
 .productCard {
   width: 300px;
-  height: 400px;
-  max-height: 379px;
+  height: 430px;
+  max-height: 400px;
   border: 1px solid black;
   box-shadow: 4px 4px 6px rgb(95, 95, 95);
 }
@@ -51,7 +51,7 @@
 .cardBtn {
   align-self: flex-end;
   padding: 5px 8px;
-  width: 50%;
+  width: 60%;
   background-color: black;
   color: white;
   font-weight: bold;

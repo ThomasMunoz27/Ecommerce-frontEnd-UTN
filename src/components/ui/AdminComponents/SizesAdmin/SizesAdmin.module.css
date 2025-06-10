@@ -20,6 +20,7 @@
     align-items: center;
     height: 100%;
     padding: 20px;
+    font-size: 12px;
 }
 
 .containerButtons{
@@ -107,3 +108,7 @@
     z-index: 1000;
 }
 
+
+.containerButtons button{
+    padding: 10px 20px;
+}

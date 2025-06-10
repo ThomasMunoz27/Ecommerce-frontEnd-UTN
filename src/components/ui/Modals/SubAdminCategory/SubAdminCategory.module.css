@@ -51,10 +51,11 @@
     padding: 10px;
 }
 .containerButtons button{
-    font-size: 15px;
-    padding: 5px;
     background-color: black;
+    font-size: 15px;
     color: white;
+    padding: 10px 20px;
+
 }
 .containerButtons button:hover{
     cursor: pointer;
@@ -73,10 +74,9 @@
     padding: 5px;
     background-color: black;
     color: white;
-    ;
 }
 .containerButtonsEdit button:hover{
     cursor: pointer;
     transform: scale(1.1);
-    transition: 03s ease;
+    transition: 0.3s ease;
 }

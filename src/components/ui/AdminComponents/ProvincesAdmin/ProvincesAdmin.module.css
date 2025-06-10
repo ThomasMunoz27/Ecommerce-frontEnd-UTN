@@ -20,6 +20,7 @@
     align-items: center;
     height: 100%;
     padding: 20px;
+    font-size: 12px;
 }
 
 .containerButtons{
@@ -32,7 +33,7 @@
 }
 
 .containerButtons button{
-    padding: 5px 10px;
+    padding: 10px 20px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
