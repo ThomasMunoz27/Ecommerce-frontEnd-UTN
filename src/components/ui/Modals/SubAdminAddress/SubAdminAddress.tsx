@@ -47,6 +47,7 @@ export const SubAdminAddress : FC<ISubAdminAddress> = ({address, setAddress}) =>
         e.preventDefault()
         try {
             await formAdressSchema.validate(address, {abortEarly : false})
+            
             closeSubAdminAddress()
             
         } catch (error : any) {
