@@ -5,16 +5,23 @@ import { useEffect, useState } from 'react'
 import { useStoreLogin } from '../../../../store/useStoreLogin'
 import { useStoreUsers } from '../../../../store/useStoreUsers'
 import { getUserByName } from '../../../../cruds/crudUsers'
+import { errorAlert } from '../../../../utils/errorAlert'
 
 
 export const AccountModal = () => {
-  const { modalAccount, closeModalAccount } = useStoreModal()
+  const { modalAccount, closeModalAccount, openModalAccount} = useStoreModal()
 
   // Login
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const { setToken } = useStoreLogin()
+  
   const { setUser, setUserName, userName} = useStoreUsers()
+  
+  const [logged, setLogged] = useState(false)
+
+  
+
 
   // Registro
   const [registerData, setRegisterData] = useState({
@@ -71,7 +78,12 @@ export const AccountModal = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
           <div className={styles.containerButtonsLogin}>
-            <button>Cancelar</button>
+            <button type='button' onClick={((e) => {
+              e.preventDefault()
+              if(!logged){
+                errorAlert('Espera un momento', 'Primero debes iniciar sesión')
+              }
+            })}>Cancelar</button>
             <button type='submit'>
               Iniciar Sesión
             </button>
@@ -212,7 +224,10 @@ export const AccountModal = () => {
 
           <hr />
           <div className={styles.containerButtonsRegister}>
-            <button>Cancelar</button>
+            <button type='button' onClick={((e) => {
+              e.preventDefault()
+              openModalAccount(true)
+            })}>Cancelar</button>
             <button type='submit'>
               Crear Cuenta
             </button>
