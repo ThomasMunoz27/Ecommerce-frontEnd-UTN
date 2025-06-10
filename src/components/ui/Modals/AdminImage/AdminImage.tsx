@@ -48,16 +48,16 @@ export const AdminImage = () => {
 
         try {
             if (activeImage && selectedFile) {
+                closeModalAdminImage()
                 await putImageToCloudinary(activeImage.id!,selectedFile)
                 succesAlert('Editado', 'Se edito la imagen correctamente')
                 fetchImages()
-                closeModalAdminImage()
                 
             } else {
+                closeModalAdminImage()
                 await postImageToCloudinary(selectedFile!)
                 succesAlert('Creado', 'La imagen fue creada con exito')
                 fetchImages()
-                closeModalAdminImage()
 
             }
         } catch (error : any) {

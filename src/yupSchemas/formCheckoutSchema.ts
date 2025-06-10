@@ -1,7 +1,8 @@
 import { object, string } from "yup";
 
 export const formCheckoutSchema = object({
-    email: string().required().email('Comprueba que tu dirección de correo electrónico es correcta.'),
+    email: string().required()
+		.email('Comprueba que tu dirección de correo electrónico es correcta.'),
     name: string().required('El nombre es requerido'),
 	lastName: string().required('El apellido es requerido'),
     phoneNumber: string()
