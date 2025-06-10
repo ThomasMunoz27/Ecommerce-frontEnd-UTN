@@ -128,8 +128,8 @@ export const DetailScreen = () => {
                         </div>))}
                     </div>
                 </div>
-                
                 <button className={style.buyButton} onClick={handleAddProductToCart}>Añadir al carrito</button>
+                
             </div>
         </div>
     <Footer/>
