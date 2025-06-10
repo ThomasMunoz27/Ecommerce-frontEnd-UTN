@@ -6,6 +6,7 @@
     transform: translate(-50%, -50%);
     padding: 10px;
     box-shadow: 5px 5px 15px;
+    min-width: 550px;
 }
 .containerTitle{
     padding: 10px;
@@ -32,7 +33,7 @@
     font-size: 15px;
     background-color: black;
     color: white;
-    padding: 5px;
+    padding: 10px;
     cursor: pointer;
 }
 .containerButtons button:hover{

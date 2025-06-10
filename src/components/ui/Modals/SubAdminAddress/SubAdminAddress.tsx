@@ -5,6 +5,8 @@ import { getAllLocalities } from '../../../../cruds/crudLocality'
 import { ILocality } from '../../../../types/ILocality'
 import { useStoreModal } from '../../../../store/useStoreModal'
 import { formAdressSchema } from '../../../../yupSchemas/formAdressSchema'
+import { postAdress } from '../../../../cruds/crudAddress'
+import { succesAlert } from '../../../../utils/succesAlert'
 
 
 interface ISubAdminAddress {
@@ -47,7 +49,8 @@ export const SubAdminAddress : FC<ISubAdminAddress> = ({address, setAddress}) =>
         e.preventDefault()
         try {
             await formAdressSchema.validate(address, {abortEarly : false})
-            
+            const adressPosted = await postAdress(address)
+            console.log(adressPosted)
             closeSubAdminAddress()
             
         } catch (error : any) {

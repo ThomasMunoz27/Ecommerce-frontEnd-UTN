@@ -1,8 +1,8 @@
 .containerPrincipal{
     background-color: white;
-    position:absolute;
-    top: 40%;
-    left: 40%;
+    position:fixed;
+    top: 50%;
+    left: 50%;
     transform: translate(-50%, -50%);
     box-shadow: 5px 5px 15px;
     display: flex;
@@ -10,6 +10,7 @@
     justify-content: center;
     align-items: center;
     padding: 10px;
+    min-width: 550px;
 }
 .containerTitle{
     display: flex;

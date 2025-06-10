@@ -10,6 +10,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    min-width: 550px;
 }
 .containerTitle{
     padding: 10px;
@@ -37,7 +38,7 @@
     font-size: 15px;
     background-color: black;
     color: white;
-    padding: 5px;
+    padding: 10px;
 }
 .containerButtons button:hover{
     cursor: pointer;

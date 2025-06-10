@@ -6,9 +6,7 @@ import { useStoreLogin } from '../../../../store/useStoreLogin'
 import { useStoreUsers } from '../../../../store/useStoreUsers'
 import { getUserByName } from '../../../../cruds/crudUsers'
 import { errorAlert } from '../../../../utils/errorAlert'
-import { postAdress } from '../../../../cruds/crudAddress'
-import { IAdressRequest } from '../../../../types/IAdress'
-import { formUserRegisterSchema } from '../../../../yupSchemas/formUserRegisterSchema'
+
 
 
 export const AccountModal = () => {
@@ -19,9 +17,9 @@ export const AccountModal = () => {
   const [password, setPassword] = useState('')
   const { setToken } = useStoreLogin()
   
-  const { setUser, setUserName, userName} = useStoreUsers()
+  const { setUser, setUserName,} = useStoreUsers()
   
-  const [logged, setLogged] = useState(false)
+  const [logged] = useState(false)
 
   const [formErrors, setFormErrors] = useState<Record<string, string>>({})
   
@@ -40,16 +38,10 @@ export const AccountModal = () => {
     direccion: '',
     phoneNumber: '',
     sex: '',
-    addressId : ''
+  
   })
 
-  const [newAddress, setNewAddress] = useState<IAdressRequest>({
-          id: 0,
-          street: '',
-          number: 0,
-          cp: 0,
-          locality: {id : 0}
-      })
+  
 
       useEffect(() => {
           const fetchUser = async() => {
@@ -160,7 +152,35 @@ export const AccountModal = () => {
           <h1>REGISTRO DE CUENTA</h1>
         </div>
 
-        <form className={styles.containerFormRegister}  onSubmit={handleSubmit}>
+        <form className={styles.containerFormRegister}  onSubmit={async (e) => {
+    e.preventDefault()
+    if (registerData.password !== registerData.repeatPassword) {
+      alert('Las contraseñas no coinciden')
+      return
+    }
+    try {
+      
+
+      await register(
+        registerData.nombre,
+        registerData.password,
+        registerData.email,
+        registerData.dni,
+        registerData.username,
+        registerData.fechaNacimiento,
+        registerData.apellido,
+        parseInt(registerData.phoneNumber),
+        registerData.sex,
+
+      )
+      closeModalAccount()
+      await login(registerData.username, registerData.password, setToken)
+      localStorage.setItem('username', registerData.username)
+      setUserName(registerData.username)
+    } catch (error: unknown) {
+      if (error instanceof Error) console.error(error.message)
+    }
+  }}>
           <div className={styles.data}>
             <div className={styles.loginDetails}>
               <h3>Datos de acceso</h3>

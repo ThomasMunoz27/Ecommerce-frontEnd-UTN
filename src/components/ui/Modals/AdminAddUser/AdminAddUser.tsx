@@ -58,7 +58,7 @@ export const AdminAddUser = () => {
 
                 //const createAddress = await postAdress(newAddress)
 
-                await register(
+                const registerReq = await register(
                     registerData.nombre,
                     registerData.password,
                     registerData.email,
@@ -70,6 +70,7 @@ export const AdminAddUser = () => {
                     registerData.sex,
                     //registerData.addressId = createAddress.id
                 )
+                console.log(registerReq)
                 succesAlert('Registrado')
                 fetchUsers('alls')
                 closeAdminAddUser()
