@@ -39,3 +39,10 @@ export const postImageToCloudinary = async(image : File) => {
         return response.data
 }
 
+export const putImageToCloudinary = async(publicId : number, image: File) => {
+        const formData = new FormData()
+        formData.append("file", image)
+        const response = await interceptorApiClient.put(`/upload/${publicId}`, formData)
+        return response.data
+}
+

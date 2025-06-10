@@ -1,4 +1,5 @@
 export interface IImage {
     id?:number,
-    url:string
+    url:string,
+    public_id: string
 }
