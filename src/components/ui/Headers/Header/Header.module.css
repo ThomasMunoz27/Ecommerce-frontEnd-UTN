@@ -55,13 +55,37 @@
     width: 30px;
 }
 .searchBar{
-    width: 63%;
+    width: 100%;
     padding: 5px 10px;
     border: none;
-    max-width: 300px;
 }
 
+.searchBarContainer{
+    position: relative;
+	width: 100%;
+	max-width: 300px;
+}
 
+.autocompleteList {
+	position: absolute;
+	top: 81%;
+	left: 0;
+	right: 0;
+	background: white;
+	border: 1px solid #ccc;
+	max-height: 200px;
+	overflow-y: auto;
+	z-index: 1000;
+}
+
+.autocompleteList li {
+	padding: 0.5rem;
+	cursor: pointer;
+}
+
+.autocompleteList li:hover {
+	background-color: #eee;
+}
 
 
 

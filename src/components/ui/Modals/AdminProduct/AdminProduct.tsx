@@ -54,7 +54,7 @@ export const AdminProduct = () => {
             salePrice: 0,
             discount: null,
         },
-        image: {id : 0, url : ''},    
+        image: {id : 0, url : '', public_id: ''},    
         category: [],
         sizes: [],
         colors: [],

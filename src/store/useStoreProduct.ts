@@ -13,6 +13,8 @@ interface IStoreProduct {
 
     setActiveProduct : (product: IProduct) => void
     setProducts : (products: IProduct[]) => void
+
+    //getSearchedProducts: (query:string) => IProduct[]
 }
 
 export const useStoreProduct = create<IStoreProduct>((set) => ({

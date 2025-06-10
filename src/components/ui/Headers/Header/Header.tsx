@@ -6,12 +6,18 @@ import { useStoreCategory } from '../../../../store/useStoreCategory';
 import { getCategoryByName } from '../../../../cruds/crudCategory';
 import { useStoreUsers } from '../../../../store/useStoreUsers';
 import { getUserById, getUserByName } from '../../../../cruds/crudUsers';
+import useStoreProduct from '../../../../store/useStoreProduct';
+import { IProduct } from '../../../../types/IProduct';
 
 export const Header = () => {
 
    const [showAdmin, setShowAdmin] = useState(false)
+   const [search, setSearch] = useState("")
+   const [searchSugestions, setSearchSugestions] = useState<IProduct[]>([])
 
    const {user, userName, setUser} = useStoreUsers()
+   
+   const {fetchProduct, products, setActiveProduct} = useStoreProduct()
 
 
   const [cantProductsInCart, setCantProductsInCart] = useState(0)
@@ -34,7 +40,23 @@ export const Header = () => {
               }
           } 
           fetchUser()
+          fetchProduct("active")
       }, [userName])
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const {value} = e.target
+    setSearch(value)
+
+    if(value.trim().length > 0){
+      const filtered = products.filter(p=>
+          p.name.toLowerCase().includes(value.toLowerCase())
+      ).slice(0, 5)
+      setSearchSugestions(filtered)
+    }else{
+      setSearchSugestions([])
+    }
+    console.log(search)
+  }
 
   const handleClick = () => {
     navigate("/my-account")
@@ -70,6 +92,11 @@ export const Header = () => {
   }, [productsInCart])
   // console.log("Valor de user.user:", user?.user);
 
+  const handleDetails = (product: IProduct) => {
+        setActiveProduct(product)
+        navigate("/product-detail")
+    }
+
   return (
     <>
     <div className={style.headerContainer}>
@@ -93,8 +120,19 @@ export const Header = () => {
         </div>
         )
       } 
-      
-    <input type="text" placeholder='Buscar' className={style.searchBar}/>
+    <div className={style.searchBarContainer}>
+      <input type="text" placeholder='Buscar' className={style.searchBar} value={search} onChange={handleSearch}/>
+      {searchSugestions.length > 0 && (
+        <ul className={style.autocompleteList}>
+          {searchSugestions.map((product) => (
+            <li key={product.id} onClick={() => handleDetails(product)}>
+              {product.name}
+            </li>
+          ))}
+        </ul>
+      )}
+
+    </div>
 
     <a href=""><img src="./icons/userCircle.svg" alt="" onClick={handleClick}/></a>
     <div className={style.cartContainer}>
