@@ -93,16 +93,25 @@ export const DetailScreen = () => {
     <Header/>
         <div className={style.hero}>
             <div className={style.imgContainer}>
+                {activeProduct?.prices.discount && (
+		            <div className={style.discountBadge}>Descuento</div>
+	            )}
                 <img src={activeProduct?.image?.url} alt="" className={style.productImg} />
             </div>
             <div className={style.textContainer}>
                 <h1 className={style.textTitle}>{activeProduct?.name}</h1>
-                <p className={style.productPrice}>Precio: ${activeProduct?.prices.salePrice}</p>
+                {activeProduct?.prices.discount 
+                ?   <>
+                        <p className={style.productPrice}>Precio: ${activeProduct.prices.discount.promotionalPrice} <span className={style.productInDioscount}>${activeProduct?.prices.salePrice}</span></p>
+                    </>
+                : <p className={style.productPrice}>Precio: ${activeProduct?.prices.salePrice}</p>
+
+                }
                 
                 <div className={style.categories}>
                     <h3>Categorias</h3>
                     <p className={style.productCategory}>{activeProduct?.category.map(category => 
-                        `${category.name} `)}</p>
+                        `- ${category.name} `)}</p>
                 </div>
 
                 <div className={style.description}>

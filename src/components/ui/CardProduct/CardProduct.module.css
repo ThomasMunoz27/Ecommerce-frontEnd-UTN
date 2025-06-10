@@ -78,6 +78,10 @@
 	width: 100%;
 }
 
+.imageWrapper :hover{
+  cursor: pointer;
+}
+
 .discountBadge {
 	position: absolute;
 	top: 8px;

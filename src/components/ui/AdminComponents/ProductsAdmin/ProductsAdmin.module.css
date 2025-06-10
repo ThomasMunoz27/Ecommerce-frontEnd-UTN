@@ -47,8 +47,9 @@
 }
 
 .productsTable {
-    width: 100%;
+    width: 90%;
     overflow-x: auto;
+    margin:0 auto
 }
 
 .table {
