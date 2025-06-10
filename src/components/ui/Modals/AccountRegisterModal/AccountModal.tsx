@@ -70,13 +70,16 @@ export const AccountModal = () => {
   const handleSubmit = async (e: React.FormEvent) =>{
     e.preventDefault()
     // if (registerData.password !== registerData.repeatPassword) {
-    //   errorAlert('Las contraseñas no coinciden')
-    //   return
-    // }
-
-    try {
-      await formUserRegisterSchema.validate(registerData, {abortEarly: false})
-
+      //   errorAlert('Las contraseñas no coinciden')
+      //   return
+      // }
+      
+      try {
+        await formUserRegisterSchema.validate(registerData, {abortEarly: false})
+        
+        await login(username, password, setToken)
+        localStorage.setItem('username', username)
+        setUserName(username)
       await register(
         registerData.nombre,
         registerData.password,
@@ -88,10 +91,12 @@ export const AccountModal = () => {
         parseInt(registerData.phoneNumber),
         registerData.sex
       )
+
       closeModalAccount()
       await login(registerData.username, registerData.password, setToken)
       localStorage.setItem('username', registerData.username)
       setUserName(registerData.username)
+
     } catch (error: any) {
       const errors: Record<string, string> = {}
                 if(error.inner){
@@ -111,12 +116,7 @@ export const AccountModal = () => {
         <div className={styles.containerLogoLogin}>
           <img src="./img/Logo.png" alt="" />
         </div>
-        <form className={styles.containerFormLogin } onSubmit={async (e) => {
-      e.preventDefault()
-      await login(username, password, setToken)
-      localStorage.setItem('username', username)
-      setUserName(username)
-  }}>
+        <form className={styles.containerFormLogin } onSubmit={handleSubmit}>
           <input
             type="text"
             placeholder="Usuario"
@@ -160,32 +160,7 @@ export const AccountModal = () => {
           <h1>REGISTRO DE CUENTA</h1>
         </div>
 
-        <form className={styles.containerFormRegister}  onSubmit={async (e) => {
-    e.preventDefault()
-    if (registerData.password !== registerData.repeatPassword) {
-      alert('Las contraseñas no coinciden')
-      return
-    }
-    try {
-      await register(
-        registerData.nombre,
-        registerData.password,
-        registerData.email,
-        registerData.dni,
-        registerData.username,
-        registerData.fechaNacimiento,
-        registerData.apellido,
-        parseInt(registerData.phoneNumber),
-        registerData.sex
-      )
-      closeModalAccount()
-      await login(registerData.username, registerData.password, setToken)
-      localStorage.setItem('username', registerData.username)
-      setUserName(registerData.username)
-    } catch (error: unknown) {
-      if (error instanceof Error) console.error(error.message)
-    }
-  }}>
+        <form className={styles.containerFormRegister}  onSubmit={handleSubmit}>
           <div className={styles.data}>
             <div className={styles.loginDetails}>
               <h3>Datos de acceso</h3>
