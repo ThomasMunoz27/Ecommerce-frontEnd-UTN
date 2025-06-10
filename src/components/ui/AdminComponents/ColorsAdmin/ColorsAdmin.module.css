@@ -9,17 +9,20 @@
 
 .containerTitleAndButton{
     display: flex;
-    width: 100%;
+    width: 90%;
+    align-items: center;
+    text-align: center;
+    justify-content: space-around;
 }
 
 .containerTitle {
-    width: 70%;
-    text-align: center;
     display: flex;
-    justify-content: end;
     align-items: center;
     height: 100%;
-    padding: 20px;
+    align-items: center;
+    justify-content: end;
+    margin: 0 auto;
+    width: 80%;
     font-size: 12px;
 }
 
@@ -27,8 +30,7 @@
     display: flex;
     justify-content: end;
     align-items: center;
-    height: 100%;
-    width: 40%;
+    width: 50%;
     padding: 10px;
 }
 
@@ -49,16 +51,19 @@
 .colorsTable {
     width: 100%;
     overflow-x: auto;
+    margin: 0 auto;
+    margin-top: 10px;
 }
 
 .table {
-    width: 100%;
+    width: 90%;
     border-collapse: collapse;
     text-align: center;
     background-color: white;
     border-radius: 8px;
-    overflow: hidden;
+    overflow: auto;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
 }
 
 .table th,
@@ -79,11 +84,14 @@
 .actionButtons {
     display: flex;
     gap: 10px;
+    justify-content: space-around;
 }
 
 .actionButtons button {
     padding: 5px 10px;
     border: none;
+    width: 40%;
+    height: 40px;
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -106,4 +114,26 @@
     align-items: center;
     z-index: 1000;
 }
+select{
+    width: 100px;
+}
+@media (max-width: 1050px){
+   
+   .containerTitleAndButton{
+    flex-direction: row;
+    margin: 0 auto;
+    width: 90%;
+    font-size: 15px;
+    justify-content: center;
+    align-items: center;
+}
+.containerButtons{
+    margin: 0 auto;
+    align-self: center;
+    width: 80%;
+    margin: 0 auto;
 
+    display: flex;
+    justify-content: center;
+}
+}

@@ -1,9 +1,10 @@
 .containerPrincipal{
     background-color: white;
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    z-index: 3000;
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -11,7 +12,8 @@
     align-items: center;
     gap: 1rem;
     box-shadow: 5px 5px 15px;
-    min-width: 450px;
+    min-width: 550px;
+    width: 550px;
 }
 .containerValues{
     display: flex;

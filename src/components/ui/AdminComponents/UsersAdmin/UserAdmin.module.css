@@ -20,11 +20,11 @@
     align-items: center;
     height: 100%;
     padding: 20px;
+    font-size: 12px;
 }
 
 .containerButtons{
     display: flex;
-    justify-content: end;
     align-items: center;
     height: 100%;
     width: 40%;
@@ -52,13 +52,14 @@
 }
 
 .table {
-    width: 100%;
+    width: 90%;
     border-collapse: collapse;
     text-align: center;
     background-color: white;
     border-radius: 8px;
-    overflow: hidden;
+    overflow: auto;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
 }
 
 .table th,
@@ -84,6 +85,8 @@
 .actionButtons button {
     padding: 5px 10px;
     border: none;
+    width: 50%;
+    height: 40px;
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -107,3 +110,26 @@
     z-index: 1000;
 }
 
+.containerButtons button{
+    padding: 10px 20px;
+}
+@media (max-width: 1050px){
+   
+   .containerTitleAndButton{
+    flex-direction: column;
+    margin: 0 auto;
+    width: 90%;
+    font-size: 15px;
+    justify-content: center;
+    align-items: center;
+}
+.containerButtons{
+    margin: 0 auto;
+    align-self: center;
+    width: 80%;
+    margin: 0 auto;
+    
+    display: flex;
+    justify-content: center;
+}
+}
