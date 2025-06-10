@@ -1,6 +1,6 @@
 
 import interceptorApiClient from "../interceptors/axios.interceptor"
-import { IUser } from "../types/IUser"
+import { IUser, IUserRequest } from "../types/IUser"
 
 
 
@@ -27,7 +27,7 @@ export const createUser = async (newUser : IUser): Promise<IUser[]> => {
   
 }
 
-export const updateUser = async ( userUpdated : IUser): Promise<IUser[]> => {
+export const updateUser = async ( userUpdated : IUser | IUserRequest): Promise<IUser[]> => {
         const response = await interceptorApiClient.put(`/user/${userUpdated.id}`, userUpdated)
         return response.data
 }

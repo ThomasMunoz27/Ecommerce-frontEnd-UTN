@@ -23,6 +23,7 @@ interface IStoreModal{
     modalAdminSubColor : {type : boolean, option: 1 | 2 | null},
     modalAdminSubPrice : {type : boolean, option: 1 | 2 | null},
     modalAdminSubCategory : {type : boolean, option : 1 | 2 | null},
+    modalAdminSubAddress : boolean,
     modalAdminCategory : boolean,
 
     modalViewBill : boolean
@@ -92,7 +93,10 @@ interface IStoreModal{
     closeModalViewBill : () => void
 
     openAdminModalEditUser : () => void,
-    closeAdminModalEditUser : () => void
+    closeAdminModalEditUser : () => void,
+
+    openSubAdminAddress : () => void,
+    closeSubAdminAddress : () => void
 
 
 }
@@ -124,6 +128,7 @@ export const useStoreModal = create<IStoreModal>((set) => ({
     modalAdminSubColor : {type : false, option : null},
     modalAdminSubPrice : {type : false, option : null},
     modalAdminSubCategory : {type : false, option : null},
+    modalAdminSubAddress : false,
 
     modalEditAddress : false,
 
@@ -196,7 +201,10 @@ export const useStoreModal = create<IStoreModal>((set) => ({
     closeModalViewBill : () => set({modalViewBill : false}),
 
     openAdminModalEditUser : () => set({modalAdminEditUser : true}),
-    closeAdminModalEditUser : () => set({modalAdminEditUser : false})
+    closeAdminModalEditUser : () => set({modalAdminEditUser : false}),
+
+    openSubAdminAddress : () => set({modalAdminSubAddress : true}),
+    closeSubAdminAddress : () => set({modalAdminSubAddress : false})
 
     
 }))

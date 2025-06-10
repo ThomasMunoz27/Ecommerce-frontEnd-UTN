@@ -10,6 +10,7 @@ import { postAdress, putAdress } from '../../../../cruds/crudAddress'
 import { succesAlert } from '../../../../utils/succesAlert'
 import { formAdressSchema } from '../../../../yupSchemas/formAdressSchema'
 
+
 export const AdminAddresses = () => {
 
     const {closeModalAdminAdress} = useStoreModal()
@@ -17,12 +18,15 @@ export const AdminAddresses = () => {
     const [localities, setLocalities] = useState<ILocality[]>()
     const [formErrors, setFormErrors] =useState<Record<string, string>>({})
 
+   
+    
+
     const [address, setAddress] = useState<IAdressRequest>({
         id: activeAdress?.id || null,
         street: activeAdress?.street || '',
         number: activeAdress?.number || 0,
         cp: activeAdress?.cp || 0,
-        locality: {id : 0}
+        locality: {id : activeAdress?.id || 0}
     })
 
     useEffect(() => {
@@ -60,6 +64,9 @@ export const AdminAddresses = () => {
                 errorAlert("Seleccione una localidad")
                 return
             }
+
+            
+
             if (activeAdress){
                 await putAdress(address)
                 fetchAdress()
@@ -117,8 +124,8 @@ export const AdminAddresses = () => {
                     </div>
 
                     <label htmlFor="">Localidad</label>
-                    <select name="locality" value={address.locality.id} id="" onChange={handleChange}>
-                        <option value="" disabled>Sin seleccion</option>
+                    <select name="locality" value={address.locality.id ? address.locality.id : 'Sin seleccion'} id="" onChange={handleChange}>
+                        <option value="" >Sin seleccion</option>
                         {localities?.map(locality => (
                             <option key={locality.id} value={locality.id}>{locality.name}</option>
                         ))}
@@ -127,7 +134,7 @@ export const AdminAddresses = () => {
                 </div>
                 <div className={styles.containerButtons}>
                     <button onClick={closeModalAdminAdress}>Cancelar</button>
-                    <button>Aceptar</button>
+                    <button type='submit'>Aceptar</button>
                 </div>
             </form>
         </div>

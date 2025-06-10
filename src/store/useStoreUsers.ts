@@ -1,12 +1,18 @@
 import { create } from "zustand";
 import { IUser } from "../types/IUser";
 import { getAllUsers, getAllUsersActive, getAllUsersInactive } from "../cruds/crudUsers";
+import { IAdressRequest } from "../types/IAdress";
 
 interface IStoreUsers {
     userName: string
     user : IUser | null, // Usuario ,
     users : IUser[] // Momentaneo para probar
     activeUser : IUser | null
+
+    addressInPut : IAdressRequest | null
+
+    setAddressInPut: (address : IAdressRequest | null) => void
+
     setUser : (userData : IUser | null) => void, // setear usuario
     clearUser: () => void  // desloguear usuario
     fetchUsers : (state : string) => Promise<void>
@@ -39,5 +45,8 @@ export const useStoreUsers = create<IStoreUsers>((set) => ({
         }
     },
 
-    setActiveUser : (user : IUser | null) => set({activeUser : user})
+    setActiveUser : (user : IUser | null) => set({activeUser : user}),
+
+    addressInPut : null, // Direccion para setear en la edicion de usuario
+    setAddressInPut : (address) => set({addressInPut : address})
 }))

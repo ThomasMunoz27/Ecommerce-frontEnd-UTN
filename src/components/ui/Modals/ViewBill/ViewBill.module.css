@@ -95,9 +95,8 @@
 .totalContainer {
     display: flex;
     flex-direction: column;
-    
     gap: 20px;
-    width: 45%;
+    width: 48%;
     font-size: 18px;
     font-weight: bold;
     color: black;

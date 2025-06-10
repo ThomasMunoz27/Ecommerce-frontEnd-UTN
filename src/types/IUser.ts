@@ -1,5 +1,5 @@
 import { Rol } from "./enums/Rol"
-import { IAdress, IAdressRequest } from "./IAdress"
+import { IAdress } from "./IAdress"
 import { ISize } from "./ISize"
 
 export interface IUser {
@@ -30,7 +30,7 @@ export interface IUserRequest {
     user: Rol,
     email: string,
     dni: string
-    adress: IAdressRequest // Para crear
+    adress: {id : number} // Para crear
     size: {id : number}
     active: boolean,
     sex : string
