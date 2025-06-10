@@ -104,14 +104,14 @@ export const AdminAddresses = () => {
                     <label htmlFor="">Codigo Postal</label>
                     <div>
                         <input type="number" name="cp" value={address.cp} id="" onChange={handleChange}/>
-                        {formErrors.number && <p className={styles.errorMessage}>{formErrors.number}</p>}
+                        {formErrors.cp && <p className={styles.errorMessage}>{formErrors.cp}</p>}
 
                     </div>
 
                     <label htmlFor="">Numero</label>
                     <div>
                         <input type="number" name="number" value={address.number} id="" onChange={handleChange}/>
-                        {formErrors.cp && <p className={styles.errorMessage}>{formErrors.cp}</p>}
+                        {formErrors.number && <p className={styles.errorMessage}>{formErrors.number}</p>}
 
                     </div>
 

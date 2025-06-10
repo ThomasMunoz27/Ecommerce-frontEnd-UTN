@@ -9,6 +9,8 @@ import { succesAlert } from '../../../../utils/succesAlert'
 import { IUser } from '../../../../types/IUser'
 import { useStoreModal } from '../../../../store/useStoreModal'
 import { AdminEditUser } from '../../Modals/EditRol/AdminEditUser'
+import { AdminAddUser } from '../../Modals/AdminAddUser/AdminAddUser'
+
 
 
 
@@ -18,7 +20,7 @@ export const UsersAdmin = () => {
 
     const [active, setActive] = useState<string>('active')
     const {users, fetchUsers, setActiveUser} = useStoreUsers()
-    const {modalAdminEditUser, openAdminModalEditUser} = useStoreModal()
+    const {modalAdminEditUser,modalAdminAddUser,  openAdminModalEditUser, openAdminAddUser} = useStoreModal()
 
     useEffect(() => {
         fetchUsers(active)
@@ -66,7 +68,7 @@ export const UsersAdmin = () => {
                     <button onClick={() => handleState('active')}>Activos</button>
                     <button onClick={() => handleState('inactive')}>Inactivos</button>
                     <button onClick={() => handleState('alls')}>Todos</button>
-                    <button >Añadir</button>
+                    <button onClick={openAdminAddUser}>Añadir</button>
                 </div>
             </div>
             <div className={styles.usersTable}>
@@ -119,6 +121,7 @@ export const UsersAdmin = () => {
                 </table>
             </div>
             {modalAdminEditUser && <div className={styles.modalBackdrop}><AdminEditUser/></div>}
+            {modalAdminAddUser && <div className={styles.modalBackdrop}><AdminAddUser/></div>}
             
         </div>
     )
