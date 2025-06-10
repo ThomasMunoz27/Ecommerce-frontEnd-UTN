@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { ICartProduct } from "../types/ICartProduct";
 import { miniAlert } from "../utils/miniAlert";
+import { miniErrorAlert } from "../utils/miniErrorAlert";
 
 interface IStoreCart {
 	productsInCart: ICartProduct[];
@@ -36,15 +37,20 @@ export const useStoreCart = create<IStoreCart>()(
 					);
 
 					if (existingProduct) {
-						return {
-							productsInCart: state.productsInCart.map((p) =>
-								p.id === product.id &&
-								p.size.id === product.size.id &&
-								p.color.id === product.color.id
-									? { ...p, quantity: p.quantity + 1 }
-									: p
-							),
-						};
+						if(existingProduct.quantity < 10){
+							return {
+								productsInCart: state.productsInCart.map((p) =>
+									p.id === product.id &&
+									p.size.id === product.size.id &&
+									p.color.id === product.color.id
+										? { ...p, quantity: p.quantity + 1 }
+										: p
+								),
+							};
+						}else{
+							miniErrorAlert("Error", "Cantidad maxima de este producto por compra")
+							return {}
+						}
 					}
         miniAlert('Producto agregado al carrito', '')
 
