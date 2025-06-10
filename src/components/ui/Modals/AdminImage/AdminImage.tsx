@@ -3,7 +3,7 @@ import { useStoreImages } from '../../../../store/useStoreImages'
 import { useStoreModal } from '../../../../store/useStoreModal'
 import styles from './AdminImage.module.css'
 import { errorAlert } from '../../../../utils/errorAlert'
-import { getAllImages, postImageToCloudinary, putImage } from '../../../../cruds/crudImage'
+import { getAllImages, postImageToCloudinary, putImage, putImageToCloudinary } from '../../../../cruds/crudImage'
 import { succesAlert } from '../../../../utils/succesAlert'
 import { IImage } from '../../../../types/IImage'
 
@@ -35,7 +35,7 @@ export const AdminImage = () => {
         }
     }
 
-    const handleSubmit = (e : React.FormEvent) => {
+    const handleSubmit = async(e : React.FormEvent) => {
         e.preventDefault()
 
         const existingImage = images?.find((image) => image.url === preview)
@@ -47,21 +47,14 @@ export const AdminImage = () => {
         }
 
         try {
-            if (activeImage) {
-                if (preview){
-                    const newImage : IImage = {
-                        id : activeImage.id,
-                        url : preview
-                    }
-    
-                    putImage(newImage)
-                    succesAlert('Editado', 'Se edito la imagen correctamente')
-                    fetchImages()
-                    closeModalAdminImage()
-                }
-
+            if (activeImage && selectedFile) {
+                await putImageToCloudinary(activeImage.id!,selectedFile)
+                succesAlert('Editado', 'Se edito la imagen correctamente')
+                fetchImages()
+                closeModalAdminImage()
+                
             } else {
-                postImageToCloudinary(selectedFile!)
+                await postImageToCloudinary(selectedFile!)
                 succesAlert('Creado', 'La imagen fue creada con exito')
                 fetchImages()
                 closeModalAdminImage()
