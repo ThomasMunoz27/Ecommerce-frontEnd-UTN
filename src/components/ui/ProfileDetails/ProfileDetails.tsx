@@ -80,7 +80,6 @@ export const ProfileDetails = () => {
                     <h1>Datos de Acceso</h1>
                     <p>Correo electronico: {user?.email}</p>
                     <p>Nombre de usuario: {user?.username}</p>
-                    <p className={styles.edit} onClick={() => openModalEditLogin(2)}>Cambiar contraseña</p>
                 </div>
                 <div className={styles.containerButtonData}>
                     <p>Si eliminas la cuenta perderas todos los datos que tengas vinculado a nuestros servicios</p>
