@@ -100,6 +100,8 @@ export const AccountModal = () => {
           registerData.fechaNacimiento,
           registerData.apellido,
           parseInt(registerData.phoneNumber),
+          //registerData.phoneNumber,
+
           registerData.sex,
           registerData.addressId = createAddress.id
 
