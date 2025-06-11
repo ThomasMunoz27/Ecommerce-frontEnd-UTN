@@ -22,7 +22,7 @@ export const PrivacyPolicy = () => {
                     siguiente información:
                 </p>
 
-                <ul className={style.containerInformation}>
+                <div className={style.containerInformation}>
                     <div className={style.info}>
                         <h4>Datos personales</h4>
                         <p>Nombre, correo electrónico, número de teléfono, dirección de envío.</p>
@@ -35,7 +35,7 @@ export const PrivacyPolicy = () => {
                         <h4>Datos técnicos</h4>
                         <p>Dirección IP, tipo de navegador, dispositivo y ubicación aproximada.</p>
                     </div>
-                </ul>
+                </div>
 
                 <ol start={2}>
                     <li><strong>Uso de tu Información</strong></li>
