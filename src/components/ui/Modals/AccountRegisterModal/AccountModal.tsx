@@ -27,9 +27,6 @@ export const AccountModal = () => {
   
   const [logged] = useState(false)
 
-  const [formErrors, setFormErrors] = useState<Record<string, string>>({})
-  
-
 
   // Registro
   const [registerData, setRegisterData] = useState({
@@ -44,7 +41,7 @@ export const AccountModal = () => {
     direccion: '',
     phoneNumber: '',
     sex: '',
-    addressId: ''
+    addressId: 0
   
   })
         //Direccion
@@ -82,48 +79,21 @@ export const AccountModal = () => {
 
   const handleSubmit = async (e: React.FormEvent) =>{
     e.preventDefault()
-    // if (registerData.password !== registerData.repeatPassword) {
-      //   errorAlert('Las contraseñas no coinciden')
-      //   return
-      // }
-      
-      try {
-        await formUserRegisterSchema.validate(registerData, {abortEarly: false})
-        const createAddress = await postAdress(newAddress)
-      
-        const registerReq = await register(
-          registerData.nombre,
-          registerData.password,
-          registerData.email,
-          registerData.dni,
-          registerData.username,
-          registerData.fechaNacimiento,
-          registerData.apellido,
-          parseInt(registerData.phoneNumber),
-          //registerData.phoneNumber,
+    try {
+    
+    
+      const registerReq = await register(registerData.username, registerData.password, registerData.email, registerData.dni, registerData.username, registerData.fechaNacimiento, registerData.apellido, registerData.phoneNumber, registerData.sex)
+      console.log(registerReq)
 
-          registerData.sex,
-          registerData.addressId = createAddress.id
-
-        )
-        console.log(registerReq)
-
-        closeModalAccount()
-        await login(registerData.username, registerData.password, setToken)
-        localStorage.setItem('username', registerData.username)
-        setUserName(registerData.username)
-
-    } catch (error: any) {
-      const errors: Record<string, string> = {}
-                if(error.inner){
-                    error.inner.forEach((validationError:any) =>{
-                        errors[validationError.path] = validationError.message;
-                    });
-                }else{
-                    error.general = error.message
-                }
-                setFormErrors(errors) 
+      closeModalAccount()
+      await login(registerData.username, registerData.password, setToken)
+      localStorage.setItem('username', registerData.username)
+      setUserName(registerData.username)      
+    } catch (error) {
+      console.error('error', error)
     }
+
+    
   }
 
   if (modalAccount.type) {
@@ -190,8 +160,7 @@ export const AccountModal = () => {
                 value={registerData.username}
                 onChange={handleRegisterChange}
               />
-              {formErrors.username && <p className={styles.errorMessage}>{formErrors.username}</p>}
-
+            
               </div>
 
               <input
@@ -201,7 +170,7 @@ export const AccountModal = () => {
                 value={registerData.email}
                 onChange={handleRegisterChange}
               />
-              {formErrors.email && <p className={styles.errorMessage}>{formErrors.email}</p>}
+              
 
 
               <input
@@ -211,7 +180,6 @@ export const AccountModal = () => {
                 value={registerData.password}
                 onChange={handleRegisterChange}
               />
-              {formErrors.password && <p className={styles.errorMessage}>{formErrors.password}</p>}
 
 
               <input
@@ -221,7 +189,6 @@ export const AccountModal = () => {
                 value={registerData.repeatPassword}
                 onChange={handleRegisterChange}
               />
-              {formErrors.repeatPassword && <p className={styles.errorMessage}>{formErrors.repeatPassword}</p>}
 
 
             </div>
@@ -236,7 +203,6 @@ export const AccountModal = () => {
                   value={registerData.nombre}
                   onChange={handleRegisterChange}
                 />
-                {formErrors.nombre && <p className={styles.errorMessage}>{formErrors.nombre}</p>}
 
               </div>
 
@@ -250,7 +216,6 @@ export const AccountModal = () => {
                   value={registerData.apellido}
                   onChange={handleRegisterChange}
                 />
-                {formErrors.apellido && <p className={styles.errorMessage}>{formErrors.apellido}</p>}
                 
               </div>
 
@@ -263,8 +228,6 @@ export const AccountModal = () => {
                   value={registerData.fechaNacimiento}
                   onChange={handleRegisterChange}
                 />
-                {formErrors.fechaNacimiento && <p className={styles.errorMessage}>{formErrors.fechaNacimiento}</p>}
-                
               </div>
 
 
@@ -277,12 +240,9 @@ export const AccountModal = () => {
                   value={registerData.dni}
                   onChange={handleRegisterChange}
                 />
-                {formErrors.dni && <p className={styles.errorMessage}>{formErrors.dni}</p>}
                 
               </div>
 
-
-              <button type='button' className={styles.buttonAddress} onClick={openSubAdminAddress}>Agregar Direccion</button>
 
               <div className={styles.inputContainer}>
 
@@ -293,7 +253,6 @@ export const AccountModal = () => {
                   value={registerData.phoneNumber}
                   onChange={handleRegisterChange}
                 />
-                {formErrors.phoneNumber && <p className={styles.errorMessage}>{formErrors.phoneNumber}</p>}
                 
               </div>
 
