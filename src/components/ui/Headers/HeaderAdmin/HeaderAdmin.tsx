@@ -28,7 +28,7 @@ export const HeaderAdmin = () => {
                         <span className="material-symbols-outlined">
                             inventory_2
                         </span>
-                        <input type="text" placeholder='Buscar' className={style.searchBar}/>
+                      
                         
                     <a href=""><img src="./icons/userCircle.svg" alt="" onClick={handleClikAccount}/></a>
             

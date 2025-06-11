@@ -2,7 +2,7 @@ import { Navigate, Outlet } from "react-router";
 import { useStoreUsers } from "../../../store/useStoreUsers";
 import { getUserByName } from "../../../cruds/crudUsers";
 import { useEffect, useState } from "react";
-
+import styles from './RequireAdmin.module.css'
 export const RequireAdmin = () => {
   const { user, setUser } = useStoreUsers();
   const [loading, setLoading] = useState(true);
@@ -21,7 +21,7 @@ export const RequireAdmin = () => {
 
   if (loading) {
     // Podés devolver un loader o null mientras carga el usuario
-    return <div>Cargando...</div>;
+    return <div className={styles.textContainer}>Cargando datos...</div>;
   }
 
   // Asumo que el rol está en user.role, cambiá según tu estructura real

@@ -22,7 +22,7 @@ export const AccountModal = () => {
   const { setToken } = useStoreLogin()
   
   const { setUser, setUserName,} = useStoreUsers()
-  const {closeAdminAddUser, modalAdminSubAddress, openSubAdminAddress} = useStoreModal()
+  const {modalAdminSubAddress, openSubAdminAddress} = useStoreModal()
   
   
   const [logged] = useState(false)
