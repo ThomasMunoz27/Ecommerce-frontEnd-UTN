@@ -10,6 +10,7 @@ import { SuccessPay } from "../components/ui/BackUrls/SuccessPay/SuccessPay"
 import { FailurePay } from "../components/ui/BackUrls/FailurePay/FailurePay"
 import { RequireAdmin } from "../components/ui/Auth/RequireAdmin"
 import { Unauthorized } from "../components/ui/Auth/Unauthorized"
+import { ScreenFooterData } from "../components/screens/ScreenFooterData/ScreenFooterData"
 export const AppRoutes = () => {
 
   return (
@@ -23,6 +24,7 @@ export const AppRoutes = () => {
         <Route path="/unauthorized" element={<Unauthorized></Unauthorized>}></Route>
        <Route element={<RequireAdmin/>}>
        <Route path="/admin" element={<AdminScreen/>}></Route>
+       <Route path = "/footer-data" element={<ScreenFooterData/>}></Route>
        </Route>
         <Route path="/success" element={<SuccessPay/>}></Route>
         <Route path="/failure" element={<FailurePay/>}></Route>
