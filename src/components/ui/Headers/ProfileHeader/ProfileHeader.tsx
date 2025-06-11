@@ -19,7 +19,7 @@ export const ProfileHeader = () => {
                 </span>
             </div>
             <div className={styles.containerLogo}>
-            <img src="./img/Logo.png" alt="" className={styles.headerLogo} onClick={() => handleClick} />
+            <img src="./img/Logo.png" alt="" className={styles.headerLogo} onClick={handleClick} />
             </div>
         </div>
     )

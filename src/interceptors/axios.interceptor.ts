@@ -89,13 +89,13 @@ interceptorApiClient.interceptors.request.use(
      //toma server message
      const serverMessage = (error.response?.data as any)?.message;  
   
-      if (status === 401) {
+      if (status === 401 || status === 403) {
 // le avisa que la peticion que hicimos con el token viejovolvera a ser llamada
-          localStorage.removeItem("accessToken"); // Limpia si falla  del local
+          localStorage.clear(); // Limpia si falla  del local
           Swal.fire({
             icon: "error",
-            title: "Session expired",
-            text: "Please log in again.",
+            title: "Sesion expireda",
+            text: "Porfavor vuelve a iniciar sesion",
             confirmButtonColor: "#d33",
           });
       }
@@ -104,13 +104,11 @@ interceptorApiClient.interceptors.request.use(
      if (status === 500 && (!serverMessage || serverMessage.trim() === "")) {
        Swal.fire({
          icon: "error",
-         title: "Oops...",
-         text: "Something went wrong on our end. Please try again later.",
+         title: "Error inesperado",
+         text: "Algo salio mal, vuelve a intentar.",
          confirmButtonColor: "#d33",
        });
-     } else if (status) {
-       localStorage.removeItem("token");
-   }
+     }
   });
 
 export default interceptorApiClient;
