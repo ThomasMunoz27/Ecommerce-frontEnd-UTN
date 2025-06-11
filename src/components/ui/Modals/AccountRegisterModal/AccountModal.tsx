@@ -129,7 +129,7 @@ export const AccountModal = () => {
         registerData.username,
         registerData.fechaNacimiento,
         registerData.apellido,
-        parseInt(registerData.phoneNumber),
+        registerData.phoneNumber,
         registerData.sex,
 
       )

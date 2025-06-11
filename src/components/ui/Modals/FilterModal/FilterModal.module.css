@@ -1,6 +1,7 @@
 .modal{
     position: fixed;
-    width: 33%;
+    width: 53%;
+    min-width: 200px;
     right: 0;
     top: 0;
     bottom: 0;
