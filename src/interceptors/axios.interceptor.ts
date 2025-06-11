@@ -94,7 +94,7 @@ interceptorApiClient.interceptors.request.use(
           localStorage.clear(); // Limpia si falla  del local
           Swal.fire({
             icon: "error",
-            title: "Sesion expireda",
+            title: "Sesion expirada",
             text: "Porfavor vuelve a iniciar sesion",
             confirmButtonColor: "#d33",
           });
