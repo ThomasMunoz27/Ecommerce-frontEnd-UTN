@@ -10,11 +10,14 @@ import { succesAlert } from '../../../../utils/succesAlert'
 import { SubAdminAddress } from '../SubAdminAddress/SubAdminAddress'
 import { IAdressRequest } from '../../../../types/IAdress'
 import { postAdress } from '../../../../cruds/crudAddress'
+import { formUserRegisterSchema } from '../../../../yupSchemas/formUserRegisterSchema'
 
 export const AdminAddUser = () => {
 
     const {closeAdminAddUser, modalAdminSubAddress, openSubAdminAddress} = useStoreModal()
     const { fetchUsers} = useStoreUsers()
+    const [formErrors, setFormErrors] = useState<Record<string, string>>({})
+    
 
 
     // Registro
@@ -49,12 +52,14 @@ export const AdminAddUser = () => {
 
     const handleSubmit = async(e : React.FormEvent) => {
         e.preventDefault()
-        if (registerData.password !== registerData.repeatPassword) {
-            errorAlert('Error', 'Las contraseñas no coinciden')
-            return
-        }
+        // if (registerData.password !== registerData.repeatPassword) {
+        //     errorAlert('Error', 'Las contraseñas no coinciden')
+        //     return
+        // }
         
             try {
+                await formUserRegisterSchema.validate(registerData, {abortEarly: false})
+                
 
                 const createAddress = await postAdress(newAddress)
 

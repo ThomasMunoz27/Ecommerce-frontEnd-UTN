@@ -15,6 +15,11 @@
    
 }
 
+.linksContainer{
+    display: flex;
+    gap: 3px;
+}
+
 .copyright{
     font-size: 10px;
 }
