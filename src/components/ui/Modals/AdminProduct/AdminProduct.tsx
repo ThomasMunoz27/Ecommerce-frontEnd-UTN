@@ -180,7 +180,6 @@ export const AdminProduct = () => {
         }
 
         try {
-            console.log("ando lol")
             const r1 =  formProductSchema.validate(editProduct, {abortEarly: false})
             
             console.log(r1)
@@ -189,7 +188,6 @@ export const AdminProduct = () => {
             if(validated == false){
                 return
             }
-                       //hay que revisar esta funcion con el Mauro
 
             if (editProduct.image?.id && await checkImageUsed(editProduct.image.id)) {
 	            errorAlert("⚠️ La imagen ya está asignada a otro producto. Por favor, selecciona una nueva imagen.");

@@ -94,7 +94,7 @@ export const ProductsAdmin = () => {
                         <th>Nombre</th>
                         <th>Precio</th>
                         <th>Talle</th>
-                        <th>Color</th>
+                        <th>Colores</th>
                         <th>Descripción</th>
                         <th>Stock</th>
                         <th>Sexo</th>
@@ -119,7 +119,7 @@ export const ProductsAdmin = () => {
                         </td>
                         <td>
                             <select >
-                                <option value="">Color</option>
+                                <option value="">Colores</option>
                                 {product.colors.map((color) => (
                                     <option key={color.id} value="" style={{'backgroundColor' : `${color.value}`}}></option>
                                 ))}
