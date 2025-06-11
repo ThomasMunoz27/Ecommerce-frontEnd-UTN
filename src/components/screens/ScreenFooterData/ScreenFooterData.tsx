@@ -1,6 +1,7 @@
 import { useStoreDataFooter } from '../../../store/useStoreDataFooter'
 import { Footer } from '../../ui/footer/Footer'
 import { AboutUs } from '../../ui/FooterComponents/AboutUs/AboutUs'
+import { PrivacyPolicy } from '../../ui/FooterComponents/PrivacyPolicy/PrivacyPolicy'
 import { Header } from '../../ui/Headers/Header/Header'
 import style from './ScreenFooterData.module.css'
 
@@ -10,12 +11,17 @@ export const ScreenFooterData = () => {
 
     return (
         <div className={style.containerPrincipal}>
-            <Header/>
+            <div>
+
+                <Header/>
+            </div>
             {activeOption === 'aboutUs' && <AboutUs/>}
             {activeOption === 'terms&Conditions'}
             {activeOption === 'terms&ConditionsPromo'}
-            {activeOption === 'privacyPolicy'}
-            <Footer/>
+            {activeOption === 'privacyPolicy' && <PrivacyPolicy/>}
+            <div style={{"height": "100%"}}>
+                <Footer/>
+            </div>
         </div>
     )
 }
