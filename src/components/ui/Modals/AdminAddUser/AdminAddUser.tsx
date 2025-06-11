@@ -56,7 +56,7 @@ export const AdminAddUser = () => {
         
             try {
 
-                //const createAddress = await postAdress(newAddress)
+                const createAddress = await postAdress(newAddress)
 
                 const registerReq = await register(
                     registerData.nombre,
@@ -68,7 +68,7 @@ export const AdminAddUser = () => {
                     registerData.apellido,
                     parseInt(registerData.phoneNumber),
                     registerData.sex,
-                    //registerData.addressId = createAddress.id
+                    registerData.addressId = createAddress.id
                 )
                 console.log(registerReq)
                 succesAlert('Registrado')

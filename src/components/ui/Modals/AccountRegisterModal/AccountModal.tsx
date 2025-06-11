@@ -6,6 +6,10 @@ import { useStoreLogin } from '../../../../store/useStoreLogin'
 import { useStoreUsers } from '../../../../store/useStoreUsers'
 import { getUserByName } from '../../../../cruds/crudUsers'
 import { errorAlert } from '../../../../utils/errorAlert'
+import { formUserRegisterSchema } from '../../../../yupSchemas/formUserRegisterSchema'
+import { postAdress } from '../../../../cruds/crudAddress'
+import { IAdressRequest } from '../../../../types/IAdress'
+import { SubAdminAddress } from '../SubAdminAddress/SubAdminAddress'
 
 
 
@@ -18,6 +22,8 @@ export const AccountModal = () => {
   const { setToken } = useStoreLogin()
   
   const { setUser, setUserName,} = useStoreUsers()
+  const {closeAdminAddUser, modalAdminSubAddress, openSubAdminAddress} = useStoreModal()
+  
   
   const [logged] = useState(false)
 
@@ -38,8 +44,16 @@ export const AccountModal = () => {
     direccion: '',
     phoneNumber: '',
     sex: '',
+    addressId: ''
   
   })
+        //Direccion
+      const [newAddress, setNewAddress] = useState<IAdressRequest>({
+          street: '',
+          number: 0,
+          cp: 0,
+          locality: {id : 0}
+      })
 
   
 
@@ -58,6 +72,13 @@ export const AccountModal = () => {
     setRegisterData(prev => ({ ...prev, [name]: value }))
   }
 
+  const handleLogin = async (e: React.FormEvent) => {
+          e.preventDefault()
+
+        await login(username, password, setToken)
+        localStorage.setItem('username', username)
+        setUserName(username)
+  }
 
   const handleSubmit = async (e: React.FormEvent) =>{
     e.preventDefault()
@@ -68,26 +89,27 @@ export const AccountModal = () => {
       
       try {
         await formUserRegisterSchema.validate(registerData, {abortEarly: false})
-        
-        await login(username, password, setToken)
-        localStorage.setItem('username', username)
-        setUserName(username)
-      await register(
-        registerData.nombre,
-        registerData.password,
-        registerData.email,
-        registerData.dni,
-        registerData.username,
-        registerData.fechaNacimiento,
-        registerData.apellido,
-        parseInt(registerData.phoneNumber),
-        registerData.sex
-      )
+        const createAddress = await postAdress(newAddress)
+      
+        const registerReq = await register(
+          registerData.nombre,
+          registerData.password,
+          registerData.email,
+          registerData.dni,
+          registerData.username,
+          registerData.fechaNacimiento,
+          registerData.apellido,
+          parseInt(registerData.phoneNumber),
+          registerData.sex,
+          registerData.addressId = createAddress.id
 
-      closeModalAccount()
-      await login(registerData.username, registerData.password, setToken)
-      localStorage.setItem('username', registerData.username)
-      setUserName(registerData.username)
+        )
+        console.log(registerReq)
+
+        closeModalAccount()
+        await login(registerData.username, registerData.password, setToken)
+        localStorage.setItem('username', registerData.username)
+        setUserName(registerData.username)
 
     } catch (error: any) {
       const errors: Record<string, string> = {}
@@ -108,7 +130,7 @@ export const AccountModal = () => {
         <div className={styles.containerLogoLogin}>
           <img src="./img/Logo.png" alt="" />
         </div>
-        <form className={styles.containerFormLogin } onSubmit={handleSubmit}>
+        <form className={styles.containerFormLogin } onSubmit={handleLogin}>
           <input
             type="text"
             placeholder="Usuario"
@@ -152,35 +174,7 @@ export const AccountModal = () => {
           <h1>REGISTRO DE CUENTA</h1>
         </div>
 
-        <form className={styles.containerFormRegister}  onSubmit={async (e) => {
-    e.preventDefault()
-    if (registerData.password !== registerData.repeatPassword) {
-      alert('Las contraseñas no coinciden')
-      return
-    }
-    try {
-      
-
-      await register(
-        registerData.nombre,
-        registerData.password,
-        registerData.email,
-        registerData.dni,
-        registerData.username,
-        registerData.fechaNacimiento,
-        registerData.apellido,
-        parseInt(registerData.phoneNumber),
-        registerData.sex,
-
-      )
-      closeModalAccount()
-      await login(registerData.username, registerData.password, setToken)
-      localStorage.setItem('username', registerData.username)
-      setUserName(registerData.username)
-    } catch (error: unknown) {
-      if (error instanceof Error) console.error(error.message)
-    }
-  }}>
+        <form className={styles.containerFormRegister}  onSubmit={handleSubmit}>
           <div className={styles.data}>
             <div className={styles.loginDetails}>
               <h3>Datos de acceso</h3>
@@ -286,13 +280,7 @@ export const AccountModal = () => {
               </div>
 
 
-              <input
-                type="text"
-                name="direccion"
-                placeholder="Dirección"
-                value={registerData.direccion}
-                onChange={handleRegisterChange}
-              />
+              <button type='button' className={styles.buttonAddress} onClick={openSubAdminAddress}>Agregar Direccion</button>
 
               <div className={styles.inputContainer}>
 
@@ -331,6 +319,7 @@ export const AccountModal = () => {
             </button>
           </div>
         </form>
+        { modalAdminSubAddress && <div className={styles.modalBackdrop}><SubAdminAddress address={newAddress} setAddress={setNewAddress}/></div>}
       </div>
     )
   }
