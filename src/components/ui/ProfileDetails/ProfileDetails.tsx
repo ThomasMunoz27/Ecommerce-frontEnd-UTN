@@ -73,7 +73,7 @@ export const ProfileDetails = () => {
                 </div>
                 <div className={styles.containerAccessData}>
                     <h1>Direccion</h1>
-                    <p>Direccion: {user?.adress.street} {user?.adress.number}</p>
+                    {/* <p>Direccion: {user?.adress.street} {user?.adress.number}</p> */}
                     <p className={styles.edit} onClick={openModalEditAddress}>Editar dirección</p>
                 </div>
                 <div className={styles.containerAccessData}>

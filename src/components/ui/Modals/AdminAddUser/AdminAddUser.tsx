@@ -61,7 +61,7 @@ export const AdminAddUser = () => {
                 await formUserRegisterSchema.validate(registerData, {abortEarly: false})
                 
 
-                const createAddress = await postAdress(newAddress)
+       
 
                 const registerReq = await register(
                     registerData.nombre,
@@ -71,9 +71,8 @@ export const AdminAddUser = () => {
                     registerData.username,
                     registerData.fechaNacimiento,
                     registerData.apellido,
-                    parseInt(registerData.phoneNumber),
-                    registerData.sex,
-                    registerData.addressId = createAddress.id
+                    registerData.phoneNumber,
+                    registerData.sex
                 )
                 console.log(registerReq)
                 succesAlert('Registrado')

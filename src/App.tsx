@@ -1,10 +1,10 @@
 
-import { useEffect, useState } from 'react'
-import { AccountModal } from './components/ui/Modals/AccountRegisterModal/AccountModal'
+
 import { AppRoutes } from './routes/AppRoutes'
 import { useStoreLogin } from './store/useStoreLogin'
 
 import './App.css'
+import { AccountModal } from './components/ui/Modals/AccountRegisterModal/AccountModal'
 
 
 function App() {
